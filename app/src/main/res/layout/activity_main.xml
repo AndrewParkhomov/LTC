@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:rowCount="8"
+    android:columnCount="2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:useDefaultMargins="true"
+    android:rowOrderPreserved="false"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/material_index"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:minWidth="100dp"
+        android:id="@+id/textLensIndex" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sphere_power"
+        android:minWidth="100dp"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:id="@+id/textViewSpherePower" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/base_curve"
+        android:minWidth="100dp"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:id="@+id/textViewBaseCurve" />
+
+    <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/center_thickness"
+         android:minWidth="100dp"
+         android:paddingTop="16dp"
+         android:paddingLeft="16dp"
+         android:id="@+id/textViewCenterThickness" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edge_thickness"
+        android:minWidth="100dp"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:id="@+id/textViewEdgeThickness" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lens_diameter"
+        android:minWidth="100dp"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:id="@+id/textViewLensDiameter" />
+
+    <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_columnSpan="2"
+         android:textAppearance="?android:attr/textAppearanceLarge"
+         android:minWidth="100dp"
+         android:paddingTop="16dp"
+         android:paddingLeft="16dp"
+         android:id="@+id/textViewResult" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonCalc"
+        android:onClick="onButtonCalcClicked"
+        android:paddingTop="16dp"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/button" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="3"
+        android:id="@+id/editTextLiensIndex" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:inputType="date"
+        android:ems="3"
+        android:id="@+id/editTextSpherePower" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="3"
+        android:id="@+id/editTextBaseCurve" />
+
+    <EditText
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:inputType="numberDecimal"
+         android:ems="3"
+         android:id="@+id/editTextCenterThickness" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="3"
+        android:id="@+id/editTextEdgeThickness" />
+
+    <EditText
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"
+          android:ems="3"
+          android:id="@+id/editTextLensDiameter" />
+
+</GridLayout>

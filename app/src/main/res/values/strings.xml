@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Lens Thickness Calculator</string>
+    <string name="sphere_power">Sphere power</string>
+    <string name="base_curve">Real base curve</string>
+    <string name="center_thickness">Center thickness</string>
+    <string name="material_index">Lens index</string>
+    <string name="lens_diameter">Lens diameter</string>
+    <string name="edge_thickness">Edge thickness</string>
+    <string name="buttonCalc">Calculate</string>
+</resources>
