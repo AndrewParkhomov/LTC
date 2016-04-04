@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private double cylinderPower;
     private int axis;
     private double edgeThickness;
+    private double maxEdgeThickness;
     private double centerThickness;
     private double realFrontBaseCurveDptr;
     private double sag1Sphere;
@@ -68,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             if(spherePower <= 0){
-                centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
                 // if lens is 0 or minus
                 centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
             }else{
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     (1 - centerThickness / lensIndex / 1000 * recalculatedFrontCurve))) * indexX;
             if(!getCylinderPower.getText().toString().equals("")){
                 cylinderPower = Double.parseDouble(String.valueOf(getCylinderPower.getText()));
-                axis = Integer.getInteger(getAxis.toString());
+                //axis = Integer.getInteger(getAxis.toString());
 
                 double recalculatedCylinderCurve = ((cylinderPower - (recalculatedFrontCurve /
                         (1 - centerThickness / lensIndex / 1000 * recalculatedFrontCurve)-spherePower)) * indexX);
@@ -153,34 +153,62 @@ public class MainActivity extends AppCompatActivity {
 
     private void sphereThicknessCalculation() {
         try{
-            if(getCylinderPower.getText().toString().equals("")){
-                if (spherePower <= 0) {
-                    edgeThickness = Math.abs(sag1Sphere - sag2Sphere)+ centerThickness;
+            if (spherePower <= 0) {
+                edgeThickness = Math.abs(sag1Sphere - sag2Sphere)+ centerThickness;
+                result = String.format("Center thickness = %.2f mm\n" +
+                                "Edge thickness = %.2f mm",
+                        centerThickness, edgeThickness);
+            }
+            else{
+                if(spherePower > realFrontBaseCurveDptr){
+                    centerThickness = Math.abs(sag1Sphere + sag2Sphere) + edgeThickness;
+                    result = String.format("Center thickness = %.2f mm\n" +
+                                    "Edge thickness = %.2f mm",
+                            centerThickness, edgeThickness);
+                }else if(spherePower <= realFrontBaseCurveDptr){
+                    centerThickness = Math.abs(sag1Sphere - sag2Sphere) + edgeThickness;
                     result = String.format("Center thickness = %.2f mm\n" +
                                     "Edge thickness = %.2f mm",
                             centerThickness, edgeThickness);
                 }
-                if(spherePower > 0){
-                    if(spherePower > realFrontBaseCurveDptr){
-                        centerThickness = Math.abs(sag1Sphere + sag2Sphere) + edgeThickness;
-                        result = String.format("Center thickness = %.2f mm\n" +
-                                        "Edge thickness = %.2f mm",
-                                centerThickness, edgeThickness);
-                    }else if(spherePower <= realFrontBaseCurveDptr){
-                        centerThickness = Math.abs(sag1Sphere - sag2Sphere) + edgeThickness;
-                        result = String.format("Center thickness = %.2f mm\n" +
-                                        "Edge thickness = %.2f mm",
-                                centerThickness, edgeThickness);
-                    }
-                }
             }
-            textViewResult.setText(result.replace(",", "."));
+            if(!getCylinderPower.getText().toString().equals("")) {
+                cylinderCalculation();
+            }else{
+                textViewResult.setText(result.replace(",", "."));
+            }
         }catch (Exception e){
             Toast.makeText(this, "Something wrong in sphereThicknessCalculation", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void cylinderCalculation(){
-
+        try{
+            if (spherePower <= 0) {
+                maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + centerThickness;
+                result = String.format("Center thickness = %.2f mm\n" +
+                                "Edge thickness = %.2f mm\n" +
+                                "Max edge thickness = %.2f mm",
+                        centerThickness, edgeThickness, maxEdgeThickness);
+            }
+            else{
+                if (spherePower > realFrontBaseCurveDptr) {
+                    maxEdgeThickness = Math.abs(sag1Sphere + sag2Cylinder) + edgeThickness; //???????
+                    result = String.format("Center thickness = %.2f mm\n" +
+                                    "Edge thickness = %.2f mm\n" +
+                                    "Max edge thickness = %.2f mm",
+                            centerThickness, edgeThickness, maxEdgeThickness);
+                }else if (spherePower <= realFrontBaseCurveDptr) {
+                    maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
+                    result = String.format("Center thickness = %.2f mm\n" +
+                                    "Edge thickness = %.2f mm\n" +
+                                    "Max edge thickness = %.2f mm",
+                            centerThickness, edgeThickness, maxEdgeThickness);
+                }
+            }
+            textViewResult.setText(result.replace(",", "."));
+        }catch(Exception e){
+            Toast.makeText(this, "Something wrong in cylinderThicknessCalculation", Toast.LENGTH_SHORT).show();
+        }
     }
 }
