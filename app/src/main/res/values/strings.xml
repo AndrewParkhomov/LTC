@@ -1,10 +1,21 @@
 <resources>
     <string name="app_name">Lens Thickness Calculator</string>
     <string name="sphere_power">Sphere power</string>
+    <string name="cylinder_power">Cylinder power</string>
+    <string name="axis">Axis</string>
     <string name="base_curve">Real base curve</string>
     <string name="center_thickness">Center thickness</string>
     <string name="material_index">Lens index</string>
     <string name="lens_diameter">Lens diameter</string>
     <string name="edge_thickness">Edge thickness</string>
     <string name="buttonCalc">Calculate</string>
+    <string-array name="index_of_refraction">
+        <item>1.498</item>
+        <item>1.560</item>
+        <item>1.570 Trivex</item>
+        <item>1.590 Poly</item>
+        <item>1.610</item>
+        <item>1.670</item>
+        <item>1.740</item>
+    </string-array>
 </resources>
