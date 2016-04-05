@@ -9,6 +9,13 @@
     <string name="lens_diameter">Lens diameter</string>
     <string name="edge_thickness">Edge thickness</string>
     <string name="buttonCalc">Calculate</string>
+    <string name="wrong_axis">Something wrong with your axis</string>
+    <string name="wrong_base_curve">Incorrect sphere power, thickness or base curve</string>
+    <string name="view_center_thickness">Center thickness = %.2f mm\n</string>
+    <string name="view_edge_thickness">Edge thickness = %.2f mm</string>
+    <string name="view_max_edge_thickness">\nMax edge thickness = %.2f mm\n</string>
+    <string name="view_certain_edge_thickness">Edge thickness on " "</string>
+    <string name="view_certain_second_half"> ° axis = %.2f mm</string>
     <string-array name="index_of_refraction">
         <item>1.498</item>
         <item>1.560</item>
