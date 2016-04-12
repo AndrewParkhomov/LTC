@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/toolbar"/>
+
+
+    <GridLayout
+        android:rowCount="10"
+        android:columnCount="2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/material_index"
+            android:layout_marginRight="70dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="20dp"
+            android:minWidth="100dp"
+            android:id="@+id/textLensIndex"
+            android:layout_row="0"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sphere_power"
+            android:minWidth="100dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:id="@+id/textViewSpherePower"
+            android:layout_row="1"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cylinder_power"
+            android:minWidth="100dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:id="@+id/textViewCylinderPower"
+            android:layout_row="2"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/axis"
+            android:minWidth="100dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:id="@+id/textViewAxis"
+            android:layout_row="3"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/base_curve"
+            android:minWidth="100dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:id="@+id/textViewBaseCurve"
+            android:layout_row="4"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/center_thickness"
+            android:minWidth="100dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:id="@+id/textViewCenterThickness"
+            android:layout_row="5"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edge_thickness"
+            android:minWidth="100dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:id="@+id/textViewEdgeThickness"
+            android:layout_row="6"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lens_diameter"
+            android:minWidth="100dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:id="@+id/textViewLensDiameter"
+            android:layout_row="7"
+            android:layout_column="0" />
+
+        <Spinner
+            android:paddingTop="5dp"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:entries="@array/index_of_refraction"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:id="@+id/spinner" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="left"
+            android:inputType="date"
+            android:ems="3"
+            android:id="@+id/editTextSpherePower"
+            android:layout_row="1"
+            android:layout_column="1"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="left"
+            android:inputType="date"
+            android:ems="3"
+            android:id="@+id/editTextCylinderPower"
+            android:layout_row="2"
+            android:layout_column="1" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="left"
+            android:inputType="numberDecimal"
+            android:ems="3"
+            android:id="@+id/editTextAxis"
+            android:layout_row="3"
+            android:layout_column="1" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:ems="3"
+            android:id="@+id/editTextBaseCurve"
+            android:layout_row="4"
+            android:layout_column="1" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:ems="3"
+            android:id="@+id/editTextCenterThickness"
+            android:layout_row="5"
+            android:layout_column="1" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:ems="3"
+            android:id="@+id/editTextEdgeThickness"
+            android:layout_row="6"
+            android:layout_column="1" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:ems="3"
+            android:id="@+id/editTextLensDiameter"
+            android:layout_row="7"
+            android:layout_column="1" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:minWidth="100dp"
+            android:minHeight="90dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/textViewResult"
+            android:layout_columnSpan="2"
+            android:layout_row="8"
+            android:layout_column="0" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonCalc"
+            android:gravity="center_vertical"
+            android:onClick="onButtonCalcClicked"
+            android:layout_gravity="center"
+            android:id="@+id/button"
+            android:layout_columnSpan="2"
+            android:layout_row="9"
+            android:layout_column="0" />
+
+    </GridLayout>
+
+</LinearLayout>

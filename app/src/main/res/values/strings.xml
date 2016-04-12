@@ -16,8 +16,10 @@
     <string name="view_max_edge_thickness">\nMax edge thickness = %.2f mm\n</string>
     <string name="view_certain_edge_thickness">Edge thickness on " "</string>
     <string name="view_certain_second_half"> ° axis = %.2f mm</string>
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
     <string-array name="index_of_refraction">
-        <item>1.498</item>
+        <item>1.498 CR-39</item>
         <item>1.560</item>
         <item>1.570 Trivex</item>
         <item>1.590 Poly</item>

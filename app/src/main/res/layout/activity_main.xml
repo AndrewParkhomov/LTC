@@ -1,170 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:rowCount="10"
-    android:columnCount="2"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:useDefaultMargins="false"
-    android:rowOrderPreserved="false"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/toolbar"/>
+
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <!--<include-->
+        <!--layout="@layout/navigation_drawer"/>-->
+
+</android.support.v4.widget.DrawerLayout>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/material_index"
-        android:layout_marginRight="70dp"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp"
-        android:minWidth="100dp"
-        android:id="@+id/textLensIndex" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sphere_power"
-        android:minWidth="100dp"
-        android:paddingLeft="16dp"
-        android:id="@+id/textViewSpherePower" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/cylinder_power"
-        android:minWidth="100dp"
-        android:paddingLeft="16dp"
-        android:id="@+id/textViewCylinderPower" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/axis"
-        android:minWidth="100dp"
-        android:paddingLeft="16dp"
-        android:id="@+id/textViewAxis" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/base_curve"
-        android:minWidth="100dp"
-        android:paddingTop="16dp"
-        android:paddingLeft="16dp"
-        android:id="@+id/textViewBaseCurve" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/center_thickness"
-        android:minWidth="100dp"
-        android:paddingTop="16dp"
-        android:paddingLeft="16dp"
-        android:id="@+id/textViewCenterThickness" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/edge_thickness"
-        android:minWidth="100dp"
-        android:paddingTop="16dp"
-        android:paddingLeft="16dp"
-        android:id="@+id/textViewEdgeThickness" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lens_diameter"
-        android:minWidth="100dp"
-        android:paddingTop="16dp"
-        android:paddingLeft="16dp"
-        android:id="@+id/textViewLensDiameter" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_columnSpan="2"
-        android:minWidth="100dp"
-        android:minHeight="80dp"
-        android:paddingTop="5dp"
-        android:paddingLeft="16dp"
-        android:id="@+id/textViewResult" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/buttonCalc"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:onClick="onButtonCalcClicked"
-        android:layout_columnSpan="2"
-        android:layout_gravity="center"
-        android:id="@+id/button" />
-
-    <Spinner
-        android:paddingTop="16dp"
-        android:entries="@array/index_of_refraction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="left"
-        android:inputType="date"
-        android:ems="3"
-        android:id="@+id/editTextSpherePower" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="left"
-        android:inputType="date"
-        android:ems="3"
-        android:id="@+id/editTextCylinderPower" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="left"
-        android:inputType="numberDecimal"
-        android:ems="3"
-        android:id="@+id/editTextAxis" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:inputType="numberDecimal"
-        android:ems="3"
-        android:id="@+id/editTextBaseCurve" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:inputType="numberDecimal"
-        android:ems="3"
-        android:id="@+id/editTextCenterThickness" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:inputType="numberDecimal"
-        android:ems="3"
-        android:id="@+id/editTextEdgeThickness" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:inputType="numberDecimal"
-        android:ems="3"
-        android:id="@+id/editTextLensDiameter" />
-
-</GridLayout>
