@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavDrawerEntriesRootView;
     private PercentRelativeLayout mFrameLayout_AccountView;
-    private FrameLayout mFrameLayout_Home, mFrameLayout_Explore,
+    private FrameLayout mFrameLayoutHome, mFrameLayoutThknsCalc, mFrameLayoutDiamCalc,
             mFrameLayout_HelpAndFeedback, mFrameLayout_About;
 
     @Override
@@ -39,15 +39,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initialize() {
-        startActivity(new Intent(this, CalculatorActivity.class));
-
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         setUpIcons();
 
-        mFrameLayout_Explore = (FrameLayout) findViewById
-                (R.id.navigation_drawer_items_list_linearLayout_explore);
+        mNavDrawerEntriesRootView = (LinearLayout)findViewById
+                (R.id.navigation_drawer_linearLayout_entries_root_view);
+
+//        mFrameLayout_AccountView = (PercentRelativeLayout) findViewById
+//        (R.id.navigation_drawer_account_view);
+
+        mFrameLayoutHome = (FrameLayout) findViewById
+                (R.id.navigation_drawer_items_list_linearLayout_home);
+
+        mFrameLayoutThknsCalc = (FrameLayout) findViewById
+                (R.id.navigation_drawer_items_list_linearLayout_thkns_calc);
+
+        mFrameLayoutDiamCalc = (FrameLayout) findViewById
+                (R.id.navigation_drawer_items_list_linearLayout_diamCalc);
 
         // Navigation Drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_DrawerLayout);
@@ -86,14 +96,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Nav Drawer item click listener
 
-        mFrameLayout_Explore.setOnClickListener(this);
+        mFrameLayoutThknsCalc.setOnClickListener(this);
+        mFrameLayoutDiamCalc.setOnClickListener(this);
+        mFrameLayoutHome.setOnClickListener(this);
 
         // Set the first item as selected for the first time
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.toolbar_title_home);
         }
 
-//        mFrameLayout_Home.setSelected(true);
+        mFrameLayoutHome.setSelected(true);
     }
 
     @Override
@@ -105,17 +117,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // SignUp/SignIn/Profile
             //TODO on account pressed
         }else {
-            if (!view.isSelected())
-            {
-                //onRowPressed((FrameLayout) view);
-
-                if (view == mFrameLayout_Explore) {
-                    if (getSupportActionBar() != null) {
-                        getSupportActionBar().setTitle(getString(R.string.toolbar_title_explore));
-                    }
+            if (!view.isSelected()) {
+                onRowPressed((FrameLayout) view);
+                if (view == mFrameLayoutHome) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                }else if (view == mFrameLayoutThknsCalc) {
+                    startActivity(new Intent(view.getContext(), ThknsCalculatorActivity.class));
+                }else if (view == mFrameLayoutDiamCalc) {
+                    startActivity(new Intent(view.getContext(), DiamCalculatorActivity.class));
                 }
-                view.setSelected(true);
-                startActivity(new Intent(view.getContext(), CalculatorActivity.class));
             }else{
                 mDrawerLayout.closeDrawer(GravityCompat.START);
             }
@@ -148,23 +158,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final ImageView homeImageView =
                 (ImageView) findViewById(R.id.navigation_drawer_items_list_icon_home);
         final Drawable homeDrawable = DrawableCompat.wrap(homeImageView.getDrawable());
-        DrawableCompat.setTintList
-                (
+        DrawableCompat.setTintList(
                         homeDrawable.mutate(),
                         ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
                 );
 
         homeImageView.setImageDrawable(homeDrawable);
 
-        final ImageView exploreImageView =
-                (ImageView) findViewById(R.id.navigation_drawer_items_list_icon_explore);
-        final Drawable exploreDrawable = DrawableCompat.wrap(exploreImageView.getDrawable());
-        DrawableCompat.setTintList
-                (
-                        exploreDrawable.mutate(),
+        final ImageView thknsImageView =
+                (ImageView) findViewById(R.id.navigation_drawer_items_list_icon_thkns_calc);
+        final Drawable thknsDrawable = DrawableCompat.wrap(thknsImageView.getDrawable());
+        DrawableCompat.setTintList(
+                        thknsDrawable.mutate(),
                         ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
                 );
 
-        exploreImageView.setImageDrawable(exploreDrawable);
+        thknsImageView.setImageDrawable(thknsDrawable);
+
+        final ImageView diamImageView =
+                (ImageView) findViewById(R.id.navigation_drawer_items_list_icon_diam_calc);
+        final Drawable diamDrawable = DrawableCompat.wrap(diamImageView.getDrawable());
+        DrawableCompat.setTintList(
+                        diamDrawable.mutate(),
+                        ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
+                );
+
+        diamImageView.setImageDrawable(diamDrawable);
     }
 }

@@ -13,7 +13,7 @@ import android.widget.Toast;
 import parkhomov.andrew.lensthicknesscalculator.R;
 
 
-public class CalculatorActivity extends AppCompatActivity {
+public class ThknsCalculatorActivity extends AppCompatActivity {
 
 
     private String stringCenterThickness, stringEdgeThickness, stringMaxET, stringCertainET,
@@ -31,6 +31,7 @@ public class CalculatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
+        initialise();
         textViewResult = (TextView)findViewById(R.id.textViewResult);
         getCylinderPower = (EditText)findViewById(R.id.editTextCylinderPower);
         if (savedInstanceState != null) {
@@ -50,8 +51,6 @@ public class CalculatorActivity extends AppCompatActivity {
                     centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
             textViewResult.setText(result.replace(",", "."));
         }
-        initialise();
-
     }
 
     private void initialise() {
@@ -118,7 +117,7 @@ public class CalculatorActivity extends AppCompatActivity {
                         try {
                             throw new IllegalArgumentException();
                         } catch (IllegalArgumentException e) {
-                            Toast.makeText(this, getResources().getText(R.string.wrong_axis),
+                            Toast.makeText(this, getResources().getText(R.string.thkns_activ_wrong_axis),
                                     Toast.LENGTH_SHORT).show();
                             getAxis.setText("");
                             axis = 0;
@@ -179,7 +178,7 @@ public class CalculatorActivity extends AppCompatActivity {
                     - Math.pow(lensDiameter / 2, 2)));    // sag of concave surface;
         }catch(Exception e){
             textViewResult.setText(null);
-            Toast.makeText(this, getResources().getText(R.string.wrong_base_curve),
+            Toast.makeText(this, getResources().getText(R.string.thkns_activ_wrong_base_curve),
                     Toast.LENGTH_LONG).show();
         }
     }
@@ -227,8 +226,8 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     private void sphereThicknessCalculation() {
-        stringCenterThickness = getResources().getString(R.string.view_center_thickness);
-        stringEdgeThickness = getResources().getString(R.string.view_edge_thickness);
+        stringCenterThickness = getResources().getString(R.string.thkns_activ_textview_center_thickness);
+        stringEdgeThickness = getResources().getString(R.string.thkns_activ_textview_edge_thickness);
 
         if (spherePower <= 0) {
             edgeThickness = Math.abs(sag1Sphere - sag2Sphere)+ centerThickness;
@@ -254,9 +253,9 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     private void cylinderCalculation(){
-        stringMaxET = getResources().getString(R.string.view_max_edge_thickness);
-        stringCertainET = getResources().getString(R.string.view_certain_edge_thickness);
-        stringCertainETSecond = getResources().getString(R.string.view_certain_second_half);
+        stringMaxET = getResources().getString(R.string.thkns_activ_textview_max_edge_thickness);
+        stringCertainET = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness);
+        stringCertainETSecond = getResources().getString(R.string.thkns_activ_textview_certain_second_half);
 
         if (spherePower <= 0) {
             maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + centerThickness;

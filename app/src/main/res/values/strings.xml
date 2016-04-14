@@ -1,23 +1,29 @@
 <resources>
     <string name="app_name">Lens Thickness Calculator</string>
-    <string name="sphere_power">Sphere power</string>
-    <string name="cylinder_power">Cylinder power</string>
-    <string name="axis">Axis</string>
-    <string name="base_curve">Real base curve</string>
-    <string name="center_thickness">Center thickness</string>
-    <string name="material_index">Lens index</string>
-    <string name="lens_diameter">Lens diameter</string>
-    <string name="edge_thickness">Edge thickness</string>
+
+    <!-- Activities-->
+    <string name="thkns_activ_sphere_power">Sphere power</string>
+    <string name="thkns_activ_cylinder_power">Cylinder power</string>
+    <string name="thkns_activ_axis">Axis</string>
+    <string name="thkns_activ_base_curve">Real base curve</string>
+    <string name="thkns_activ_center_thickness">Center thickness</string>
+    <string name="thkns_activ_material_index">Lens index</string>
+    <string name="thkns_activ_lens_diameter">Lens diameter</string>
+    <string name="thkns_activ_edge_thickness">Edge thickness</string>
+    <string name="thkns_activ_wrong_axis">Something wrong with your axis</string>
+    <string name="thkns_activ_wrong_base_curve">Incorrect sphere power, thickness or base curve</string>
+    <string name="thkns_activ_textview_center_thickness">Center thickness = %.2f mm\n</string>
+    <string name="thkns_activ_textview_edge_thickness">Edge thickness = %.2f mm</string>
+    <string name="thkns_activ_textview_max_edge_thickness">\nMax edge thickness = %.2f mm\n</string>
+    <string name="thkns_activ_textview_certain_edge_thickness">Edge thickness on " "</string>
+    <string name="thkns_activ_textview_certain_second_half"> ° axis = %.2f mm</string>
+    <string name="diam_activ_ed">ED</string>
+    <string name="diam_activ_dbl">DBL</string>
+    <string name="diam_activ_pd">PD</string>
+    <string name="diam_activ_textView_result_formula">ED * 2 + DBL - PD = " "</string>
+    <string name="diam_activ_textView_mm">" "mm</string>
     <string name="buttonCalc">Calculate</string>
-    <string name="wrong_axis">Something wrong with your axis</string>
-    <string name="wrong_base_curve">Incorrect sphere power, thickness or base curve</string>
-    <string name="view_center_thickness">Center thickness = %.2f mm\n</string>
-    <string name="view_edge_thickness">Edge thickness = %.2f mm</string>
-    <string name="view_max_edge_thickness">\nMax edge thickness = %.2f mm\n</string>
-    <string name="view_certain_edge_thickness">Edge thickness on " "</string>
-    <string name="view_certain_second_half"> ° axis = %.2f mm</string>
-    <string name="drawer_open">drawer open</string>
-    <string name="drawer_close">drawer close</string>
+
     <string-array name="index_of_refraction">
         <item>1.498 CR-39</item>
         <item>1.560</item>
@@ -30,20 +36,22 @@
 
     <!-- Toolbar titles -->
     <string name="toolbar_title_home">Home</string>
-    <string name="toolbar_title_explore">Thickness calculator</string>
+    <string name="toolbar_title_lens_thkns_calc">Thickness calculator</string>
+    <string name="toolbar_title_diam_calc">Diameter calculator</string>
     <string name="toolbar_title_about">About</string>
     <string name="toolbar_title_account">Account</string>
     <string name="toolbar_title_help_and_feedback">Help&amp;Feedback</string>
 
     <!-- Navigation Drawer -->
     <string name="nav_drawer_item_home">Home</string>
-    <string name="nav_drawer_item_explore">Thickness calculator</string>
+    <string name="nav_drawer_item_thkns_calc">Thickness calculator</string>
+    <string name="nav_drawer_item_diam_calc">Diameter calculator</string>
     <string name="nav_drawer_help_and_feedback"><![CDATA[Help & feedback]]></string>
     <string name="nav_drawer_about">About</string>
     <string name="navigation_drawer_opened">The navigation drawer is opened</string>
     <string name="navigation_drawer_closed">The navigation drawer is closed</string>
     <string name="tag_nav_drawer_main_entry">nav_drawer_main_entry</string>
     <string name="tag_nav_drawer_special_entry">nav_drawer_special_entry</string>
-    <string name="tools_text_account_information_username">Sotti</string>
-    <string name="tools_text_account_information_email">sotti@sottocorp.com</string>
+    <string name="tools_text_account_information_username">Parkhomov</string>
+    <string name="tools_text_account_information_email">parkhomov.andrew@gmail.com</string>
 </resources>
