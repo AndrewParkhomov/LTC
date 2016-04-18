@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mDrawerLayout.closeDrawer(GravityCompat.START);
 
             // SignUp/SignIn/Profile
-            //TODO on account pressed
+            // TODO on account pressed
         }else {
             if (!view.isSelected()) {
                 onRowPressed((FrameLayout) view);

@@ -1,7 +1,11 @@
 package parkhomov.andrew.lensthicknesscalculator.activities;
 
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
+import parkhomov.andrew.lensthicknesscalculator.fragments.GlossaryFragment;
+import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 
 
 public class ThknsCalculatorActivity extends AppCompatActivity {
@@ -61,6 +67,46 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
         {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    public void onQueryMarkImageButtonClicked(View view) {
+        //get id of button, witch was pressed by user
+          int id = Integer.valueOf(String.valueOf(view.getContentDescription()));
+          Toast.makeText(this, String.valueOf(id), Toast.LENGTH_LONG).show();
+          String name = null, description = null;
+          int glossaryImageResourceId = 0;
+
+        // get info from database
+//        try{
+//            SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
+//            SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
+//            Cursor cursor = db.query("GLOSSARY",
+//                                    new String[]{"NAME", "DESCRIPTION", "IMAGE_RESOURCE_ID"},
+//                                    "_id = ?",
+//                                    new String[]{Integer.toString(id)},
+//                                    null, null, null);
+//            if(cursor.moveToFirst()){
+//                name = cursor.getString(0);
+//                description = cursor.getString(1);
+//                //glossaryImageResourceId = cursor.getInt(2);
+//                Toast.makeText(this, name+" "+description, Toast.LENGTH_LONG).show();
+//            }
+//            cursor.close();
+//            db.close();
+//        }catch(SecurityException e){
+//            Toast.makeText(this, "Database is unavailable", Toast.LENGTH_SHORT).show();
+//        }
+
+        GlossaryFragment glossaryFragment = new GlossaryFragment();
+        Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
+        FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
+//        glossaryFragment.setName(name);
+//        glossaryFragment.setDescription(description);
+//        glossaryFragment.setImageId(glossaryImageResourceId);
+        fragmentManager.replace(R.id.content_frame2, glossaryFragment);
+        fragmentManager.addToBackStack(null);
+        fragmentManager.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentManager.commit();
     }
 
 
@@ -258,7 +304,7 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
         stringCertainETSecond = getResources().getString(R.string.thkns_activ_textview_certain_second_half);
 
         if (spherePower <= 0) {
-            maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + centerThickness;
+            maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
             etOnCertainAxis = (maxEdgeThickness - edgeThickness)/90*axis+edgeThickness;
             result = String.format(stringCenterThickness+stringEdgeThickness+stringMaxET+
                             stringCertainET+axisView+stringCertainETSecond,
@@ -296,4 +342,5 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
         outState.putDouble("etOnCertainAxis", etOnCertainAxis);
         outState.putInt("axisView", axisView);
     }
+
 }
