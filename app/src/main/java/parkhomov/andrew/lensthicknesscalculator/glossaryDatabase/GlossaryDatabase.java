@@ -21,12 +21,16 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
         updateMyDatabase(db, 0, DB_VERSION);
     }
 
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        updateMyDatabase(db, oldVersion, newVersion);
+    }
+
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion){
         if(oldVersion < 1){
-            db.execSQL("CREATE TABLE GLOSSARY ("
-                    + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + "NAME TEXT "
-                    + "DESCRIPTION TEXT "
+            db.execSQL("CREATE TABLE GLOSSARY (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "NAME TEXT, "
+                    + "DESCRIPTION TEXT, "
                     + "IMAGE_RESOURCE_ID INTEGER);");
             insertItem(db, "index of refraction", "description index of refraction", R.drawable.lens);
             insertItem(db, "Sphere power", "description of sphere power", R.drawable.lens);
@@ -50,8 +54,4 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
         db.insert("GLOSSARY", null, itemValues);
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
 }

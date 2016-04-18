@@ -22,6 +22,7 @@
             android:name=".activities.DiamCalculatorActivity"
             android:label="@string/toolbar_title_diam_calc"
             android:parentActivityName=".activities.MainActivity"></activity>
+        <activity android:name=".activities.GlossaryActivity"></activity>
     </application>
 
 </manifest>
