@@ -32,17 +32,17 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                     + "NAME TEXT, "
                     + "DESCRIPTION TEXT, "
                     + "IMAGE_RESOURCE_ID INTEGER);");
-            insertItem(db, "index of refraction", "description index of refraction", R.drawable.lens);
+            insertItem(db, "Index of refraction", "description index of refraction", R.drawable.lens);
             insertItem(db, "Sphere power", "description of sphere power", R.drawable.lens);
             insertItem(db, "Cylinder power", "description of cylinder power", R.drawable.lens);
             insertItem(db, "Axis", "description of axis", R.drawable.lens);
-            insertItem(db, "real base curve", "description of real base curve", R.drawable.lens);
-            insertItem(db, "center thickness", "description of center thickness", R.drawable.lens);
-            insertItem(db, "edge thickness", "description of edge thickness", R.drawable.lens);
-            insertItem(db, "diameter", "description of diameter", R.drawable.lens);
-            insertItem(db, "effective diameter", "description of ed", R.drawable.lens);
-            insertItem(db, "distance between lenses", "description of dbl", R.drawable.lens);
-            insertItem(db, "pupil distance", "description of pd", R.drawable.lens);
+            insertItem(db, "Real base curve", "description of real base curve", R.drawable.lens);
+            insertItem(db, "Center thickness", "description of center thickness", R.drawable.lens);
+            insertItem(db, "Edge thickness", "description of edge thickness", R.drawable.lens);
+            insertItem(db, "Diameter", "description of diameter", R.drawable.lens);
+            insertItem(db, "Effective diameter", "description of ed", R.drawable.lens);
+            insertItem(db, "Distance between lenses", "description of dbl", R.drawable.lens);
+            insertItem(db, "Pupil distance", "description of pd", R.drawable.lens);
         }
     }
 

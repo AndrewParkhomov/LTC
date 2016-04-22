@@ -74,7 +74,7 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
     public void onQueryMarkImageButtonClicked(View view) {
         //get id of button, witch was pressed by user
         int id = Integer.valueOf(String.valueOf(view.getContentDescription()));
-        Toast.makeText(this, String.valueOf(id), Toast.LENGTH_SHORT).show();
+
         // get info from database
         try{
             SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);

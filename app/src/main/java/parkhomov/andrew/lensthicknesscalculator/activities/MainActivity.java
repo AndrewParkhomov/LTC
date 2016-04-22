@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout mNavDrawerEntriesRootView;
     private PercentRelativeLayout mFrameLayout_AccountView;
     private FrameLayout mFrameLayoutHome, mFrameLayoutThknsCalc, mFrameLayoutDiamCalc,
-            mFrameLayout_HelpAndFeedback, mFrameLayout_About;
+            mFrameLayout_Settings, mFrameLayout_About;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mFrameLayoutDiamCalc = (FrameLayout) findViewById
                 (R.id.navigation_drawer_items_list_linearLayout_diamCalc);
+
+        mFrameLayout_About = (FrameLayout)findViewById
+                (R.id.navigation_drawer_items_list_linearLayout_about);
+
+        mFrameLayout_Settings = (FrameLayout)findViewById
+                (R.id.navigation_drawer_items_list_linearLayout_settings);
 
         // Navigation Drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_DrawerLayout);
@@ -99,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFrameLayoutThknsCalc.setOnClickListener(this);
         mFrameLayoutDiamCalc.setOnClickListener(this);
         mFrameLayoutHome.setOnClickListener(this);
+        mFrameLayout_About.setOnClickListener(this);
+        mFrameLayout_Settings.setOnClickListener(this);
 
         // Set the first item as selected for the first time
         if (getSupportActionBar() != null) {
@@ -125,6 +133,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(view.getContext(), ThknsCalculatorActivity.class));
                 }else if (view == mFrameLayoutDiamCalc) {
                     startActivity(new Intent(view.getContext(), DiamCalculatorActivity.class));
+                }else if (view == mFrameLayout_About) {
+                    startActivity(new Intent(view.getContext(), AboutDialogActivity.class));
+                }else if (view == mFrameLayout_Settings) {
+                    startActivity(new Intent(view.getContext(), SettingsActivity.class));
                 }
             }else{
                 mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -145,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (currentViewIsMainEntry)
                 {
-                    currentView.setSelected(currentView == pressedRow);
+                    mFrameLayoutHome.setSelected(true);
                 }
             }
         }

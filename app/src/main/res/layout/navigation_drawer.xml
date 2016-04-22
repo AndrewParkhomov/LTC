@@ -155,20 +155,20 @@
                     layout="@layout/navigation_drawer_divider"/>
 
                 <FrameLayout
-                    android:id="@+id/navigation_drawer_items_list_linearLayout_help_and_feedback"
+                    android:id="@+id/navigation_drawer_items_list_linearLayout_settings"
                     style="@style/NavDrawerRowLayout.Secondary">
 
                     <ImageView
-                        android:id="@+id/navigation_drawer_items_list_icon_help_and_feedback"
+                        android:id="@+id/navigation_drawer_items_list_icon_settings"
                         style="@style/NavDrawerRowItemIcon"
-                        android:src="@drawable/ic_help_24dp"
+                        android:src="@drawable/ic_settings_24dp"
                         android:tint="@color/text_black_secondary_icon_54"
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/navigation_drawer_items_textView_help_and_feedback"
+                        android:id="@+id/navigation_drawer_items_textView_settings"
                         style="@style/NavDrawerRowItemText"
-                        android:text="@string/nav_drawer_help_and_feedback" />
+                        android:text="@string/nav_drawer_settings" />
 
                 </FrameLayout>
 

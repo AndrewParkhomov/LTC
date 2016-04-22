@@ -17,12 +17,20 @@
         <activity
             android:name=".activities.ThknsCalculatorActivity"
             android:label="@string/toolbar_title_lens_thkns_calc"
-            android:parentActivityName=".activities.MainActivity"></activity>
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.DiamCalculatorActivity"
             android:label="@string/toolbar_title_diam_calc"
-            android:parentActivityName=".activities.MainActivity"></activity>
-        <activity android:name=".activities.GlossaryActivity"></activity>
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.GlossaryActivity" />
+        <activity
+            android:name=".activities.AboutDialogActivity"
+            android:theme="@style/AppThemeDialog"
+            android:label="@string/app_name">
+        </activity>
+        <activity android:name=".activities.SettingsActivity">
+        </activity>
     </application>
 
 </manifest>
