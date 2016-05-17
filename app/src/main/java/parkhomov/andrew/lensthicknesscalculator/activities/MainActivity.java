@@ -1,15 +1,19 @@
 package parkhomov.andrew.lensthicknesscalculator.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.IntentCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -17,13 +21,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.util.Locale;
+
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.customViews.ScrimInsetsFrameLayout;
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsMiscellaneous;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavDrawerEntriesRootView;
@@ -44,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setUpIcons();
 
-        mNavDrawerEntriesRootView = (LinearLayout)findViewById
+        mNavDrawerEntriesRootView = (LinearLayout) findViewById
                 (R.id.navigation_drawer_linearLayout_entries_root_view);
 
 //        mFrameLayout_AccountView = (PercentRelativeLayout) findViewById
@@ -59,10 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFrameLayoutDiamCalc = (FrameLayout) findViewById
                 (R.id.navigation_drawer_items_list_linearLayout_diamCalc);
 
-        mFrameLayout_About = (FrameLayout)findViewById
+        mFrameLayout_About = (FrameLayout) findViewById
                 (R.id.navigation_drawer_items_list_linearLayout_about);
 
-        mFrameLayout_Settings = (FrameLayout)findViewById
+        mFrameLayout_Settings = (FrameLayout) findViewById
                 (R.id.navigation_drawer_items_list_linearLayout_settings);
 
         // Navigation Drawer
@@ -112,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.toolbar_title_home);
         }
-
         mFrameLayoutHome.setSelected(true);
     }
 
@@ -124,39 +129,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // SignUp/SignIn/Profile
             // TODO on account pressed
-        }else {
+        } else {
             if (!view.isSelected()) {
                 onRowPressed((FrameLayout) view);
                 if (view == mFrameLayoutHome) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
-                }else if (view == mFrameLayoutThknsCalc) {
+                } else if (view == mFrameLayoutThknsCalc) {
                     startActivity(new Intent(view.getContext(), ThknsCalculatorActivity.class));
-                }else if (view == mFrameLayoutDiamCalc) {
+                } else if (view == mFrameLayoutDiamCalc) {
                     startActivity(new Intent(view.getContext(), DiamCalculatorActivity.class));
-                }else if (view == mFrameLayout_About) {
+                } else if (view == mFrameLayout_About) {
                     startActivity(new Intent(view.getContext(), AboutDialogActivity.class));
-                }else if (view == mFrameLayout_Settings) {
+                } else if (view == mFrameLayout_Settings) {
                     startActivity(new Intent(view.getContext(), SettingsActivity.class));
                 }
-            }else{
+            } else {
                 mDrawerLayout.closeDrawer(GravityCompat.START);
             }
         }
     }
 
-    private void onRowPressed(@NonNull final FrameLayout pressedRow)
-    {
-        if (pressedRow.getTag() != getResources().getString(R.string.tag_nav_drawer_special_entry))
-        {
-            for (int i = 0; i < mNavDrawerEntriesRootView.getChildCount(); i++)
-            {
+    private void onRowPressed(@NonNull final FrameLayout pressedRow) {
+        if (pressedRow.getTag() != getResources().getString(R.string.tag_nav_drawer_special_entry)) {
+            for (int i = 0; i < mNavDrawerEntriesRootView.getChildCount(); i++) {
                 final View currentView = mNavDrawerEntriesRootView.getChildAt(i);
 
                 final boolean currentViewIsMainEntry = currentView.getTag() ==
                         getResources().getString(R.string.tag_nav_drawer_main_entry);
 
-                if (currentViewIsMainEntry)
-                {
+                if (currentViewIsMainEntry) {
                     mFrameLayoutHome.setSelected(true);
                 }
             }
@@ -171,9 +172,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 (ImageView) findViewById(R.id.navigation_drawer_items_list_icon_home);
         final Drawable homeDrawable = DrawableCompat.wrap(homeImageView.getDrawable());
         DrawableCompat.setTintList(
-                        homeDrawable.mutate(),
-                        ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
-                );
+                homeDrawable.mutate(),
+                ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
+        );
 
         homeImageView.setImageDrawable(homeDrawable);
 
@@ -181,9 +182,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 (ImageView) findViewById(R.id.navigation_drawer_items_list_icon_thkns_calc);
         final Drawable thknsDrawable = DrawableCompat.wrap(thknsImageView.getDrawable());
         DrawableCompat.setTintList(
-                        thknsDrawable.mutate(),
-                        ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
-                );
+                thknsDrawable.mutate(),
+                ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
+        );
 
         thknsImageView.setImageDrawable(thknsDrawable);
 
@@ -191,10 +192,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 (ImageView) findViewById(R.id.navigation_drawer_items_list_icon_diam_calc);
         final Drawable diamDrawable = DrawableCompat.wrap(diamImageView.getDrawable());
         DrawableCompat.setTintList(
-                        diamDrawable.mutate(),
-                        ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
-                );
+                diamDrawable.mutate(),
+                ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
+        );
 
         diamImageView.setImageDrawable(diamDrawable);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.exit_question_title)
+                .setMessage(R.string.exit_question)
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        MainActivity.super.finish();
+                    }
+                }).create().show();
+
+
     }
 }

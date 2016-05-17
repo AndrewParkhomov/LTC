@@ -45,6 +45,7 @@ public class DiamCalculatorActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null)
         {
+            getSupportActionBar().setTitle(R.string.toolbar_title_diam_calc);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }

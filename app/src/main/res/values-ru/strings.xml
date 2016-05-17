@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">Lens thickness calculator</string>
+    <string name="exit_question_title">Выход</string>
+    <string name="exit_question">Вы действительно хотите выйти?</string>
+
+    <!-- Version & Date-->
+    <string name="version">Версия 1.0</string>
+    <string name="year">2016</string>
+    <string name="copyright">&#169;</string>
+
+    <!-- Activities-->
+    <string name="thkns_activ_sphere_power">Сила сферы</string>
+    <string name="thkns_activ_cylinder_power">Сила цилиндра</string>
+    <string name="thkns_activ_axis">Угол</string>
+    <string name="thkns_activ_base_curve">Реальная кривизна базы</string>
+    <string name="thkns_activ_center_thickness">Толщина по центру</string>
+    <string name="thkns_activ_material_index">Индекс преломления</string>
+    <string name="thkns_activ_lens_diameter">Диаметр линзы</string>
+    <string name="thkns_activ_edge_thickness">Толщина оп краю</string>
+    <string name="thkns_activ_wrong_axis">Чтото не так с углом</string>
+    <string name="thkns_activ_wrong_base_curve">Неверные значения кривизны, силы или толщины</string>
+    <string name="thkns_activ_textview_center_thickness">Толщина по центру = %.2f mm\n</string>
+    <string name="thkns_activ_textview_edge_thickness">Толщина оп краю = %.2f mm</string>
+    <string name="thkns_activ_textview_max_edge_thickness">\nМаксимальная толщна по краю = %.2f mm\n</string>
+    <string name="thkns_activ_textview_certain_edge_thickness">Толщина по краю на " "</string>
+    <string name="thkns_activ_textview_certain_second_half"> ° угле = %.2f mm</string>
+    <string name="diam_activ_ed">ED</string>
+    <string name="diam_activ_dbl">DBL</string>
+    <string name="diam_activ_pd">PD</string>
+    <string name="diam_activ_textView_result_formula">ED * 2 + DBL - PD = " "</string>
+    <string name="diam_activ_textView_mm">" "mm</string>
+    <string name="buttonCalc">Рассчитать</string>
+    <string name="aboutLTCdeveloper">Разработка:\nПархомов Андрей</string>
+    <string name="aboutLTCemail">\nE-mail: parkhomov.andrew@gmail.com</string>
+
+    <string-array name="index_of_refraction">
+        <item>1.498 CR-39</item>
+        <item>1.560</item>
+        <item>1.570 Trivex</item>
+        <item>1.590 Poly</item>
+        <item>1.610</item>
+        <item>1.670</item>
+        <item>1.740</item>
+    </string-array>
+
+    <!-- Toolbar titles -->
+    <string name="toolbar_title_home">Главная</string>
+    <string name="toolbar_title_lens_thkns_calc">Расчет толщины линзы</string>
+    <string name="toolbar_title_diam_calc">Расчет диаметра линзы</string>
+    <string name="toolbar_title_about">О программе</string>
+    <string name="toolbar_title_account">Account</string>
+    <string name="toolbar_title_settings">Настройки</string>
+
+    <!-- Navigation Drawer -->
+    <string name="nav_drawer_item_home">Главная</string>
+    <string name="nav_drawer_item_thkns_calc">Расчет толщины линзы</string>
+    <string name="nav_drawer_item_diam_calc">Расчет диаметра линзы</string>
+    <string name="nav_drawer_settings">Настройки</string>
+    <string name="nav_drawer_about">О программе</string>
+    <string name="navigation_drawer_opened">The navigation drawer is opened</string>
+    <string name="navigation_drawer_closed">The navigation drawer is closed</string>
+    <string name="tag_nav_drawer_main_entry">nav_drawer_main_entry</string>
+    <string name="tag_nav_drawer_special_entry">nav_drawer_special_entry</string>
+    <string name="tools_text_account_information_username">Parkhomov</string>
+    <string name="tools_text_account_information_email">parkhomov.andrew@gmail.com</string>
+
+    <!-- Query mark id -->
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="ten">10</string>
+    <string name="eleven">11</string>
+
+    <!-- Setting list items-->
+    <string-array name="settings_list">
+        <item>Язык</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+    </string-array>
+
+    <!-- Languages -->
+    <string-array name="language_list">
+        <item>English</item>
+        <item>Русский</item>
+        <item>Українська</item>
+    </string-array>
+
+</resources>
