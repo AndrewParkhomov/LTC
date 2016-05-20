@@ -9,22 +9,29 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin"
         android:id="@+id/glossaryImageView"
         tools:ignore="ContentDescription"/>
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/glossaryTitleTextView"/>
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin"
         android:id="@+id/glossaryDescriptionTextView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:onClick="onGlossaryTextViewClicked"
+        android:id="@+id/glossaryAddTextView"/>
 
 </LinearLayout>

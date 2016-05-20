@@ -151,6 +151,24 @@
 
                 </FrameLayout>
 
+                <FrameLayout
+                    android:id="@+id/navigation_drawer_items_linearLayout_glossary"
+                    style="@style/NavDrawerRowLayout.Main">
+
+                    <ImageView
+                        android:id="@+id/navigation_drawer_items_list_icon_glossary"
+                        style="@style/NavDrawerRowItemIcon"
+                        android:src="@drawable/ic_glossary_24dp"
+                        tools:ignore="ContentDescription"
+                        tools:tint="@color/nav_drawer_icon"/>
+
+                    <TextView
+                        android:id="@+id/navigation_drawer_items_textView_glossary"
+                        style="@style/NavDrawerRowItemText"
+                        android:text="@string/nav_drawer_item_glossary"/>
+
+                </FrameLayout>
+
                 <include
                     layout="@layout/navigation_drawer_divider"/>
 

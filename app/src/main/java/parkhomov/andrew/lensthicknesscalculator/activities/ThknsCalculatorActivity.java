@@ -121,6 +121,8 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                 intent.putExtra(GlossaryActivity.QUERY_MARK_NAME, name);
                 intent.putExtra(GlossaryActivity.QUERY_MARK_DESCR, description);
                 intent.putExtra(GlossaryActivity.QUERY_MARK_IMG_ID, glossaryImageResourceId);
+                // id need for making links(if we need it) in glossary activity
+                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, id);
                 startActivity(intent);
             }
             cursor.close();

@@ -36,7 +36,6 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                     + "NAME_UKR TEXT, "
                     + "DESCRIPTION_UKR TEXT, "
                     + "IMAGE_RESOURCE_ID INTEGER);");
-            insertItem(db,"name eng","descr eng","name rus", "descr rus","name urk","descr ukr",R.drawable.lens);
             insertItem(db, "Index of refraction", "description index of refraction",
                     "Показатель преломления","Показатель преломленя - это величина, характеризующий" +
                             " преломляющую силу прозрачной среды(обозначается n)." +
@@ -82,7 +81,7 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
             insertItem(db, "Edge thickness", "description of edge thickness",
                     "Толщина линзы по краю","Толщина линзы по краю. При наличии" +
                             " цилиндра со знаком «-», максимальная толщина будет под углом 90°," +
-                            "а для цилиндра со знаком «+», под углом 0°, он же 180°. СМ ТРАНСПОЗИЦИЯ",
+                            "а для цилиндра со знаком «+», под углом 0°, он же 180°.",
                     "Показатель преломления","описание показателя",R.drawable.lens);
             insertItem(db, "Diameter", "description of diameter",
                     "Диаметр линзы","Диаметр линзы в миллиметрах. Просчитать нужный диаметр можно во " +
@@ -101,6 +100,9 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                     "Расстояние между зрачками","Расстояние между зрачками, межцентровое расстояние" +
                             "(Pupil distance) - расстояние между зрачками в миллиметрах.",
                     "Показатель преломления","описание показателя",R.drawable.lens);
+            insertItem(db, "Transposotion", "describe of trANS",
+                    "Транспозиция","описание транспозиции",
+                    "Транспозицыя","описание транспозиция укр",R.drawable.lens);
         }
     }
 

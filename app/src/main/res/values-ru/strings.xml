@@ -2,6 +2,7 @@
     <string name="app_name">Lens thickness calculator</string>
     <string name="exit_question_title">Выход</string>
     <string name="exit_question">Вы действительно хотите выйти?</string>
+    <string name="database_unavailable">База данных недоступна</string>
 
     <!-- Version & Date-->
     <string name="version">Версия 1.0</string>
@@ -16,7 +17,7 @@
     <string name="thkns_activ_center_thickness">Толщина по центру</string>
     <string name="thkns_activ_material_index">Индекс преломления</string>
     <string name="thkns_activ_lens_diameter">Диаметр линзы</string>
-    <string name="thkns_activ_edge_thickness">Толщина оп краю</string>
+    <string name="thkns_activ_edge_thickness">Толщина по краю</string>
     <string name="thkns_activ_wrong_axis">Чтото не так с углом</string>
     <string name="thkns_activ_wrong_base_curve">Неверные значения кривизны, силы или толщины</string>
     <string name="thkns_activ_textview_center_thickness">Толщина по центру = %.2f mm\n</string>
