@@ -2,6 +2,7 @@
     <string name="app_name">Lens thickness calculator</string>
     <string name="exit_question_title">Exit</string>
     <string name="exit_question">Are you sure you want to exit?</string>
+    <string name="database_unavailable">Database is unavailable</string>
 
 
     <!-- Version & Date-->

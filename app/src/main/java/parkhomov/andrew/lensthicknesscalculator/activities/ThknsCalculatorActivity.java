@@ -126,7 +126,7 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
             cursor.close();
             db.close();
         }catch(SQLException e){
-            Toast.makeText(this, "Database is unavailable", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getText(R.string.database_unavailable), Toast.LENGTH_SHORT).show();
         }
     }
 

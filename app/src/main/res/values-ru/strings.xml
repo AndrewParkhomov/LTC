@@ -9,8 +9,8 @@
     <string name="copyright">&#169;</string>
 
     <!-- Activities-->
-    <string name="thkns_activ_sphere_power">Сила сферы</string>
-    <string name="thkns_activ_cylinder_power">Сила цилиндра</string>
+    <string name="thkns_activ_sphere_power">Сфера</string>
+    <string name="thkns_activ_cylinder_power">Цилиндр</string>
     <string name="thkns_activ_axis">Угол</string>
     <string name="thkns_activ_base_curve">Реальная кривизна базы</string>
     <string name="thkns_activ_center_thickness">Толщина по центру</string>
@@ -20,10 +20,10 @@
     <string name="thkns_activ_wrong_axis">Чтото не так с углом</string>
     <string name="thkns_activ_wrong_base_curve">Неверные значения кривизны, силы или толщины</string>
     <string name="thkns_activ_textview_center_thickness">Толщина по центру = %.2f mm\n</string>
-    <string name="thkns_activ_textview_edge_thickness">Толщина оп краю = %.2f mm</string>
+    <string name="thkns_activ_textview_edge_thickness">Толщина по краю = %.2f mm</string>
     <string name="thkns_activ_textview_max_edge_thickness">\nМаксимальная толщна по краю = %.2f mm\n</string>
-    <string name="thkns_activ_textview_certain_edge_thickness">Толщина по краю на " "</string>
-    <string name="thkns_activ_textview_certain_second_half"> ° угле = %.2f mm</string>
+    <string name="thkns_activ_textview_certain_edge_thickness">Толщина по краю под углом " "</string>
+    <string name="thkns_activ_textview_certain_second_half"> °  = %.2f mm</string>
     <string name="diam_activ_ed">ED</string>
     <string name="diam_activ_dbl">DBL</string>
     <string name="diam_activ_pd">PD</string>
