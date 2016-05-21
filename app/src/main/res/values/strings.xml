@@ -24,10 +24,10 @@
     <string name="thkns_activ_wrong_axis">Something wrong with your axis</string>
     <string name="thkns_activ_wrong_base_curve">Incorrect sphere power, thickness or base curve</string>
     <string name="thkns_activ_textview_center_thickness">Center thickness = %.2f mm\n</string>
-    <string name="thkns_activ_textview_edge_thickness">Edge thickness = %.2f mm</string>
-    <string name="thkns_activ_textview_max_edge_thickness">\nMax edge thickness = %.2f mm\n</string>
+    <string name="thkns_activ_textview_edge_thickness">Minimum edge thickness = %.2f mm</string>
+    <string name="thkns_activ_textview_max_edge_thickness">\nMaximum edge thickness = %.2f mm\n</string>
     <string name="thkns_activ_textview_certain_edge_thickness">Edge thickness on " "</string>
-    <string name="thkns_activ_textview_certain_second_half"> ° axis = %.2f mm</string>
+    <string name="thkns_activ_textview_certain_second_half"> ° = %.2f mm</string>
     <string name="diam_activ_ed">ED</string>
     <string name="diam_activ_dbl">DBL</string>
     <string name="diam_activ_pd">PD</string>
@@ -51,7 +51,6 @@
     <string name="toolbar_title_home">Home</string>
     <string name="toolbar_title_lens_thkns_calc">Thickness calculator</string>
     <string name="toolbar_title_diam_calc">Diameter calculator</string>
-    <string name="toolbar_title_glossary">Glossary</string>
     <string name="toolbar_title_about">About</string>
     <string name="toolbar_title_account">Account</string>
     <string name="toolbar_title_settings">Settings</string>
@@ -67,8 +66,6 @@
     <string name="navigation_drawer_closed">The navigation drawer is closed</string>
     <string name="tag_nav_drawer_main_entry">nav_drawer_main_entry</string>
     <string name="tag_nav_drawer_special_entry">nav_drawer_special_entry</string>
-    <string name="tools_text_account_information_username">Parkhomov</string>
-    <string name="tools_text_account_information_email">parkhomov.andrew@gmail.com</string>
 
     <!-- Query mark id -->
     <string name="one">1</string>

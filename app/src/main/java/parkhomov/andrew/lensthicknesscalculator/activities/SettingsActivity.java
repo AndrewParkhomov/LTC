@@ -25,9 +25,9 @@ public class SettingsActivity extends ListActivity{
                 getResources().getStringArray(R.array.settings_list)
         );
         listView.setAdapter(adapter);
-        customizeListiew();
+        customizeListView();
     }
-    private void customizeListiew(){
+    private void customizeListView(){
         // set divider color
         //int[] colors = {0, 0xFF388E3C, 0}; // green divider
         //listView.setDivider(new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors));

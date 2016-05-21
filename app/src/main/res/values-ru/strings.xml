@@ -3,6 +3,8 @@
     <string name="exit_question_title">Выход</string>
     <string name="exit_question">Вы действительно хотите выйти?</string>
     <string name="database_unavailable">База данных недоступна</string>
+    <string name="link_to_diamCalcActivity"><u>Расчет диаметра линзы</u></string>
+    <string name="link_to_transposition"><u>Транспозиция</u></string>
 
     <!-- Version & Date-->
     <string name="version">Версия 1.0</string>
@@ -21,7 +23,7 @@
     <string name="thkns_activ_wrong_axis">Чтото не так с углом</string>
     <string name="thkns_activ_wrong_base_curve">Неверные значения кривизны, силы или толщины</string>
     <string name="thkns_activ_textview_center_thickness">Толщина по центру = %.2f mm\n</string>
-    <string name="thkns_activ_textview_edge_thickness">Толщина по краю = %.2f mm</string>
+    <string name="thkns_activ_textview_edge_thickness">Минимальная толщина по краю = %.2f mm</string>
     <string name="thkns_activ_textview_max_edge_thickness">\nМаксимальная толщна по краю = %.2f mm\n</string>
     <string name="thkns_activ_textview_certain_edge_thickness">Толщина по краю под углом " "</string>
     <string name="thkns_activ_textview_certain_second_half"> °  = %.2f mm</string>
@@ -56,14 +58,13 @@
     <string name="nav_drawer_item_home">Главная</string>
     <string name="nav_drawer_item_thkns_calc">Расчет толщины линзы</string>
     <string name="nav_drawer_item_diam_calc">Расчет диаметра линзы</string>
+    <string name="nav_drawer_item_glossary">Глоссарий</string>
     <string name="nav_drawer_settings">Настройки</string>
     <string name="nav_drawer_about">О программе</string>
     <string name="navigation_drawer_opened">The navigation drawer is opened</string>
     <string name="navigation_drawer_closed">The navigation drawer is closed</string>
     <string name="tag_nav_drawer_main_entry">nav_drawer_main_entry</string>
     <string name="tag_nav_drawer_special_entry">nav_drawer_special_entry</string>
-    <string name="tools_text_account_information_username">Parkhomov</string>
-    <string name="tools_text_account_information_email">parkhomov.andrew@gmail.com</string>
 
     <!-- Query mark id -->
     <string name="one">1</string>

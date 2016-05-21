@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout mNavDrawerEntriesRootView;
     private PercentRelativeLayout mFrameLayout_AccountView;
     private FrameLayout mFrameLayoutHome, mFrameLayoutThknsCalc, mFrameLayoutDiamCalc,
-            mFrameLayout_Settings, mFrameLayout_About;
+            mFrameLayout_Settings, mFrameLayout_About,mFrameLayout_Glossary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mFrameLayout_Settings = (FrameLayout) findViewById
                 (R.id.navigation_drawer_items_list_linearLayout_settings);
+
+        mFrameLayout_Glossary = (FrameLayout) findViewById
+                (R.id.navigation_drawer_items_linearLayout_glossary);
 
         // Navigation Drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_DrawerLayout);
@@ -111,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFrameLayoutThknsCalc.setOnClickListener(this);
         mFrameLayoutDiamCalc.setOnClickListener(this);
         mFrameLayoutHome.setOnClickListener(this);
+        mFrameLayout_Glossary.setOnClickListener(this);
         mFrameLayout_About.setOnClickListener(this);
         mFrameLayout_Settings.setOnClickListener(this);
 
@@ -123,29 +127,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (view == mFrameLayout_AccountView) {
-
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-
-            // SignUp/SignIn/Profile
-            // TODO on account pressed
-        } else {
-            if (!view.isSelected()) {
-                onRowPressed((FrameLayout) view);
-                if (view == mFrameLayoutHome) {
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
-                } else if (view == mFrameLayoutThknsCalc) {
-                    startActivity(new Intent(view.getContext(), ThknsCalculatorActivity.class));
-                } else if (view == mFrameLayoutDiamCalc) {
-                    startActivity(new Intent(view.getContext(), DiamCalculatorActivity.class));
-                } else if (view == mFrameLayout_About) {
-                    startActivity(new Intent(view.getContext(), AboutDialogActivity.class));
-                } else if (view == mFrameLayout_Settings) {
-                    startActivity(new Intent(view.getContext(), SettingsActivity.class));
-                }
-            } else {
+        if (!view.isSelected()) {
+            onRowPressed((FrameLayout) view);
+            if (view == mFrameLayoutHome) {
                 mDrawerLayout.closeDrawer(GravityCompat.START);
+            } else if (view == mFrameLayoutThknsCalc) {
+                startActivity(new Intent(view.getContext(), ThknsCalculatorActivity.class));
+            } else if (view == mFrameLayoutDiamCalc) {
+                startActivity(new Intent(view.getContext(), DiamCalculatorActivity.class));
+            } else if (view == mFrameLayout_Glossary) {
+                startActivity(new Intent(view.getContext(), GlossaryListActivity.class));
+            } else if (view == mFrameLayout_About) {
+                startActivity(new Intent(view.getContext(), AboutDialogActivity.class));
+            } else if (view == mFrameLayout_Settings) {
+                startActivity(new Intent(view.getContext(), SettingsActivity.class));
             }
+        } else {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         }
     }
 
@@ -197,6 +195,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         );
 
         diamImageView.setImageDrawable(diamDrawable);
+
+        final ImageView glossaryImageView =
+                (ImageView) findViewById(R.id.navigation_drawer_items_list_icon_glossary);
+        final Drawable glossaryDrawable = DrawableCompat.wrap(glossaryImageView.getDrawable());
+        DrawableCompat.setTintList(
+                glossaryDrawable.mutate(),
+                ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
+        );
+
+        glossaryImageView.setImageDrawable(glossaryDrawable);
     }
 
     @Override

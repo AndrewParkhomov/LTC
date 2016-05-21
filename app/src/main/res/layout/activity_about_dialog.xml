@@ -9,6 +9,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="parkhomov.andrew.lensthicknesscalculator.activities.AboutDialogActivity">
 
+    <ImageView
+        android:layout_width="340dp"
+        android:layout_height="188dp"
+        android:background="@drawable/image_about_background"
+        tools:ignore="ContentDescription"
+        android:alpha="0.5"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

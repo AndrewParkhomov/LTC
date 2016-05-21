@@ -117,8 +117,6 @@ public class GlossaryActivity extends AppCompatActivity {
             }catch (SQLException e){
                 Toast.makeText(this, getResources().getText(R.string.database_unavailable), Toast.LENGTH_SHORT).show();
             }
-
-
         }
     }
 }
