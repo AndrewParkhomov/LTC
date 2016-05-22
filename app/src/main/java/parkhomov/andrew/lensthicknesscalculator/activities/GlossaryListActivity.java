@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -37,28 +38,28 @@ public class GlossaryListActivity extends ListActivity{
                             new String[]{"NAME_ENG"},
                             null,
                             null,
-                            null, null, "NAME_ENG ASC");
+                            null, null, null);
                     break;
                 case "русский":
                     cursor = db.query("GLOSSARY",
                             new String[]{"NAME_RUS"},
                             null,
                             null,
-                            null, null, "NAME_RUS ASC");
+                            null, null, null);
                     break;
                 case "українська":
                     cursor = db.query("GLOSSARY",
                             new String[]{"NAME_UKR"},
                             null,
                             null,
-                            null, null, "NAME_UKR ASC");
+                            null, null, null);
                     break;
                 default:
                     cursor = db.query("GLOSSARY",
                             new String[]{"NAME_ENG"},
                             null,
                             null,
-                            null, null, "NAME_ENG ASC");
+                            null, null, null);
                     break;
             }
             if(cursor.moveToFirst()){
@@ -81,7 +82,14 @@ public class GlossaryListActivity extends ListActivity{
                 db.close();
             }
         }catch(SQLException e){
-            Toast.makeText(this, getResources().getText(R.string.database_unavailable), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getText(R.string.database_unavailable), Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        Intent intent = new Intent(this, GlossaryActivity.class);
+        intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, (int)id+1);
+        startActivity(intent);
     }
 }

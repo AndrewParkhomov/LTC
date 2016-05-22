@@ -1,15 +1,24 @@
 package parkhomov.andrew.lensthicknesscalculator.activities;
 
 import android.app.ListActivity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
+import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 
 public class SettingsActivity extends ListActivity{
 
@@ -38,11 +47,21 @@ public class SettingsActivity extends ListActivity{
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        switch(position){
+        Intent intent;
+        switch (position) {
             case 0:
-                Intent intent = new Intent(SettingsActivity.this, LanguageActivity.class);
+                intent = new Intent(this, LanguageActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                break;
+            case 1:
+                intent = new Intent(this, RateAppActivity.class);
+                startActivity(intent);
+                break;
+            case 2:
+                intent = new Intent(this, HelpFeedbackActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 }

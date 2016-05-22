@@ -77,59 +77,10 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
     public void onQueryMarkImageButtonClicked(View view) {
         //get id of button, witch was pressed by user
         int id = Integer.valueOf(String.valueOf(view.getContentDescription()));
-        Cursor cursor;
-        // get info from database
-        try{
-            SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
-            SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
-            String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
-            switch(currentLanguage){
-                case "English":
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_ENG", "DESCRIPTION_ENG", "IMAGE_RESOURCE_ID"},
-                            "_id = ?",
-                            new String[]{Integer.toString(id)},
-                            null, null, null);
-                    break;
-                case "русский":
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_RUS", "DESCRIPTION_RUS", "IMAGE_RESOURCE_ID"},
-                            "_id = ?",
-                            new String[]{Integer.toString(id)},
-                            null, null, null);
-                    break;
-                case "українська":
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_UKR", "DESCRIPTION_UKR", "IMAGE_RESOURCE_ID"},
-                            "_id = ?",
-                            new String[]{Integer.toString(id)},
-                            null, null, null);
-                    break;
-                default:
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_ENG", "DESCRIPTION_ENG", "IMAGE_RESOURCE_ID"},
-                            "_id = ?",
-                            new String[]{Integer.toString(id)},
-                            null, null, null);
-            }
-
-            if(cursor.moveToFirst()){
-                String name = cursor.getString(0);
-                String description = cursor.getString(1);
-                int glossaryImageResourceId = cursor.getInt(2);
-                Intent intent = new Intent(this, GlossaryActivity.class);
-                intent.putExtra(GlossaryActivity.QUERY_MARK_NAME, name);
-                intent.putExtra(GlossaryActivity.QUERY_MARK_DESCR, description);
-                intent.putExtra(GlossaryActivity.QUERY_MARK_IMG_ID, glossaryImageResourceId);
-                // id need for making links(if we need it) in glossary activity
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, id);
-                startActivity(intent);
-            }
-            cursor.close();
-            db.close();
-        }catch(SQLException e){
-            Toast.makeText(this, getResources().getText(R.string.database_unavailable), Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(this, GlossaryActivity.class);
+        // id need for making links(if we need it) in glossary activity
+        intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, id);
+        startActivity(intent);
     }
 
 
@@ -187,7 +138,7 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                             throw new IllegalArgumentException();
                         } catch (IllegalArgumentException e) {
                             Toast.makeText(this, getResources().getText(R.string.thkns_activ_wrong_axis),
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_LONG).show();
                             getAxis.setText("");
                             axis = 0;
                         }
@@ -289,7 +240,6 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                     break;
             }
         }catch(Exception e){
-            Toast.makeText(this,"Something wrong in selectIndex ", Toast.LENGTH_SHORT).show();
             textViewResult.setText(null);
         }
     }

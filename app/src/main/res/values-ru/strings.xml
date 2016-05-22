@@ -21,7 +21,7 @@
     <string name="thkns_activ_lens_diameter">Диаметр линзы</string>
     <string name="thkns_activ_edge_thickness">Толщина по краю</string>
     <string name="thkns_activ_wrong_axis">Чтото не так с углом</string>
-    <string name="thkns_activ_wrong_base_curve">Неверные значения кривизны, силы или толщины</string>
+    <string name="thkns_activ_wrong_base_curve">Неверные значения кривизны, силы, толщины или диаметра линзы</string>
     <string name="thkns_activ_textview_center_thickness">Толщина по центру = %.2f mm\n</string>
     <string name="thkns_activ_textview_edge_thickness">Минимальная толщина по краю = %.2f mm</string>
     <string name="thkns_activ_textview_max_edge_thickness">\nМаксимальная толщна по краю = %.2f mm\n</string>
@@ -82,8 +82,8 @@
     <!-- Setting list items-->
     <string-array name="settings_list">
         <item>Язык</item>
-        <item>Item 2</item>
-        <item>Item 3</item>
+        <item>Оценить приложение</item>
+        <item>Помощь "\u0026" Обратная связь</item>
     </string-array>
 
     <!-- Languages -->

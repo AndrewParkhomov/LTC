@@ -44,8 +44,16 @@
             android:name=".activities.LanguageActivity"
             android:noHistory="true">
         </activity>
+
         <activity android:name=".activities.GlossaryListActivity">
         </activity>
+
+        <activity android:name=".activities.HelpFeedbackActivity">
+        </activity>
+
+        <activity android:name=".activities.RateAppActivity">
+        </activity>
+
     </application>
 
 </manifest>

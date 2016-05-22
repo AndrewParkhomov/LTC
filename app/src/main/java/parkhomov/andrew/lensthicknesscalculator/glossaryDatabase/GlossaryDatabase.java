@@ -10,6 +10,7 @@ import parkhomov.andrew.lensthicknesscalculator.R;
 public class GlossaryDatabase extends SQLiteOpenHelper{
 
     private static final String DB_NAME = "glossary";
+    private static final String SECOND_DB_NAME = "language";
     private static final int DB_VERSION = 1;
 
     public GlossaryDatabase(Context context){
@@ -64,7 +65,7 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                     "Показатель преломления","описание показателя",R.drawable.lens);
             insertItem(db, "Axis", "description of axis",
                     "Угол оси цилиндра","Указывает под каким углом расположен цилиндр."+
-                    " Положение измеряется в градусах от 0 до 180",
+                    " Положение измеряется в градусах от 0° до 180°",
                     "Показатель преломления","описание показателя",R.drawable.lens);
             insertItem(db, "Real base curve", "description of real base curve",
                     "Реальная кривизна передней поверхности","Действительная кривизна передней " +
@@ -89,8 +90,8 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                     "Показатель преломления","описание показателя",R.drawable.lens);
             insertItem(db, "Effective diameter", "description of ed",
                     "Эффективный диаметр линзы","Эффективный диаметр линзы(Effective diameter)" +
-                            " - расстояние в миллиметрах от оптического центра до " +
-                            "самой дальней точки линзы.",
+                            " - расстояние в миллиметрах между двумя самыми отдаленными точками окуляра" +
+                            ", для корригирующих оправ в основном это значение в пределах 2 - 3 мм.",
                     "Показатель преломления","описание показателя",R.drawable.lens);
             insertItem(db, "Distance between lenses", "description of dbl",
                     "Расстояние между линзами","Расстояние между линзами(Distance between lenses)" +
@@ -100,9 +101,30 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                     "Расстояние между зрачками","Расстояние между зрачками, межцентровое расстояние" +
                             "(Pupil distance) - расстояние между зрачками в миллиметрах.",
                     "Показатель преломления","описание показателя",R.drawable.lens);
-            insertItem(db, "Transposotion", "describe of trANS",
-                    "Транспозиция","описание транспозиции",
+            insertItem(db, "Transposition", "Ophthalmologists and a few older optometrists " +
+                    "(different types of eye doctors), write astigmatism prescriptions with " +
+                    "positive (+) cylinders. This is because many years ago the instruments used" +
+                    " to measure and cut lenses were only able to do so in positive increments.\n" +
+                    "Nowadays the majority of labs, including ours, cut lenses in the negative (-)," +
+                    " and require that any positive (+) cylinder prescriptions be converted into" +
+                    " the negative (-) equivalent.",
+                    "Транспозиция","Оптометристы могут ставить значение цилинда как + так и -." +
+                            " Это обусловлено тем, что инструменты много лет назад измеряли " +
+                            "анномалию рефракции глаза только в плюсовом цилиндре, и изготавливались" +
+                            "астигматические линзы тоже только в цилиндре со знаком (+), " +
+                            "Сейчас в основном рецепты выписывают в минусовом цилиндре. " +
+                            "Пересчитывается плюсовой цилиндр в минусовый следующим образом:" +
+                            "значение цилиндра добавляется к значению сферы, и к текущему значению угла " +
+                            "добавляется 90°.\n" +
+                            "Примеры:\n" +
+                            "sph -7.0 cyl -3.0 axis 22° можно записать как:\n" +
+                            "sph -10.0 cyl +3.0 axis 112°.\n" +
+                            "sph +5.75 cyl -1.25 axis 165° можно записать как:\n" +
+                            "sph +4.5 cyl +1.25 axis 75°",
                     "Транспозицыя","описание транспозиция укр",R.drawable.lens);
+            db.execSQL("CREATE TABLE LANGUAGE (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "CURRENT_LANGUAGE TEXT);");
+            currentLanguage(db, "English");
         }
     }
 
@@ -120,6 +142,12 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
         itemValues.put("DESCRIPTION_UKR", descriptionUkr);
         itemValues.put("IMAGE_RESOURCE_ID", imageId);
         db.insert("GLOSSARY", null, itemValues);
+    }
+
+    private void currentLanguage(SQLiteDatabase db, String language){
+        ContentValues itemValues = new ContentValues();
+        itemValues.put("CURRENT_LANGUAGE", language);
+        db.insert("LANGUAGE", null, itemValues);
     }
 
 }

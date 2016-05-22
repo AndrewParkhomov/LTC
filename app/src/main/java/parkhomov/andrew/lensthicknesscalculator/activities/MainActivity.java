@@ -3,6 +3,10 @@ package parkhomov.andrew.lensthicknesscalculator.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,23 +21,27 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.customViews.ScrimInsetsFrameLayout;
+import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsMiscellaneous;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    String lang;
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavDrawerEntriesRootView;
-    private PercentRelativeLayout mFrameLayout_AccountView;
     private FrameLayout mFrameLayoutHome, mFrameLayoutThknsCalc, mFrameLayoutDiamCalc,
             mFrameLayout_Settings, mFrameLayout_About,mFrameLayout_Glossary;
 
@@ -42,6 +50,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialize();
+        Cursor cursor;
+        Locale locale;
+        Configuration config;
+        //take name of language from database(by default English)
+        SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
+        SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
+        try {
+            cursor = db.query("LANGUAGE",
+                    new String[]{"CURRENT_LANGUAGE"},
+                    null,
+                    null,
+                    null, null, null);
+            if (cursor.moveToFirst()) {
+                lang = cursor.getString(0);
+                cursor.close();
+                db.close();
+            }
+        }catch (SQLiteException e){
+            Toast.makeText(this, "data wrong", Toast.LENGTH_LONG).show();
+        }
+        switch (lang) {
+            case "English":
+                locale = new Locale("en-gb");
+                Locale.setDefault(locale);
+                config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
+                break;
+            case "русский":
+                locale = new Locale("ru");
+                Locale.setDefault(locale);
+                config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
+                break;
+            case "українська":
+                locale = new Locale("uk");
+                Locale.setDefault(locale);
+                config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
+                break;
+        }
+        String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
+        Toast.makeText(this, currentLanguage+" "+lang, Toast.LENGTH_LONG).show();
     }
 
     private void initialize() {
@@ -52,9 +105,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mNavDrawerEntriesRootView = (LinearLayout) findViewById
                 (R.id.navigation_drawer_linearLayout_entries_root_view);
-
-//        mFrameLayout_AccountView = (PercentRelativeLayout) findViewById
-//        (R.id.navigation_drawer_account_view);
 
         mFrameLayoutHome = (FrameLayout) findViewById
                 (R.id.navigation_drawer_items_list_linearLayout_home);
