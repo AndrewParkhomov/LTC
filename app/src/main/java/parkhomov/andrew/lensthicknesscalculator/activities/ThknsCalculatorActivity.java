@@ -32,8 +32,10 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
     private TextView textViewResult;
     private EditText getCylinderPower;
 
+    double TEST;
+
     private int axis, axisView;
-    private double lensIndex, indexX, spherePower, edgeThickness, maxEdgeThickness,
+    private double lensIndex, indexX, spherePower, edgeThickness, maxEdgeThickness, recalculatedSphereCurve,
     etOnCertainAxis, centerThickness, realFrontBaseCurveDptr, sag1Sphere, sag2Sphere, sag2Cylinder;
 
 
@@ -186,10 +188,8 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                 centerThickness = (Math.pow(lensDiameter / 2, 2) * spherePower /
                         (2000 * (lensIndex - 1))) + edgeThickness;
             }
-
-
             // Corrected back curve
-            double recalculatedSphereCurve = (spherePower - (recalculatedFrontCurve /
+            recalculatedSphereCurve = (spherePower - (recalculatedFrontCurve /
                     (1 - centerThickness / lensIndex / 1000 * recalculatedFrontCurve))) * indexX;
 
             // Real radius of back curve in mm(we need exactly in mm for sag formula)
@@ -254,15 +254,23 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                     centerThickness, edgeThickness);
         }
         else{
+            Toast.makeText(this, String.valueOf(recalculatedSphereCurve), Toast.LENGTH_LONG).show();
             if(spherePower > realFrontBaseCurveDptr){
+                Toast.makeText(this, "inside 1 if", Toast.LENGTH_LONG).show();
+                centerThickness = Math.abs(sag1Sphere - sag2Sphere) + edgeThickness;
+                result = String.format(stringCenterThickness + stringEdgeThickness,
+                        centerThickness, edgeThickness);
+            }else if(spherePower < realFrontBaseCurveDptr && recalculatedSphereCurve > 0){
                 centerThickness = Math.abs(sag1Sphere + sag2Sphere) + edgeThickness;
                 result = String.format(stringCenterThickness + stringEdgeThickness,
                         centerThickness, edgeThickness);
-            }else if(spherePower <= realFrontBaseCurveDptr){
+            }else if(spherePower < realFrontBaseCurveDptr && recalculatedSphereCurve < 0){
                 centerThickness = Math.abs(sag1Sphere - sag2Sphere) + edgeThickness;
                 result = String.format(stringCenterThickness + stringEdgeThickness,
                         centerThickness, edgeThickness);
             }
+//            Toast.makeText(this, String.valueOf(recalculatedSphereCurve), Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, String.valueOf(Math.abs(sag1Sphere - sag2Sphere) + edgeThickness), Toast.LENGTH_LONG).show();
         }
         if(!getCylinderPower.getText().toString().equals("")) {
             cylinderCalculation();
