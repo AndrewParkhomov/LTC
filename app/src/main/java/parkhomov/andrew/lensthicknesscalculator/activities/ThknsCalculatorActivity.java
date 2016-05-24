@@ -264,8 +264,6 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                 result = String.format(stringCenterThickness + stringEdgeThickness,
                         centerThickness, edgeThickness);
             }
-//            Toast.makeText(this, String.valueOf(recalculatedSphereCurve), Toast.LENGTH_LONG).show();
-//            Toast.makeText(this, String.valueOf(Math.abs(sag1Sphere - sag2Sphere) + edgeThickness), Toast.LENGTH_LONG).show();
         }
         if(!getCylinderPower.getText().toString().equals("")) {
             cylinderCalculation();
