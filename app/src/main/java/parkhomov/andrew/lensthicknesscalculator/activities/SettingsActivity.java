@@ -51,7 +51,7 @@ public class SettingsActivity extends ListActivity{
         switch (position) {
             case 0:
                 intent = new Intent(this, LanguageActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
             case 1:

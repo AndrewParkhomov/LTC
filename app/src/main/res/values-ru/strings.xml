@@ -5,6 +5,7 @@
     <string name="database_unavailable">База данных недоступна</string>
     <string name="link_to_diamCalcActivity"><u>Расчет диаметра линзы</u></string>
     <string name="link_to_transposition"><u>Транспозиция</u></string>
+    <string name="language">Язык</string>
 
     <!-- Version & Date-->
     <string name="version">Версия 1.0</string>

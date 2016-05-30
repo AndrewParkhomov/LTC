@@ -5,6 +5,8 @@
     <string name="database_unavailable">Database is unavailable</string>
     <string name="link_to_diamCalcActivity"><u>Diameter calculator</u></string>
     <string name="link_to_transposition"><u>Transposition</u></string>
+    <string name="language">Language</string>
+
 
 
     <!-- Version & Date-->
@@ -89,10 +91,9 @@
     </string-array>
 
     <!-- Languages -->
-    <string-array name="language_list">
-        <item>English</item>
-        <item>Русский</item>
-        <item>Українська</item>
-    </string-array>
+    <string name="English">English</string>
+    <string name="Russian">Русский</string>
+    <string name="Ukrainian">Українська</string>
+
 
 </resources>

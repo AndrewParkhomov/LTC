@@ -39,7 +39,7 @@ import parkhomov.andrew.lensthicknesscalculator.utils.UtilsMiscellaneous;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    String lang;
+    String currentLanguage;
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavDrawerEntriesRootView;
     private FrameLayout mFrameLayoutHome, mFrameLayoutThknsCalc, mFrameLayoutDiamCalc,
@@ -48,12 +48,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setLanguage();
         setContentView(R.layout.activity_main);
         initialize();
+    }
+
+    private void setLanguage() {
         Cursor cursor;
         Locale locale;
         Configuration config;
-        //take name of language from database(by default English)
+        //get name of language from database(by default English)
         SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
         SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
         try {
@@ -63,14 +67,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     null,
                     null, null, null);
             if (cursor.moveToFirst()) {
-                lang = cursor.getString(0);
+                currentLanguage = cursor.getString(0);
                 cursor.close();
                 db.close();
             }
         }catch (SQLiteException e){
             Toast.makeText(this, "data wrong", Toast.LENGTH_LONG).show();
         }
-        switch (lang) {
+        // set language
+        switch (currentLanguage) {
             case "English":
                 locale = new Locale("en-gb");
                 Locale.setDefault(locale);
@@ -93,8 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
                 break;
         }
-        String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
-        Toast.makeText(this, currentLanguage+" "+lang, Toast.LENGTH_LONG).show();
     }
 
     private void initialize() {
