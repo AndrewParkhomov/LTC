@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/text_white_text_icons_100"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,14 +16,11 @@
         android:layout_height="match_parent">
 
         <GridLayout
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
+            android:padding="@dimen/activity_vertical_margin"
             android:rowCount="5"
             android:columnCount="3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -67,7 +65,6 @@
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@color/white"
                 android:contentDescription="@string/nine"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
@@ -75,12 +72,11 @@
                 android:layout_column="1"
                 android:id="@+id/imageButtonCenterThickness"
                 android:onClick="onQueryMarkImageButtonClicked"
-                android:src="@drawable/query"/>
+                android:background="@drawable/query_mark_selector"/>
 
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@color/white"
                 android:contentDescription="@string/ten"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
@@ -88,12 +84,11 @@
                 android:layout_column="1"
                 android:id="@+id/imageButtonEdgeThickness"
                 android:onClick="onQueryMarkImageButtonClicked"
-                android:src="@drawable/query"/>
+                android:background="@drawable/query_mark_selector"/>
 
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@color/white"
                 android:contentDescription="@string/eleven"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
@@ -101,7 +96,7 @@
                 android:layout_column="1"
                 android:id="@+id/imageButtonLensDiameter"
                 android:onClick="onQueryMarkImageButtonClicked"
-                android:src="@drawable/query"/>
+                android:background="@drawable/query_mark_selector"/>
 
             <EditText
                 android:layout_width="wrap_content"

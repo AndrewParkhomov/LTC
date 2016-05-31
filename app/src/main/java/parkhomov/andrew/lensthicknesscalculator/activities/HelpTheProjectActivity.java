@@ -1,16 +1,18 @@
 package parkhomov.andrew.lensthicknesscalculator.activities;
 
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 
-public class SettingsActivity extends ListActivity{
+public class HelpTheProjectActivity extends ListActivity{
 
     ListView listView;
 
@@ -21,11 +23,12 @@ public class SettingsActivity extends ListActivity{
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
-                getResources().getStringArray(R.array.settings_list)
+                getResources().getStringArray(R.array.help_and_feedback_array_list)
         );
         listView.setAdapter(adapter);
         customizeListView();
     }
+
     private void customizeListView(){
         // set divider color
         //int[] colors = {0, 0xFF388E3C, 0}; // green divider
@@ -40,12 +43,15 @@ public class SettingsActivity extends ListActivity{
         Intent intent;
         switch (position) {
             case 0:
-                intent = new Intent(this, LanguageActivity.class);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent = new Intent(this, RateAppActivity.class);
                 startActivity(intent);
                 break;
             case 1:
-                intent = new Intent(this, HelpTheProjectActivity.class);
+                intent = new Intent(this, FinanceHelpActivity.class);
+                startActivity(intent);
+                break;
+            case 2:
+                intent = new Intent(this, HelpFeedbackActivity.class);
                 startActivity(intent);
                 break;
         }

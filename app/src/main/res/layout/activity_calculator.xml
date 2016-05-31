@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/text_white_text_icons_100"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -95,7 +96,6 @@
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@color/white"
                 android:contentDescription="@string/one"
                 android:layout_marginEnd="@dimen/query_padding_right"
                 android:layout_marginRight="@dimen/query_padding_right"
@@ -105,12 +105,11 @@
                 android:layout_column="1"
                 android:id="@+id/imageButtonLensIndex"
                 android:onClick="onQueryMarkImageButtonClicked"
-                android:src="@drawable/query"/>
+                android:background="@drawable/query_mark_selector"/>
 
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@color/white"
                 android:contentDescription="@string/two"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
@@ -118,12 +117,11 @@
                 android:layout_column="1"
                 android:id="@+id/imageButtonSpherePower"
                 android:onClick="onQueryMarkImageButtonClicked"
-                android:src="@drawable/query"/>
+                android:background="@drawable/query_mark_selector"/>
 
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@color/white"
                 android:contentDescription="@string/three"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
@@ -131,12 +129,11 @@
                 android:layout_column="1"
                 android:id="@+id/imageButtonCylinderPower"
                 android:onClick="onQueryMarkImageButtonClicked"
-                android:src="@drawable/query"/>
+                android:background="@drawable/query_mark_selector"/>
 
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@color/white"
                 android:contentDescription="@string/four"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
@@ -144,12 +141,11 @@
                 android:layout_column="1"
                 android:id="@+id/imageButtonAxis"
                 android:onClick="onQueryMarkImageButtonClicked"
-                android:src="@drawable/query"/>
+                android:background="@drawable/query_mark_selector"/>
 
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@color/white"
                 android:contentDescription="@string/five"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
@@ -157,12 +153,11 @@
                 android:layout_column="1"
                 android:id="@+id/imageButtonRealBaseCurve"
                 android:onClick="onQueryMarkImageButtonClicked"
-                android:src="@drawable/query"/>
+                android:background="@drawable/query_mark_selector"/>
 
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@color/white"
                 android:contentDescription="@string/six"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
@@ -170,12 +165,11 @@
                 android:layout_column="1"
                 android:id="@+id/imageButtonCenterThickness"
                 android:onClick="onQueryMarkImageButtonClicked"
-                android:src="@drawable/query"/>
+                android:background="@drawable/query_mark_selector"/>
 
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@color/white"
                 android:contentDescription="@string/seven"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
@@ -183,12 +177,11 @@
                 android:layout_column="1"
                 android:id="@+id/imageButtonEdgeThickness"
                 android:onClick="onQueryMarkImageButtonClicked"
-                android:src="@drawable/query"/>
+                android:background="@drawable/query_mark_selector"/>
 
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@color/white"
                 android:contentDescription="@string/eight"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
@@ -196,7 +189,7 @@
                 android:layout_column="1"
                 android:id="@+id/imageButtonLensDiameter"
                 android:onClick="onQueryMarkImageButtonClicked"
-                android:src="@drawable/query"/>
+                android:background="@drawable/query_mark_selector"/>
 
             <Spinner
                 android:paddingTop="5dp"

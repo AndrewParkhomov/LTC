@@ -4,15 +4,11 @@ package parkhomov.andrew.lensthicknesscalculator.activities;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 

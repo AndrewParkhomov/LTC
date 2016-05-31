@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_activity_DrawerLayout"
     android:layout_width="match_parent"
+    android:background="@color/text_white_text_icons_100"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 

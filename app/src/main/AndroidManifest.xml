@@ -5,7 +5,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/app_logo_icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
@@ -53,6 +53,15 @@
         </activity>
 
         <activity android:name=".activities.RateAppActivity">
+        </activity>
+
+        <activity android:name=".activities.HelpTheProjectActivity"
+            android:label="@string/title_help_the_project">
+        </activity>
+
+        <activity android:name=".activities.FinanceHelpActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            android:label="@string/title_help_the_project">
         </activity>
 
     </application>

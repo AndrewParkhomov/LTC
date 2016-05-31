@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_horizontal_margin"
-    android:orientation="vertical">
+    android:background="@color/text_white_text_icons_100"
+    tools:context=".activities.GlossaryActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_horizontal_margin"
-        android:id="@+id/glossaryImageView"
-        tools:ignore="ContentDescription"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/glossaryTitleTextView"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/glossaryImageView"
+            tools:ignore="ContentDescription"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:id="@+id/glossaryDescriptionTextView"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/glossaryTitleTextView"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:onClick="onGlossaryTextViewClicked"
-        android:id="@+id/glossaryAddTextView"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/glossaryDescriptionTextView"/>
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textColor="@drawable/added_glossary"
+            android:onClick="onGlossaryTextViewClicked"
+            android:id="@+id/glossaryAddTextView"/>
+
+    </LinearLayout>
+</ScrollView>
+

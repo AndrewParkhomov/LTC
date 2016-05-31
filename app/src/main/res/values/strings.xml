@@ -6,6 +6,9 @@
     <string name="link_to_diamCalcActivity"><u>Diameter calculator</u></string>
     <string name="link_to_transposition"><u>Transposition</u></string>
     <string name="language">Language</string>
+    <string name="rate_the_app">Rate this app</string>
+    <string name="title_help_the_project">Help the project</string>
+    <string name="do_you_like_the_app">If you"\u0027"re found the app useful, you can help the project providing financial assistance.\nPrivateBank 5168 7556 3143 4988</string>
 
 
 
@@ -86,8 +89,14 @@
     <!-- Setting list items-->
     <string-array name="settings_list">
         <item>Language</item>
+        <item>Help "\u0026" feedback</item>
+    </string-array>
+
+    <!-- Inside help & feedback-->
+    <string-array name="help_and_feedback_array_list">
         <item>Rate this app</item>
         <item>Help the project</item>
+        <item>Feedback</item>
     </string-array>
 
     <!-- Languages -->

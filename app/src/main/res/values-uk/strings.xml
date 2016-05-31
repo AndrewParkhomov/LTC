@@ -81,8 +81,14 @@
     <!-- Setting list items-->
     <string-array name="settings_list">
         <item>Мова</item>
-        <item>Оцінити додаток</item>
         <item>Допомога "\u0026" Зворотній зв"\u0027"язок</item>
+    </string-array>
+
+    <!-- Inside help & feedback-->
+    <string-array name="help_and_feedback_array_list">
+        <item>Оцінити додаток</item>
+        <item>Допомогти проекту</item>
+        <item>Зворотній зв"\u0027"язок</item>
     </string-array>
 
     <!-- Languages -->
