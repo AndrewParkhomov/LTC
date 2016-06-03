@@ -96,6 +96,7 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
         indexX = 0;
         spherePower = 0;
         cylinderPower = 0;
+        maxEdgeThickness = 0;
         axis = 0;
         axisView = 0;
         edgeThickness = 0;
@@ -128,6 +129,24 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
 
             // Real radius of front curve in mm
             realRadiusMM = (LAB_INDEX - 1) / (realFrontBaseCurveDptr / 1000);
+
+            // if edge thickness field is empty, et = 0
+            if(!getEdgeThickness.getText().toString().equals("")) {
+                edgeThickness = Double.parseDouble(String.valueOf(getEdgeThickness.getText()));
+            }else{
+                edgeThickness = 0;
+            }
+
+            // set edge thickness
+            if(spherePower < 0){
+                // if lens is 0 or minus
+                centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
+            }else{
+                // ROUGH Formula for calc CT with plano - concave lens, without pay attention
+                // on front curve
+                centerThickness = (Math.pow(lensDiameter / 2, 2) * spherePower /
+                        (2000 * (lensIndex - 1))) + edgeThickness;
+            }
 
             // Find D1
             double recalculatedFrontCurve = (lensIndex - 1) * 1000 / realRadiusMM;
@@ -164,7 +183,7 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                     } else if (axis <= 90) {
                         axis = (180 - (axis + 90));
                     }
-                } else if (cylinderPower < 0) {
+                }else if (cylinderPower < 0) {
                     isCylinderPlus = false;
                     if (axis > 90) axis = 180 - axis;
                 }
@@ -181,23 +200,6 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
             sag2Sphere = realRadiusMM - Math.sqrt((Math.pow(realRadiusMM, 2)
                     - Math.pow(lensDiameter / 2, 2)));    // sag of convex surface;
 
-            // if edge thickness field is empty, et = 0
-            if(!getEdgeThickness.getText().toString().equals("")) {
-                edgeThickness = Double.parseDouble(String.valueOf(getEdgeThickness.getText()));
-            }else{
-                edgeThickness = 0;
-            }
-
-            // get spherePower and set edge thickness
-            if(spherePower <= 0){
-                // if lens is 0 or minus
-                centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
-            }else{
-                // ROUGH Formula for calc CT with plano - concave lens, without pay attention
-                // on front curve
-                centerThickness = (Math.pow(lensDiameter / 2, 2) * spherePower /
-                        (2000 * (lensIndex - 1))) + edgeThickness;
-            }
             // Corrected back curve
             recalculatedSphereCurve = (spherePower - (recalculatedFrontCurve /
                     (1 - centerThickness / lensIndex / 1000 * recalculatedFrontCurve))) * indexX;
@@ -260,13 +262,11 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
     private void sphereThicknessCalculation() {
         stringCenterThickness = getResources().getString(R.string.thkns_activ_textview_center_thickness);
         stringEdgeThickness = getResources().getString(R.string.thkns_activ_textview_edge_thickness);
-
-        if (spherePower <= 0) {
+        if (spherePower < 0) {
             edgeThickness = Math.abs(sag1Sphere - sag2Sphere)+ centerThickness;
             result = String.format(stringCenterThickness + stringEdgeThickness,
                     centerThickness, edgeThickness);
-        }
-        else{
+        }else{
             if(recalculatedSphereCurve > 0){
                 centerThickness = Math.abs(sag1Sphere + sag2Sphere) + edgeThickness;
                 result = String.format(stringCenterThickness + stringEdgeThickness,
@@ -288,6 +288,7 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
         stringMaxET = getResources().getString(R.string.thkns_activ_textview_max_edge_thickness);
         stringCertainET = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness);
         stringCertainETSecond = getResources().getString(R.string.thkns_activ_textview_certain_second_half);
+        Toast.makeText(this, String.valueOf(recalculatedCylinderCurve), Toast.LENGTH_SHORT).show();
 
         if(spherePower <= 0 && !isCylinderPlus) {
             maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
@@ -302,25 +303,48 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                                     stringCertainET+axisView + stringCertainETSecond,
                                     centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
             isCylinderPlus = false;
-        }else if(recalculatedCylinderCurve < 0){
+        }else if(recalculatedCylinderCurve < 0 && isCylinderPlus){
+            if(spherePower < realFrontBaseCurveDptr){
+                maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
+                etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
+                result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
+                                stringCertainET + axisView + stringCertainETSecond,
+                        centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
+                Toast.makeText(this, "inside 1 if", Toast.LENGTH_SHORT).show();
+                isCylinderPlus = false;
+            }else{
+                maxEdgeThickness = Math.abs(sag1Sphere + sag2Cylinder) + edgeThickness;
+                etOnCertainAxis = maxEdgeThickness / 90 * axis;
+                result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
+                                stringCertainET + axisView + stringCertainETSecond,
+                        centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
+                Toast.makeText(this, "inside 1 else", Toast.LENGTH_SHORT).show();
+                isCylinderPlus = false;
+            }
+        }else if(recalculatedCylinderCurve < 0 && !isCylinderPlus){
+            if(spherePower > realFrontBaseCurveDptr){
                 maxEdgeThickness = Math.abs(sag1Sphere + sag2Cylinder) + edgeThickness;
                 etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
                 result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
-                                        stringCertainET + axisView + stringCertainETSecond,
-                                        centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
-                isCylinderPlus = false;
-
-                Toast.makeText(this, String.valueOf(recalculatedCylinderCurve), Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "Inside 1", Toast.LENGTH_SHORT).show();
-
-        }else if(recalculatedCylinderCurve > 0){
-                maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder)+edgeThickness;
+                                stringCertainET + axisView + stringCertainETSecond,
+                        centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
+                Toast.makeText(this, "inside 2 if", Toast.LENGTH_SHORT).show();
+            }else{
+                maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
                 etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
                 result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
-                                        stringCertainET + axisView + stringCertainETSecond,
-                                        centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
-                Toast.makeText(this, String.valueOf(recalculatedCylinderCurve), Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "Inside 2", Toast.LENGTH_SHORT).show();
+                                stringCertainET + axisView + stringCertainETSecond,
+                        centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
+                Toast.makeText(this, "inside 2 else", Toast.LENGTH_SHORT).show();
+            }
+        }else if(recalculatedCylinderCurve > 0 && isCylinderPlus){
+            maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder)+edgeThickness;
+            etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
+            result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
+                            stringCertainET + axisView + stringCertainETSecond,
+                    centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
+            isCylinderPlus = false;
+            Toast.makeText(this, "inside 3", Toast.LENGTH_SHORT).show();
         }
         textViewResult.setText(result.replace(",", "."));
     }
