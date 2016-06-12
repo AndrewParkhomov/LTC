@@ -47,10 +47,6 @@ public class HelpTheProjectActivity extends ListActivity{
                 startActivity(intent);
                 break;
             case 1:
-                intent = new Intent(this, FinanceHelpActivity.class);
-                startActivity(intent);
-                break;
-            case 2:
                 intent = new Intent(this, HelpFeedbackActivity.class);
                 startActivity(intent);
                 break;

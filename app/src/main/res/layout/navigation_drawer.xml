@@ -76,24 +76,6 @@
                 android:orientation="vertical">
 
                 <FrameLayout
-                    android:id="@+id/navigation_drawer_items_list_linearLayout_home"
-                    style="@style/NavDrawerRowLayout.Main"
-                    tools:background="@color/nav_drawer_row_item_selected">
-
-                    <ImageView
-                        android:id="@+id/navigation_drawer_items_list_icon_home"
-                        style="@style/NavDrawerRowItemIcon"
-                        android:src="@drawable/ic_home_24dp"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:id="@+id/navigation_drawer_items_textView_home"
-                        style="@style/NavDrawerRowItemText"
-                        android:text="@string/nav_drawer_item_home" />
-
-                </FrameLayout>
-
-                <FrameLayout
                     android:id="@+id/navigation_drawer_items_list_linearLayout_thkns_calc"
                     style="@style/NavDrawerRowLayout.Main">
 

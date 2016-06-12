@@ -55,6 +55,10 @@
     <string name="toolbar_title_account">Account</string>
     <string name="toolbar_title_settings">Настройки</string>
 
+    <!--Special for main screen button-->
+    <string name="main_screen_thkns_calc">Расчет\nтолщины</string>
+    <string name="main_screen_diam_calc">Расчет\nдиаметра</string>
+
     <!-- Navigation Drawer -->
     <string name="nav_drawer_item_home">Главная</string>
     <string name="nav_drawer_item_thkns_calc">Расчет толщины линзы</string>
@@ -89,7 +93,6 @@
     <!-- Inside help & feedback-->
     <string-array name="help_and_feedback_array_list">
         <item>Оценить приложение</item>
-        <item>Помощь проекту</item>
         <item>Обратная связь</item>
     </string-array>
 

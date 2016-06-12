@@ -6,10 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="parkhomov.andrew.lensthicknesscalculator.activities.DiamCalculatorActivity">
-
-    <include
-        layout="@layout/toolbar"/>
+    tools:context=".fragments.DiamCalculatorFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,6 +18,7 @@
             android:columnCount="3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:ignore="ContentDescription"
             android:orientation="vertical">
 
             <TextView
@@ -65,37 +63,31 @@
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:contentDescription="@string/nine"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:id="@+id/imageButtonCenterThickness"
-                android:onClick="onQueryMarkImageButtonClicked"
+                android:id="@+id/imageButtonED"
                 android:background="@drawable/query_mark_selector"/>
 
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:contentDescription="@string/ten"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:id="@+id/imageButtonEdgeThickness"
-                android:onClick="onQueryMarkImageButtonClicked"
+                android:id="@+id/imageButtonDBL"
                 android:background="@drawable/query_mark_selector"/>
 
             <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:contentDescription="@string/eleven"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
                 android:layout_row="2"
                 android:layout_column="1"
-                android:id="@+id/imageButtonLensDiameter"
-                android:onClick="onQueryMarkImageButtonClicked"
+                android:id="@+id/imageButtonPD"
                 android:background="@drawable/query_mark_selector"/>
 
             <EditText
@@ -153,9 +145,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/buttonCalc"
                 android:gravity="center"
-                android:onClick="onButtonClicked"
                 android:layout_gravity="center"
-                android:id="@+id/button"
+                android:id="@+id/diameterCalculateButton"
                 android:layout_row="4"
                 android:layout_column="0"
                 android:layout_columnSpan="3" />

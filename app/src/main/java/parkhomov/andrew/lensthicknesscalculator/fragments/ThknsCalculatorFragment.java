@@ -1,33 +1,30 @@
-package parkhomov.andrew.lensthicknesscalculator.activities;
-
+package parkhomov.andrew.lensthicknesscalculator.fragments;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Locale;
-
 import parkhomov.andrew.lensthicknesscalculator.R;
-import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
+import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
 
 
-public class ThknsCalculatorActivity extends AppCompatActivity {
+public class ThknsCalculatorFragment extends Fragment implements View.OnClickListener{
 
 
     private String stringCenterThickness, stringEdgeThickness, stringMaxET, stringCertainET,
     stringCertainETSecond, result;
+
+    View view;
 
     private TextView textViewResult;
     private EditText getCylinderPower;
@@ -38,14 +35,12 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
     etOnCertainAxis, centerThickness, realFrontBaseCurveDptr, sag1Sphere, sag2Sphere, sag2Cylinder,
     recalculatedCylinderCurve, cylinderPower;
 
-
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculator);
-        initialise();
-        textViewResult = (TextView)findViewById(R.id.textViewResult);
-        getCylinderPower = (EditText)findViewById(R.id.editTextCylinderPower);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_calculator, container, false);
+        textViewResult = (TextView)view.findViewById(R.id.textViewResult);
+        getCylinderPower = (EditText)view.findViewById(R.id.editTextCylinderPower);
         if (savedInstanceState != null) {
             stringCenterThickness = savedInstanceState.getString("stringCenterThickness");
             stringEdgeThickness = savedInstanceState.getString("stringEdgeThickness");
@@ -63,32 +58,69 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                     centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
             textViewResult.setText(result.replace(",", "."));
         }
+        setUpButtonsAndListeners();
+        return view;
     }
 
-    private void initialise() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    private void setUpButtonsAndListeners() {
+        Button calculateButton = (Button)view.findViewById(R.id.thicknessCalculateButton);
+        ImageButton imageButtonLensIndex = (ImageButton) view.findViewById(R.id.imageButtonLensIndex);
+        ImageButton imageButtonSpherePower = (ImageButton) view.findViewById(R.id.imageButtonSpherePower);
+        ImageButton imageButtonCylinderPower = (ImageButton) view.findViewById(R.id.imageButtonCylinderPower);
+        ImageButton imageButtonAxis = (ImageButton) view.findViewById(R.id.imageButtonAxis);
+        ImageButton imageButtonRealBaseCurve = (ImageButton) view.findViewById(R.id.imageButtonRealBaseCurve);
+        ImageButton imageButtonCenterThickness = (ImageButton) view.findViewById(R.id.imageButtonCenterThickness);
+        ImageButton imageButtonEdgeThickness = (ImageButton) view.findViewById(R.id.imageButtonEdgeThickness);
+        ImageButton imageButtonLensDiameter = (ImageButton) view.findViewById(R.id.imageButtonLensDiameter);
+        calculateButton.setOnClickListener(this);
+        imageButtonLensIndex.setOnClickListener(this);
+        imageButtonSpherePower.setOnClickListener(this);
+        imageButtonCylinderPower.setOnClickListener(this);
+        imageButtonAxis.setOnClickListener(this);
+        imageButtonRealBaseCurve.setOnClickListener(this);
+        imageButtonCenterThickness.setOnClickListener(this);
+        imageButtonEdgeThickness.setOnClickListener(this);
+        imageButtonLensDiameter.setOnClickListener(this);
+    }
 
-        if (getSupportActionBar() != null)
-        {
-            getSupportActionBar().setTitle(R.string.toolbar_title_lens_thkns_calc);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(getActivity(), GlossaryActivity.class);
+        boolean isCalculationPressed = false;
+        switch(v.getId()){
+            case R.id.thicknessCalculateButton:
+                isCalculationPressed = true;
+                resetValues();
+                selectIndex();
+                break;
+            case R.id.imageButtonLensIndex:
+                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 1);
+                break;
+            case R.id.imageButtonSpherePower:
+                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 2);
+                break;
+            case R.id.imageButtonCylinderPower:
+                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 3);
+                break;
+            case R.id.imageButtonAxis:
+                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 4);
+                break;
+            case R.id.imageButtonRealBaseCurve:
+                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 5);
+                break;
+            case R.id.imageButtonCenterThickness:
+                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 6);
+                break;
+            case R.id.imageButtonEdgeThickness:
+                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 7);
+                break;
+            case R.id.imageButtonLensDiameter:
+                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 8);
+                break;
         }
-    }
-
-    public void onQueryMarkImageButtonClicked(View view) {
-        //get id of button, witch was pressed by user
-        int id = Integer.valueOf(String.valueOf(view.getContentDescription()));
-        Intent intent = new Intent(this, GlossaryActivity.class);
-        // id need for making links(if we need it) in glossary activity
-        intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, id);
-        startActivity(intent);
-    }
-
-
-    public void onButtonCalcClicked(View view) throws IllegalArgumentException{
-        resetValues();
-        selectIndex();
+        if(!isCalculationPressed){
+            startActivity(intent);
+        }
     }
 
     private void resetValues() {
@@ -111,12 +143,12 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
     }
 
     private void curveCalculation() throws IllegalArgumentException{
-        EditText getSpherePower = (EditText)findViewById(R.id.editTextSpherePower);
-        EditText getAxis = (EditText)findViewById(R.id.editTextAxis);
-        EditText getBaseCurve = (EditText)findViewById(R.id.editTextBaseCurve);
-        EditText getCenterThickness = (EditText)findViewById(R.id.editTextCenterThickness);
-        EditText getLensDiameter = (EditText)findViewById(R.id.editTextLensDiameter);
-        EditText getEdgeThickness = (EditText)findViewById(R.id.editTextEdgeThickness);
+        EditText getSpherePower = (EditText)view.findViewById(R.id.editTextSpherePower);
+        EditText getAxis = (EditText)view.findViewById(R.id.editTextAxis);
+        EditText getBaseCurve = (EditText)view.findViewById(R.id.editTextBaseCurve);
+        EditText getCenterThickness = (EditText)view.findViewById(R.id.editTextCenterThickness);
+        EditText getLensDiameter = (EditText)view.findViewById(R.id.editTextLensDiameter);
+        EditText getEdgeThickness = (EditText)view.findViewById(R.id.editTextEdgeThickness);
 
         double lensDiameter;
         double realRadiusMM;
@@ -161,7 +193,7 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                         try {
                             throw new IllegalArgumentException();
                         } catch (IllegalArgumentException e) {
-                            Toast.makeText(this, getResources().getText(R.string.thkns_activ_wrong_axis),
+                            Toast.makeText(getActivity(), getResources().getText(R.string.thkns_activ_wrong_axis),
                                     Toast.LENGTH_LONG).show();
                             getAxis.setText("");
                             axis = 0;
@@ -212,14 +244,14 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
             sphereThicknessCalculation();
         }catch(Exception e){
             textViewResult.setText(null);
-            Toast.makeText(this, getResources().getText(R.string.thkns_activ_wrong_base_curve),
+            Toast.makeText(getActivity(), getResources().getText(R.string.thkns_activ_wrong_base_curve),
                                                                      Toast.LENGTH_LONG).show();
         }
     }
 
     private void selectIndex() {
         try{
-            Spinner getLensIndex = (Spinner)findViewById(R.id.spinner);
+            Spinner getLensIndex = (Spinner)view.findViewById(R.id.spinner);
             int getSpinnerNumber = getLensIndex.getSelectedItemPosition();
             switch(getSpinnerNumber) {
                 case 0:
@@ -288,7 +320,6 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
         stringMaxET = getResources().getString(R.string.thkns_activ_textview_max_edge_thickness);
         stringCertainET = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness);
         stringCertainETSecond = getResources().getString(R.string.thkns_activ_textview_certain_second_half);
-        Toast.makeText(this, String.valueOf(recalculatedCylinderCurve), Toast.LENGTH_SHORT).show();
 
         if(spherePower <= 0 && !isCylinderPlus) {
             maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
@@ -310,7 +341,6 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                 result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
                                 stringCertainET + axisView + stringCertainETSecond,
                         centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
-                Toast.makeText(this, "inside 1 if", Toast.LENGTH_SHORT).show();
                 isCylinderPlus = false;
             }else{
                 maxEdgeThickness = Math.abs(sag1Sphere + sag2Cylinder) + edgeThickness;
@@ -318,7 +348,6 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                 result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
                                 stringCertainET + axisView + stringCertainETSecond,
                         centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
-                Toast.makeText(this, "inside 1 else", Toast.LENGTH_SHORT).show();
                 isCylinderPlus = false;
             }
         }else if(recalculatedCylinderCurve < 0 && !isCylinderPlus){
@@ -328,14 +357,12 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                 result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
                                 stringCertainET + axisView + stringCertainETSecond,
                         centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
-                Toast.makeText(this, "inside 2 if", Toast.LENGTH_SHORT).show();
             }else{
                 maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
                 etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
                 result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
                                 stringCertainET + axisView + stringCertainETSecond,
                         centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
-                Toast.makeText(this, "inside 2 else", Toast.LENGTH_SHORT).show();
             }
         }else if(recalculatedCylinderCurve > 0 && isCylinderPlus){
             maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder)+edgeThickness;
@@ -344,13 +371,12 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
                             stringCertainET + axisView + stringCertainETSecond,
                     centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
             isCylinderPlus = false;
-            Toast.makeText(this, "inside 3", Toast.LENGTH_SHORT).show();
         }
         textViewResult.setText(result.replace(",", "."));
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         outState.putString("stringCenterThickness", stringCenterThickness);
         outState.putString("stringEdgeThickness", stringEdgeThickness);
         outState.putString("stringMaxET", stringMaxET);
@@ -362,5 +388,4 @@ public class ThknsCalculatorActivity extends AppCompatActivity {
         outState.putDouble("etOnCertainAxis", etOnCertainAxis);
         outState.putInt("axisView", axisView);
     }
-
 }

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
+import parkhomov.andrew.lensthicknesscalculator.fragments.DiamCalculatorFragment;
 import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 
 public class GlossaryActivity extends AppCompatActivity {
@@ -106,7 +107,7 @@ public class GlossaryActivity extends AppCompatActivity {
 
     public void onGlossaryTextViewClicked(View view) {
         if(itemId == 8) {
-            startActivity(new Intent(this, DiamCalculatorActivity.class));
+            startActivity(new Intent(this, DiamCalculatorFragment.class));
         }
         if(itemId == 7){
             try{

@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.activities;
+package parkhomov.andrew.lensthicknesscalculator.fragments;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -16,9 +16,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
+import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
 import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 
-public class GlossaryListActivity extends ListActivity{
+public class GlossaryListFragment extends ListActivity{
 
     ListView listView;
 

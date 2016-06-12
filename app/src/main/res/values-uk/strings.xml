@@ -53,6 +53,10 @@
     <string name="toolbar_title_account">Account</string>
     <string name="toolbar_title_settings">Налаштування</string>
 
+    <!--Special for main screen button-->
+    <string name="main_screen_thkns_calc">Розрахунок\nтовщини</string>
+    <string name="main_screen_diam_calc">Розрахунок\nдіаметра</string>
+
     <!-- Navigation Drawer -->
     <string name="nav_drawer_item_home">Головна</string>
     <string name="nav_drawer_item_thkns_calc">Розрахунок товщини лінзи</string>
@@ -87,7 +91,6 @@
     <!-- Inside help & feedback-->
     <string-array name="help_and_feedback_array_list">
         <item>Оцінити додаток</item>
-        <item>Допомогти проекту</item>
         <item>Зворотній зв"\u0027"язок</item>
     </string-array>
 

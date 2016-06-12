@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!--Main screen button colors-->
+    <color name="imageButtonBlue">#FF8C9EFF</color>
+
     <!-- App Main Palette -->
     <color name="primary">@color/blue_500</color>
     <color name="primaryDark">@color/blue_700</color>

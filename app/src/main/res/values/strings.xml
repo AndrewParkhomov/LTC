@@ -8,9 +8,6 @@
     <string name="language">Language</string>
     <string name="rate_the_app">Rate this app</string>
     <string name="title_help_the_project">Help the project</string>
-    <string name="do_you_like_the_app">If you"\u0027"re found the app useful, you can help the project providing financial assistance.\nPrivateBank 5168 7556 3143 4988</string>
-
-
 
     <!-- Version & Date-->
     <string name="version">Version 1.0</string>
@@ -73,6 +70,10 @@
     <string name="tag_nav_drawer_main_entry">nav_drawer_main_entry</string>
     <string name="tag_nav_drawer_special_entry">nav_drawer_special_entry</string>
 
+    <!--Special for main screen button-->
+    <string name="main_screen_thkns_calc">Thickness\ncalculator</string>
+    <string name="main_screen_diam_calc">Diameter\ncalculator</string>
+
     <!-- Query mark id -->
     <string name="one">1</string>
     <string name="two">2</string>
@@ -95,7 +96,6 @@
     <!-- Inside help & feedback-->
     <string-array name="help_and_feedback_array_list">
         <item>Rate this app</item>
-        <item>Help the project</item>
         <item>Feedback</item>
     </string-array>
 
@@ -103,6 +103,9 @@
     <string name="English">English</string>
     <string name="Russian">Русский</string>
     <string name="Ukrainian">Українська</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

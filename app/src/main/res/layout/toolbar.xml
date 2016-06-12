@@ -6,5 +6,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
-    tools:context=".MainActivity" />
+    android:background="@drawable/toolbar_gradient"
+    tools:context=".activities.MainActivity" />
