@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/fragment_background"
+    android:id="@+id/linearLayoutDiameterActivity"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,13 +10,14 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:id="@+id/scrollView"
         android:layout_height="match_parent">
 
         <GridLayout
             android:padding="@dimen/activity_vertical_margin"
             android:rowCount="5"
             android:columnCount="3"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="ContentDescription"
@@ -103,7 +104,7 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:inputType="date"
+                android:inputType="numberDecimal"
                 android:ems="3"
                 android:id="@+id/editTextED"
                 android:layout_row="0"
@@ -115,7 +116,7 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:inputType="date"
+                android:inputType="numberDecimal"
                 android:ems="3"
                 android:id="@+id/editTextDBL"
                 android:layout_row="1"
@@ -155,7 +156,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="60dp"
+                android:minWidth="70dp"
                 android:text="@string/buttonCalc"
                 android:gravity="center"
                 android:background="@drawable/round_button_blue"

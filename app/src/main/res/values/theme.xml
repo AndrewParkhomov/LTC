@@ -5,7 +5,11 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorMainBlue</item>
+    </style>
+
+    <style name="setBackground" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/fragment_background</item>
     </style>
 
     <!-- Dialog "About" application theme. -->
@@ -13,6 +17,6 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorMainBlue</item>
     </style>
 </resources>

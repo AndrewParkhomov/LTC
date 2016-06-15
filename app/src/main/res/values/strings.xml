@@ -23,8 +23,10 @@
     <string name="thkns_activ_material_index">Lens index</string>
     <string name="thkns_activ_lens_diameter">Lens diameter</string>
     <string name="thkns_activ_edge_thickness">Edge thickness</string>
-    <string name="thkns_activ_wrong_axis">Something wrong with your axis</string>
-    <string name="diam_activ_wrong_EdDblPd">Something wrong with ed, dbl, pd</string>
+    <string name="thkns_activ_wrong_axis">Incorrect axis data</string>
+    <string name="diam_activ_wrong_ed">Incorrect ED value</string>
+    <string name="diam_activ_wrong_dbl">Incorrect DBL value</string>
+    <string name="diam_activ_wrong_pd">Incorrect PD value</string>
     <string name="thkns_activ_wrong_base_curve">Incorrect sphere power, thickness, base curve or diameter</string>
     <string name="thkns_activ_textview_center_thickness">Center thickness = %.2f mm\n</string>
     <string name="thkns_activ_textview_edge_thickness">Minimum edge thickness = %.2f mm</string>
@@ -90,22 +92,12 @@
     <!-- Setting list items-->
     <string-array name="settings_list">
         <item>Language</item>
-        <item>Help "\u0026" feedback</item>
-    </string-array>
-
-    <!-- Inside help & feedback-->
-    <string-array name="help_and_feedback_array_list">
         <item>Rate this app</item>
-        <item>Feedback</item>
     </string-array>
 
     <!-- Languages -->
     <string name="English">English</string>
     <string name="Russian">Русский</string>
     <string name="Ukrainian">Українська</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 </resources>

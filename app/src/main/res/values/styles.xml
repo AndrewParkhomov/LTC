@@ -50,7 +50,4 @@
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_marginLeft">@dimen/nav_drawer_vertical_keyline_icon_left</item>
     </style>
-
-
-
 </resources>

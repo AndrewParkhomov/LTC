@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.fragments;
+package parkhomov.andrew.lensthicknesscalculator.activities;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,13 +21,14 @@ import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
 import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 
-public class GlossaryListFragment extends ListActivity{
+public class GlossaryListActivity extends ListActivity{
 
     ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        listView = getListView();
         Cursor cursor;
         // get info from database
         try{
@@ -72,7 +75,6 @@ public class GlossaryListFragment extends ListActivity{
                     glossaryList.add(cursor.getString(0));
                 }
                 // list which display items(titles) in glossary
-                listView = getListView();
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(
                         this,
                         android.R.layout.simple_list_item_1,
@@ -85,6 +87,15 @@ public class GlossaryListFragment extends ListActivity{
         }catch(SQLException e){
             Toast.makeText(this, getResources().getText(R.string.database_unavailable), Toast.LENGTH_LONG).show();
         }
+        setDividerColorAndBackground();
+    }
+
+    private void setDividerColorAndBackground() {
+        ColorDrawable sage = new ColorDrawable(this.getResources().getColor(R.color.blue_500));
+        listView.setDivider(sage);
+        listView.setBackgroundResource(R.drawable.fragment_background);
+        listView.setDividerHeight(1);
+        listView.setPadding(16,16,16,16);
     }
 
     @Override

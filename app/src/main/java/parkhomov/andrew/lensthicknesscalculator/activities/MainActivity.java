@@ -32,7 +32,6 @@ import java.util.Locale;
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.customViews.ScrimInsetsFrameLayout;
 import parkhomov.andrew.lensthicknesscalculator.fragments.DiamCalculatorFragment;
-import parkhomov.andrew.lensthicknesscalculator.fragments.GlossaryListFragment;
 import parkhomov.andrew.lensthicknesscalculator.fragments.ThknsCalculatorFragment;
 import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
@@ -41,11 +40,12 @@ import parkhomov.andrew.lensthicknesscalculator.utils.UtilsMiscellaneous;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static boolean isOneTextLinkInDatabaseClicked;
     String currentLanguage;
-    private DrawerLayout mDrawerLayout;
-    private LinearLayout mNavDrawerEntriesRootView;
-    private FrameLayout mFrameLayoutThknsCalc, mFrameLayoutDiamCalc,
-            mFrameLayout_Settings, mFrameLayout_About,mFrameLayout_Glossary;
+    private DrawerLayout drawerLayout;
+    private LinearLayout navDrawerEntriesRootView;
+    private FrameLayout frameLayoutThknsCalc, frameLayoutDiamCalc,
+            frameLayoutSettings, frameLayoutAbout,frameLayoutGlossary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Cursor cursor;
         Locale locale;
         Configuration config;
-        //get name of language from database(by default English)
+        //get language from database(by default English)
         SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
         SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
         try {
@@ -73,9 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cursor.close();
                 db.close();
             }
-        }catch (SQLiteException e){
-            Toast.makeText(this, "data wrong", Toast.LENGTH_LONG).show();
-        }
+        }catch (SQLiteException e){}
         // set language
         switch (currentLanguage) {
             case "English":
@@ -108,34 +106,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setUpIcons();
 
-        mNavDrawerEntriesRootView = (LinearLayout) findViewById
+        navDrawerEntriesRootView = (LinearLayout) findViewById
                 (R.id.navigation_drawer_linearLayout_entries_root_view);
 
-        mFrameLayoutThknsCalc = (FrameLayout) findViewById
+        frameLayoutThknsCalc = (FrameLayout) findViewById
                 (R.id.navigation_drawer_items_list_linearLayout_thkns_calc);
 
-        mFrameLayoutDiamCalc = (FrameLayout) findViewById
+        frameLayoutDiamCalc = (FrameLayout) findViewById
                 (R.id.navigation_drawer_items_list_linearLayout_diamCalc);
 
-        mFrameLayout_About = (FrameLayout) findViewById
+        frameLayoutAbout = (FrameLayout) findViewById
                 (R.id.navigation_drawer_items_list_linearLayout_about);
 
-        mFrameLayout_Settings = (FrameLayout) findViewById
+        frameLayoutSettings = (FrameLayout) findViewById
                 (R.id.navigation_drawer_items_list_linearLayout_settings);
 
-        mFrameLayout_Glossary = (FrameLayout) findViewById
+        frameLayoutGlossary = (FrameLayout) findViewById
                 (R.id.navigation_drawer_items_linearLayout_glossary);
 
         // Navigation Drawer
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_DrawerLayout);
-        //mDrawerLayout.openDrawer(mNavDrawerEntriesRootView);
+        drawerLayout = (DrawerLayout) findViewById(R.id.main_activity_DrawerLayout);
 
         final ScrimInsetsFrameLayout mScrimInsetsFrameLayout = (ScrimInsetsFrameLayout)
                 findViewById(R.id.main_activity_navigation_drawer_rootLayout);
 
         final ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(
                 this,
-                mDrawerLayout,
+                drawerLayout,
                 toolbar,
                 R.string.navigation_drawer_opened,
                 R.string.navigation_drawer_closed) {
@@ -145,8 +142,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onDrawerSlide(drawerView, 0);
             }
         };
-        mDrawerLayout.openDrawer(Gravity.LEFT);
-        mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
+        drawerLayout.openDrawer(Gravity.LEFT);
+        drawerLayout.setDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
 
         // Navigation Drawer layout width
@@ -163,32 +160,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Nav Drawer item click listener
 
-        mFrameLayoutThknsCalc.setOnClickListener(this);
-        mFrameLayoutDiamCalc.setOnClickListener(this);
-        mFrameLayout_Glossary.setOnClickListener(this);
-        mFrameLayout_About.setOnClickListener(this);
-        mFrameLayout_Settings.setOnClickListener(this);
+        frameLayoutThknsCalc.setOnClickListener(this);
+        frameLayoutDiamCalc.setOnClickListener(this);
+        frameLayoutGlossary.setOnClickListener(this);
+        frameLayoutAbout.setOnClickListener(this);
+        frameLayoutSettings.setOnClickListener(this);
 
-        // Set the first item as selected for the first time
-        mFrameLayoutThknsCalc.setSelected(true);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        ThknsCalculatorFragment tc = new ThknsCalculatorFragment();
-        fragmentTransaction.replace(R.id.main_activity_content_frame, tc);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        if(isOneTextLinkInDatabaseClicked){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            DiamCalculatorFragment df = new DiamCalculatorFragment();
+            fragmentTransaction.replace(R.id.main_activity_content_frame, df);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            if(getSupportActionBar() != null) getSupportActionBar().setTitle(getString(R.string.toolbar_title_diam_calc));
+            if(drawerLayout.isDrawerOpen(GravityCompat.START))drawerLayout.closeDrawer(Gravity.LEFT);
+            frameLayoutDiamCalc.setSelected(true);
+            mActionBarDrawerToggle.syncState();
+            isOneTextLinkInDatabaseClicked = false;
+        }else{
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            ThknsCalculatorFragment tc = new ThknsCalculatorFragment();
+            fragmentTransaction.replace(R.id.main_activity_content_frame, tc);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            // Set the first item as selected for the first time
+            frameLayoutThknsCalc.setSelected(true);
+        }
     }
-
 
 
     @Override
     public void onClick(View view) {
         if (!view.isSelected()) {
             onRowPressed((FrameLayout) view);
-            if (view == mFrameLayoutThknsCalc) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            if (view == frameLayoutThknsCalc) {
                 ThknsCalculatorFragment tc = new ThknsCalculatorFragment();
                 fragmentTransaction.replace(R.id.main_activity_content_frame, tc);
                 fragmentTransaction.addToBackStack(null);
@@ -197,9 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     getSupportActionBar().setTitle(getString(R.string.toolbar_title_lens_thkns_calc));
                 }
                 view.setSelected(true);
-            } else if (view == mFrameLayoutDiamCalc) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            } else if (view == frameLayoutDiamCalc) {
                 DiamCalculatorFragment df = new DiamCalculatorFragment();
                 fragmentTransaction.replace(R.id.main_activity_content_frame, df);
                 fragmentTransaction.addToBackStack(null);
@@ -208,37 +215,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     getSupportActionBar().setTitle(getString(R.string.toolbar_title_diam_calc));
                 }
                 view.setSelected(true);
-            } else if (view == mFrameLayout_Glossary) {
-                startActivity(new Intent(view.getContext(), GlossaryListFragment.class));
-            } else if (view == mFrameLayout_About) {
+            } else if (view == frameLayoutGlossary) {
+                startActivity(new Intent(view.getContext(), GlossaryListActivity.class));
+            } else if (view == frameLayoutAbout) {
                 startActivity(new Intent(view.getContext(), AboutDialogActivity.class));
-            } else if (view == mFrameLayout_Settings) {
+            } else if (view == frameLayoutSettings) {
                 startActivity(new Intent(view.getContext(), SettingsActivity.class));
             }
         } else {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
+            drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
 
     private void onRowPressed(@NonNull final FrameLayout pressedRow) {
         if (pressedRow.getTag() != getResources().getString(R.string.tag_nav_drawer_special_entry))
         {
-            for (int i = 0; i < mNavDrawerEntriesRootView.getChildCount(); i++)
+            for (int i = 0; i < navDrawerEntriesRootView.getChildCount(); i++)
             {
-                final View currentView = mNavDrawerEntriesRootView.getChildAt(i);
+                final View currentView = navDrawerEntriesRootView.getChildAt(i);
 
                 //Always true?
                 final boolean currentViewIsMainEntry = currentView.getTag() ==
                         getResources().getString(R.string.tag_nav_drawer_main_entry);
 
-                if (currentViewIsMainEntry)
-                {
+                if (currentViewIsMainEntry) {
                     currentView.setSelected(currentView == pressedRow);
                 }
             }
         }
 
-        mDrawerLayout.closeDrawer(GravityCompat.START);
+        drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     private void setUpIcons() {
@@ -274,8 +280,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)){
-            mDrawerLayout.closeDrawer(Gravity.LEFT);
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(Gravity.LEFT);
         }else{
             new AlertDialog.Builder(this)
                     .setTitle(R.string.exit_question_title)

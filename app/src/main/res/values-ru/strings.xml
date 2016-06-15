@@ -21,7 +21,10 @@
     <string name="thkns_activ_material_index">Индекс преломления</string>
     <string name="thkns_activ_lens_diameter">Диаметр линзы</string>
     <string name="thkns_activ_edge_thickness">Толщина по краю</string>
-    <string name="thkns_activ_wrong_axis">Чтото не так с углом</string>
+    <string name="thkns_activ_wrong_axis">Недопустимое значение угла цилиндра</string>
+    <string name="diam_activ_wrong_ed">Введите ED</string>
+    <string name="diam_activ_wrong_dbl">Введите DBL</string>
+    <string name="diam_activ_wrong_pd">Введите PD</string>
     <string name="thkns_activ_wrong_base_curve">Неверные значения кривизны, силы, толщины или диаметра линзы</string>
     <string name="thkns_activ_textview_center_thickness">Толщина по центру = %.2f mm\n</string>
     <string name="thkns_activ_textview_edge_thickness">Минимальная толщина по краю = %.2f mm</string>
@@ -36,6 +39,13 @@
     <string name="buttonCalc">Рассчитать</string>
     <string name="aboutLTCdeveloper">Разработка:\nПархомов Андрей</string>
     <string name="aboutLTCemail">\nE-mail: parkhomov.andrew@gmail.com</string>
+
+    <!--Rate this app -->
+    <string name="rta_dialog_title">Оцените приложение</string>
+    <string name="rta_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
+    <string name="rta_dialog_ok">Оценить сейчас</string>
+    <string name="rta_dialog_cancel">Напомнить позже</string>
+    <string name="rta_dialog_no">Нет, спасибо</string>
 
     <string-array name="index_of_refraction">
         <item>1.498 CR-39</item>
@@ -87,13 +97,7 @@
     <!-- Setting list items-->
     <string-array name="settings_list">
         <item>Язык</item>
-        <item>Помощь "\u0026" Обратная связь</item>
-    </string-array>
-
-    <!-- Inside help & feedback-->
-    <string-array name="help_and_feedback_array_list">
         <item>Оценить приложение</item>
-        <item>Обратная связь</item>
     </string-array>
 
     <!-- Languages -->

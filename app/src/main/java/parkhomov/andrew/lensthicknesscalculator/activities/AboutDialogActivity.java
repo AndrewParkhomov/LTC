@@ -2,6 +2,7 @@ package parkhomov.andrew.lensthicknesscalculator.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
@@ -20,5 +21,7 @@ public class AboutDialogActivity extends AppCompatActivity {
                 getResources().getString(R.string.year);
         tv.setTextColor(0xDE000000);
         tv.setText(text);
+        //disable outside touches in dialog activity
+        this.setFinishOnTouchOutside(false);
     }
 }

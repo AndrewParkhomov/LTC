@@ -10,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
@@ -33,9 +36,7 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
             ed = savedInstanceState.getDouble("ed");
             ed = savedInstanceState.getDouble("dbl");
             ed = savedInstanceState.getDouble("pd");
-            result = getResources().getString(R.string.diam_activ_textView_result_formula)
-                    + String.valueOf(diam).replace(",", ".") +
-                    getResources().getString(R.string.diam_activ_textView_mm);
+            result = getResources().getString(R.string.diam_activ_textView_result_formula) + String.valueOf(diam).replace(",", ".") + getResources().getString(R.string.diam_activ_textView_mm);
             textResult.setText(result);
         }
         setUpButtonsAndListeners();
@@ -44,6 +45,13 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
 
     private void setUpButtonsAndListeners() {
         Button calculateButton = (Button)view.findViewById(R.id.diameterCalculateButton);
+        if(String.valueOf(Locale.getDefault().getDisplayLanguage()).equals("українська")){
+            calculateButton.setMinimumWidth(160);
+        }else if(String.valueOf(Locale.getDefault().getDisplayLanguage()).equals("русский")){
+            calculateButton.setMinimumWidth(100);
+        }else{
+            calculateButton.setMinimumWidth(50);
+        }
         ImageButton imageButtonED = (ImageButton) view.findViewById(R.id.imageButtonED);
         ImageButton imageButtonDBL = (ImageButton) view.findViewById(R.id.imageButtonDBL);
         ImageButton imageButtonPD = (ImageButton) view.findViewById(R.id.imageButtonPD);
@@ -61,13 +69,20 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
             ed = Double.parseDouble(String.valueOf(edEditText.getText()));
             dbl = Double.parseDouble(String.valueOf(dblEditText.getText()));
             pd = Double.parseDouble(String.valueOf(pdEditText.getText()));
-            diam = ed * 2 + dbl - pd;
-            result = getResources().getString(R.string.diam_activ_textView_result_formula)
-                    + String.valueOf(diam).replace(",", ".") +
-                    getResources().getString(R.string.diam_activ_textView_mm);
+            diam = Math.ceil(ed * 2 + dbl - pd);
+            result = getResources().getString(R.string.diam_activ_textView_result_formula) + String.valueOf(diam).replace(",", ".") + getResources().getString(R.string.diam_activ_textView_mm);
             textResult.setText(result);
         } catch (Exception e) {
-            Toast.makeText(getActivity(), getResources().getText(R.string.diam_activ_wrong_EdDblPd), Toast.LENGTH_LONG).show();
+            if(String.valueOf(edEditText.getText()).equals("") || String.valueOf(edEditText.getText()).equals(".")) {
+                Toast.makeText(getActivity(), getResources().getText(R.string.diam_activ_wrong_ed), Toast.LENGTH_SHORT).show();
+            }
+            if(String.valueOf(dblEditText.getText()).equals("") || String.valueOf(edEditText.getText()).equals(".")){
+                Toast.makeText(getActivity(), getResources().getText(R.string.diam_activ_wrong_dbl), Toast.LENGTH_SHORT).show();
+            }
+            if(String.valueOf(pdEditText.getText()).equals("") || String.valueOf(edEditText.getText()).equals(".")) {
+                Toast.makeText(getActivity(), getResources().getText(R.string.diam_activ_wrong_pd), Toast.LENGTH_SHORT).show();
+            }
+            textResult.setText(null);
         }
     }
 

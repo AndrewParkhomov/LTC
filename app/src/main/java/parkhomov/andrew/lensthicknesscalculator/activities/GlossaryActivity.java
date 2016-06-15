@@ -93,7 +93,7 @@ public class GlossaryActivity extends AppCompatActivity {
         setName.setText(name);
         setDescription.setText(description);
         setPicture.setImageResource(imageId);
-        if(itemId == 7){
+        if(itemId == 3 || itemId == 6 || itemId == 7){
             tempNumber = 12;
             addTV = (TextView)findViewById(R.id.glossaryAddTextView);
             addTV.setText(getResources().getText(R.string.link_to_transposition));
@@ -107,9 +107,10 @@ public class GlossaryActivity extends AppCompatActivity {
 
     public void onGlossaryTextViewClicked(View view) {
         if(itemId == 8) {
-            startActivity(new Intent(this, DiamCalculatorFragment.class));
+            MainActivity.isOneTextLinkInDatabaseClicked = true;
+            startActivity(new Intent(this, MainActivity.class));
         }
-        if(itemId == 7){
+        if(itemId == 3 || itemId == 6 || itemId == 7){
             try{
                 SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
                 SQLiteDatabase db = glossaryDatabase.getReadableDatabase();

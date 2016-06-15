@@ -113,7 +113,7 @@
 
                 <FrameLayout
                     android:id="@+id/navigation_drawer_items_linearLayout_glossary"
-                    style="@style/NavDrawerRowLayout.Main">
+                    style="@style/NavDrawerRowLayout.Secondary">
 
                     <ImageView
                         android:id="@+id/navigation_drawer_items_list_icon_glossary"

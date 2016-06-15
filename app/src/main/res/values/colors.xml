@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#2196F3</color>
+    <color name="colorMainBlue">#2196F3</color>
+    <color name="colorOnLinkClicked">#fd3d87</color>
 
     <!--Main screen button colors-->
     <color name="imageButtonBlue">#FF8C9EFF</color>
@@ -10,6 +11,7 @@
 
     <!-- App Main Palette -->
     <color name="primary">@color/blue_500</color>
+    <color name="primary200">@color/blue_500</color>
     <color name="primaryDark">@color/blue_700</color>
     <color name="textPrimary">@color/text_white_text_icons_100</color>
 
@@ -38,6 +40,7 @@
 
     <!-- Blue -->
     <color name="blue_500">#2196f3</color>
+    <color name="blue_200">#90caf9</color>
     <color name="blue_700">#1976D2</color>
 
     <!-- Black and White -->

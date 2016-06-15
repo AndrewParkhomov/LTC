@@ -19,12 +19,15 @@
     <string name="thkns_activ_material_index">Індекс матеріалу</string>
     <string name="thkns_activ_lens_diameter">Діаметр лінзи</string>
     <string name="thkns_activ_edge_thickness">Товщина по краю</string>
-    <string name="thkns_activ_wrong_axis">Щось не так з кутом</string>
+    <string name="thkns_activ_wrong_axis">Недопустиме значення кута циліндра</string>
+    <string name="diam_activ_wrong_ed">Введіть ED</string>
+    <string name="diam_activ_wrong_dbl">Введіть DBL</string>
+    <string name="diam_activ_wrong_pd">Введіть PD</string>
     <string name="thkns_activ_wrong_base_curve">Невірне значення сфери, кривизни, товщини або діаметра лінзи</string>
     <string name="thkns_activ_textview_center_thickness">Товщина по центру = %.2f mm\n</string>
     <string name="thkns_activ_textview_edge_thickness">Мінімальна товщина по краю = %.2f mm</string>
     <string name="thkns_activ_textview_max_edge_thickness">\nМаксимальна товщина по краю = %.2f mm\n</string>
-    <string name="thkns_activ_textview_certain_edge_thickness">Товщина під кутом " "</string>
+    <string name="thkns_activ_textview_certain_edge_thickness">Товщина по краю під кутом " "</string>
     <string name="thkns_activ_textview_certain_second_half"> ° = %.2f mm</string>
     <string name="diam_activ_ed">ED</string>
     <string name="diam_activ_dbl">DBL</string>
@@ -85,13 +88,7 @@
     <!-- Setting list items-->
     <string-array name="settings_list">
         <item>Мова</item>
-        <item>Допомога "\u0026" Зворотній зв"\u0027"язок</item>
-    </string-array>
-
-    <!-- Inside help & feedback-->
-    <string-array name="help_and_feedback_array_list">
         <item>Оцінити додаток</item>
-        <item>Зворотній зв"\u0027"язок</item>
     </string-array>
 
     <!-- Languages -->

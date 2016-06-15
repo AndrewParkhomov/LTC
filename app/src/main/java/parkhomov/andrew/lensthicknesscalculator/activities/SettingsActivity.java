@@ -24,13 +24,15 @@ public class SettingsActivity extends ListActivity{
                 getResources().getStringArray(R.array.settings_list)
         );
         listView.setAdapter(adapter);
-        customizeListView();
+        setDividerColorAndBackground();
+
     }
-    private void customizeListView(){
-        // set divider color
-        //int[] colors = {0, 0xFF388E3C, 0}; // green divider
-        //listView.setDivider(new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors));
-        listView.setDivider(new ColorDrawable(0xDE000000));
+    private void setDividerColorAndBackground(){
+        // set divider color and background
+        listView = getListView();
+        ColorDrawable sage = new ColorDrawable(this.getResources().getColor(R.color.blue_500));
+        listView.setDivider(sage);
+        listView.setBackgroundResource(R.drawable.fragment_background);
         listView.setDividerHeight(1);
         listView.setPadding(16,16,16,16);
     }
@@ -45,7 +47,7 @@ public class SettingsActivity extends ListActivity{
                 startActivity(intent);
                 break;
             case 1:
-                intent = new Intent(this, HelpTheProjectActivity.class);
+                intent = new Intent(this, RateAppActivity.class);
                 startActivity(intent);
                 break;
         }
