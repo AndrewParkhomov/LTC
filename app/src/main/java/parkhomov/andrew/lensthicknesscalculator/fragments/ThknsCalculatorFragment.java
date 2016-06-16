@@ -43,23 +43,6 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         view = inflater.inflate(R.layout.activity_calculator, container, false);
         textViewResult = (TextView)view.findViewById(R.id.textViewResult);
         getCylinderPower = (EditText)view.findViewById(R.id.editTextCylinderPower);
-        if (savedInstanceState != null) {
-            stringCenterThickness = savedInstanceState.getString("stringCenterThickness");
-            stringEdgeThickness = savedInstanceState.getString("stringEdgeThickness");
-            stringMaxET = savedInstanceState.getString("stringMaxET");
-            stringCertainET = savedInstanceState.getString("stringCertainET");
-            stringCertainETSecond = savedInstanceState.getString("stringCertainETSecond");
-            centerThickness = savedInstanceState.getDouble("centerThickness");
-            edgeThickness = savedInstanceState.getDouble("edgeThickness");
-            maxEdgeThickness = savedInstanceState.getDouble("maxEdgeThickness");
-            etOnCertainAxis = savedInstanceState.getDouble("etOnCertainAxis");
-            axisView = savedInstanceState.getInt("axisView");
-
-            result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
-                            stringCertainET + axisView + stringCertainETSecond,
-                    centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
-            textViewResult.setText(result.replace(",", "."));
-        }
         setUpButtonsAndListeners();
         return view;
     }
@@ -182,6 +165,8 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             if(spherePower < 0){
                 // if lens is 0 or minus
                 centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
+//            }else if(spherePower < 0 && String.valueOf(getCenterThickness.getText()).equals("")){
+//                centerThickness = 0;
             }else{
                 // ROUGH Formula for calc CT with plano - concave lens, without pay attention
                 // on front curve
@@ -382,19 +367,5 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             isCylinderPlus = false;
         }
         textViewResult.setText(result.replace(",", "."));
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putString("stringCenterThickness", stringCenterThickness);
-        outState.putString("stringEdgeThickness", stringEdgeThickness);
-        outState.putString("stringMaxET", stringMaxET);
-        outState.putString("stringCertainET", stringCertainET);
-        outState.putString("stringCertainETSecond", stringCertainETSecond);
-        outState.putDouble("centerThickness", centerThickness);
-        outState.putDouble("edgeThickness", edgeThickness);
-        outState.putDouble("maxEdgeThickness", maxEdgeThickness);
-        outState.putDouble("etOnCertainAxis", etOnCertainAxis);
-        outState.putInt("axisView", axisView);
     }
 }

@@ -21,24 +21,12 @@ import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
 
 public class DiamCalculatorFragment extends Fragment implements View.OnClickListener{
 
-    private double ed, dbl, pd, diam;
-    String result;
-    TextView textResult;
     View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_diam_calculator, container, false);
-        textResult = (TextView)view.findViewById(R.id.textViewDiamResult);
-        if(savedInstanceState != null){
-            result = savedInstanceState.getString("result");
-            ed = savedInstanceState.getDouble("ed");
-            ed = savedInstanceState.getDouble("dbl");
-            ed = savedInstanceState.getDouble("pd");
-            result = getResources().getString(R.string.diam_activ_textView_result_formula) + String.valueOf(diam).replace(",", ".") + getResources().getString(R.string.diam_activ_textView_mm);
-            textResult.setText(result);
-        }
         setUpButtonsAndListeners();
         return view;
     }
@@ -65,12 +53,13 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
         EditText edEditText = (EditText) view.findViewById(R.id.editTextED);
         EditText dblEditText = (EditText) view.findViewById(R.id.editTextDBL);
         EditText pdEditText = (EditText) view.findViewById(R.id.editTextPD);
+        TextView textResult = (TextView)view.findViewById(R.id.textViewDiamResult);
         try {
-            ed = Double.parseDouble(String.valueOf(edEditText.getText()));
-            dbl = Double.parseDouble(String.valueOf(dblEditText.getText()));
-            pd = Double.parseDouble(String.valueOf(pdEditText.getText()));
-            diam = Math.ceil(ed * 2 + dbl - pd);
-            result = getResources().getString(R.string.diam_activ_textView_result_formula) + String.valueOf(diam).replace(",", ".") + getResources().getString(R.string.diam_activ_textView_mm);
+            double ed = Double.parseDouble(String.valueOf(edEditText.getText()));
+            double dbl = Double.parseDouble(String.valueOf(dblEditText.getText()));
+            double pd = Double.parseDouble(String.valueOf(pdEditText.getText()));
+            double diam = Math.ceil(ed * 2 + dbl - pd);
+            String result = getResources().getString(R.string.diam_activ_textView_result_formula) + String.valueOf(diam).replace(",", ".") + getResources().getString(R.string.diam_activ_textView_mm);
             textResult.setText(result);
         } catch (Exception e) {
             if(String.valueOf(edEditText.getText()).equals("") || String.valueOf(edEditText.getText()).equals(".")) {
@@ -108,13 +97,5 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
         if(!isCalculationPressed){
             startActivity(intent);
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putString("result", result);
-        outState.putDouble("ed", ed);
-        outState.putDouble("dbl", dbl);
-        outState.putDouble("pd", pd);
     }
 }

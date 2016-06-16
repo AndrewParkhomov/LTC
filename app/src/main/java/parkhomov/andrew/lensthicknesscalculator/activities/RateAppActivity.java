@@ -10,9 +10,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 
@@ -36,11 +39,17 @@ public class RateAppActivity extends AppCompatActivity {
     private static WeakReference<AlertDialog> sDialogRef = null;
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_rate_the_app);
+        this.setFinishOnTouchOutside(false);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
-        RateAppActivity.init(new RateAppActivity.Config(3, 5));
-        RateAppActivity.showRateDialog(this, R.style.AppThemeDialog);
-        this.setFinishOnTouchOutside(false);
+        //RateAppActivity.init(new RateAppActivity.Config(3, 5));
+        //RateAppActivity.showRateDialog(this, R.style.AppThemeDialog);
     }
 
     /**

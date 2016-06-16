@@ -56,6 +56,20 @@
     <string name="toolbar_title_account">Account</string>
     <string name="toolbar_title_settings">Налаштування</string>
 
+    <!--Rate this app -->
+    <string name="rta_dialog_title">Оцените приложение</string>
+    <string name="rta_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
+    <string name="rta_dialog_ok">Оценить сейчас</string>
+    <string name="rta_dialog_cancel">Напомнить позже</string>
+    <string name="rta_dialog_no">Нет, спасибо</string>
+
+    <string name="rate_dialog_title">Оцените приложение</string>
+    <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время,
+        чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
+    <string name="rate_dialog_ok">Оценить сейчас</string>
+    <string name="rate_dialog_cancel">Напомнить позже</string>
+    <string name="rate_dialog_no">Нет, спасибо</string>
+
     <!--Special for main screen button-->
     <string name="main_screen_thkns_calc">Розрахунок\nтовщини</string>
     <string name="main_screen_diam_calc">Розрахунок\nдіаметра</string>

@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/activity_horizontal_margin"
             android:textSize="18sp"
-            android:textColor="@drawable/added_glossary"
+            android:textColor="@drawable/on_text_pressed_selector"
             android:onClick="onGlossaryTextViewClicked"
             android:id="@+id/glossaryAddTextView"/>
 

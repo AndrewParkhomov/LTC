@@ -6,7 +6,7 @@
     <string name="link_to_diamCalcActivity"><u>Diameter calculator</u></string>
     <string name="link_to_transposition"><u>Transposition</u></string>
     <string name="language">Language</string>
-    <string name="rate_the_app">Rate this app</string>
+    <string name="rate_the_app">Rate this application</string>
     <string name="title_help_the_project">Help the project</string>
 
     <!-- Version & Date-->
@@ -71,6 +71,20 @@
     <string name="navigation_drawer_closed">The navigation drawer is closed</string>
     <string name="tag_nav_drawer_main_entry">nav_drawer_main_entry</string>
     <string name="tag_nav_drawer_special_entry">nav_drawer_special_entry</string>
+
+    <!--Rate this app -->
+    <string name="rta_dialog_title">Оцените приложение</string>
+    <string name="rta_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
+    <string name="rta_dialog_ok">Оценить сейчас</string>
+    <string name="rta_dialog_cancel">Напомнить позже</string>
+    <string name="rta_dialog_no">Нет, спасибо</string>
+
+    <string name="rate_dialog_title">Оцените приложение</string>
+    <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время,
+        чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
+    <string name="rate_dialog_ok">Оценить сейчас</string>
+    <string name="rate_dialog_cancel">Напомнить позже</string>
+    <string name="rate_dialog_no">Нет, спасибо</string>
 
     <!--Special for main screen button-->
     <string name="main_screen_thkns_calc">Thickness\ncalculator</string>

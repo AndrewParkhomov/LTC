@@ -1,16 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
     android:background="@color/text_white_text_icons_100"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".activities.RateAppActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingBottom="@dimen/padding_15dp"
         android:textSize="@dimen/text_size_14"
-        android:text="@string/rate_the_app"/>
+        android:text="@string/rate_dialog_message"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_12"
+        android:padding="@dimen/padding_15dp"
+        android:textColor="@drawable/on_text_pressed_selector"
+        android:layout_gravity="end"
+        android:textAllCaps="true"
+        android:id="@+id/rate_dialog_ok"
+        android:text="@string/rate_dialog_ok"
+        android:clickable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_12"
+        android:padding="@dimen/padding_15dp"
+        android:textColor="@drawable/on_text_pressed_selector"
+        android:layout_gravity="end"
+        android:textAllCaps="true"
+        android:id="@+id/rate_dialog_cancel"
+        android:text="@string/rate_dialog_cancel"
+        android:clickable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_15dp"
+        android:textColor="@drawable/on_text_pressed_selector"
+        android:layout_gravity="end"
+        android:textSize="@dimen/text_size_12"
+        android:textAllCaps="true"
+        android:id="@+id/rate_dialog_no"
+        android:text="@string/rate_dialog_no"
+        android:clickable="true" />
 
 </LinearLayout>

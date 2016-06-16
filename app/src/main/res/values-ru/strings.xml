@@ -47,6 +47,13 @@
     <string name="rta_dialog_cancel">Напомнить позже</string>
     <string name="rta_dialog_no">Нет, спасибо</string>
 
+    <string name="rate_dialog_title">Оцените приложение</string>
+    <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время,
+        чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
+    <string name="rate_dialog_ok">Оценить сейчас</string>
+    <string name="rate_dialog_cancel">Напомнить позже</string>
+    <string name="rate_dialog_no">Нет, спасибо</string>
+
     <string-array name="index_of_refraction">
         <item>1.498 CR-39</item>
         <item>1.560</item>
