@@ -15,12 +15,15 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 
 
-public class RateAppActivity extends AppCompatActivity {
+public class RateAppActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String PREF_NAME = "RateThisApp";
     private static final String KEY_INSTALL_DATE = "rta_install_date";
@@ -35,7 +38,10 @@ public class RateAppActivity extends AppCompatActivity {
 
     private static Config sConfig = new Config();
     private static Callback sCallback = null;
-    // Weak ref to avoid leaking the context
+
+    private TextView yesButton, noButton, cancelButton;
+
+     //Weak ref to avoid leaking the context
     private static WeakReference<AlertDialog> sDialogRef = null;
 
     @Override
@@ -43,14 +49,45 @@ public class RateAppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_the_app);
         this.setFinishOnTouchOutside(false);
+        yesButton = (TextView)findViewById(R.id.rate_dialog_ok);
+        noButton = (TextView)findViewById(R.id.rate_dialog_no);
+        cancelButton = (TextView)findViewById(R.id.rate_dialog_cancel);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        //RateAppActivity.init(new RateAppActivity.Config(3, 5));
-        //RateAppActivity.showRateDialog(this, R.style.AppThemeDialog);
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.rate_dialog_ok:
+                if (sCallback != null) {
+                    sCallback.onYesClicked();
+                }
+                String appPackage = this.getPackageName();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackage));
+                this.startActivity(intent);
+                setOptOut(this, true);
+                break;
+            case R.id.rate_dialog_no:
+                if (sCallback != null) {
+                    sCallback.onNoClicked();
+                }
+                setOptOut(this, true);
+                break;
+            case R.id.rate_dialog_cancel:
+                if (sCallback != null) {
+                    sCallback.onCancelClicked();
+                }
+                clearSharedPreferences(this);
+                storeAskLaterDate(this);
+                break;
+        }
     }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        RateAppActivity.init(new RateAppActivity.Config(3, 5));
+//        RateAppActivity.showRateDialog(this, R.style.AppThemeDialog);
+//    }
 
     /**
      * Initialize RateThisApp configuration.
@@ -85,7 +122,7 @@ public class RateAppActivity extends AppCompatActivity {
         int launchTimes = pref.getInt(KEY_LAUNCH_TIMES, 0);
         launchTimes++;
         editor.putInt(KEY_LAUNCH_TIMES, launchTimes);
-        editor.commit();
+        editor.apply();
 
         mInstallDate = new Date(pref.getLong(KEY_INSTALL_DATE, 0));
         mLaunchTimes = pref.getInt(KEY_LAUNCH_TIMES, 0);
@@ -98,141 +135,141 @@ public class RateAppActivity extends AppCompatActivity {
      * @param context Context
      * @return true if shown, false otherwise.
      */
-    public static boolean showRateDialogIfNeeded(final Context context) {
-        if (shouldShowRateDialog()) {
-            showRateDialog(context);
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    public static boolean showRateDialogIfNeeded(final Context context) {
+//        if (shouldShowRateDialog()) {
+//            showRateDialog(context);
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    /**
+//     * Show the rate dialog if the criteria is satisfied.
+//     * @param context Context
+//     * @param themeId Theme ID
+//     * @return true if shown, false otherwise.
+//     */
+//    public static boolean showRateDialogIfNeeded(final Context context, int themeId) {
+//        if (shouldShowRateDialog()) {
+//            showRateDialog(context, themeId);
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    /**
+//     * Check whether the rate dialog should be shown or not.
+//     * Developers may call this method directly if they want to show their own view instead of
+//     * dialog provided by this library.
+//     * @return
+//     */
+//    public static boolean shouldShowRateDialog() {
+//        if (mOptOut) {
+//            return false;
+//        } else {
+//            if (mLaunchTimes >= sConfig.mCriteriaLaunchTimes) {
+//                return true;
+//            }
+//            long threshold = sConfig.mCriteriaInstallDays * 24 * 60 * 60 * 1000L;	// msec
+//            if (new Date().getTime() - mInstallDate.getTime() >= threshold &&
+//                    new Date().getTime() - mAskLaterDate.getTime() >= threshold) {
+//                return true;
+//            }
+//            return false;
+//        }
+//    }
+//
+//    /**
+//     * Show the rate dialog
+//     * @param context
+//     */
+//    public static void showRateDialog(final Context context) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//        showRateDialog(context, builder);
+//    }
+//
+//    /**
+//     * Show the rate dialog
+//     * @param context
+//     * @param themeId
+//     */
+//    public static void showRateDialog(final Context context, int themeId) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(context, themeId);
+//        showRateDialog(context, builder);
+//    }
+//
+//    /**
+//     * Stop showing the rate dialog
+//     * @param context
+//     */
+//    public static void stopRateDialog(final Context context){
+//        setOptOut(context, true);
+//    }
 
-    /**
-     * Show the rate dialog if the criteria is satisfied.
-     * @param context Context
-     * @param themeId Theme ID
-     * @return true if shown, false otherwise.
-     */
-    public static boolean showRateDialogIfNeeded(final Context context, int themeId) {
-        if (shouldShowRateDialog()) {
-            showRateDialog(context, themeId);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Check whether the rate dialog should be shown or not.
-     * Developers may call this method directly if they want to show their own view instead of
-     * dialog provided by this library.
-     * @return
-     */
-    public static boolean shouldShowRateDialog() {
-        if (mOptOut) {
-            return false;
-        } else {
-            if (mLaunchTimes >= sConfig.mCriteriaLaunchTimes) {
-                return true;
-            }
-            long threshold = sConfig.mCriteriaInstallDays * 24 * 60 * 60 * 1000L;	// msec
-            if (new Date().getTime() - mInstallDate.getTime() >= threshold &&
-                    new Date().getTime() - mAskLaterDate.getTime() >= threshold) {
-                return true;
-            }
-            return false;
-        }
-    }
-
-    /**
-     * Show the rate dialog
-     * @param context
-     */
-    public static void showRateDialog(final Context context) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        showRateDialog(context, builder);
-    }
-
-    /**
-     * Show the rate dialog
-     * @param context
-     * @param themeId
-     */
-    public static void showRateDialog(final Context context, int themeId) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, themeId);
-        showRateDialog(context, builder);
-    }
-
-    /**
-     * Stop showing the rate dialog
-     * @param context
-     */
-    public static void stopRateDialog(final Context context){
-        setOptOut(context, true);
-    }
-
-    private static void showRateDialog(final Context context, AlertDialog.Builder builder) {
-        if (sDialogRef != null && sDialogRef.get() != null) {
-            // Dialog is already present
-            return;
-        }
-
-        int titleId = sConfig.mTitleId != 0 ? sConfig.mTitleId : R.string.rta_dialog_title;
-        int messageId = sConfig.mMessageId != 0 ? sConfig.mMessageId : R.string.rta_dialog_message;
-        int cancelButtonID = sConfig.mCancelButton != 0 ? sConfig.mCancelButton : R.string.rta_dialog_cancel;
-        int thanksButtonID = sConfig.mNoButtonId != 0 ? sConfig.mNoButtonId : R.string.rta_dialog_no;
-        int rateButtonID = sConfig.mYesButtonId != 0 ? sConfig.mYesButtonId : R.string.rta_dialog_ok;
-        builder.setTitle(titleId);
-        builder.setMessage(messageId);
-        builder.setPositiveButton(rateButtonID, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (sCallback != null) {
-                    sCallback.onYesClicked();
-                }
-                String appPackage = context.getPackageName();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackage));
-                context.startActivity(intent);
-                setOptOut(context, true);
-            }
-        });
-        builder.setNeutralButton(cancelButtonID, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (sCallback != null) {
-                    sCallback.onCancelClicked();
-                }
-                clearSharedPreferences(context);
-                storeAskLaterDate(context);
-            }
-        });
-        builder.setNegativeButton(thanksButtonID, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (sCallback != null) {
-                    sCallback.onNoClicked();
-                }
-                setOptOut(context, true);
-            }
-        });
-        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (sCallback != null) {
-                    sCallback.onCancelClicked();
-                }
-                clearSharedPreferences(context);
-                storeAskLaterDate(context);
-            }
-        });
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                sDialogRef.clear();
-            }
-        });
-        sDialogRef = new WeakReference<>(builder.show());
-    }
+//    private static void showRateDialog(final Context context, AlertDialog.Builder builder) {
+//        if (sDialogRef != null && sDialogRef.get() != null) {
+//            // Dialog is already present
+//            return;
+//        }
+//
+//        int titleId = sConfig.mTitleId != 0 ? sConfig.mTitleId : R.string.rate_dialog_title;
+//        int messageId = sConfig.mMessageId != 0 ? sConfig.mMessageId : R.string.rate_dialog_message;
+//        int cancelButtonID = sConfig.mCancelButton != 0 ? sConfig.mCancelButton : R.string.rate_dialog_cancel;
+//        int thanksButtonID = sConfig.mNoButtonId != 0 ? sConfig.mNoButtonId : R.string.rate_dialog_no;
+//        int rateButtonID = sConfig.mYesButtonId != 0 ? sConfig.mYesButtonId : R.string.rate_dialog_ok;
+//        builder.setTitle(titleId);
+//        builder.setMessage(messageId);
+//        builder.setPositiveButton(rateButtonID, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                if (sCallback != null) {
+//                    sCallback.onYesClicked();
+//                }
+//                String appPackage = context.getPackageName();
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackage));
+//                context.startActivity(intent);
+//                setOptOut(context, true);
+//            }
+//        });
+//        builder.setNeutralButton(cancelButtonID, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                if (sCallback != null) {
+//                    sCallback.onCancelClicked();
+//                }
+//                clearSharedPreferences(context);
+//                storeAskLaterDate(context);
+//            }
+//        });
+//        builder.setNegativeButton(thanksButtonID, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                if (sCallback != null) {
+//                    sCallback.onNoClicked();
+//                }
+//                setOptOut(context, true);
+//            }
+//        });
+//        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//            @Override
+//            public void onCancel(DialogInterface dialog) {
+//                if (sCallback != null) {
+//                    sCallback.onCancelClicked();
+//                }
+//                clearSharedPreferences(context);
+//                storeAskLaterDate(context);
+//            }
+//        });
+//        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//            @Override
+//            public void onDismiss(DialogInterface dialog) {
+//                sDialogRef.clear();
+//            }
+//        });
+//        sDialogRef = new WeakReference<>(builder.show());
+//    }
 
     /**
      * Clear data in shared preferences.<br>
@@ -256,7 +293,7 @@ public class RateAppActivity extends AppCompatActivity {
         SharedPreferences pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean(KEY_OPT_OUT, optOut);
-        editor.commit();
+        editor.apply();
         mOptOut = optOut;
     }
 
@@ -288,7 +325,7 @@ public class RateAppActivity extends AppCompatActivity {
         SharedPreferences pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putLong(KEY_ASK_LATER_DATE, System.currentTimeMillis());
-        editor.commit();
+        editor.apply();
     }
     /**
      * RateThisApp configuration.
@@ -296,11 +333,11 @@ public class RateAppActivity extends AppCompatActivity {
     public static class Config {
         private int mCriteriaInstallDays;
         private int mCriteriaLaunchTimes;
-        private int mTitleId = 0;
-        private int mMessageId = 0;
-        private int mYesButtonId = 0;
-        private int mNoButtonId = 0;
-        private int mCancelButton = 0;
+//        private int mTitleId = 0;
+//        private int mMessageId = 0;
+//        private int mYesButtonId = 0;
+//        private int mNoButtonId = 0;
+//        private int mCancelButton = 0;
 
         /**
          * Constructor with default criteria.
@@ -319,45 +356,45 @@ public class RateAppActivity extends AppCompatActivity {
             this.mCriteriaLaunchTimes = criteriaLaunchTimes;
         }
 
-        /**
-         * Set title string ID.
-         * @param stringId
-         */
-        public void setTitle(@StringRes int stringId) {
-            this.mTitleId = stringId;
-        }
-
-        /**
-         * Set message string ID.
-         * @param stringId
-         */
-        public void setMessage(@StringRes int stringId) {
-            this.mMessageId = stringId;
-        }
-
-        /**
-         * Set rate now string ID.
-         * @param stringId
-         */
-        public void setYesButtonText(@StringRes int stringId) {
-            this.mYesButtonId = stringId;
-        }
-
-        /**
-         * Set no thanks string ID.
-         * @param stringId
-         */
-        public void setNoButtonText(@StringRes int stringId) {
-            this.mNoButtonId = stringId;
-        }
-
-        /**
-         * Set cancel string ID.
-         * @param stringId
-         */
-        public void setCancelButtonText(@StringRes int stringId) {
-            this.mCancelButton = stringId;
-        }
+//        /**
+//         * Set title string ID.
+//         * @param stringId
+//         */
+//        public void setTitle(@StringRes int stringId) {
+//            this.mTitleId = stringId;
+//        }
+//
+//        /**
+//         * Set message string ID.
+//         * @param stringId
+//         */
+//        public void setMessage(@StringRes int stringId) {
+//            this.mMessageId = stringId;
+//        }
+//
+//        /**
+//         * Set rate now string ID.
+//         * @param stringId
+//         */
+//        public void setYesButtonText(@StringRes int stringId) {
+//            this.mYesButtonId = stringId;
+//        }
+//
+//        /**
+//         * Set no thanks string ID.
+//         * @param stringId
+//         */
+//        public void setNoButtonText(@StringRes int stringId) {
+//            this.mNoButtonId = stringId;
+//        }
+//
+//        /**
+//         * Set cancel string ID.
+//         * @param stringId
+//         */
+//        public void setCancelButtonText(@StringRes int stringId) {
+//            this.mCancelButton = stringId;
+//        }
     }
 
     /**

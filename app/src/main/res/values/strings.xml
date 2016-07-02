@@ -27,7 +27,7 @@
     <string name="diam_activ_wrong_ed">Incorrect ED value</string>
     <string name="diam_activ_wrong_dbl">Incorrect DBL value</string>
     <string name="diam_activ_wrong_pd">Incorrect PD value</string>
-    <string name="thkns_activ_wrong_base_curve">Incorrect sphere power, thickness, base curve or diameter</string>
+    <string name="thkns_activ_wrong_data">Invalid data(sphere power, base curve, thickness or diameter)</string>
     <string name="thkns_activ_textview_center_thickness">Center thickness = %.2f mm\n</string>
     <string name="thkns_activ_textview_edge_thickness">Minimum edge thickness = %.2f mm</string>
     <string name="thkns_activ_textview_max_edge_thickness">\nMaximum edge thickness = %.2f mm\n</string>
@@ -73,12 +73,6 @@
     <string name="tag_nav_drawer_special_entry">nav_drawer_special_entry</string>
 
     <!--Rate this app -->
-    <string name="rta_dialog_title">Оцените приложение</string>
-    <string name="rta_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
-    <string name="rta_dialog_ok">Оценить сейчас</string>
-    <string name="rta_dialog_cancel">Напомнить позже</string>
-    <string name="rta_dialog_no">Нет, спасибо</string>
-
     <string name="rate_dialog_title">Оцените приложение</string>
     <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время,
         чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
