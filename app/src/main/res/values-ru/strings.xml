@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lens thickness calculator</string>
+    <string name="app_name">Расчет толщины линзы</string>
     <string name="exit_question_title">Выход</string>
     <string name="exit_question">Вы действительно хотите выйти?</string>
     <string name="database_unavailable">База данных недоступна</string>
@@ -16,7 +16,7 @@
     <string name="thkns_activ_sphere_power">Сфера</string>
     <string name="thkns_activ_cylinder_power">Цилиндр</string>
     <string name="thkns_activ_axis">Угол</string>
-    <string name="thkns_activ_base_curve">Реальная кривизна базы</string>
+    <string name="thkns_activ_base_curve">Реальная кривизна\nбазы линзы</string>
     <string name="thkns_activ_center_thickness">Толщина по центру</string>
     <string name="thkns_activ_material_index">Индекс преломления</string>
     <string name="thkns_activ_lens_diameter">Диаметр линзы</string>
@@ -26,11 +26,15 @@
     <string name="diam_activ_wrong_dbl">Введите DBL</string>
     <string name="diam_activ_wrong_pd">Введите PD</string>
     <string name="thkns_activ_wrong_data">Некорректное значение (сферы, кривизны поверхности, толщины или диаметра)</string>
-    <string name="thkns_activ_textview_center_thickness">Толщина по центру = %.2f mm\n</string>
-    <string name="thkns_activ_textview_edge_thickness">Минимальная толщина по краю = %.2f mm</string>
-    <string name="thkns_activ_textview_max_edge_thickness">\nМаксимальная толщна по краю = %.2f mm\n</string>
-    <string name="thkns_activ_textview_certain_edge_thickness">Толщина по краю под углом " "</string>
-    <string name="thkns_activ_textview_certain_second_half"> °  = %.2f mm</string>
+    <string name="thkns_activ_textview_center_thickness">Толщина по центру (mm)</string>
+    <string name="thkns_activ_textview_edge_thickness">\n\nМинимальная толщина по краю (mm)</string>
+    <string name="thkns_activ_textview_max_edge_thickness">\n\nМаксимальная толщна по краю (mm)</string>
+    <string name="thkns_activ_textview_certain_edge_thickness">\n\nТолщина по краю под углом " "</string>
+    <string name="thkns_activ_textview_certain_second_half"> ° (mm)\n\n</string>
+    <string name="thkns_activ_textview_center_thickness_numbers_format">%.2f</string>
+    <string name="thkns_activ_textview_edge_thickness_numbers_format">\n\n%.2f</string>
+    <string name="thkns_activ_textview_max_edge_thickness_numbers_format">\n\n\n%.2f</string>
+    <string name="thkns_activ_textview_certain_edge_thickness_numbers_format">\n\n\n%.2f</string>
     <string name="diam_activ_ed">ED</string>
     <string name="diam_activ_dbl">DBL</string>
     <string name="diam_activ_pd">PD</string>

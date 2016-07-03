@@ -18,6 +18,7 @@ import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
+import parkhomov.andrew.lensthicknesscalculator.activities.ThicknessResultActivity;
 
 
 public class ThknsCalculatorFragment extends Fragment implements View.OnClickListener{
@@ -26,8 +27,8 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
     private String stringCenterThickness, stringEdgeThickness, result;
 
     View view;
+    Intent intent;
 
-    private TextView textViewResult;
     private EditText getCylinderPower;
     boolean isCylinderPlus = false;
 
@@ -40,8 +41,8 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_calculator, container, false);
-        textViewResult = (TextView)view.findViewById(R.id.textViewResult);
         getCylinderPower = (EditText)view.findViewById(R.id.editTextCylinderPower);
+        intent = new Intent(getActivity(), ThicknessResultActivity.class);
         setUpButtonsAndListeners();
         return view;
     }
@@ -49,11 +50,11 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
     private void setUpButtonsAndListeners() {
         Button calculateButton = (Button)view.findViewById(R.id.thicknessCalculateButton);
         if(String.valueOf(Locale.getDefault().getDisplayLanguage()).equals("українська")){
-            calculateButton.setMinimumWidth(160);
+            calculateButton.setWidth(170);
         }else if(String.valueOf(Locale.getDefault().getDisplayLanguage()).equals("русский")){
-            calculateButton.setMinimumWidth(100);
+            calculateButton.setWidth(120);
         }else{
-            calculateButton.setMinimumWidth(50);
+            calculateButton.setWidth(70);
         }
         ImageButton imageButtonLensIndex = (ImageButton) view.findViewById(R.id.imageButtonLensIndex);
         ImageButton imageButtonSpherePower = (ImageButton) view.findViewById(R.id.imageButtonSpherePower);
@@ -169,9 +170,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             }else if(spherePower <= 0 && cylinderPower > 0){
                 try{
                     centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
-                }catch(NumberFormatException e){
-                    centerThickness = 2.5;
-                }
+                }catch(NumberFormatException e){}
             }else if(spherePower < 0){
                 centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
             }else if(spherePower >= 0){
@@ -246,7 +245,6 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                     - Math.pow(lensDiameter / 2, 2)));    // sag of concave surface;
             sphereThicknessCalculation();
         }catch(Exception e){
-            textViewResult.setText(null);
             Toast.makeText(getActivity(), getResources().getText(R.string.thkns_activ_wrong_data),Toast.LENGTH_LONG).show();
         }
     }
@@ -288,9 +286,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                     break;
             }
             curveCalculation();
-        }catch(Exception e){
-            textViewResult.setText(null);
-        }
+        }catch(Exception e){}
     }
 
     private void sphereThicknessCalculation() {
@@ -314,12 +310,14 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         if(!getCylinderPower.getText().toString().equals("")) {
             cylinderCalculation();
         }else{
-            textViewResult.setText(result.replace(",", "."));
+            intent.putExtra(ThicknessResultActivity.CALCULATION_CENTER_THICKNESS, centerThickness);
+            intent.putExtra(ThicknessResultActivity.CALCULATION_EDGE_THICKNESS, edgeThickness);
+            startActivity(intent);
         }
     }
 
     private void cylinderCalculation(){
-        double etOnCertainAxis;
+        double etOnCertainAxis = 0;
         String stringMaxET = getResources().getString(R.string.thkns_activ_textview_max_edge_thickness);
         String stringCertainET = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness);
         String stringCertainETSecond = getResources().getString(R.string.thkns_activ_textview_certain_second_half);
@@ -378,7 +376,6 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                         centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
             }
         }else if(recalculatedCylinderCurve > 0 && isCylinderPlus){
-            Toast.makeText(getActivity(), "point 2", Toast.LENGTH_SHORT).show();
             maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder)+edgeThickness;
             etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
             result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
@@ -386,6 +383,12 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                     centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
             isCylinderPlus = false;
         }
-        textViewResult.setText(result.replace(",", "."));
+        ThicknessResultActivity.isCylinder = true;
+        intent.putExtra(ThicknessResultActivity.CALCULATION_CENTER_THICKNESS, centerThickness);
+        intent.putExtra(ThicknessResultActivity.CALCULATION_EDGE_THICKNESS, edgeThickness);
+        intent.putExtra(ThicknessResultActivity.CALCULATION_MAX_EDGE_THICKNESS, maxEdgeThickness);
+        intent.putExtra(ThicknessResultActivity.CALCULATION_THICKNESS_ON_CERTAIN_AXIS, etOnCertainAxis);
+        intent.putExtra(ThicknessResultActivity.CALCULATION_AXIS_VIEW, axisView);
+        startActivity(intent);
     }
 }
