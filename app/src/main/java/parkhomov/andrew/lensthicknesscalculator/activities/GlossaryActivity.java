@@ -93,7 +93,7 @@ public class GlossaryActivity extends AppCompatActivity {
         setName.setText(name);
         setDescription.setText(description);
         setPicture.setImageResource(imageId);
-        if(itemId == 3 || itemId == 6 || itemId == 7){
+        if(itemId == 3 || itemId == 7){
             tempNumber = 12;
             addTV = (TextView)findViewById(R.id.glossaryAddTextView);
             addTV.setText(getResources().getText(R.string.link_to_transposition));
@@ -110,7 +110,7 @@ public class GlossaryActivity extends AppCompatActivity {
             MainActivity.isOneTextLinkInDatabaseClicked = true;
             startActivity(new Intent(this, MainActivity.class));
         }
-        if(itemId == 3 || itemId == 6 || itemId == 7){
+        if(itemId == 3 || itemId == 7){
             try{
                 SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
                 SQLiteDatabase db = glossaryDatabase.getReadableDatabase();

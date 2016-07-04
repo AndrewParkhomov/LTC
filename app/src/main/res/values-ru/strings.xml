@@ -1,11 +1,9 @@
 <resources>
-    <string name="app_name">Расчет толщины линзы</string>
     <string name="exit_question_title">Выход</string>
     <string name="exit_question">Вы действительно хотите выйти?</string>
     <string name="database_unavailable">База данных недоступна</string>
     <string name="link_to_diamCalcActivity"><u>Расчет диаметра линзы</u></string>
     <string name="link_to_transposition"><u>Транспозиция</u></string>
-    <string name="language">Язык</string>
 
     <!-- Version & Date-->
     <string name="version">Версия 1.0</string>
@@ -49,7 +47,6 @@
     <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время,
         чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
     <string name="rate_dialog_ok">Оценить сейчас</string>
-    <string name="rate_dialog_cancel">Напомнить позже</string>
     <string name="rate_dialog_no">Нет, спасибо</string>
 
     <string-array name="index_of_refraction">
@@ -67,12 +64,7 @@
     <string name="toolbar_title_lens_thkns_calc">Расчет толщины линзы</string>
     <string name="toolbar_title_diam_calc">Расчет диаметра линзы</string>
     <string name="toolbar_title_about">О программе</string>
-    <string name="toolbar_title_account">Account</string>
     <string name="toolbar_title_settings">Настройки</string>
-
-    <!--Special for main screen button-->
-    <string name="main_screen_thkns_calc">Расчет\nтолщины</string>
-    <string name="main_screen_diam_calc">Расчет\nдиаметра</string>
 
     <!-- Navigation Drawer -->
     <string name="nav_drawer_item_home">Главная</string>

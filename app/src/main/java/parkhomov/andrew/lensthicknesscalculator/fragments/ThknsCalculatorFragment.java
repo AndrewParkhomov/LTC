@@ -23,9 +23,6 @@ import parkhomov.andrew.lensthicknesscalculator.activities.ThicknessResultActivi
 
 public class ThknsCalculatorFragment extends Fragment implements View.OnClickListener{
 
-
-    private String stringCenterThickness, stringEdgeThickness, result;
-
     View view;
     Intent intent;
 
@@ -82,7 +79,6 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         switch(v.getId()){
             case R.id.thicknessCalculateButton:
                 isCalculationPressed = true;
-                resetValues();
                 selectIndex();
                 break;
             case R.id.imageButtonLensIndex:
@@ -113,24 +109,6 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         if(!isCalculationPressed){
             startActivity(intent);
         }
-    }
-
-    private void resetValues() {
-        lensIndex = 0;
-        indexX = 0;
-        spherePower = 0;
-        cylinderPower = 0;
-        maxEdgeThickness = 0;
-        axis = 0;
-        axisView = 0;
-        edgeThickness = 0;
-        realFrontBaseCurveDptr = 0;
-        recalculatedCylinderCurve = 0;
-        recalculatedSphereCurve = 0;
-        sag1Sphere = 0;
-        sag2Sphere = 0;
-        sag2Cylinder = 0;
-        isCylinderPlus = false;
     }
 
     private void curveCalculation() throws IllegalArgumentException{
@@ -263,7 +241,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                     indexX = 0.99;
                     break;
                 case 2:
-                    lensIndex = 1.532;
+                    lensIndex = 1.53;
                     indexX = 0.97;
                     break;
                 case 3:
@@ -290,21 +268,13 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
     }
 
     private void sphereThicknessCalculation() {
-        stringCenterThickness = getResources().getString(R.string.thkns_activ_textview_center_thickness);
-        stringEdgeThickness = getResources().getString(R.string.thkns_activ_textview_edge_thickness);
         if (spherePower < 0) {
             edgeThickness = Math.abs(sag1Sphere - sag2Sphere)+ centerThickness;
-            result = String.format(stringCenterThickness + stringEdgeThickness,
-                    centerThickness, edgeThickness);
         }else{
             if(recalculatedSphereCurve > 0){
                 centerThickness = Math.abs(sag1Sphere + sag2Sphere) + edgeThickness;
-                result = String.format(stringCenterThickness + stringEdgeThickness,
-                        centerThickness, edgeThickness);
             }else if(recalculatedSphereCurve < 0){
                 centerThickness = Math.abs(sag1Sphere - sag2Sphere) + edgeThickness;
-                result = String.format(stringCenterThickness + stringEdgeThickness,
-                        centerThickness, edgeThickness);
             }
         }
         if(!getCylinderPower.getText().toString().equals("")) {
@@ -318,46 +288,28 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
 
     private void cylinderCalculation(){
         double etOnCertainAxis = 0;
-        String stringMaxET = getResources().getString(R.string.thkns_activ_textview_max_edge_thickness);
-        String stringCertainET = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness);
-        String stringCertainETSecond = getResources().getString(R.string.thkns_activ_textview_certain_second_half);
 
         if(spherePower <= 0 && !isCylinderPlus) {
             maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
             etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
-            result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
-                            stringCertainET + axisView + stringCertainETSecond,
-                                    centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
         }else if(spherePower <= 0 && isCylinderPlus){
             maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
             etOnCertainAxis = (maxEdgeThickness - edgeThickness)/90*axis+edgeThickness;
-            result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
-                            stringCertainET +axisView + stringCertainETSecond,
-                                    centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
             isCylinderPlus = false;
         }else if(recalculatedCylinderCurve < 0 && isCylinderPlus){
             if(spherePower < realFrontBaseCurveDptr){
                 maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
                 etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
-                result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
-                                stringCertainET + axisView + stringCertainETSecond,
-                        centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
                 isCylinderPlus = false;
             }else{
                 // need only for cr-39, why? I have no idea...
                 if(lensIndex == 1.498){
                     maxEdgeThickness = Math.abs(sag1Sphere + sag2Cylinder) + edgeThickness;
                     etOnCertainAxis = maxEdgeThickness / 90 * axis;
-                    result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
-                                    stringCertainET + axisView + stringCertainETSecond,
-                            centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
                     isCylinderPlus = false;
                 }else{
                     maxEdgeThickness = Math.abs(sag2Cylinder - sag1Sphere) + edgeThickness;
                     etOnCertainAxis = maxEdgeThickness / 90 * axis;
-                    result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
-                                    stringCertainET + axisView + stringCertainETSecond,
-                            centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
                     isCylinderPlus = false;
                 }
             }
@@ -365,22 +317,13 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             if(spherePower > realFrontBaseCurveDptr){
                 maxEdgeThickness = Math.abs(sag1Sphere + sag2Cylinder) + edgeThickness;
                 etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
-                result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
-                                stringCertainET + axisView + stringCertainETSecond,
-                        centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
             }else{
                 maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
                 etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
-                result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
-                                stringCertainET + axisView + stringCertainETSecond,
-                        centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
             }
         }else if(recalculatedCylinderCurve > 0 && isCylinderPlus){
             maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder)+edgeThickness;
             etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
-            result = String.format(stringCenterThickness + stringEdgeThickness + stringMaxET +
-                            stringCertainET + axisView + stringCertainETSecond,
-                    centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
             isCylinderPlus = false;
         }
         ThicknessResultActivity.isCylinder = true;

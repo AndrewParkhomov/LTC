@@ -24,20 +24,8 @@
         android:textColor="@drawable/on_text_pressed_selector"
         android:layout_gravity="end"
         android:textAllCaps="true"
-        android:id="@+id/rate_dialog_ok"
+        android:id="@+id/rate_dialog_yes"
         android:text="@string/rate_dialog_ok"
-        android:clickable="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_12"
-        android:padding="@dimen/padding_15dp"
-        android:textColor="@drawable/on_text_pressed_selector"
-        android:layout_gravity="end"
-        android:textAllCaps="true"
-        android:id="@+id/rate_dialog_cancel"
-        android:text="@string/rate_dialog_cancel"
         android:clickable="true" />
 
     <TextView

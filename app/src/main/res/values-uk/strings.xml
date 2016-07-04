@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Розрахунок товщини лінзи</string>
     <string name="exit_question_title">Вихід</string>
     <string name="exit_question">Ви дійсно бажаєте вийти?</string>
+    <string name="database_unavailable">База даних недоступна</string>
+    <string name="link_to_diamCalcActivity"><u>Розрахунок діаметра лінзи</u></string>
+    <string name="link_to_transposition"><u>Транспозиція</u></string>
 
     <string name="language">Мова</string>
 
@@ -57,20 +59,14 @@
     <string name="toolbar_title_lens_thkns_calc">Розрахунок товщини лінзи</string>
     <string name="toolbar_title_diam_calc">Розрахунок діаметра лінзи</string>
     <string name="toolbar_title_about">Про програму</string>
-    <string name="toolbar_title_account">Account</string>
     <string name="toolbar_title_settings">Налаштування</string>
 
     <!--Rate this app -->
-    <string name="rate_dialog_title">Оцените приложение</string>
-    <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время,
-        чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
-    <string name="rate_dialog_ok">Оценить сейчас</string>
-    <string name="rate_dialog_cancel">Напомнить позже</string>
-    <string name="rate_dialog_no">Нет, спасибо</string>
-
-    <!--Special for main screen button-->
-    <string name="main_screen_thkns_calc">Розрахунок\nтовщини</string>
-    <string name="main_screen_diam_calc">Розрахунок\nдіаметра</string>
+    <string name="rate_dialog_title">Оцініть цей додаток</string>
+    <string name="rate_dialog_message">Якщо Вам подобається цей додаток, чи не могли б Ви знайти
+            час, щоб оцінити його? Це займе не більше хвилини. Дякую за Вашу підтримку!</string>
+    <string name="rate_dialog_ok">Оцінити зараз</string>
+    <string name="rate_dialog_no">Ні, дякую</string>
 
     <!-- Navigation Drawer -->
     <string name="nav_drawer_item_home">Головна</string>

@@ -34,11 +34,11 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
     private void setUpButtonsAndListeners() {
         Button calculateButton = (Button)view.findViewById(R.id.diameterCalculateButton);
         if(String.valueOf(Locale.getDefault().getDisplayLanguage()).equals("українська")){
-            calculateButton.setMinimumWidth(160);
+            calculateButton.setWidth(170);
         }else if(String.valueOf(Locale.getDefault().getDisplayLanguage()).equals("русский")){
-            calculateButton.setMinimumWidth(100);
+            calculateButton.setWidth(120);
         }else{
-            calculateButton.setMinimumWidth(50);
+            calculateButton.setWidth(70);
         }
         ImageButton imageButtonED = (ImageButton) view.findViewById(R.id.imageButtonED);
         ImageButton imageButtonDBL = (ImageButton) view.findViewById(R.id.imageButtonDBL);

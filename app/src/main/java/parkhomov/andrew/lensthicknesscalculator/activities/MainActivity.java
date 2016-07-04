@@ -104,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setTitle(getString(R.string.toolbar_title_lens_thkns_calc));
+        }
+
         setUpIcons();
 
         navDrawerEntriesRootView = (LinearLayout) findViewById

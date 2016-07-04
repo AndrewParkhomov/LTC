@@ -5,9 +5,6 @@
     <string name="database_unavailable">Database is unavailable</string>
     <string name="link_to_diamCalcActivity"><u>Diameter calculator</u></string>
     <string name="link_to_transposition"><u>Transposition</u></string>
-    <string name="language">Language</string>
-    <string name="rate_the_app">Rate this application</string>
-    <string name="title_help_the_project">Help the project</string>
 
     <!-- Version & Date-->
     <string name="version">Version 1.0</string>
@@ -61,7 +58,6 @@
     <string name="toolbar_title_lens_thkns_calc">Thickness calculator</string>
     <string name="toolbar_title_diam_calc">Diameter calculator</string>
     <string name="toolbar_title_about">About</string>
-    <string name="toolbar_title_account">Account</string>
     <string name="toolbar_title_settings">Settings</string>
 
     <!-- Navigation Drawer -->
@@ -77,16 +73,11 @@
     <string name="tag_nav_drawer_special_entry">nav_drawer_special_entry</string>
 
     <!--Rate this app -->
-    <string name="rate_dialog_title">Оцените приложение</string>
-    <string name="rate_dialog_message">Если вам понравилось это приложение, пожалуйста, найдите время,
-        чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
-    <string name="rate_dialog_ok">Оценить сейчас</string>
-    <string name="rate_dialog_cancel">Напомнить позже</string>
-    <string name="rate_dialog_no">Нет, спасибо</string>
-
-    <!--Special for main screen button-->
-    <string name="main_screen_thkns_calc">Thickness\ncalculator</string>
-    <string name="main_screen_diam_calc">Diameter\ncalculator</string>
+    <string name="rate_dialog_title">Rate this app</string>
+    <string name="rate_dialog_message">If you enjoy using this app, would you mind taking a moment
+            to rate it? It won\'t take more than a minute. Thank you for your support!</string>
+    <string name="rate_dialog_ok">Rate now</string>
+    <string name="rate_dialog_no">No, thanks</string>
 
     <!-- Query mark id -->
     <string name="one">1</string>
