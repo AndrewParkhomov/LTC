@@ -1,12 +1,19 @@
 package parkhomov.andrew.lensthicknesscalculator.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.ListActivity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 
-public class ThicknessResultActivity extends AppCompatActivity {
+public class ThicknessResultActivity extends ListActivity {
 
     public static final String CALCULATION_CENTER_THICKNESS = "CENTER";
     public static final String CALCULATION_EDGE_THICKNESS = "EDGE";
@@ -14,57 +21,97 @@ public class ThicknessResultActivity extends AppCompatActivity {
     public static final String CALCULATION_THICKNESS_ON_CERTAIN_AXIS= "ON_CERTAIN_AXIS";
     public static final String CALCULATION_AXIS_VIEW= "AXIS";
 
-    public static boolean isCylinder = false;
+    public static boolean isCylinder;
 
     double centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis;
     int axisView;
-    String resultTextField, resultNumberField;
+    String stringCenterThickness, stringEdgeThickness, stringCenterThicknessNumbers,
+            stringEdgeThicknessNumbers;
+    ListView listView;
+    ArrayList<String> listWithResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thickness_result);
-        TextView textViewText = (TextView)findViewById(R.id.textViewText);
-        TextView textViewNumber = (TextView)findViewById(R.id.textViewResult);
+        listView = getListView();
+        listWithResult = new ArrayList<>();
+        centerThickness = getIntent().getExtras().getDouble(CALCULATION_CENTER_THICKNESS);
+        edgeThickness = getIntent().getExtras().getDouble(CALCULATION_EDGE_THICKNESS);
+        stringCenterThickness = getResources().getString(R.string.thkns_activ_textview_center_thickness);
+        stringEdgeThickness = getResources().getString(R.string.thkns_activ_textview_edge_thickness);
+        stringCenterThicknessNumbers = getResources().getString(R.string.thkns_activ_textview_center_thickness_numbers_format);
+        stringEdgeThicknessNumbers = getResources().getString(R.string.thkns_activ_textview_edge_thickness_numbers_format);
+        setListViewParameters();
+        addDataInListView();
+    }
 
-        // get text "static" string fields
-        String stringCenterThickness = getResources().getString(R.string.thkns_activ_textview_center_thickness);
-        String stringEdgeThickness = getResources().getString(R.string.thkns_activ_textview_edge_thickness);
-        String stringMaxET = getResources().getString(R.string.thkns_activ_textview_max_edge_thickness);
-        String stringCertainET = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness);
-        String stringCertainETSecond = getResources().getString(R.string.thkns_activ_textview_certain_second_half);
+    private void addDataInListView() {
 
-        // get strings for numbers format with 2 symbols before dot
-        String stringCenterThicknessNumbers = getResources().getString(R.string.thkns_activ_textview_center_thickness_numbers_format);
-        String stringEdgeThicknessNumbers = getResources().getString(R.string.thkns_activ_textview_edge_thickness_numbers_format);
-        String stringMaxETNumbers = getResources().getString(R.string.thkns_activ_textview_max_edge_thickness_numbers_format);
-        String stringCertainETNumbers = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness_numbers_format);
-
-        // if lens is astigmatic - get all parameters, if don't - get center and edge thickness
         if(isCylinder){
-            centerThickness = getIntent().getExtras().getDouble(CALCULATION_CENTER_THICKNESS);
-            edgeThickness = getIntent().getExtras().getDouble(CALCULATION_EDGE_THICKNESS);
+            // get text "static" string fields
+            String stringMaxET = getResources().getString(R.string.thkns_activ_textview_max_edge_thickness);
+            String stringCertainET = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness);
+            String stringCertainETSecond = getResources().getString(R.string.thkns_activ_textview_certain_second_half);
+
+            // get strings for numbers format with 2 symbols before dot
+            String stringMaxETNumbers = getResources().getString(R.string.thkns_activ_textview_max_edge_thickness_numbers_format);
+            String stringCertainETNumbers = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness_numbers_format);
+
             maxEdgeThickness = getIntent().getExtras().getDouble(CALCULATION_MAX_EDGE_THICKNESS);
             etOnCertainAxis = getIntent().getExtras().getDouble(CALCULATION_THICKNESS_ON_CERTAIN_AXIS);
             axisView = getIntent().getExtras().getInt(CALCULATION_AXIS_VIEW);
-            resultTextField = stringCenterThickness + stringEdgeThickness + stringMaxET +
-                    stringCertainET + axisView + stringCertainETSecond;
-            resultNumberField = String.format(stringCenterThicknessNumbers + stringEdgeThicknessNumbers +
-                            stringMaxETNumbers + stringCertainETNumbers,
-                    centerThickness, edgeThickness, maxEdgeThickness, etOnCertainAxis);
+
+            String centerThicknessResult = String.format(stringCenterThicknessNumbers,
+                    centerThickness).replace(",", ".");
+            String edgeThicknessResult = String.format(stringEdgeThicknessNumbers,
+                    edgeThickness).replace(",", ".");
+            String edgeThicknessMaxET = String.format(stringMaxETNumbers,
+                    maxEdgeThickness).replace(",", ".");
+            String edgeThicknessCertainAxis = String.format(stringCertainETNumbers,
+                    etOnCertainAxis).replace(",", ".");
+
+            listWithResult.add(stringCenterThickness + " " + centerThicknessResult);
+            listWithResult.add(stringEdgeThickness + " " + edgeThicknessResult);
+            listWithResult.add(stringMaxET + " " + edgeThicknessMaxET);
+            listWithResult.add(stringCertainET + String.valueOf(axisView) + stringCertainETSecond +
+                    " " + edgeThicknessCertainAxis);
             isCylinder = false;
         }else{
-            centerThickness = getIntent().getExtras().getDouble(CALCULATION_CENTER_THICKNESS);
-            edgeThickness = getIntent().getExtras().getDouble(CALCULATION_EDGE_THICKNESS);
-            resultTextField = stringCenterThickness + stringEdgeThickness;
-            resultNumberField = String.format(stringCenterThicknessNumbers + stringEdgeThicknessNumbers,
-                    centerThickness, edgeThickness);
+            String centerThicknessResult = String.format(stringCenterThicknessNumbers,
+                    centerThickness).replace(",", ".");
+            String edgeThicknessResult = String.format(stringEdgeThicknessNumbers,
+                    edgeThickness).replace(",", ".");
+            //Toast.makeText(getApplicationContext(), String.valueOf(getItemHeightofListView(listView, 2)), Toast.LENGTH_SHORT).show();
+            listWithResult.add(stringCenterThickness + " " + centerThicknessResult);
+            listWithResult.add(stringEdgeThickness + " " + edgeThicknessResult);
         }
 
-        // set separately text and numbers in textView, and replace comma
-        if(textViewText != null && textViewNumber != null){
-            textViewText.setText(resultTextField);
-            textViewNumber.setText(resultNumberField.replace(",", "."));
-        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                listWithResult){
+
+            //  change text color in list items
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+
+                textView.setTextColor(0xDE000000);
+
+                return view;
+            }
+        };
+        listView.setAdapter(adapter);
     }
+
+    private void setListViewParameters() {
+        ColorDrawable sage = new ColorDrawable(this.getResources().getColor(R.color.horizontal_divider));
+        listView.setDivider(sage);
+        listView.setEnabled(false);
+        listView.setBackgroundResource(R.drawable.result_activity_background_selector);
+        listView.setDividerHeight(1);
+        listView.setPadding(20,20,20,20);
+    }
+
 }

@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="navigation_drawer_max_width">320dp</dimen>
-    <dimen name="query_padding_right">60dp</dimen>
+    <dimen name="query_padding_right">40dp</dimen>
     <dimen name="padding_15dp">15dp</dimen>
     <dimen name="min_padding_for_language_checkbutton">200dp</dimen>
 
@@ -17,10 +17,25 @@
     <dimen name="nav_drawer_vertical_spacing_listing_divider_top">7dp</dimen>
     <dimen name="nav_drawer_vertical_spacing_listing_divider_bottom">8dp</dimen>
     <dimen name="nav_drawer_subheader_height">48dp</dimen>
+    <dimen name="distance_top_and_bottom_diam_calc">300dp</dimen>
+    <dimen name="margin_padding_0dp">0dp</dimen>
+    <dimen name="margin_padding_5dp">5dp</dimen>
+    <dimen name="margin_padding_10dp">10dp</dimen>
+    <dimen name="margin_padding_20dp">20dp</dimen>
+    <dimen name="margin_padding_30dp">30dp</dimen>
+    <dimen name="margin_padding_50dp">50dp</dimen>
+    <dimen name="margin_padding_56dp">56dp</dimen>
+    <dimen name="margin_padding_100dp">100dp</dimen>
+    <dimen name="margin_padding_120dp">120dp</dimen>
+    <dimen name="margin_padding_188dp">188dp</dimen>
+    <dimen name="margin_padding_340dp">340dp</dimen>
 
-    <dimen name="text_size_12">14sp</dimen>
-    <dimen name="text_size_14">16sp</dimen>
-    <dimen name="text_size_18">22sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_22">22sp</dimen>
     <dimen name="divider_height">1dp</dimen>
     <dimen name="divider_width">1dp</dimen>
 </resources>

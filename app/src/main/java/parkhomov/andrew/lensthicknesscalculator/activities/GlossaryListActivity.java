@@ -6,12 +6,15 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -75,11 +78,23 @@ public class GlossaryListActivity extends ListActivity{
                     glossaryList.add(cursor.getString(0));
                 }
                 // list which display items(titles) in glossary
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                         this,
                         android.R.layout.simple_list_item_1,
-                        glossaryList
-                );
+                        glossaryList){
+
+                    //  change text color in list items
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        View view =super.getView(position, convertView, parent);
+
+                        TextView textView=(TextView) view.findViewById(android.R.id.text1);
+
+                        textView.setTextColor(0xDE000000);
+
+                        return view;
+                    }
+                };
                 listView.setAdapter(adapter);
                 cursor.close();
                 db.close();

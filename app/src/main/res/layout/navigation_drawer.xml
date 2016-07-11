@@ -49,7 +49,7 @@
                 <LinearLayout
                     android:id="@+id/navigation_drawer_account_information"
                     android:layout_width="wrap_content"
-                    android:layout_height="56dp"
+                    android:layout_height="@dimen/margin_padding_56dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:layout_alignParentTop="true"

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -107,7 +108,7 @@ public class GlossaryActivity extends AppCompatActivity {
 
     public void onGlossaryTextViewClicked(View view) {
         if(itemId == 8) {
-            MainActivity.isOneTextLinkInDatabaseClicked = true;
+            MainActivity.isTextLinkInDatabaseClicked = true;
             startActivity(new Intent(this, MainActivity.class));
         }
         if(itemId == 3 || itemId == 7){
@@ -151,6 +152,7 @@ public class GlossaryActivity extends AppCompatActivity {
                     int glossaryImageResourceId = cursor.getInt(2);
                     setName.setText(name);
                     setDescription.setText(description);
+                    //setDescription.setGravity(Gravity.CENTER);
                     setPicture.setImageResource(glossaryImageResourceId);
                     addTV.setText(null);
                 }

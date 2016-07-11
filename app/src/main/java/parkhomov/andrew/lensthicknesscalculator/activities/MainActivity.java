@@ -40,7 +40,7 @@ import parkhomov.andrew.lensthicknesscalculator.utils.UtilsMiscellaneous;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static boolean isOneTextLinkInDatabaseClicked;
+    public static boolean isTextLinkInDatabaseClicked;
     String currentLanguage;
     private DrawerLayout drawerLayout;
     private LinearLayout navDrawerEntriesRootView;
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         frameLayoutAbout.setOnClickListener(this);
         frameLayoutSettings.setOnClickListener(this);
 
-        if(isOneTextLinkInDatabaseClicked){
+        if(isTextLinkInDatabaseClicked){
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             DiamCalculatorFragment df = new DiamCalculatorFragment();
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(drawerLayout.isDrawerOpen(GravityCompat.START))drawerLayout.closeDrawer(Gravity.LEFT);
             frameLayoutDiamCalc.setSelected(true);
             mActionBarDrawerToggle.syncState();
-            isOneTextLinkInDatabaseClicked = false;
+            isTextLinkInDatabaseClicked = false;
         }else{
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

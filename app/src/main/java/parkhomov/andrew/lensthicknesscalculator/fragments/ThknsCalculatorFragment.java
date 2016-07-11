@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -46,13 +48,6 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
 
     private void setUpButtonsAndListeners() {
         Button calculateButton = (Button)view.findViewById(R.id.thicknessCalculateButton);
-        if(String.valueOf(Locale.getDefault().getDisplayLanguage()).equals("українська")){
-            calculateButton.setWidth(170);
-        }else if(String.valueOf(Locale.getDefault().getDisplayLanguage()).equals("русский")){
-            calculateButton.setWidth(120);
-        }else{
-            calculateButton.setWidth(70);
-        }
         ImageButton imageButtonLensIndex = (ImageButton) view.findViewById(R.id.imageButtonLensIndex);
         ImageButton imageButtonSpherePower = (ImageButton) view.findViewById(R.id.imageButtonSpherePower);
         ImageButton imageButtonCylinderPower = (ImageButton) view.findViewById(R.id.imageButtonCylinderPower);
@@ -137,7 +132,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                 edgeThickness = 0;
             }
 
-            //
+            // get cylinder power
             try{
                 cylinderPower = Double.parseDouble(String.valueOf(getCylinderPower.getText()));
             }catch(NumberFormatException e){}
@@ -148,7 +143,11 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             }else if(spherePower <= 0 && cylinderPower > 0){
                 try{
                     centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
-                }catch(NumberFormatException e){}
+                }catch(NumberFormatException e){
+                    if(spherePower + cylinderPower < 0){
+                        throw new Exception();
+                    }
+                }
             }else if(spherePower < 0){
                 centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
             }else if(spherePower >= 0){
@@ -182,8 +181,6 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                     axisView = axis;
                 }
 
-                //get cylinder power
-                cylinderPower = Double.parseDouble(String.valueOf(getCylinderPower.getText()));
                 if (cylinderPower > 0) {
                     isCylinderPlus = true;
                     spherePower += cylinderPower;

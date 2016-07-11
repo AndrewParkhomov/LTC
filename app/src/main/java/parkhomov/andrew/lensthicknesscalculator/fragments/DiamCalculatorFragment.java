@@ -18,6 +18,7 @@ import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
+import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
 
 public class DiamCalculatorFragment extends Fragment implements View.OnClickListener{
 
@@ -33,13 +34,6 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
 
     private void setUpButtonsAndListeners() {
         Button calculateButton = (Button)view.findViewById(R.id.diameterCalculateButton);
-        if(String.valueOf(Locale.getDefault().getDisplayLanguage()).equals("українська")){
-            calculateButton.setWidth(170);
-        }else if(String.valueOf(Locale.getDefault().getDisplayLanguage()).equals("русский")){
-            calculateButton.setWidth(120);
-        }else{
-            calculateButton.setWidth(70);
-        }
         ImageButton imageButtonED = (ImageButton) view.findViewById(R.id.imageButtonED);
         ImageButton imageButtonDBL = (ImageButton) view.findViewById(R.id.imageButtonDBL);
         ImageButton imageButtonPD = (ImageButton) view.findViewById(R.id.imageButtonPD);

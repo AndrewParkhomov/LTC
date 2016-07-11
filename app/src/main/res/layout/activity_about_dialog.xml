@@ -10,8 +10,8 @@
     tools:context="parkhomov.andrew.lensthicknesscalculator.activities.AboutDialogActivity">
 
     <ImageView
-        android:layout_width="340dp"
-        android:layout_height="188dp"
+        android:layout_width="@dimen/margin_padding_340dp"
+        android:layout_height="@dimen/margin_padding_188dp"
         android:background="@drawable/image_about_background"
         tools:ignore="ContentDescription"
         android:alpha="0.5"/>
@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_18"
         android:id="@+id/textViewAboutDialog"/>
 
 </RelativeLayout>

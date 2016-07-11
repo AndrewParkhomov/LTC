@@ -19,4 +19,11 @@ public class UtilsDevice
     {
         return context.getResources().getDisplayMetrics().widthPixels;
     }
+
+    public static int getScreenHeight(@NonNull final Context context)
+    {
+        return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+
 }

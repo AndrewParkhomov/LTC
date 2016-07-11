@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/activity_horizontal_margin"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_20"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/English"/>
 
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/activity_horizontal_margin"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_20"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/Russian"/>
 
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/activity_horizontal_margin"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_20"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/Ukrainian"/>
 
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="5dp"
+                android:padding="@dimen/margin_padding_5dp"
                 android:button="@null"
                 android:background="@color/white"
                 android:layout_gravity="left"
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="5dp"
+                android:padding="@dimen/margin_padding_5dp"
                 android:button="@null"
                 android:background="@color/white"
                 android:layout_gravity="left"
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="5dp"
+                android:padding="@dimen/margin_padding_5dp"
                 android:button="@null"
                 android:background="@color/white"
                 android:layout_gravity="left"
