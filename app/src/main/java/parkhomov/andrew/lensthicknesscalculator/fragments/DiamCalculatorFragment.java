@@ -10,15 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Locale;
-
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
-import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
 
 public class DiamCalculatorFragment extends Fragment implements View.OnClickListener{
 

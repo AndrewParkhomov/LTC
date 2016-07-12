@@ -2,7 +2,6 @@ package parkhomov.andrew.lensthicknesscalculator.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import parkhomov.andrew.lensthicknesscalculator.R;

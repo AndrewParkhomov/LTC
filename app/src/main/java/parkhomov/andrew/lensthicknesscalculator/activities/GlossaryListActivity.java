@@ -6,9 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
-import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
 import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 
 public class GlossaryListActivity extends ListActivity{

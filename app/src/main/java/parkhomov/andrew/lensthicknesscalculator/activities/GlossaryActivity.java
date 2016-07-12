@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
-import parkhomov.andrew.lensthicknesscalculator.fragments.DiamCalculatorFragment;
 import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 
 public class GlossaryActivity extends AppCompatActivity {

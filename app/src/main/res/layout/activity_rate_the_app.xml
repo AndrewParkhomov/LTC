@@ -13,13 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/padding_15dp"
-        android:textSize="@dimen/text_size_14"
+        android:textSize="@dimen/text_size_16"
         android:text="@string/rate_dialog_message"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_12"
+        android:textSize="@dimen/text_size_14"
         android:padding="@dimen/padding_15dp"
         android:textColor="@drawable/on_text_pressed_selector"
         android:layout_gravity="end"
@@ -34,7 +34,7 @@
         android:padding="@dimen/padding_15dp"
         android:textColor="@drawable/on_text_pressed_selector"
         android:layout_gravity="end"
-        android:textSize="@dimen/text_size_12"
+        android:textSize="@dimen/text_size_14"
         android:textAllCaps="true"
         android:id="@+id/rate_dialog_no"
         android:text="@string/rate_dialog_no"

@@ -39,7 +39,7 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                     + "DESCRIPTION_UKR TEXT, "
                     + "IMAGE_RESOURCE_ID INTEGER);");
             insertItem(db, "Index of refraction", "In optics, the refractive index or index of " +
-                    "refraction(n) of a material is a dimensionless number that describes how light " +
+                    "refraction of a material is a dimensionless number that describes how light " +
                     "propagates through that medium. It is defined as n = c / v, where c is the speed " +
                     "of light in vacuum and v is the phase velocity of light in the medium. " +
                     "For example, the refractive index of water is 1.333, meaning that light " +
@@ -155,8 +155,8 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "(1.61, 1.67, 1.74), так как они более прочные по сравнению с низкоиндексными." +
                             "Так же необходимо учитывать, что у астигматических линз со знаком " +
                             "цилиндра «-» максимальная толщина будет под углом 90°, " +
-                            "а для линз со знаком цилиндра «+» - под углом 0°, он же 180°(" +
-                            "также см. Транспозиция).\n" +
+                            "а для линз со знаком цилиндра «+» - под углом 0°, он же 180°" +
+                            "(см. Транспозиция).\n" +
                             "P.S. Если одним из основных критериев при подборе очков это толщина линз, " +
                             "то следует выбирать небольшую ободковую оправу и высокий показатель" +
                             " преломления линзы.",
@@ -173,11 +173,11 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             " у порівнянні з низькоіндексними. Також необхідно враховувати, що у " +
                             "астигматичних лінз із знаком циліндра «-» максимальна товщина буде " +
                             "під кутом 90°, а для лінз із знаком циліндра «+» - під кутом 0°, він же 180°" +
-                            "(також див. Транспозиція).\n" +
+                            "(див. Транспозиція).\n" +
                             "P.S. Якщо одним із основних критеріїв при підборі окулярів є товщина " +
                             "лінз, то слід вибирати невелику ободкову оправу та високий показник" +
                             " заломлення лінзи.",R.drawable.edge_thickness_img);
-            insertItem(db, "Diameter", "Diameter of the lens in millimeters. You can calculate lens" +
+            insertItem(db, "Diameter", "Diameter of the lens in millimeters. You can calculate lens " +
                     "diameter in menu 'Diameter calculator'.",
                     "Диаметр линзы","Диаметр линзы в миллиметрах. Чем больше диаметр - тем больше " +
                             "толщина линзы. Рассчитать нужный диаметр можно в меню «расчет диаметра линзы».",
@@ -219,7 +219,7 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "аномалию рефракции глаза только в 'плюсовом' цилиндре, и изготавливались " +
                             "астигматические линзы тоже только в цилиндре со знаком «+». " +
                             "Сейчас, в основном, рецепты выписывают в минусовом цилиндре. " +
-                            "Пересчитывается 'плюсовой' цилиндр в минусовый следующим образом: " +
+                            "Пересчитывается 'плюсовой' цилиндр в 'минусовый' следующим образом: " +
                             "значение цилиндра добавляется к значению сферы, и к текущему значению угла " +
                             "добавляется 90°.\n" +
                             "Примеры:\n" +
@@ -232,7 +232,7 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             " рефракції ока тільки у 'плюсовому' циліндрі, та виготовлялись астигматичні " +
                             "лінзи теж тільки у циліндрі із знаком «+». Зараз, в основному, рецепти" +
                             " виписують у мінусовому циліндрі. Перераховується 'плюсовий' циліндр у " +
-                            "мінусовий наступним чином: значення циліндра добавляється до значення сфери," +
+                            "'мінусовий' наступним чином: значення циліндра добавляється до значення сфери," +
                             " та к поточному значенню кута добавляється 90°.\n" +
                             "Приклади:\n" +
                             "   sph -7.0 cyl -3.0 axis 22° можна записати як:\n" +
