@@ -107,7 +107,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         EditText getLensDiameter = (EditText)view.findViewById(R.id.editTextLensDiameter);
         EditText getEdgeThickness = (EditText)view.findViewById(R.id.editTextEdgeThickness);
 
-        double lensDiameter, realRadiusMM, recalculatedCylinderCurve;
+        double lensDiameter, realRadiusMM, recalculatedCylinderCurve, tempDoubleForThickness;
         final double LAB_INDEX = 1.53;  // Constant index 1.53
 
         try {
@@ -134,6 +134,12 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             if(spherePower <= 0 && cylinderPower == 0) {
                 centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
             }else if(spherePower <= 0 && cylinderPower > 0){
+                if(spherePower == 0){
+                    // if sphere power == 0 we change formula, use cylinder power instead sphere power
+                    // for thickness calculation
+                    centerThickness = (Math.pow(lensDiameter / 2, 2) * cylinderPower /
+                            (2000 * (lensIndex - 1))) + edgeThickness;
+                }
                 try{
                     centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
                 }catch(NumberFormatException e){
@@ -144,9 +150,15 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             }else if(spherePower < 0){
                 centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
             }else if(spherePower >= 0){
+                // if cylinder > 0 we add sphere power and cylinder power
+                if(cylinderPower > 0){
+                    tempDoubleForThickness = spherePower + cylinderPower;
+                }else{
+                    tempDoubleForThickness = spherePower;
+                }
                 // ROUGH Formula for calc CT with plano - concave lens, without pay attention
                 // on front curve
-                centerThickness = (Math.pow(lensDiameter / 2, 2) * spherePower /
+                centerThickness = (Math.pow(lensDiameter / 2, 2) * tempDoubleForThickness /
                         (2000 * (lensIndex - 1))) + edgeThickness;
             }else{
                 throw new Exception();
@@ -276,7 +288,6 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
 
     private void cylinderCalculation(){
         double etOnCertainAxis = 0;
-
         if(spherePower <= 0) {
             maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
             etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
@@ -287,18 +298,25 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
             etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
         }else if(lensIndex != 1.498 && realFrontBaseCurveDptr <= spherePower){
-            maxEdgeThickness = Math.abs(sag2Cylinder - sag1Sphere) + edgeThickness;
+            if(Math.abs(cylinderPower) < spherePower){
+                maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
+            }else{
+                maxEdgeThickness = Math.abs(sag1Sphere + sag2Cylinder) + edgeThickness;
+            }
+            //Toast.makeText(getActivity(), "spherePower > 0", Toast.LENGTH_SHORT).show();
             etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
         }else if(lensIndex != 1.498 && realFrontBaseCurveDptr > spherePower){
             maxEdgeThickness = Math.abs(sag1Sphere - sag2Cylinder) + edgeThickness;
             etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;
         }
-        ThicknessResultActivity.isCylinder = true;
+        if(cylinderPower != 0){
+            ThicknessResultActivity.isCylinder = true;
+            intent.putExtra(ThicknessResultActivity.CALCULATION_MAX_EDGE_THICKNESS, maxEdgeThickness);
+            intent.putExtra(ThicknessResultActivity.CALCULATION_THICKNESS_ON_CERTAIN_AXIS, etOnCertainAxis);
+            intent.putExtra(ThicknessResultActivity.CALCULATION_AXIS_VIEW, axisView);
+        }
         intent.putExtra(ThicknessResultActivity.CALCULATION_CENTER_THICKNESS, centerThickness);
         intent.putExtra(ThicknessResultActivity.CALCULATION_EDGE_THICKNESS, edgeThickness);
-        intent.putExtra(ThicknessResultActivity.CALCULATION_MAX_EDGE_THICKNESS, maxEdgeThickness);
-        intent.putExtra(ThicknessResultActivity.CALCULATION_THICKNESS_ON_CERTAIN_AXIS, etOnCertainAxis);
-        intent.putExtra(ThicknessResultActivity.CALCULATION_AXIS_VIEW, axisView);
         startActivity(intent);
     }
 }

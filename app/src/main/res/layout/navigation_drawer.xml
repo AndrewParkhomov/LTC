@@ -19,8 +19,7 @@
             android:id="@+id/navigation_drawer_account_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:foreground="?selectableItemBackground">
+            android:clickable="true">
 
             <FrameLayout
                 app:layout_aspectRatio="178%"
