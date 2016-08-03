@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <android.support.percent.PercentFrameLayout
-            android:id="@+id/navigation_drawer_account_view"
+            android:id="@+id/navigation_drawer_head_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true">
@@ -30,32 +30,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/image_nav_drawer_account_background"
+                    android:src="@drawable/image_nav_drawer_head_picture"
                     tools:ignore="ContentDescription" />
 
             </FrameLayout>
-
-            <RelativeLayout
-                android:id="@+id/navigation_drawer_account_section"
-                android:paddingBottom="@dimen/nav_drawer_vertical_spacing_listing"
-                android:paddingEnd="@dimen/nav_drawer_vertical_keyline_right"
-                android:paddingLeft="@dimen/nav_drawer_vertical_keyline_icon_left"
-                android:paddingRight="@dimen/nav_drawer_vertical_keyline_right"
-                android:paddingStart="@dimen/nav_drawer_vertical_keyline_icon_left"
-                app:layout_aspectRatio="178%"
-                app:layout_widthPercent="100%">
-
-                <LinearLayout
-                    android:id="@+id/navigation_drawer_account_information"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/margin_padding_56dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true">
-                </LinearLayout>
-
-            </RelativeLayout>
 
         </android.support.percent.PercentFrameLayout>
 

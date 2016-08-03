@@ -4,6 +4,7 @@
     <string name="database_unavailable">База данных недоступна</string>
     <string name="link_to_diamCalcActivity"><u>Расчет диаметра линзы</u></string>
     <string name="link_to_transposition"><u>Транспозиция</u></string>
+    <string name="language">Язык</string>
 
     <!-- Version & Date-->
     <string name="version">Версия 1.0</string>
@@ -24,11 +25,11 @@
     <string name="diam_activ_wrong_dbl">Введите DBL</string>
     <string name="diam_activ_wrong_pd">Введите PD</string>
     <string name="thkns_activ_wrong_data">Некорректное значение (сферы, кривизны поверхности, толщины или диаметра)</string>
-    <string name="thkns_activ_textview_center_thickness">Толщина по центру(mm):</string>
-    <string name="thkns_activ_textview_edge_thickness">Минимальная толщина по краю(mm):</string>
-    <string name="thkns_activ_textview_max_edge_thickness">Максимальная толщна по краю(mm):</string>
+    <string name="thkns_activ_textview_center_thickness">Толщина по центру (mm):</string>
+    <string name="thkns_activ_textview_edge_thickness">Минимальная толщина по краю (mm):</string>
+    <string name="thkns_activ_textview_max_edge_thickness">Максимальная толщна по краю (mm):</string>
     <string name="thkns_activ_textview_certain_edge_thickness">Толщина по краю под углом " "</string>
-    <string name="thkns_activ_textview_certain_second_half"> °(mm):</string>
+    <string name="thkns_activ_textview_certain_second_half"> ° (mm):</string>
     <string name="thkns_activ_textview_center_thickness_numbers_format">%.2f</string>
     <string name="thkns_activ_textview_edge_thickness_numbers_format">%.2f</string>
     <string name="thkns_activ_textview_max_edge_thickness_numbers_format">%.2f</string>
@@ -98,10 +99,8 @@
     </string-array>
 
     <!-- Languages -->
-    <string-array name="language_list">
-        <item>English</item>
-        <item>Русский</item>
-        <item>Українська</item>
-    </string-array>
+    <string name="English">English</string>
+    <string name="Russian">Русский</string>
+    <string name="Ukrainian">Українська</string>
 
 </resources>

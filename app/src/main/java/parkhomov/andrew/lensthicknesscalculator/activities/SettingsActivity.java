@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 
@@ -18,11 +20,23 @@ public class SettingsActivity extends ListActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listView = getListView();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
-                getResources().getStringArray(R.array.settings_list)
-        );
+                getResources().getStringArray(R.array.settings_list)){
+
+                //  change text color in list items
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view =super.getView(position, convertView, parent);
+
+                    TextView textView=(TextView) view.findViewById(android.R.id.text1);
+
+                    textView.setTextColor(0xDE000000);
+
+                    return view;
+                }
+        };
         listView.setAdapter(adapter);
         setDividerColorAndBackground();
 

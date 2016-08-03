@@ -17,7 +17,7 @@
     <dimen name="nav_drawer_vertical_spacing_listing_divider_top">7dp</dimen>
     <dimen name="nav_drawer_vertical_spacing_listing_divider_bottom">8dp</dimen>
     <dimen name="nav_drawer_subheader_height">48dp</dimen>
-    <dimen name="distance_top_and_bottom_diam_calc">300dp</dimen>
+    <dimen name="distance_top_and_bottom_diam_calc">110dp</dimen>
     <dimen name="margin_padding_0dp">0dp</dimen>
     <dimen name="margin_padding_5dp">5dp</dimen>
     <dimen name="margin_padding_10dp">10dp</dimen>

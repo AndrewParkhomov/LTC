@@ -268,7 +268,7 @@
                 android:gravity="center"
                 android:layout_gravity="start"
                 android:textColor="@color/black"
-                android:inputType="numberDecimal"
+                android:inputType="date"
                 android:ems="3"
                 android:id="@+id/editTextEdgeThickness"
                 android:layout_row="6"

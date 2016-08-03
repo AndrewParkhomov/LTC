@@ -1,0 +1,5 @@
+
+<resources>
+    <dimen name="distance_top_and_bottom_diam_calc">40dp</dimen>
+    <dimen name="margin_padding_30dp">30dp</dimen>
+</resources>
