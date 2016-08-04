@@ -21,10 +21,8 @@
     <string name="thkns_activ_material_index">Lens index</string>
     <string name="thkns_activ_lens_diameter">Lens diameter</string>
     <string name="thkns_activ_edge_thickness">Edge thickness</string>
-    <string name="thkns_activ_wrong_axis">Incorrect axis data</string>
-    <string name="diam_activ_wrong_ed">Incorrect ED value</string>
-    <string name="diam_activ_wrong_dbl">Incorrect DBL value</string>
-    <string name="diam_activ_wrong_pd">Incorrect PD value</string>
+    <string name="thkns_activ_wrong_axis">Invalid axis data</string>
+    <string name="diam_activ_wrong_data">Invalid input data</string>
     <string name="thkns_activ_wrong_data">Invalid data(sphere power, base curve, thickness or diameter)</string>
     <string name="thkns_activ_textview_center_thickness">Center thickness (mm):</string>
     <string name="thkns_activ_textview_edge_thickness">Minimum edge thickness (mm):</string>
@@ -38,7 +36,7 @@
     <string name="diam_activ_ed">ED</string>
     <string name="diam_activ_dbl">DBL</string>
     <string name="diam_activ_pd">PD</string>
-    <string name="diam_activ_textView_result_formula">ED * 2 + DBL - PD = " "</string>
+    <string name="diam_activ_textView_result_formula">ED x 2 + DBL - PD = " "</string>
     <string name="diam_activ_textView_mm">" "mm</string>
     <string name="buttonCalc">Calculate</string>
     <string name="aboutLTCdeveloper">Developed by:\nParkhomov Andrew</string>

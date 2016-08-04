@@ -271,8 +271,6 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                     lensIndex = 1.727;
                     indexX = 0.73;
                     break;
-                default:
-                    break;
             }
             curveCalculation();
         }catch(Exception e){}
@@ -300,23 +298,16 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
 
     private void cylinderCalculation() {
         double maxEdgeThickness = 0;
-
+        //Toast.makeText(getActivity(), "here 5", Toast.LENGTH_SHORT).show();
         if (spherePower < realFrontBaseCurveDptr && realBackRadiusInMM < 0){
-            Toast.makeText(getActivity(), String.valueOf(sag2Cylinder), Toast.LENGTH_SHORT).show();
-            Toast.makeText(getActivity(), String.valueOf(sag1Sphere), Toast.LENGTH_SHORT).show();
-            Toast.makeText(getActivity(), String.valueOf(edgeThickness), Toast.LENGTH_SHORT).show();
             maxEdgeThickness = sag2Cylinder - sag1Sphere + edgeThickness;
         }else if (spherePower < realFrontBaseCurveDptr && realBackRadiusInMM > 0){
-            Toast.makeText(getActivity(), "here 2", Toast.LENGTH_SHORT).show();
             maxEdgeThickness = sag2Cylinder + sag1Sphere + edgeThickness;
         }else if(spherePower >= realFrontBaseCurveDptr && realBackRadiusInMM < 0){
-            Toast.makeText(getActivity(), "here 3", Toast.LENGTH_SHORT).show();
             maxEdgeThickness = sag2Cylinder - sag1Sphere + edgeThickness;
         }else if(spherePower > realFrontBaseCurveDptr && realBackCylinderRadiusInMM > 0){
-            Toast.makeText(getActivity(), "here 4", Toast.LENGTH_SHORT).show();
             maxEdgeThickness = sag1Sphere - sag2Cylinder + edgeThickness;
         }else if(spherePower > realFrontBaseCurveDptr && realBackCylinderRadiusInMM < 0) {
-            Toast.makeText(getActivity(), "here 5", Toast.LENGTH_SHORT).show();
             maxEdgeThickness = sag1Sphere + sag2Cylinder + edgeThickness;
         }
         double etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness;

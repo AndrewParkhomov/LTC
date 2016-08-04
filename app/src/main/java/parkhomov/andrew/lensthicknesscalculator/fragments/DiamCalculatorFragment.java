@@ -52,16 +52,7 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
             String result = getResources().getString(R.string.diam_activ_textView_result_formula) + String.valueOf(diam).replace(",", ".") + getResources().getString(R.string.diam_activ_textView_mm);
             textResult.setText(result);
         } catch (Exception e) {
-            if(String.valueOf(edEditText.getText()).equals("") || String.valueOf(edEditText.getText()).equals(".")) {
-                Toast.makeText(getActivity(), getResources().getText(R.string.diam_activ_wrong_ed), Toast.LENGTH_SHORT).show();
-            }
-            if(String.valueOf(dblEditText.getText()).equals("") || String.valueOf(edEditText.getText()).equals(".")){
-                Toast.makeText(getActivity(), getResources().getText(R.string.diam_activ_wrong_dbl), Toast.LENGTH_SHORT).show();
-            }
-            if(String.valueOf(pdEditText.getText()).equals("") || String.valueOf(edEditText.getText()).equals(".")) {
-                Toast.makeText(getActivity(), getResources().getText(R.string.diam_activ_wrong_pd), Toast.LENGTH_SHORT).show();
-            }
-            textResult.setText(null);
+            Toast.makeText(getActivity(), getResources().getText(R.string.diam_activ_wrong_data), Toast.LENGTH_SHORT).show();
         }
     }
 

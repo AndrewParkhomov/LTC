@@ -136,38 +136,38 @@
                 android:layout_row="2"
                 android:layout_column="2" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_20"
-                android:textColor="@color/black"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:paddingTop="@dimen/distance_top_and_bottom_diam_calc"
-                android:paddingBottom="@dimen/distance_top_and_bottom_diam_calc"
-                android:layout_marginLeft="@dimen/margin_padding_10dp"
-                android:layout_marginStart="@dimen/margin_padding_10dp"
-                android:id="@+id/textViewDiamResult"
-                android:layout_row="3"
-                android:layout_column="0"
-                android:layout_columnSpan="3"/>
-
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/buttonCalc"
                 android:gravity="center"
-                android:paddingRight="@dimen/margin_padding_5dp"
-                android:paddingLeft="@dimen/margin_padding_5dp"
+                android:padding="@dimen/margin_padding_5dp"
                 android:background="@drawable/round_button_blue"
                 android:textColor="@color/black"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_padding_50dp"
                 android:id="@+id/diameterCalculateButton"
-                android:layout_row="4"
+                android:layout_row="3"
                 android:layout_column="0"
                 android:layout_columnSpan="3" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_22"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:paddingTop="@dimen/margin_padding_30dp"
+                android:layout_marginLeft="@dimen/margin_padding_10dp"
+                android:layout_marginStart="@dimen/margin_padding_10dp"
+                android:id="@+id/textViewDiamResult"
+                android:layout_row="4"
+                android:layout_column="0"
+                android:layout_columnSpan="3"/>
 
         </GridLayout>
     </ScrollView>

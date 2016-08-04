@@ -21,9 +21,7 @@
     <string name="thkns_activ_lens_diameter">Діаметр лінзи</string>
     <string name="thkns_activ_edge_thickness">Товщина по краю</string>
     <string name="thkns_activ_wrong_axis">Недопустиме значення кута циліндра</string>
-    <string name="diam_activ_wrong_ed">Введіть ED</string>
-    <string name="diam_activ_wrong_dbl">Введіть DBL</string>
-    <string name="diam_activ_wrong_pd">Введіть PD</string>
+    <string name="diam_activ_wrong_data">Введені некоректні значення</string>
     <string name="thkns_activ_wrong_data">Некоректне значення(сфери, кривизни поверхні, товщини чи діаметра)</string>
     <string name="thkns_activ_textview_center_thickness">Товщина по центру (mm):</string>
     <string name="thkns_activ_textview_edge_thickness">Мінімальна товщина по краю (mm):</string>
@@ -37,7 +35,7 @@
     <string name="diam_activ_ed">ED</string>
     <string name="diam_activ_dbl">DBL</string>
     <string name="diam_activ_pd">PD</string>
-    <string name="diam_activ_textView_result_formula">ED * 2 + DBL - PD = " "</string>
+    <string name="diam_activ_textView_result_formula">ED x 2 + DBL - PD = " "</string>
     <string name="diam_activ_textView_mm">" "mm</string>
     <string name="buttonCalc">Розрахувати</string>
     <string name="aboutLTCdeveloper">Розробка:\nПархомов Андрій</string>
