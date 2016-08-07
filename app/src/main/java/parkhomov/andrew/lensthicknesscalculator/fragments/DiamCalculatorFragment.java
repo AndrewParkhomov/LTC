@@ -1,6 +1,7 @@
 package parkhomov.andrew.lensthicknesscalculator.fragments;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
+import parkhomov.andrew.lensthicknesscalculator.activities.ThicknessResultActivity;
+import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
 
 public class DiamCalculatorFragment extends Fragment implements View.OnClickListener{
 
@@ -23,7 +26,15 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_diam_calculator, container, false);
+        if((getResources().getConfiguration().screenLayout & UtilsDevice.getDisplaySize()) ==
+                Configuration.SCREENLAYOUT_SIZE_LARGE ||
+                (getResources().getConfiguration().screenLayout & UtilsDevice.getDisplaySize()) ==
+                        Configuration.SCREENLAYOUT_SIZE_XLARGE){
+            view = inflater.inflate(R.layout.activity_diam_calculator_large, container, false);
+
+        }else{
+            view = inflater.inflate(R.layout.activity_diam_calculator, container, false);
+        }
         setUpButtonsAndListeners();
         return view;
     }

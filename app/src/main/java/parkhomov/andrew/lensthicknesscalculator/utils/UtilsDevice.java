@@ -1,6 +1,7 @@
 package parkhomov.andrew.lensthicknesscalculator.utils;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 
 /**
@@ -15,14 +16,16 @@ public class UtilsDevice
      *
      * @return the screen width in pixels
      */
-    public static int getScreenWidth(@NonNull final Context context)
-    {
+    public static int getScreenWidth(@NonNull final Context context) {
         return context.getResources().getDisplayMetrics().widthPixels;
     }
 
-    public static int getScreenHeight(@NonNull final Context context)
-    {
+    public static int getScreenHeight(@NonNull final Context context) {
         return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+    public static int getDisplaySize(){
+        return Configuration.SCREENLAYOUT_SIZE_MASK;
     }
 
 

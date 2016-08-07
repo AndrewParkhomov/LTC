@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -53,6 +54,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setLanguage();
         setContentView(R.layout.activity_main);
         initialize();
+        if((getResources().getConfiguration().screenLayout & UtilsDevice.getDisplaySize()) ==
+                Configuration.SCREENLAYOUT_SIZE_NORMAL ){
+            Toast.makeText(MainActivity.this, "NORMAL", Toast.LENGTH_SHORT).show();
+        }else if((getResources().getConfiguration().screenLayout & UtilsDevice.getDisplaySize()) ==
+                Configuration.SCREENLAYOUT_SIZE_LARGE ){
+            Toast.makeText(MainActivity.this, "LARGE", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(MainActivity.this, String.valueOf(UtilsDevice.getDisplaySize()), Toast.LENGTH_SHORT).show();
+        }
+        float density = getResources().getDisplayMetrics().density;
+        Toast.makeText(MainActivity.this, String.valueOf(density), Toast.LENGTH_SHORT).show();
     }
 
     private void setLanguage() {
