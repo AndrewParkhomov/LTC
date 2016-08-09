@@ -38,11 +38,11 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                     + "DESCRIPTION_UKR TEXT, "
                     + "IMAGE_RESOURCE_ID INTEGER);");
             insertItem(db, "Index of refraction", "In optics, the refractive index or index of " +
-                    "refraction of a material is a dimensionless number that describes how light " +
-                    "propagates through that medium. It is defined as n = c / v, where c is the speed " +
-                    "of light in vacuum and v is the phase velocity of light in the medium. " +
-                    "For example, the refractive index of water is 1.333, meaning that light " +
-                    "travels 1.333 times faster in a vacuum than it does in water. © Wikipedia",
+                            "refraction of a material is a dimensionless number that describes how light " +
+                            "propagates through that medium. It is defined as n = c / v, where c is the speed " +
+                            "of light in vacuum and v is the phase velocity of light in the medium. " +
+                            "For example, the refractive index of water is 1.333, meaning that light " +
+                            "travels 1.333 times faster in a vacuum than it does in water. © Wikipedia",
                     "Показатель преломления","Показатель преломления — это величина, характеризующая " +
                             "преломляющую силу прозрачной среды. Чем выше показатель преломления, " +
                             "тем тоньше линза.",
@@ -50,7 +50,7 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "заломлюючу силу прозорого середовища. Чим вищий показник заломлення, " +
                             "тим тоншою є лінза.",R.drawable.index_of_refraction_img);
             insertItem(db, "Sphere power", "Spherical correction corrects refractive error of the " +
-                    "eye with a single convergent or divergent refractive power in all meridians.",
+                            "eye with a single convergent or divergent refractive power in all meridians.",
                     "Сфера","Сфера — оптическая сила линзы, измеряется в диоптриях, " +
                             "обозначается D или Дптр., применяется для коррекции аномалии рефракции.\n" +
                             "Для близорукости (миопии) используют рассеивающие линзы — " +
@@ -64,8 +64,8 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "Для далекозорості (гіперметропії) використовують збираючі лінзи " +
                             "— перед числовим значенням стоїть знак «+».",R.drawable.sphere_img);
             insertItem(db, "Cylinder power", "Cylindrical correction corrects astigmatic refractive " +
-                    "error of the eye by adding or subtracting power cylindrically in a meridian " +
-                    "specified by the prescribed axis.",
+                            "error of the eye by adding or subtracting power cylindrically in a meridian " +
+                            "specified by the prescribed axis.",
                     "Цилиндр","Цилиндр — оптическая сила линзы, применяемая для коррекции астигматизма.\n" +
                             "В здоровом виде роговица и хрусталик имеют сферическую форму. " +
                             "Если эта форма меняется, то при прохождении световых лучей через " +
@@ -77,7 +77,7 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "   — роговичный\n" +
                             "   — хрусталиковый\n" +
                             "Также астигматизм может быть как врожденым, так и приобретенным. " +
-                            "При астигматизме, в рецепте обязательно указывается положение оси цилиндра в градусах — " +
+                            "При астигматизме в рецепте обязательно указывается положение оси цилиндра в градусах — " +
                             "от 1° до 180° (он же 0°). Это связано с особенностями преломления света, " +
                             "проходящего через цилиндрическую линзу:\n" +
                             "   — лучи, идущие перпендикулярно оси цилиндра, преломляются\n" +
@@ -86,7 +86,7 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "Значение цилиндра бывает минусовым и плюсовым (см. Транспозиция).",
                     "Циліндр","Циліндр - оптична сила лінзи, яка застосовується для корекції астигматизму.\n" +
                             "У здоровому вигляді рогівка і кришталик мають сферичну форму. Якщо ця форма " +
-                            "змінюється, то при проходженні світлових променів крізь рогівку створюється " +
+                            "змінюється, то при проходженні світлових променів крізь рогівку утворюється " +
                             "викривлене зображення предмета. Одні фрагменти зображення фокусуються на сітківці, " +
                             "інші — перед нею, або поза нею. У результаті цього людина бачить картинку, " +
                             "в якій присутні як чіткі, так і розмиті ділянки і лінії.\n" +
@@ -94,32 +94,32 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "   — рогівковий\n" +
                             "   — кришталиковий\n" +
                             "Також астигматизм може бути як вродженим, так і набутим. " +
-                            "При астигматизмі у рецепті обов'язково вказується положення осі циліндра в градусах — " +
-                            "від 1° до 180° (він же 0°). Це пов'язано з відмінностями заломлення світла, яке " +
+                            "При астигматизмі у рецепті обов'язково вказується положення осі циліндра в градусах —" +
+                            " від 1° до 180° (він же 0°). Це пов'язано з відмінностями заломлення світла, яке " +
                             "проходить крізь циліндричну лінзу:\n" +
                             "   — промені, які проходять перпендикулярно осі циліндра переломлюються\n" +
                             "   — промені, які проходять паралельно осі, не змінюють напрямок руху\n" +
                             "Такі властивості дозволяють «виправити» переломлення світла у потрібному " +
-                            "меридіані. Значення циліндра бувають мінусовими і плюсовими (див. Транспозиція).",
+                            "меридіані. Значення циліндра буває мінусовим і плюсовим (див. Транспозиція).",
                     R.drawable.cylinder_img);
             insertItem(db, "Axis", "Axis is present only if there is a value for cylinder. This " +
-                    "indicates the angle in degrees of one of two major meridians the prescribed " +
-                    "cylindrical power is in. Which major meridian is referenced is indicated by " +
-                    "the cylindrical correction being in plus or minus notation.",
+                            "indicates the angle in degrees of one of two major meridians the prescribed " +
+                            "cylindrical power is in. Which major meridian is referenced is indicated by " +
+                            "the cylindrical correction being in plus or minus notation.",
                     "Угол оси цилиндра","Указывает, под каким углом расположена ось цилиндра. "+
                             "Положение оси измеряется в градусах от 1° до 180° (он же 0°).",
                     "Кут осі циліндра","Вказує, під яким кутом розташована вісь циліндра. " +
                             "Положення осі вимірюється у градусах від 1° до 180° (він же 0°).",R.drawable.axis_img);
             insertItem(db, "Real base curve", "The base curve (usually determined from the profile " +
-                    "of the front surface of an ophthalmic lens) can be changed to result in the " +
-                    "best optic and cosmetic characteristics across the entire surface of the lens. " +
-                    "Optometrists may choose to specify a particular base curve when prescribing a " +
-                    "corrective lens for either of these reasons. A multitude of mathematical formulas " +
-                    "and professional clinical experience has allowed optometrists and lens designers " +
-                    "to determine standard base curves that are ideal for most people. As a result," +
-                    " the front surface curve is more standardized and the characteristics that " +
-                    "generate a person's unique prescription are typically derived from the geometry " +
-                    "of the back surface of the lens.",
+                            "of the front surface of an ophthalmic lens) can be changed to result in the " +
+                            "best optic and cosmetic characteristics across the entire surface of the lens. " +
+                            "Optometrists may choose to specify a particular base curve when prescribing a " +
+                            "corrective lens for either of these reasons. A multitude of mathematical formulas " +
+                            "and professional clinical experience has allowed optometrists and lens designers " +
+                            "to determine standard base curves that are ideal for most people. As a result, " +
+                            "the front surface curve is more standardized and the characteristics that " +
+                            "generate a person's unique prescription are typically derived from the geometry " +
+                            "of the back surface of the lens.",
                     "Кривизна передней поверхности","Передняя поверхность линзы измеряется сферометром, " +
                             "полученное значение по формуле пересчитывается в кривизну, выраженную в " +
                             "миллиметрах или в диоптриях (в этом приложении). Значения в пределах от " +
@@ -177,12 +177,12 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "лінз, то слід вибирати невелику ободкову оправу та високий показник " +
                             "заломлення лінзи.",R.drawable.edge_thickness_img);
             insertItem(db, "Diameter", "Diameter of the lens in millimeters. You can calculate lens " +
-                    "diameter in menu 'Diameter calculator'.",
+                            "diameter in menu 'Diameter calculator'.",
                     "Диаметр линзы","Диаметр линзы в миллиметрах. Чем больше диаметр — тем больше " +
-                            "толщина линзы. Рассчитать нужный диаметр можно в меню «расчет диаметра линзы».",
+                            "толщина линзы. Рассчитать нужный диаметр можно в меню «Расчет диаметра линзы».",
                     "Діаметр лінзи","Діаметр лінзи в міліметрах. Чим більший діаметр — тим більша " +
                             "товщина лінзи. Розрахувати необхідний діаметр можна в меню " +
-                            "«розрахунок діаметра лінзи».",
+                            "«Розрахунок діаметра лінзи».",
                     R.drawable.diam_img);
             insertItem(db, "Effective diameter", "Effective diameter is a longest diagonal across the lens.",
                     "Эффективный диаметр","Эффективный диаметр окуляра (Effective diameter) " +
@@ -194,25 +194,29 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "(найбільша діагональ). Здебільшого, для коригуючих оправ, це значення " +
                             "перевищує горизонтальний розмір (А) на 2 - 3 мм.",R.drawable.ed_img);
             insertItem(db, "Distance between lenses", "The shortest distance in millimeters between " +
-                    "the nasal edges of each lens or the distance between boxes. DBL is also commonly " +
-                    "referred to as bridge size.",
+                            "the nasal edges of each lens. DBL is also commonly referred to as bridge size.",
                     "Расстояние между линзами","Расстояние между линзами (Distance between lenses) " +
                             "— это расстояние в миллиметрах между линзами (переносица).",
                     "Відстань між лінзами","Відстань між лінзами (Distance between lenses) " +
                             "— це відстань в міліметрах між лінзами (перенісся).",R.drawable.dbl_img);
-            insertItem(db, "Pupil distance", "Pupil Distance is the distance (expressed in millimeters)" +
-                    " between the centers of the pupils.",
+            insertItem(db, "Pupil distance", "Pupil Distance is the distance (expressed in millimeters) " +
+                            "between the centers of the pupils.",
                     "Расстояние между зрачками","Расстояние между зрачками, межцентровое расстояние " +
                             "(Pupil distance) — это расстояние между зрачками в миллиметрах.",
-                    "Відстань між зіницями","Відстань між зіницями, міжцентрова відстань (Pupil distance) " +
-                            "— це відстань між зіницями в міліметрах.",R.drawable.pd_img);
+                    "Відстань між зіницями","Відстань між зіницями, міжцентрова відстань (Pupil distance)" +
+                            " — це відстань між зіницями в міліметрах.",R.drawable.pd_img);
             insertItem(db, "Transposition", "Ophthalmologists and a few older optometrists " +
                             "(different types of eye doctors), write astigmatism prescriptions with " +
                             "positive «+» cylinders. This is because many years ago the instruments used " +
-                            "to measure and cut lenses were only able to do so in positive increments.\n" +
-                            "Nowadays the majority of labs, including ours, cut lenses in the negative «-», " +
+                            "to measure and cut lenses were only able to do so in positive increments. " +
+                            "Nowadays the majority of labs cut lenses in the negative «-», " +
                             "and require that any positive «+» cylinder prescriptions be converted into " +
-                            "the negative «-» equivalent.",
+                            "the negative «-» equivalent.\n" +
+                            "Examples:\n" +
+                            "   sph -7.0 cyl -3.0 axis 22° can be written like:\n" +
+                            "   sph -10.0 cyl +3.0 axis 112°.\n" +
+                            "   sph +5.75 cyl -1.25 axis 165° can be written like:\n" +
+                            "   sph +4.5 cyl +1.25 axis 75°",
                     "Транспозиция","Оптометристы могут ставить значение цилиндра как «+», так и «-». " +
                             "Это обусловлено тем, что инструменты много лет назад измеряли " +
                             "аномалию рефракции глаза только в 'плюсовом' цилиндре, и изготавливались " +
@@ -229,8 +233,8 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                     "Транспозиція","Оптометристи можуть ставити значення циліндра як «+», так і «-». " +
                             "Це обумовлено тим, що інструменти багато років тому вимірювали аномалію " +
                             "рефракції ока тільки у 'плюсовому' циліндрі, та виготовлялись астигматичні " +
-                            "лінзи теж тільки у циліндрі із знаком «+». Зараз рецепти виписують, головним " +
-                            "чином, у 'мінусовому' циліндрі. Перераховується 'плюсовий' циліндр у " +
+                            "лінзи теж тільки у циліндрі із знаком «+». Зараз, головним " +
+                            "чином, рецепти виписують у 'мінусовому' циліндрі. Перераховується 'плюсовий' циліндр у " +
                             "'мінусовий' (і навпаки) наступним чином: значення циліндра добавляється " +
                             "до значення сфери, та до поточного значення кута додається 90°.\n" +
                             "Приклади:\n" +

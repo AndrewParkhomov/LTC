@@ -257,10 +257,11 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             switch(getSpinnerNumber) {
                 case 0:
                     lensIndex = 1.498;
-                    indexX = 1.0644;
+                    indexX = 1.06425;
+                    break;
                 case 1:
                     lensIndex = 1.535;
-                    indexX = 0.9907;
+                    indexX = 0.9909;
                     break;
                 case 2:
                     lensIndex = 1.53;
@@ -268,11 +269,11 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                     break;
                 case 3:
                     lensIndex = 1.586;
-                    indexX = 0.92;
+                    indexX = 0.9044;
                     break;
                 case 4:
                     lensIndex = 1.59;
-                    indexX = 0.898;
+                    indexX = 0.8983;
                     break;
                 case 5:
                     lensIndex = 1.66;
@@ -280,7 +281,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                     break;
                 case 6:
                     lensIndex = 1.727;
-                    indexX = 0.7265;
+                    indexX = 0.729;
                     break;
             }
             curveCalculation();
