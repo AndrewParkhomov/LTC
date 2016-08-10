@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
+import parkhomov.andrew.lensthicknesscalculator.activities.MainActivity;
 import parkhomov.andrew.lensthicknesscalculator.activities.ThicknessResultActivity;
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
 
@@ -123,7 +124,6 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
 
         double lensDiameter, realRadiusMM, tempDoubleForThickness, recalculatedCylinderCurve,
                 recalculatedSphereCurve ;
-
         final double LAB_INDEX = 1.53;  // Constant index 1.53
 
         try {
@@ -310,8 +310,8 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                     centerThickness).replace(",", ".");
             edgeThicknessResult = String.format(stringEdgeThicknessNumbers,
                     edgeThickness).replace(",", ".");
-            onlySphereStringResult = stringCenterThickness + " = " + centerThicknessResult +"\n"+
-                    stringEdgeThickness + " = " + edgeThicknessResult + "\n";
+            onlySphereStringResult = stringCenterThickness + centerThicknessResult +"\n"+
+                    stringEdgeThickness + edgeThicknessResult + "\n";
             if(!getCylinderPower.getText().toString().equals("")) {
                 cylinderCalculation();
             }else{
@@ -356,10 +356,10 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                         maxEdgeThickness).replace(",", ".");
                 String edgeThicknessCertainAxis = String.format(stringCertainETNumbers,
                         etOnCertainAxis).replace(",", ".");
-                String finalResult = stringCenterThickness + " = " + centerThicknessResult +"\n"+
-                        stringEdgeThickness + " = " + edgeThicknessResult + "\n" + stringMaxET + " = " +
+                String finalResult = stringCenterThickness + centerThicknessResult +"\n"+
+                        stringEdgeThickness + edgeThicknessResult + "\n" + stringMaxET +
                         edgeThicknessMaxET + "\n" + stringCertainET + axisView + stringCertainETSecond +
-                        " = " + edgeThicknessCertainAxis;
+                        edgeThicknessCertainAxis;
                 tv.setText(finalResult);
             }else{
                 tv.setText(onlySphereStringResult);

@@ -23,11 +23,11 @@
     <string name="thkns_activ_wrong_axis">Недопустиме значення кута циліндра</string>
     <string name="diam_activ_wrong_data">Введені некоректні значення</string>
     <string name="thkns_activ_wrong_data">Некоректне значення(сфери, кривизни поверхні, товщини чи діаметра)</string>
-    <string name="thkns_activ_textview_center_thickness">Товщина по центру (mm)</string>
-    <string name="thkns_activ_textview_edge_thickness">Мінімальна товщина по краю (mm)</string>
-    <string name="thkns_activ_textview_max_edge_thickness">Максимальна товщина по краю (mm)</string>
+    <string name="thkns_activ_textview_center_thickness">Товщина по центру (mm): ""</string>
+    <string name="thkns_activ_textview_edge_thickness">Мінімальна товщина по краю (mm): ""</string>
+    <string name="thkns_activ_textview_max_edge_thickness">Максимальна товщина по краю (mm): ""</string>
     <string name="thkns_activ_textview_certain_edge_thickness">Товщина по краю під кутом " "</string>
-    <string name="thkns_activ_textview_certain_second_half"> ° (mm)</string>
+    <string name="thkns_activ_textview_certain_second_half"> ° (mm): ""</string>
     <string name="thkns_activ_textview_center_thickness_numbers_format">%.2f</string>
     <string name="thkns_activ_textview_edge_thickness_numbers_format">%.2f</string>
     <string name="thkns_activ_textview_max_edge_thickness_numbers_format">%.2f</string>

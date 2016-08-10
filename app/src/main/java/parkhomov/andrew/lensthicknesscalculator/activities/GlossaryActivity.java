@@ -107,6 +107,7 @@ public class GlossaryActivity extends AppCompatActivity {
     public void onGlossaryTextViewClicked(View view) {
         if(itemId == 8) {
             MainActivity.isTextLinkInDatabaseClicked = true;
+            MainActivity.mainActivity.finish();
             startActivity(new Intent(this, MainActivity.class));
         }
         if(itemId == 3 || itemId == 7){

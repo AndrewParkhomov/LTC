@@ -24,11 +24,11 @@
     <string name="thkns_activ_wrong_axis">Invalid axis data</string>
     <string name="diam_activ_wrong_data">Invalid input data</string>
     <string name="thkns_activ_wrong_data">Invalid data(sphere power, base curve, thickness or diameter)</string>
-    <string name="thkns_activ_textview_center_thickness">Center thickness (mm)</string>
-    <string name="thkns_activ_textview_edge_thickness">Minimum edge thickness (mm)</string>
-    <string name="thkns_activ_textview_max_edge_thickness">Maximum edge thickness (mm)</string>
-    <string name="thkns_activ_textview_certain_edge_thickness">Edge thickness on " "</string>
-    <string name="thkns_activ_textview_certain_second_half"> ° (mm)</string>
+    <string name="thkns_activ_textview_center_thickness">Center thickness (mm): ""</string>
+    <string name="thkns_activ_textview_edge_thickness">Minimum edge thickness (mm): ""</string>
+    <string name="thkns_activ_textview_max_edge_thickness">Maximum edge thickness (mm): ""</string>
+    <string name="thkns_activ_textview_certain_edge_thickness">Edge thickness on ""</string>
+    <string name="thkns_activ_textview_certain_second_half"> ° (mm): ""</string>
     <string name="thkns_activ_textview_center_thickness_numbers_format">%.2f</string>
     <string name="thkns_activ_textview_edge_thickness_numbers_format">%.2f</string>
     <string name="thkns_activ_textview_max_edge_thickness_numbers_format">%.2f</string>

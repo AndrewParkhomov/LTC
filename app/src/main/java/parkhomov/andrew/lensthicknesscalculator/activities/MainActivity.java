@@ -48,9 +48,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FrameLayout frameLayoutThknsCalc, frameLayoutDiamCalc,
             frameLayoutSettings, frameLayoutAbout,frameLayoutGlossary;
 
+    public static MainActivity mainActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = this;
         setLanguage();
         setContentView(R.layout.activity_main);
         initialize();
