@@ -64,7 +64,15 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         ImageButton imageButtonCenterThickness = (ImageButton) view.findViewById(R.id.imageButtonCenterThickness);
         ImageButton imageButtonEdgeThickness = (ImageButton) view.findViewById(R.id.imageButtonEdgeThickness);
         ImageButton imageButtonLensDiameter = (ImageButton) view.findViewById(R.id.imageButtonLensDiameter);
-        calculateButton.setOnClickListener(this);
+
+        // handle 'calculate' button
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectIndex();
+            }
+        });
+
         imageButtonLensIndex.setOnClickListener(this);
         imageButtonSpherePower.setOnClickListener(this);
         imageButtonCylinderPower.setOnClickListener(this);
@@ -77,41 +85,36 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(getActivity(), GlossaryActivity.class);
-        boolean isCalculationPressed = false;
+        int id = 0;
         switch(v.getId()){
-            case R.id.thicknessCalculateButton:
-                isCalculationPressed = true;
-                selectIndex();
-                break;
             case R.id.imageButtonLensIndex:
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 1);
+                id = 1;
                 break;
             case R.id.imageButtonSpherePower:
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 2);
+                id = 2;
                 break;
             case R.id.imageButtonCylinderPower:
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 3);
+                id = 3;
                 break;
             case R.id.imageButtonAxis:
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 4);
+                id = 4;
                 break;
             case R.id.imageButtonRealBaseCurve:
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 5);
+                id = 5;
                 break;
             case R.id.imageButtonCenterThickness:
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 6);
+                id = 6;
                 break;
             case R.id.imageButtonEdgeThickness:
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 7);
+                id = 7;
                 break;
             case R.id.imageButtonLensDiameter:
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 8);
+                id = 8;
                 break;
         }
-        if(!isCalculationPressed){
-            startActivity(intent);
-        }
+        Intent intent = new Intent(getActivity(), GlossaryActivity.class);
+        intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, id);
+        startActivity(intent);
     }
 
     private void curveCalculation() {
@@ -135,38 +138,39 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             realRadiusMM = (LAB_INDEX - 1) / (realFrontBaseCurveDptr / 1000);
 
             // if edge thickness field is empty, et = 0
-            if(!getEdgeThickness.getText().toString().equals("")) {
+            if (!getEdgeThickness.getText().toString().equals("")) {
                 edgeThickness = Double.parseDouble(String.valueOf(getEdgeThickness.getText()));
-            }else{
+            } else {
                 edgeThickness = 0;
             }
 
             // get cylinder power
-            try{
+            try {
                 cylinderPower = Double.parseDouble(String.valueOf(getCylinderPower.getText()));
-            }catch(NumberFormatException e){}
+            } catch (NumberFormatException e) {
+            }
 
             // set center thickness
-            if(spherePower <= 0 && cylinderPower == 0) {
+            if (spherePower <= 0 && cylinderPower == 0) {
                 centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
-            }else if(spherePower <= 0 && cylinderPower > 0){
-                if(spherePower == 0){
+            } else if (spherePower <= 0 && cylinderPower > 0) {
+                if (spherePower == 0) {
                     // if sphere power == 0 we change formula, use cylinder power instead sphere power
                     // for thickness calculation
                     centerThickness = (Math.pow(lensDiameter / 2, 2) * cylinderPower /
                             (2000 * (lensIndex - 1))) + edgeThickness;
                 }
-                try{
-                    if(spherePower + cylinderPower < 0){
+                try {
+                    if (spherePower + cylinderPower < 0) {
                         centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
-                    }else{
+                    } else {
                         // fix thickness bug, when lens is plus, and center thickness field is not empty,
                         // when you need press calculate button twice, before you got correct CT value
-                        centerThickness = (Math.pow(lensDiameter / 2, 2) * (spherePower + cylinderPower)/
+                        centerThickness = (Math.pow(lensDiameter / 2, 2) * (spherePower + cylinderPower) /
                                 (2000 * (lensIndex - 1))) + edgeThickness;
                     }
-                }catch(NumberFormatException e){
-                    if(Math.abs(spherePower) > Math.abs(cylinderPower)){
+                } catch (NumberFormatException e) {
+                    if (Math.abs(spherePower) > Math.abs(cylinderPower)) {
                         throw new Exception();
                     }
                 }
@@ -177,6 +181,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                 if(cylinderPower > 0){
                     tempDoubleForThickness = spherePower + cylinderPower;
                 }else{
+                    Toast.makeText(getActivity(), "here",Toast.LENGTH_LONG).show();
                     tempDoubleForThickness = spherePower;
                 }
                 // ROUGH Formula for calc CT with plano - concave lens, without pay attention
@@ -251,37 +256,52 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
     }
 
     private void selectIndex() {
+        final double INDEX_1498 = 1.498;
+        final double INDEX_1560 = 1.535;
+        final double INDEX_1530 = 1.53;
+        final double INDEX_1590 = 1.586;
+        final double INDEX_1610 = 1.59;
+        final double INDEX_1670 = 1.66;
+        final double INDEX_1740 = 1.727;
+        final double INDEX_X_1498 = 1.06425;
+        final double INDEX_X_1560 = 0.9909;
+        final double INDEX_X_1530 = 0.97;
+        final double INDEX_X_1590 = 0.9044;
+        final double INDEX_X_1610 = 0.8983;
+        final double INDEX_X_1670 = 0.803;
+        final double INDEX_X_1740 = 0.729;
+
         try{
             Spinner getLensIndex = (Spinner)view.findViewById(R.id.spinner);
             int getSpinnerNumber = getLensIndex.getSelectedItemPosition();
             switch(getSpinnerNumber) {
                 case 0:
-                    lensIndex = 1.498;
-                    indexX = 1.06425;
+                    lensIndex = INDEX_1498;
+                    indexX = INDEX_X_1498;
                     break;
                 case 1:
-                    lensIndex = 1.535;
-                    indexX = 0.9909;
+                    lensIndex = INDEX_1560;
+                    indexX = INDEX_X_1560;
                     break;
                 case 2:
-                    lensIndex = 1.53;
-                    indexX = 0.97;
+                    lensIndex = INDEX_1530;
+                    indexX = INDEX_X_1530;
                     break;
                 case 3:
-                    lensIndex = 1.586;
-                    indexX = 0.9044;
+                    lensIndex = INDEX_1590;
+                    indexX = INDEX_X_1590;
                     break;
                 case 4:
-                    lensIndex = 1.59;
-                    indexX = 0.8983;
+                    lensIndex = INDEX_1610;
+                    indexX = INDEX_X_1610;
                     break;
                 case 5:
-                    lensIndex = 1.66;
-                    indexX = 0.803;
+                    lensIndex = INDEX_1670;
+                    indexX = INDEX_X_1670;
                     break;
                 case 6:
-                    lensIndex = 1.727;
-                    indexX = 0.729;
+                    lensIndex = INDEX_1740;
+                    indexX = INDEX_X_1740;
                     break;
             }
             curveCalculation();
@@ -291,7 +311,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
     private void sphereThicknessCalculation() {
         //Toast.makeText(getActivity(), String.valueOf(realBackRadiusInMM), Toast.LENGTH_SHORT).show();
         if(realBackRadiusInMM <= 0){
-            if (spherePower < 0) {
+            if (spherePower <= 0) {
                 edgeThickness = sag1Sphere - sag2Sphere + centerThickness;
             }else{
                 centerThickness = Math.abs(sag1Sphere - sag2Sphere) + edgeThickness;

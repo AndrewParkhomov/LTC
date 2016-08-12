@@ -40,7 +40,7 @@
         </activity>
 
         <activity
-            android:name=".activities.LanguageActivity"
+            android:name=".activities.SetLanguageActivity"
             android:label="@string/language"
             android:noHistory="true"
             android:screenOrientation="portrait"
@@ -66,6 +66,10 @@
             android:theme="@style/AppThemeNoTitleBarAndDialog"
             android:noHistory="true"
             android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activities.GetLanguageActivity">
         </activity>
 
     </application>

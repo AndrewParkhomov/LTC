@@ -42,7 +42,6 @@ import parkhomov.andrew.lensthicknesscalculator.utils.UtilsMiscellaneous;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static boolean isTextLinkInDatabaseClicked;
-    String currentLanguage;
     private DrawerLayout drawerLayout;
     private LinearLayout navDrawerEntriesRootView;
     private FrameLayout frameLayoutThknsCalc, frameLayoutDiamCalc,
@@ -54,55 +53,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainActivity = this;
-        setLanguage();
         setContentView(R.layout.activity_main);
         initialize();
     }
 
-    private void setLanguage() {
-        Cursor cursor;
-        Locale locale;
-        Configuration config;
-        //get language from database(by default English)
-        SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
-        SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
-        try {
-            cursor = db.query("LANGUAGE",
-                    new String[]{"CURRENT_LANGUAGE"},
-                    null,
-                    null,
-                    null, null, null);
-            if (cursor.moveToFirst()) {
-                currentLanguage = cursor.getString(0);
-                cursor.close();
-                db.close();
-            }
-        }catch (SQLiteException e){}
-        // set language
-        switch (currentLanguage) {
-            case "English":
-                locale = new Locale("en-gb");
-                Locale.setDefault(locale);
-                config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
-                break;
-            case "русский":
-                locale = new Locale("ru");
-                Locale.setDefault(locale);
-                config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
-                break;
-            case "українська":
-                locale = new Locale("uk");
-                Locale.setDefault(locale);
-                config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
-                break;
-        }
-    }
+//    private void setLanguage() {
+//        Cursor cursor;
+//        Locale locale;
+//        Configuration config;
+//        //get language from database(by default English)
+//        SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
+//        SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
+//        try {
+//            cursor = db.query("LANGUAGE",
+//                    new String[]{"CURRENT_LANGUAGE"},
+//                    null,
+//                    null,
+//                    null, null, null);
+//            if (cursor.moveToFirst()) {
+//                currentLanguage = cursor.getString(0);
+//                cursor.close();
+//                db.close();
+//            }
+//        }catch (SQLiteException e){}
+//        // set language
+//        switch (currentLanguage) {
+//            case "English":
+//                locale = new Locale("en-gb");
+//                Locale.setDefault(locale);
+//                config = new Configuration();
+//                config.locale = locale;
+//                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
+//                break;
+//            case "русский":
+//                locale = new Locale("ru");
+//                Locale.setDefault(locale);
+//                config = new Configuration();
+//                config.locale = locale;
+//                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
+//                break;
+//            case "українська":
+//                locale = new Locale("uk");
+//                Locale.setDefault(locale);
+//                config = new Configuration();
+//                config.locale = locale;
+//                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
+//                break;
+//        }
+//    }
 
     private void initialize() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
