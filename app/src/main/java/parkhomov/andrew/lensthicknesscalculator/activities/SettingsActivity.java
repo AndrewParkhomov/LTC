@@ -53,17 +53,15 @@ public class SettingsActivity extends ListActivity{
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent;
+        Intent intent = null;
         switch (position) {
             case 0:
                 intent = new Intent(this, SetLanguageActivity.class);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
                 break;
             case 1:
                 intent = new Intent(this, RateAppActivity.class);
-                startActivity(intent);
                 break;
         }
+        startActivity(intent);
     }
 }

@@ -15,12 +15,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
 import parkhomov.andrew.lensthicknesscalculator.activities.MainActivity;
 import parkhomov.andrew.lensthicknesscalculator.activities.ThicknessResultActivity;
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
 
+/**
+ * This class is for thickness calculation logic.
+ */
 
 public class ThknsCalculatorFragment extends Fragment implements View.OnClickListener{
 
@@ -181,7 +186,6 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                 if(cylinderPower > 0){
                     tempDoubleForThickness = spherePower + cylinderPower;
                 }else{
-                    Toast.makeText(getActivity(), "here",Toast.LENGTH_LONG).show();
                     tempDoubleForThickness = spherePower;
                 }
                 // ROUGH Formula for calc CT with plano - concave lens, without pay attention
@@ -326,10 +330,8 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             String stringEdgeThicknessNumbers = getResources().getString(R.string.thkns_activ_textview_edge_thickness_numbers_format);
             stringCenterThickness = getResources().getString(R.string.thkns_activ_textview_center_thickness);
             stringEdgeThickness = getResources().getString(R.string.thkns_activ_textview_edge_thickness);
-            centerThicknessResult = String.format(stringCenterThicknessNumbers,
-                    centerThickness).replace(",", ".");
-            edgeThicknessResult = String.format(stringEdgeThicknessNumbers,
-                    edgeThickness).replace(",", ".");
+            centerThicknessResult = String.format(Locale.ENGLISH, stringCenterThicknessNumbers, centerThickness);
+            edgeThicknessResult = String.format(Locale.ENGLISH, stringEdgeThicknessNumbers, edgeThickness);
             onlySphereStringResult = stringCenterThickness + centerThicknessResult +"\n"+
                     stringEdgeThickness + edgeThicknessResult + "\n";
             if(!getCylinderPower.getText().toString().equals("")) {
@@ -372,10 +374,8 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                 String stringMaxETNumbers = getResources().getString(R.string.thkns_activ_textview_max_edge_thickness_numbers_format);
                 String stringCertainETNumbers = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness_numbers_format);
 
-                String edgeThicknessMaxET = String.format(stringMaxETNumbers,
-                        maxEdgeThickness).replace(",", ".");
-                String edgeThicknessCertainAxis = String.format(stringCertainETNumbers,
-                        etOnCertainAxis).replace(",", ".");
+                String edgeThicknessMaxET = String.format(Locale.ENGLISH,stringMaxETNumbers,maxEdgeThickness);
+                String edgeThicknessCertainAxis = String.format(Locale.ENGLISH,stringCertainETNumbers,etOnCertainAxis);
                 String finalResult = stringCenterThickness + centerThicknessResult +"\n"+
                         stringEdgeThickness + edgeThicknessResult + "\n" + stringMaxET +
                         edgeThicknessMaxET + "\n" + stringCertainET + axisView + stringCertainETSecond +

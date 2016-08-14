@@ -19,6 +19,10 @@ import parkhomov.andrew.lensthicknesscalculator.activities.GlossaryActivity;
 import parkhomov.andrew.lensthicknesscalculator.activities.ThicknessResultActivity;
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
 
+/**
+ * This class is for lens diameter calculations.
+ */
+
 public class DiamCalculatorFragment extends Fragment implements View.OnClickListener{
 
     View view;
@@ -44,7 +48,14 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
         ImageButton imageButtonED = (ImageButton) view.findViewById(R.id.imageButtonED);
         ImageButton imageButtonDBL = (ImageButton) view.findViewById(R.id.imageButtonDBL);
         ImageButton imageButtonPD = (ImageButton) view.findViewById(R.id.imageButtonPD);
-        calculateButton.setOnClickListener(this);
+
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDiamCalculateButtonClicked();
+            }
+        });
+
         imageButtonED.setOnClickListener(this);
         imageButtonDBL.setOnClickListener(this);
         imageButtonPD.setOnClickListener(this);
@@ -60,7 +71,11 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
             double dbl = Double.parseDouble(String.valueOf(dblEditText.getText()));
             double pd = Double.parseDouble(String.valueOf(pdEditText.getText()));
             double diam = Math.ceil(ed * 2 + dbl - pd);
-            String result = getResources().getString(R.string.diam_activ_textView_result_formula) + String.valueOf(diam).replace(",", ".") + getResources().getString(R.string.diam_activ_textView_mm);
+
+            String result = getResources().getString(R.string.diam_activ_textView_result_formula) +
+                    String.valueOf(diam).replace(",", ".") +
+                    getResources().getString(R.string.diam_activ_textView_mm);
+
             textResult.setText(result);
         } catch (Exception e) {
             Toast.makeText(getActivity(), getResources().getText(R.string.diam_activ_wrong_data), Toast.LENGTH_SHORT).show();
@@ -69,25 +84,20 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        boolean isCalculationPressed = false;
-        Intent intent = new Intent(getActivity(), GlossaryActivity.class);
+        int id = -1;
         switch(v.getId()){
-            case R.id.diameterCalculateButton:
-                isCalculationPressed = true;
-                onDiamCalculateButtonClicked();
-                break;
             case R.id.imageButtonED:
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 9);
+                id = 9;
                 break;
             case R.id.imageButtonDBL:
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 10);
+                id = 10;
                 break;
             case R.id.imageButtonPD:
-                intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, 11);
+                id = 11;
                 break;
         }
-        if(!isCalculationPressed){
-            startActivity(intent);
-        }
+        Intent intent = new Intent(getActivity(), GlossaryActivity.class);
+        intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, id);
+        startActivity(intent);
     }
 }

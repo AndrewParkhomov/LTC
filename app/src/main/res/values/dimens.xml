@@ -30,6 +30,7 @@
     <dimen name="margin_padding_70dp">70dp</dimen>
     <dimen name="margin_padding_100dp">100dp</dimen>
     <dimen name="margin_padding_120dp">120dp</dimen>
+    <dimen name="margin_padding_130dp">130dp</dimen>
     <dimen name="margin_padding_188dp">188dp</dimen>
     <dimen name="margin_padding_340dp">340dp</dimen>
 

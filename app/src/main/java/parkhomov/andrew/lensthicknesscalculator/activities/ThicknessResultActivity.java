@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 
@@ -61,14 +62,10 @@ public class ThicknessResultActivity extends ListActivity {
             etOnCertainAxis = getIntent().getExtras().getDouble(CALCULATION_THICKNESS_ON_CERTAIN_AXIS);
             axisView = getIntent().getExtras().getInt(CALCULATION_AXIS_VIEW);
 
-            String centerThicknessResult = String.format(stringCenterThicknessNumbers,
-                    centerThickness).replace(",", ".");
-            String edgeThicknessResult = String.format(stringEdgeThicknessNumbers,
-                    edgeThickness).replace(",", ".");
-            String edgeThicknessMaxET = String.format(stringMaxETNumbers,
-                    maxEdgeThickness).replace(",", ".");
-            String edgeThicknessCertainAxis = String.format(stringCertainETNumbers,
-                    etOnCertainAxis).replace(",", ".");
+            String centerThicknessResult = String.format(Locale.ENGLISH,stringCenterThicknessNumbers, centerThickness);
+            String edgeThicknessResult = String.format(Locale.ENGLISH, stringEdgeThicknessNumbers, edgeThickness);
+            String edgeThicknessMaxET = String.format(Locale.ENGLISH,stringMaxETNumbers,maxEdgeThickness);
+            String edgeThicknessCertainAxis = String.format(Locale.ENGLISH,stringCertainETNumbers,etOnCertainAxis);
 
             listWithResult.add(stringCenterThickness + " " + centerThicknessResult);
             listWithResult.add(stringEdgeThickness + " " + edgeThicknessResult);
@@ -77,11 +74,8 @@ public class ThicknessResultActivity extends ListActivity {
                     " " + edgeThicknessCertainAxis);
             isCylinder = false;
         }else{
-            String centerThicknessResult = String.format(stringCenterThicknessNumbers,
-                    centerThickness).replace(",", ".");
-            String edgeThicknessResult = String.format(stringEdgeThicknessNumbers,
-                    edgeThickness).replace(",", ".");
-            //Toast.makeText(getApplicationContext(), String.valueOf(getItemHeightofListView(listView, 2)), Toast.LENGTH_SHORT).show();
+            String centerThicknessResult = String.format(Locale.ENGLISH,stringCenterThicknessNumbers, centerThickness);
+            String edgeThicknessResult = String.format(Locale.ENGLISH, stringEdgeThicknessNumbers, edgeThickness);
             listWithResult.add(stringCenterThickness + " " + centerThicknessResult);
             listWithResult.add(stringEdgeThickness + " " + edgeThicknessResult);
         }

@@ -20,7 +20,5 @@ public class AboutDialogActivity extends AppCompatActivity {
                 getResources().getString(R.string.year);
         tv.setTextColor(0xDE000000);
         tv.setText(text);
-        //disable outside touches in dialog activity
-        this.setFinishOnTouchOutside(false);
     }
 }

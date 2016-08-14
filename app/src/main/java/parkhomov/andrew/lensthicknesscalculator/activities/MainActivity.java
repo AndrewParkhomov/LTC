@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.percent.PercentFrameLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -57,51 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initialize();
     }
 
-//    private void setLanguage() {
-//        Cursor cursor;
-//        Locale locale;
-//        Configuration config;
-//        //get language from database(by default English)
-//        SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
-//        SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
-//        try {
-//            cursor = db.query("LANGUAGE",
-//                    new String[]{"CURRENT_LANGUAGE"},
-//                    null,
-//                    null,
-//                    null, null, null);
-//            if (cursor.moveToFirst()) {
-//                currentLanguage = cursor.getString(0);
-//                cursor.close();
-//                db.close();
-//            }
-//        }catch (SQLiteException e){}
-//        // set language
-//        switch (currentLanguage) {
-//            case "English":
-//                locale = new Locale("en-gb");
-//                Locale.setDefault(locale);
-//                config = new Configuration();
-//                config.locale = locale;
-//                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
-//                break;
-//            case "русский":
-//                locale = new Locale("ru");
-//                Locale.setDefault(locale);
-//                config = new Configuration();
-//                config.locale = locale;
-//                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
-//                break;
-//            case "українська":
-//                locale = new Locale("uk");
-//                Locale.setDefault(locale);
-//                config = new Configuration();
-//                config.locale = locale;
-//                getBaseContext().getApplicationContext().getResources().updateConfiguration(config, null);
-//                break;
-//        }
-//    }
-
     private void initialize() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -110,7 +66,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getSupportActionBar().setTitle(getString(R.string.toolbar_title_lens_thkns_calc));
         }
 
-        setUpIcons();
+        setUpIcons(R.id.navigation_drawer_items_list_icon_thkns_calc);
+        setUpIcons(R.id.navigation_drawer_items_list_icon_diam_calc);
+        setUpIcons(R.id.navigation_drawer_items_list_icon_glossary);
 
         navDrawerEntriesRootView = (LinearLayout) findViewById
                 (R.id.navigation_drawer_linearLayout_entries_root_view);
@@ -150,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
         drawerLayout.openDrawer(Gravity.LEFT);
         drawerLayout.setDrawerListener(mActionBarDrawerToggle);
-        mActionBarDrawerToggle.syncState();
 
         // Navigation Drawer layout width
         final int possibleMinDrawerWidth =
@@ -172,27 +129,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         frameLayoutAbout.setOnClickListener(this);
         frameLayoutSettings.setOnClickListener(this);
 
+        Fragment fragment;
+        String title;
         if(isTextLinkInDatabaseClicked){
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            DiamCalculatorFragment df = new DiamCalculatorFragment();
-            fragmentTransaction.replace(R.id.main_activity_content_frame, df);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-            if(getSupportActionBar() != null) getSupportActionBar().setTitle(getString(R.string.toolbar_title_diam_calc));
+            fragment = new DiamCalculatorFragment();
+            title = getString(R.string.toolbar_title_diam_calc);
             if(drawerLayout.isDrawerOpen(GravityCompat.START))drawerLayout.closeDrawer(Gravity.LEFT);
             frameLayoutDiamCalc.setSelected(true);
-            mActionBarDrawerToggle.syncState();
             isTextLinkInDatabaseClicked = false;
         }else{
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            ThknsCalculatorFragment tc = new ThknsCalculatorFragment();
-            fragmentTransaction.replace(R.id.main_activity_content_frame, tc);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-            // Set the first item as selected for the first time
+            fragment = new ThknsCalculatorFragment();
+            title = getString(R.string.toolbar_title_lens_thkns_calc);
             frameLayoutThknsCalc.setSelected(true);
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_activity_content_frame, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        mActionBarDrawerToggle.syncState();
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
         }
     }
 
@@ -201,27 +158,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (!view.isSelected()) {
             onRowPressed((FrameLayout) view);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            Fragment fragment = null;
+            String title = null;
             if (view == frameLayoutThknsCalc) {
-                ThknsCalculatorFragment tc = new ThknsCalculatorFragment();
-                fragmentTransaction.replace(R.id.main_activity_content_frame, tc);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                if (getSupportActionBar() != null){
-                    getSupportActionBar().setTitle(getString(R.string.toolbar_title_lens_thkns_calc));
-                }
-                view.setSelected(true);
+                fragment = new ThknsCalculatorFragment();
+                title = getString(R.string.toolbar_title_lens_thkns_calc);
             } else if (view == frameLayoutDiamCalc) {
-                DiamCalculatorFragment df = new DiamCalculatorFragment();
-                fragmentTransaction.replace(R.id.main_activity_content_frame, df);
+                fragment = new DiamCalculatorFragment();
+                title = getString(R.string.toolbar_title_diam_calc);
+            }
+            if (fragment != null){
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_activity_content_frame, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                if (getSupportActionBar() != null){
-                    getSupportActionBar().setTitle(getString(R.string.toolbar_title_diam_calc));
-                }
                 view.setSelected(true);
-            } else if (view == frameLayoutGlossary) {
+                if (getSupportActionBar() != null){
+                    getSupportActionBar().setTitle(title);
+                }
+            }
+            if (view == frameLayoutGlossary) {
                 startActivity(new Intent(view.getContext(), GlossaryListActivity.class));
             } else if (view == frameLayoutAbout) {
                 startActivity(new Intent(view.getContext(), AboutDialogActivity.class));
@@ -240,7 +197,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             {
                 final View currentView = navDrawerEntriesRootView.getChildAt(i);
 
-                //Always true?
                 final boolean currentViewIsMainEntry = currentView.getTag() ==
                         getResources().getString(R.string.tag_nav_drawer_main_entry);
 
@@ -253,35 +209,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout.closeDrawer(GravityCompat.START);
     }
 
-    private void setUpIcons() {
+    private void setUpIcons(int imageId) {
         // Icons tint list
-
-        final ImageView thknsImageView =
-                (ImageView) findViewById(R.id.navigation_drawer_items_list_icon_thkns_calc);
-        final Drawable thknsDrawable = DrawableCompat.wrap(thknsImageView.getDrawable());
+        final ImageView imageView =
+                (ImageView) findViewById(imageId);
+        final Drawable drawable = DrawableCompat.wrap(imageView.getDrawable());
         DrawableCompat.setTintList(
-                thknsDrawable.mutate(),
+                drawable.mutate(),
                 ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
         );
-        thknsImageView.setImageDrawable(thknsDrawable);
-
-        final ImageView diamImageView =
-                (ImageView) findViewById(R.id.navigation_drawer_items_list_icon_diam_calc);
-        final Drawable diamDrawable = DrawableCompat.wrap(diamImageView.getDrawable());
-        DrawableCompat.setTintList(
-                diamDrawable.mutate(),
-                ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
-        );
-        diamImageView.setImageDrawable(diamDrawable);
-
-        final ImageView glossaryImageView =
-                (ImageView) findViewById(R.id.navigation_drawer_items_list_icon_glossary);
-        final Drawable glossaryDrawable = DrawableCompat.wrap(glossaryImageView.getDrawable());
-        DrawableCompat.setTintList(
-                glossaryDrawable.mutate(),
-                ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
-        );
-        glossaryImageView.setImageDrawable(glossaryDrawable);
+        imageView.setImageDrawable(drawable);
     }
 
     @Override

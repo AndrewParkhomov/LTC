@@ -7,7 +7,13 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -100,6 +106,10 @@ public class GlossaryListActivity extends ListActivity{
             Toast.makeText(this, getResources().getText(R.string.database_unavailable), Toast.LENGTH_LONG).show();
         }
         setDividerColorAndBackground();
+        android.app.ActionBar ab = getActionBar();
+        if (ab != null){
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void setDividerColorAndBackground() {
@@ -114,6 +124,7 @@ public class GlossaryListActivity extends ListActivity{
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(this, GlossaryActivity.class);
         intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, (int)id+1);
+        GlossaryActivity.isGlossaryList = true;
         startActivity(intent);
     }
 }

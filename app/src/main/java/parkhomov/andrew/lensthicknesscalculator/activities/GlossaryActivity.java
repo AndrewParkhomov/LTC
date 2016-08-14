@@ -5,8 +5,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,15 +23,11 @@ import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabas
 public class GlossaryActivity extends AppCompatActivity {
 
     Cursor cursor;
-    int itemId;
-    int imageId;
+    public static boolean isGlossaryList;
     // temp number need to switch off or on correct information in addTExtView
-    int tempNumber;
-    String name;
-    String description;
-    TextView setName;
-    TextView setDescription;
-    TextView addTV;
+    int itemId, imageId, tempNumber;
+    String name, description;
+    TextView setName, setDescription, addTV;
     ImageView setPicture;
 
     public static final String QUERY_MARK_LISTNUMBER_ID = "listId";
@@ -36,8 +35,8 @@ public class GlossaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         itemId = getIntent().getExtras().getInt(QUERY_MARK_LISTNUMBER_ID);
+        Toast.makeText(this, String.valueOf(isGlossaryList), Toast.LENGTH_LONG).show();
         Cursor cursor;
         // get info from database
         try{
@@ -45,13 +44,6 @@ public class GlossaryActivity extends AppCompatActivity {
             SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
             String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
             switch(currentLanguage){
-                case "English":
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_ENG", "DESCRIPTION_ENG", "IMAGE_RESOURCE_ID"},
-                            "_id = ?",
-                            new String[]{Integer.toString(itemId)},
-                            null, null, null);
-                    break;
                 case "русский":
                     cursor = db.query("GLOSSARY",
                             new String[]{"NAME_RUS", "DESCRIPTION_RUS", "IMAGE_RESOURCE_ID"},
@@ -101,8 +93,37 @@ public class GlossaryActivity extends AppCompatActivity {
             addTV = (TextView)findViewById(R.id.glossaryAddTextView);
             addTV.setText(getResources().getText(R.string.link_to_diamCalcActivity));
         }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getString(R.string.nav_drawer_item_glossary));
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            onBackPressedBehaviour();
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        onBackPressedBehaviour();
+    }
+
+    private void onBackPressedBehaviour(){
+        if(isGlossaryList){
+            isGlossaryList = false;
+            startActivity(new Intent(GlossaryActivity.this, GlossaryListActivity.class));
+        }else{
+            this.finish();
+        }
+    }
 
     public void onGlossaryTextViewClicked(View view) {
         if(itemId == 8) {
@@ -116,13 +137,6 @@ public class GlossaryActivity extends AppCompatActivity {
                 SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
                 String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
                 switch(currentLanguage) {
-                    case "English":
-                        cursor = db.query("GLOSSARY",
-                                new String[]{"NAME_ENG", "DESCRIPTION_ENG", "IMAGE_RESOURCE_ID"},
-                                "_id = ?",
-                                new String[]{Integer.toString(tempNumber)},
-                                null, null, null);
-                        break;
                     case "русский":
                         cursor = db.query("GLOSSARY",
                                 new String[]{"NAME_RUS", "DESCRIPTION_RUS", "IMAGE_RESOURCE_ID"},

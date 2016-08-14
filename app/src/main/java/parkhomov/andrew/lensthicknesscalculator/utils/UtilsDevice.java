@@ -20,13 +20,7 @@ public class UtilsDevice
         return context.getResources().getDisplayMetrics().widthPixels;
     }
 
-    public static int getScreenHeight(@NonNull final Context context) {
-        return context.getResources().getDisplayMetrics().heightPixels;
-    }
-
     public static int getDisplaySize(){
         return Configuration.SCREENLAYOUT_SIZE_MASK;
     }
-
-
 }
