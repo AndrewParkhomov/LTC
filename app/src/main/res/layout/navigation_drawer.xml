@@ -66,7 +66,7 @@
                     <TextView
                         android:id="@+id/navigation_drawer_items_textView_thkns_calc"
                         style="@style/NavDrawerRowItemText"
-                        android:text="@string/nav_drawer_item_thkns_calc" />
+                        android:text="@string/string_thkns_calc" />
 
                 </FrameLayout>
 
@@ -84,7 +84,7 @@
                     <TextView
                         android:id="@+id/navigation_drawer_items_textView_diamCalc"
                         style="@style/NavDrawerRowItemText"
-                        android:text="@string/nav_drawer_item_diam_calc"/>
+                        android:text="@string/string_diam_calc"/>
 
                 </FrameLayout>
 
@@ -102,7 +102,7 @@
                     <TextView
                         android:id="@+id/navigation_drawer_items_textView_glossary"
                         style="@style/NavDrawerRowItemText"
-                        android:text="@string/nav_drawer_item_glossary"/>
+                        android:text="@string/string_glossary"/>
 
                 </FrameLayout>
 
@@ -123,7 +123,7 @@
                     <TextView
                         android:id="@+id/navigation_drawer_items_textView_settings"
                         style="@style/NavDrawerRowItemText"
-                        android:text="@string/nav_drawer_settings" />
+                        android:text="@string/string_settings" />
 
                 </FrameLayout>
 
@@ -141,7 +141,7 @@
                     <TextView
                         android:id="@+id/navigation_drawer_items_textView_about"
                         style="@style/NavDrawerRowItemText"
-                        android:text="@string/nav_drawer_about" />
+                        android:text="@string/string_about" />
 
                 </FrameLayout>
 

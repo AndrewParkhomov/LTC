@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 
-
+/**
+ * Rate application class. Rate this app in google play.
+ */
 public class RateAppActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
@@ -32,7 +34,7 @@ public class RateAppActivity extends AppCompatActivity implements View.OnClickLi
                 String appPackage = this.getPackageName();
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://play.google.com/store/apps/details?id=" + appPackage));
-                this.startActivity(intent);
+                startActivity(intent);
                 break;
             case R.id.rate_dialog_no:
                 this.finish();

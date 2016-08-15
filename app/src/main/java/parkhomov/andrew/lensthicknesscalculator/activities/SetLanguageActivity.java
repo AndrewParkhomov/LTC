@@ -1,27 +1,19 @@
 package parkhomov.andrew.lensthicknesscalculator.activities;
 
-
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
-import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 
+/**
+ * This class is for switch language. Radiobutton checked changed, and locale is update.
+ */
 public class SetLanguageActivity extends AppCompatActivity {
-
-    Locale locale;
-    RadioGroup radioGroup;
-    int checkedPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,80 +23,51 @@ public class SetLanguageActivity extends AppCompatActivity {
         //disable outside touches in dialog activity
         this.setFinishOnTouchOutside(false);
 
-        radioGroup = (RadioGroup)findViewById(R.id.languageRadioGroup);
+        final RadioGroup radioGroup = (RadioGroup)findViewById(R.id.languageRadioGroup);
 
         // set checked button with current language
         String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
-        switch (currentLanguage) {
-            case "українська":
-                radioGroup.check(R.id.thirdLanguageCheckbutton);
-                break;
-            case "русский":
-                radioGroup.check(R.id.secondLanguageCheckbutton);
-                break;
-            default:
-                radioGroup.check(R.id.firstLanguageCheckbutton);
-                break;
-        }
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            checkedPosition = radioGroup.indexOfChild(findViewById(radioGroup.getCheckedRadioButtonId()));
-            Intent intent = new Intent(SetLanguageActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            //Toast.makeText(SetLanguageActivity.this, String.valueOf(checkedPosition), Toast.LENGTH_SHORT).show();
-            Configuration config;
-            try{
-                ContentValues languageValues = new ContentValues();
-                SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(SetLanguageActivity.this);
-                SQLiteDatabase db = glossaryDatabase.getWritableDatabase();
-                // get lists items in certain language
-                switch(checkedPosition){
-                    case 0:
-                        languageValues.put("CURRENT_LANGUAGE", "English");
-                        db.update("LANGUAGE", languageValues,"_id = ?",
-                                new String[] {Integer.toString(1)});
-                        locale = new Locale("en-gb");
-                        Locale.setDefault(locale);
-                        config = new Configuration();
-                        config.locale = locale;
-                        getApplicationContext().getResources().updateConfiguration(config, null);
-                        break;
-                    case 1:
-                        languageValues.put("CURRENT_LANGUAGE", "русский");
-                        db.update("LANGUAGE", languageValues,"_id = ?",
-                                new String[] {Integer.toString(1)});
-                        locale = new Locale("ru");
-                        Locale.setDefault(locale);
-                        config = new Configuration();
-                        config.locale = locale;
-                        getApplicationContext().getResources().updateConfiguration(config, null);
-                        break;
-                    case 2:
-                        languageValues.put("CURRENT_LANGUAGE", "українська");
-                        db.update("LANGUAGE", languageValues,"_id = ?",
-                                new String[] {Integer.toString(1)});
-                        locale = new Locale("uk");
-                        Locale.setDefault(locale);
-                        config = new Configuration();
-                        config.locale = locale;
-                        getApplicationContext().getResources().updateConfiguration(config, null);
-                        break;
-                    default:
-                        languageValues.put("CURRENT_LANGUAGE", "English");
-                        db.update("LANGUAGE", languageValues,"_id = ?",
-                                new String[] {Integer.toString(1)});
-                        break;
-                }
-                db.close();
-                startActivity(intent);
-            }catch(SQLException e) {
-                Toast.makeText(getApplicationContext(), getResources().getText(R.string.database_unavailable), Toast.LENGTH_LONG).show();
+        if(radioGroup != null) {
+            switch (currentLanguage) {
+                case "українська":
+                    radioGroup.check(R.id.thirdLanguageCheckbutton);
+                    break;
+                case "русский":
+                    radioGroup.check(R.id.secondLanguageCheckbutton);
+                    break;
+                default:
+                    radioGroup.check(R.id.firstLanguageCheckbutton);
+                    break;
             }
 
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    int checkedPosition = radioGroup.indexOfChild(findViewById(radioGroup.getCheckedRadioButtonId()));
+
+                    Locale locale = new Locale("en-gb");
+                    switch (checkedPosition) {
+                        case 0:
+                            locale = new Locale("en-gb");
+                            break;
+                        case 1:
+                            locale = new Locale("ru");
+                            break;
+                        case 2:
+                            locale = new Locale("uk");
+                            break;
+                    }
+                    Locale.setDefault(locale);
+                    Configuration config = new Configuration();
+                    config.locale = locale;
+                    getApplicationContext().getResources().updateConfiguration(config, null);
+
+                    Intent intent = new Intent(SetLanguageActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            });
         }
-    });
     }
 }

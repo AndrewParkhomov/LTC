@@ -39,7 +39,9 @@ import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabas
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsMiscellaneous;
 
-
+/**
+ * Main activity class. Customize drawers, toolbar, fragment behaviour ect.
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static boolean isTextLinkInDatabaseClicked;
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null){
-            getSupportActionBar().setTitle(getString(R.string.toolbar_title_lens_thkns_calc));
+            getSupportActionBar().setTitle(getString(R.string.string_thkns_calc));
         }
 
         setUpIcons(R.id.navigation_drawer_items_list_icon_thkns_calc);
@@ -133,13 +135,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String title;
         if(isTextLinkInDatabaseClicked){
             fragment = new DiamCalculatorFragment();
-            title = getString(R.string.toolbar_title_diam_calc);
+            title = getString(R.string.string_diam_calc);
             if(drawerLayout.isDrawerOpen(GravityCompat.START))drawerLayout.closeDrawer(Gravity.LEFT);
             frameLayoutDiamCalc.setSelected(true);
             isTextLinkInDatabaseClicked = false;
         }else{
             fragment = new ThknsCalculatorFragment();
-            title = getString(R.string.toolbar_title_lens_thkns_calc);
+            title = getString(R.string.string_thkns_calc);
             frameLayoutThknsCalc.setSelected(true);
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -162,10 +164,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String title = null;
             if (view == frameLayoutThknsCalc) {
                 fragment = new ThknsCalculatorFragment();
-                title = getString(R.string.toolbar_title_lens_thkns_calc);
+                title = getString(R.string.string_thkns_calc);
             } else if (view == frameLayoutDiamCalc) {
                 fragment = new DiamCalculatorFragment();
-                title = getString(R.string.toolbar_title_diam_calc);
+                title = getString(R.string.string_diam_calc);
             }
             if (fragment != null){
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -213,12 +215,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Icons tint list
         final ImageView imageView =
                 (ImageView) findViewById(imageId);
-        final Drawable drawable = DrawableCompat.wrap(imageView.getDrawable());
-        DrawableCompat.setTintList(
-                drawable.mutate(),
-                ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
-        );
-        imageView.setImageDrawable(drawable);
+        if(imageView != null){
+            final Drawable drawable = DrawableCompat.wrap(imageView.getDrawable());
+            DrawableCompat.setTintList(
+                    drawable.mutate(),
+                    ContextCompat.getColorStateList(this, R.color.nav_drawer_icon)
+            );
+            imageView.setImageDrawable(drawable);
+        }
     }
 
     @Override

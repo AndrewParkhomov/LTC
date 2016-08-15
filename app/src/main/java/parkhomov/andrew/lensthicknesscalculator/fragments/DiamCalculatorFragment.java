@@ -43,6 +43,11 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
         return view;
     }
 
+    /**
+     * Set up all buttons in fragment activity, create listeners, and manage 'calculate'
+     * button behaviour.
+     */
+
     private void setUpButtonsAndListeners() {
         Button calculateButton = (Button)view.findViewById(R.id.diameterCalculateButton);
         ImageButton imageButtonED = (ImageButton) view.findViewById(R.id.imageButtonED);
@@ -60,6 +65,10 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
         imageButtonDBL.setOnClickListener(this);
         imageButtonPD.setOnClickListener(this);
     }
+
+    /**
+     * Method, witch calculate and display result.
+     */
 
     public void onDiamCalculateButtonClicked() {
         EditText edEditText = (EditText) view.findViewById(R.id.editTextED);
@@ -82,22 +91,17 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
         }
     }
 
+    /**
+     * Manage on query button pressed behaviour.
+     */
+
     @Override
     public void onClick(View v) {
-        int id = -1;
-        switch(v.getId()){
-            case R.id.imageButtonED:
-                id = 9;
-                break;
-            case R.id.imageButtonDBL:
-                id = 10;
-                break;
-            case R.id.imageButtonPD:
-                id = 11;
-                break;
-        }
+        int content = Integer.valueOf(String.valueOf(v.getContentDescription()));
         Intent intent = new Intent(getActivity(), GlossaryActivity.class);
-        intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, id);
+        intent.putExtra(GlossaryActivity.QUERY_MARK_BUTON_ID, v.getId());
+        intent.putExtra(GlossaryActivity.QUERY_MARK_ID_FOR_SQL, content);
+        GlossaryActivity.isGlossaryList = false;
         startActivity(intent);
     }
 }

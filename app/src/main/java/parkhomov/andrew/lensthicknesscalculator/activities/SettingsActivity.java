@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 
+/**
+ * Class with two fields - settings and rate this app.
+ */
+
 public class SettingsActivity extends ListActivity{
 
     ListView listView;
@@ -53,15 +57,15 @@ public class SettingsActivity extends ListActivity{
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = null;
+        Class targetClass = null;
         switch (position) {
             case 0:
-                intent = new Intent(this, SetLanguageActivity.class);
+                targetClass = SetLanguageActivity.class;
                 break;
             case 1:
-                intent = new Intent(this, RateAppActivity.class);
+                targetClass =  RateAppActivity.class;
                 break;
         }
-        startActivity(intent);
+        startActivity(new Intent(this, targetClass));
     }
 }

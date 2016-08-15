@@ -8,6 +8,10 @@ import android.widget.Toast;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 
+/**
+ * SQLite database class. Contains all theoretical material from app.
+ */
+
 public class GlossaryDatabase extends SQLiteOpenHelper{
 
     private static final String DB_NAME = "glossary";
@@ -242,9 +246,6 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "   sph -10.0 cyl +3.0 axis 112°.\n" +
                             "   sph +5.75 cyl -1.25 axis 165° можна записати як:\n" +
                             "   sph +4.5 cyl +1.25 axis 75°",R.drawable.transposition_img);
-            db.execSQL("CREATE TABLE LANGUAGE (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + "CURRENT_LANGUAGE TEXT);");
-            currentLanguage(db, "English");
         }
 //        if(oldVersion < DB_VERSION){
 //            ContentValues cv = new ContentValues();
@@ -268,11 +269,4 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
         itemValues.put("IMAGE_RESOURCE_ID", imageId);
         db.insert("GLOSSARY", null, itemValues);
     }
-
-    private void currentLanguage(SQLiteDatabase db, String language){
-        ContentValues itemValues = new ContentValues();
-        itemValues.put("CURRENT_LANGUAGE", language);
-        db.insert("LANGUAGE", null, itemValues);
-    }
-
 }

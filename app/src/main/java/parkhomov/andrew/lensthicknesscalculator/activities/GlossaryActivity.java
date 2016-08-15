@@ -20,24 +20,88 @@ import java.util.Locale;
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 
+/**
+ * Display detailed information about selected parameter.
+ */
+
 public class GlossaryActivity extends AppCompatActivity {
 
-    Cursor cursor;
     public static boolean isGlossaryList;
-    // temp number need to switch off or on correct information in addTExtView
-    int itemId, imageId, tempNumber;
+    int itemId, contentDescr, imageId;
     String name, description;
     TextView setName, setDescription, addTV;
     ImageView setPicture;
 
-    public static final String QUERY_MARK_LISTNUMBER_ID = "listId";
+    public static final String QUERY_MARK_BUTON_ID = "listId";
+    public static final String QUERY_MARK_ID_FOR_SQL = "listContentDescr";
+
+    // this final variable need for display add Text View, when user pressed into !GLOSSARYLIST!,
+    // coz in GlosList we don't have ID of image buttons
+    private final int INDEX_FROM_LISTVIEW_3 = 3, INDEX_FROM_LISTVIEW_7 = 7, INDEX_FROM_LISTVIEW_8 = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemId = getIntent().getExtras().getInt(QUERY_MARK_LISTNUMBER_ID);
-        Toast.makeText(this, String.valueOf(isGlossaryList), Toast.LENGTH_LONG).show();
-        Cursor cursor;
+        setContentView(R.layout.activity_glossary);
+        createDetailDescription();
+    }
+
+    /**
+     * From SQLite database get title, description and picture(in current language) and
+     * set them into views.
+     */
+
+    private void createDetailDescription(){
+        addTV = (TextView)findViewById(R.id.glossaryAddTextView);
+        itemId = getIntent().getExtras().getInt(QUERY_MARK_BUTON_ID);
+        contentDescr = getIntent().getExtras().getInt(QUERY_MARK_ID_FOR_SQL);
+        getDataFromDatabase(contentDescr);
+
+        setName = (TextView)findViewById(R.id.glossaryTitleTextView);
+        setDescription = (TextView)findViewById(R.id.glossaryDescriptionTextView);
+        setPicture = (ImageView)findViewById(R.id.glossaryImageView);
+
+        setName.setText(name);
+        setDescription.setText(description);
+        setPicture.setImageResource(imageId);
+
+        if(itemId == R.id.imageButtonCylinderPower || itemId == R.id.imageButtonEdgeThickness ||
+                itemId == INDEX_FROM_LISTVIEW_3 || itemId == INDEX_FROM_LISTVIEW_7){
+            addTV.setText(getResources().getText(R.string.link_to_transposition));
+        }
+        if(itemId == R.id.imageButtonLensDiameter || itemId == INDEX_FROM_LISTVIEW_8){
+            addTV.setText(getResources().getText(R.string.link_to_diamCalcActivity));
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getString(R.string.string_glossary));
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    public void onGlossaryTextViewClicked(View view) {
+        if (itemId == R.id.imageButtonLensDiameter || itemId == INDEX_FROM_LISTVIEW_8){
+            addTV.setText(getResources().getText(R.string.link_to_diamCalcActivity));
+            MainActivity.isTextLinkInDatabaseClicked = true;
+            MainActivity.mainActivity.finish();
+            startActivity(new Intent(this, MainActivity.class));
+        }else if (itemId == R.id.imageButtonCylinderPower || itemId == R.id.imageButtonEdgeThickness ||
+                itemId == INDEX_FROM_LISTVIEW_3 || itemId == INDEX_FROM_LISTVIEW_7){
+            // 12 coz number 12 in SQL is exactly transposition
+            final int TRANSPOSITION_INDEX = 12;
+            getDataFromDatabase(TRANSPOSITION_INDEX);
+            setName.setText(name);
+            setDescription.setText(description);
+            setPicture.setImageResource(imageId);
+            addTV.setText(null);
+        }
+    }
+
+    private void getDataFromDatabase(int id){
+        String getName, getDescription;
         // get info from database
         try{
             SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
@@ -45,27 +109,23 @@ public class GlossaryActivity extends AppCompatActivity {
             String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
             switch(currentLanguage){
                 case "русский":
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_RUS", "DESCRIPTION_RUS", "IMAGE_RESOURCE_ID"},
-                            "_id = ?",
-                            new String[]{Integer.toString(itemId)},
-                            null, null, null);
+                    getName = "NAME_RUS";
+                    getDescription = "DESCRIPTION_RUS";
                     break;
                 case "українська":
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_UKR", "DESCRIPTION_UKR", "IMAGE_RESOURCE_ID"},
-                            "_id = ?",
-                            new String[]{Integer.toString(itemId)},
-                            null, null, null);
+                    getName = "NAME_UKR";
+                    getDescription = "DESCRIPTION_UKR";
                     break;
                 default:
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_ENG", "DESCRIPTION_ENG", "IMAGE_RESOURCE_ID"},
-                            "_id = ?",
-                            new String[]{Integer.toString(itemId)},
-                            null, null, null);
+                    getName = "NAME_ENG";
+                    getDescription = "DESCRIPTION_ENG";
+                    break;
             }
-
+            Cursor cursor = db.query("GLOSSARY",
+                    new String[]{getName, getDescription, "IMAGE_RESOURCE_ID"},
+                    "_id = ?",
+                    new String[]{Integer.toString(id)},
+                    null, null, null);
             if(cursor.moveToFirst()){
                 name = cursor.getString(0);
                 description = cursor.getString(1);
@@ -75,31 +135,6 @@ public class GlossaryActivity extends AppCompatActivity {
             db.close();
         }catch(SQLException e){
             Toast.makeText(this, getResources().getText(R.string.database_unavailable), Toast.LENGTH_LONG).show();
-        }
-        setContentView(R.layout.activity_glossary);
-        // set title, text and picture in glossary
-        setName = (TextView)findViewById(R.id.glossaryTitleTextView);
-        setDescription = (TextView)findViewById(R.id.glossaryDescriptionTextView);
-        setPicture = (ImageView)findViewById(R.id.glossaryImageView);
-        setName.setText(name);
-        setDescription.setText(description);
-        setPicture.setImageResource(imageId);
-        if(itemId == 3 || itemId == 7){
-            tempNumber = 12;
-            addTV = (TextView)findViewById(R.id.glossaryAddTextView);
-            addTV.setText(getResources().getText(R.string.link_to_transposition));
-        }
-        if(itemId == 8){
-            addTV = (TextView)findViewById(R.id.glossaryAddTextView);
-            addTV.setText(getResources().getText(R.string.link_to_diamCalcActivity));
-        }
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(getString(R.string.nav_drawer_item_glossary));
-            actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
@@ -122,56 +157,6 @@ public class GlossaryActivity extends AppCompatActivity {
             startActivity(new Intent(GlossaryActivity.this, GlossaryListActivity.class));
         }else{
             this.finish();
-        }
-    }
-
-    public void onGlossaryTextViewClicked(View view) {
-        if(itemId == 8) {
-            MainActivity.isTextLinkInDatabaseClicked = true;
-            MainActivity.mainActivity.finish();
-            startActivity(new Intent(this, MainActivity.class));
-        }
-        if(itemId == 3 || itemId == 7){
-            try{
-                SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
-                SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
-                String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
-                switch(currentLanguage) {
-                    case "русский":
-                        cursor = db.query("GLOSSARY",
-                                new String[]{"NAME_RUS", "DESCRIPTION_RUS", "IMAGE_RESOURCE_ID"},
-                                "_id = ?",
-                                new String[]{Integer.toString(tempNumber)},
-                                null, null, null);
-                        break;
-                    case "українська":
-                        cursor = db.query("GLOSSARY",
-                                new String[]{"NAME_UKR", "DESCRIPTION_UKR", "IMAGE_RESOURCE_ID"},
-                                "_id = ?",
-                                new String[]{Integer.toString(tempNumber)},
-                                null, null, null);
-                        break;
-                    default:
-                        cursor = db.query("GLOSSARY",
-                                new String[]{"NAME_ENG", "DESCRIPTION_ENG", "IMAGE_RESOURCE_ID"},
-                                "_id = ?",
-                                new String[]{Integer.toString(tempNumber)},
-                                null, null, null);
-                }
-
-                if(cursor.moveToFirst()) {
-                    String name = cursor.getString(0);
-                    String description = cursor.getString(1);
-                    int glossaryImageResourceId = cursor.getInt(2);
-                    setName.setText(name);
-                    setDescription.setText(description);
-                    //setDescription.setGravity(Gravity.CENTER);
-                    setPicture.setImageResource(glossaryImageResourceId);
-                    addTV.setText(null);
-                }
-            }catch (SQLException e){
-                Toast.makeText(this,  getResources().getText(R.string.database_unavailable), Toast.LENGTH_SHORT).show();
-            }
         }
     }
 }

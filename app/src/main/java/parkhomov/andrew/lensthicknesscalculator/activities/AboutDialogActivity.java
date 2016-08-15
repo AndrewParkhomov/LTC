@@ -6,6 +6,10 @@ import android.widget.TextView;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
 
+/**
+ * Class with one method(onCreate), with display information about program.
+ */
+
 public class AboutDialogActivity extends AppCompatActivity {
 
     @Override
@@ -18,7 +22,9 @@ public class AboutDialogActivity extends AppCompatActivity {
                 getResources().getString(R.string.aboutLTCemail)+"\n\n"+
                 getResources().getString(R.string.copyright)+" "+
                 getResources().getString(R.string.year);
-        tv.setTextColor(0xDE000000);
-        tv.setText(text);
+        if(tv != null){
+            tv.setTextColor(0xDE000000);
+            tv.setText(text);
+        }
     }
 }

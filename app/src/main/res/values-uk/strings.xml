@@ -8,8 +8,6 @@
 
     <!-- Version & Date-->
     <string name="version">Версія 1.0</string>
-    <string name="year">2016</string>
-    <string name="copyright">&#169;</string>
 
     <!-- Activities-->
     <string name="thkns_activ_sphere_power">Сфера</string>
@@ -27,36 +25,15 @@
     <string name="thkns_activ_textview_edge_thickness">Мінімальна товщина по краю (mm): ""</string>
     <string name="thkns_activ_textview_max_edge_thickness">Максимальна товщина по краю (mm): ""</string>
     <string name="thkns_activ_textview_certain_edge_thickness">Товщина по краю під кутом " "</string>
-    <string name="thkns_activ_textview_certain_second_half"> ° (mm): ""</string>
-    <string name="thkns_activ_textview_center_thickness_numbers_format">%.2f</string>
-    <string name="thkns_activ_textview_edge_thickness_numbers_format">%.2f</string>
-    <string name="thkns_activ_textview_max_edge_thickness_numbers_format">%.2f</string>
-    <string name="thkns_activ_textview_certain_edge_thickness_numbers_format">%.2f</string>
-    <string name="diam_activ_ed">ED</string>
-    <string name="diam_activ_dbl">DBL</string>
-    <string name="diam_activ_pd">PD</string>
-    <string name="diam_activ_textView_result_formula">ED x 2 + DBL - PD = " "</string>
-    <string name="diam_activ_textView_mm">" "mm</string>
     <string name="buttonCalc">Розрахувати</string>
     <string name="aboutLTCdeveloper">Розробка:\nПархомов Андрій</string>
-    <string name="aboutLTCemail">\nE-mail: parkhomov.andrew@gmail.com</string>
 
-    <string-array name="index_of_refraction">
-        <item>1.498 CR-39</item>
-        <item>1.560</item>
-        <item>1.570 Trivex</item>
-        <item>1.590 Poly</item>
-        <item>1.610</item>
-        <item>1.670</item>
-        <item>1.740</item>
-    </string-array>
-
-    <!-- Toolbar titles -->
-    <string name="toolbar_title_home">Головна</string>
-    <string name="toolbar_title_lens_thkns_calc">Розрахунок товщини лінзи</string>
-    <string name="toolbar_title_diam_calc">Розрахунок діаметра лінзи</string>
-    <string name="toolbar_title_about">Про програму</string>
-    <string name="toolbar_title_settings">Налаштування</string>
+    <!-- Navigation Drawer -->
+    <string name="string_thkns_calc">Розрахунок товщини лінзи</string>
+    <string name="string_diam_calc">Розрахунок діаметра лінзи</string>
+    <string name="string_glossary">Глосарій</string>
+    <string name="string_settings">Налаштування</string>
+    <string name="string_about">Про програму</string>
 
     <!--Rate this app -->
     <string name="rate_dialog_title">Оцініть цей додаток</string>
@@ -65,40 +42,10 @@
     <string name="rate_dialog_ok">Оцінити зараз</string>
     <string name="rate_dialog_no">Ні, дякую</string>
 
-    <!-- Navigation Drawer -->
-    <string name="nav_drawer_item_home">Головна</string>
-    <string name="nav_drawer_item_thkns_calc">Розрахунок товщини лінзи</string>
-    <string name="nav_drawer_item_diam_calc">Розрахунок діаметра лінзи</string>
-    <string name="nav_drawer_item_glossary">Глосарій</string>
-    <string name="nav_drawer_settings">Налаштування</string>
-    <string name="nav_drawer_about">Про програму</string>
-    <string name="navigation_drawer_opened">The navigation drawer is opened</string>
-    <string name="navigation_drawer_closed">The navigation drawer is closed</string>
-    <string name="tag_nav_drawer_main_entry">nav_drawer_main_entry</string>
-    <string name="tag_nav_drawer_special_entry">nav_drawer_special_entry</string>
-
-    <!-- Query mark id -->
-    <string name="one">1</string>
-    <string name="two">2</string>
-    <string name="three">3</string>
-    <string name="four">4</string>
-    <string name="five">5</string>
-    <string name="six">6</string>
-    <string name="seven">7</string>
-    <string name="eight">8</string>
-    <string name="nine">9</string>
-    <string name="ten">10</string>
-    <string name="eleven">11</string>
-
     <!-- Setting list items-->
     <string-array name="settings_list">
         <item>Мова</item>
         <item>Оцінити додаток</item>
     </string-array>
-
-    <!-- Languages -->
-    <string name="English">English</string>
-    <string name="Russian">Русский</string>
-    <string name="Ukrainian">Українська</string>
 
 </resources>

@@ -27,6 +27,10 @@ import java.util.Locale;
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 
+/**
+ * Class glossary list display lists with parameters titles, witch present in program.
+ */
+
 public class GlossaryListActivity extends ListActivity{
 
     ListView listView;
@@ -34,8 +38,15 @@ public class GlossaryListActivity extends ListActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createList();
+    }
+
+    /**
+     *According to current language, method get titles from SQLite database, and create list
+     */
+    private void createList(){
         listView = getListView();
-        Cursor cursor;
+        String title;
         // get info from database
         try{
             SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
@@ -43,35 +54,21 @@ public class GlossaryListActivity extends ListActivity{
             String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
             // get lists items in certain language
              switch(currentLanguage){
-                case "English":
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_ENG"},
-                            null,
-                            null,
-                            null, null, null);
-                    break;
                 case "русский":
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_RUS"},
-                            null,
-                            null,
-                            null, null, null);
+                    title = "NAME_RUS";
                     break;
                 case "українська":
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_UKR"},
-                            null,
-                            null,
-                            null, null, null);
+                    title = "NAME_UKR";
                     break;
                 default:
-                    cursor = db.query("GLOSSARY",
-                            new String[]{"NAME_ENG"},
-                            null,
-                            null,
-                            null, null, null);
+                    title = "NAME_ENG";
                     break;
             }
+            Cursor cursor = db.query("GLOSSARY",
+                    new String[]{title},
+                    null,
+                    null,
+                    null, null, null);
             if(cursor.moveToFirst()){
                 ArrayList<String> glossaryList = new ArrayList<>();
                 // get first position from database, and add it to list
@@ -106,10 +103,6 @@ public class GlossaryListActivity extends ListActivity{
             Toast.makeText(this, getResources().getText(R.string.database_unavailable), Toast.LENGTH_LONG).show();
         }
         setDividerColorAndBackground();
-        android.app.ActionBar ab = getActionBar();
-        if (ab != null){
-            ab.setDisplayHomeAsUpEnabled(true);
-        }
     }
 
     private void setDividerColorAndBackground() {
@@ -123,7 +116,8 @@ public class GlossaryListActivity extends ListActivity{
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(this, GlossaryActivity.class);
-        intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, (int)id+1);
+        intent.putExtra(GlossaryActivity.QUERY_MARK_BUTON_ID, position+1);
+        intent.putExtra(GlossaryActivity.QUERY_MARK_ID_FOR_SQL, position+1);
         GlossaryActivity.isGlossaryList = true;
         startActivity(intent);
     }

@@ -24,7 +24,7 @@ import parkhomov.andrew.lensthicknesscalculator.activities.ThicknessResultActivi
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
 
 /**
- * This class is for thickness calculation logic.
+ * Class with thickness calculation logic.
  */
 
 public class ThknsCalculatorFragment extends Fragment implements View.OnClickListener{
@@ -32,9 +32,8 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
     private View view;
     private Intent intent;
     private TextView tv;
-    private EditText getCylinderPower;
     private String centerThicknessResult, edgeThicknessResult, stringCenterThickness, stringEdgeThickness,
-            onlySphereStringResult;
+            onlySphereStringResult, formatForNumbers;
     private boolean isScreenLarge;
     private int axis, axisView;
     private double lensIndex, indexX, spherePower, edgeThickness,realBackRadiusInMM,cylinderPower,
@@ -55,10 +54,13 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             isScreenLarge = false;
         }
         setUpButtonsAndListeners();
-        getCylinderPower = (EditText)view.findViewById(R.id.editTextCylinderPower);
         return view;
     }
 
+    /**
+     * Set up all buttons in fragment activity, create listeners, and manage 'calculate'
+     * button behaviour.
+     */
     private void setUpButtonsAndListeners() {
         Button calculateButton = (Button)view.findViewById(R.id.thicknessCalculateButton);
         ImageButton imageButtonLensIndex = (ImageButton) view.findViewById(R.id.imageButtonLensIndex);
@@ -70,7 +72,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         ImageButton imageButtonEdgeThickness = (ImageButton) view.findViewById(R.id.imageButtonEdgeThickness);
         ImageButton imageButtonLensDiameter = (ImageButton) view.findViewById(R.id.imageButtonLensDiameter);
 
-        // handle 'calculate' button
+        // manage 'calculate' button
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,40 +90,23 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         imageButtonLensDiameter.setOnClickListener(this);
     }
 
+    /**
+     * Manage on query button pressed behaviour.
+     */
     @Override
     public void onClick(View v) {
-        int id = 0;
-        switch(v.getId()){
-            case R.id.imageButtonLensIndex:
-                id = 1;
-                break;
-            case R.id.imageButtonSpherePower:
-                id = 2;
-                break;
-            case R.id.imageButtonCylinderPower:
-                id = 3;
-                break;
-            case R.id.imageButtonAxis:
-                id = 4;
-                break;
-            case R.id.imageButtonRealBaseCurve:
-                id = 5;
-                break;
-            case R.id.imageButtonCenterThickness:
-                id = 6;
-                break;
-            case R.id.imageButtonEdgeThickness:
-                id = 7;
-                break;
-            case R.id.imageButtonLensDiameter:
-                id = 8;
-                break;
-        }
+        // need for getting data from SQL
+        int content = Integer.valueOf(String.valueOf(v.getContentDescription()));
         Intent intent = new Intent(getActivity(), GlossaryActivity.class);
-        intent.putExtra(GlossaryActivity.QUERY_MARK_LISTNUMBER_ID, id);
+        intent.putExtra(GlossaryActivity.QUERY_MARK_BUTON_ID, v.getId());
+        intent.putExtra(GlossaryActivity.QUERY_MARK_ID_FOR_SQL, content);
         startActivity(intent);
     }
 
+    /**
+     * Main logic(get parameters, recalculate some of them, and create variables,
+     * called sag1Sphere, sag2Sphere, sag2Cylinder).
+     */
     private void curveCalculation() {
         EditText getSpherePower = (EditText)view.findViewById(R.id.editTextSpherePower);
         EditText getAxis = (EditText)view.findViewById(R.id.editTextAxis);
@@ -129,6 +114,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         EditText getCenterThickness = (EditText)view.findViewById(R.id.editTextCenterThickness);
         EditText getLensDiameter = (EditText)view.findViewById(R.id.editTextLensDiameter);
         EditText getEdgeThickness = (EditText)view.findViewById(R.id.editTextEdgeThickness);
+        EditText getCylinderPower = (EditText)view.findViewById(R.id.editTextCylinderPower);
 
         double lensDiameter, realRadiusMM, tempDoubleForThickness, recalculatedCylinderCurve,
                 recalculatedSphereCurve ;
@@ -141,19 +127,17 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
 
             // Real radius of front curve in mm
             realRadiusMM = (LAB_INDEX - 1) / (realFrontBaseCurveDptr / 1000);
-
-            // if edge thickness field is empty, et = 0
-            if (!getEdgeThickness.getText().toString().equals("")) {
-                edgeThickness = Double.parseDouble(String.valueOf(getEdgeThickness.getText()));
-            } else {
+            
+            try{
                 edgeThickness = 0;
-            }
+                edgeThickness = Double.parseDouble(String.valueOf(getEdgeThickness.getText()));
+            }catch (NumberFormatException e){}
 
             // get cylinder power
             try {
+                cylinderPower = 0;
                 cylinderPower = Double.parseDouble(String.valueOf(getCylinderPower.getText()));
-            } catch (NumberFormatException e) {
-            }
+            } catch (NumberFormatException e) {}
 
             // set center thickness
             if (spherePower <= 0 && cylinderPower == 0) {
@@ -176,7 +160,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                     }
                 } catch (NumberFormatException e) {
                     if (Math.abs(spherePower) > Math.abs(cylinderPower)) {
-                        throw new Exception();
+                        throw new NumberFormatException();
                     }
                 }
             }else if(spherePower < 0){
@@ -193,29 +177,29 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                 centerThickness = (Math.pow(lensDiameter / 2, 2) * tempDoubleForThickness /
                         (2000 * (lensIndex - 1))) + edgeThickness;
             }else{
-                throw new Exception();
+                throw new NumberFormatException();
             }
 
             // Find D1
             double recalculatedFrontCurve = (lensIndex - 1) * 1000 / realRadiusMM;
 
-            if(!getCylinderPower.getText().toString().equals("")) {
-                String getStringAxis = getAxis.getText().toString();
-                if (getStringAxis.equals("")) {
-                    axis = 0;
-                } else {
-                    try{
-                        axis = Integer.valueOf(getStringAxis);
-                        if (axis < 0 || axis > 180) {
-                            throw new NumberFormatException();
-                        }
-                    }catch(NumberFormatException e){
-                        Toast.makeText(getActivity(), getResources().getText(R.string.thkns_activ_wrong_axis),Toast.LENGTH_LONG).show();
-                        getAxis.setText("");
+            if(cylinderPower > 0 || cylinderPower < 0) {
+                try{
+                    axis = Integer.parseInt(String.valueOf(getAxis.getText()));
+                    if (axis < 0 || axis > 180) {
+                        throw new NumberFormatException();
+                    }
+                }catch(NumberFormatException e){
+                    if(String.valueOf(getAxis.getText()).equals("")){
+                        axis = 0;
+                    }else{
+                        Toast.makeText(getActivity(), getResources().getText(R.string.thkns_activ_wrong_axis), Toast.LENGTH_LONG).show();
+                        getAxis.setText(null);
                         axis = 0;
                     }
-                    axisView = axis;
                 }
+                axisView = axis;
+
 
                 if (cylinderPower > 0) {
                     spherePower += cylinderPower;
@@ -254,11 +238,14 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                     - Math.pow(lensDiameter / 2, 2)));    // sag of concave surface;
 
             sphereThicknessCalculation();
-        }catch(Exception e){
+        }catch(NumberFormatException e){
             Toast.makeText(getActivity(), getResources().getText(R.string.thkns_activ_wrong_data),Toast.LENGTH_LONG).show();
         }
     }
 
+    /**
+     * Set index of material which user was selected.
+     */
     private void selectIndex() {
         final double INDEX_1498 = 1.498;
         final double INDEX_1560 = 1.535;
@@ -312,8 +299,13 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         }catch(Exception e){}
     }
 
+    /**
+     * This method calculate stigmatic thickness, if lens is astigmatic, also
+     * {@link #cylinderCalculation} is called.
+     * Method display results(for large and xlarge screen) or send data to
+     * {@link ThicknessResultActivity} class.
+     */
     private void sphereThicknessCalculation() {
-        //Toast.makeText(getActivity(), String.valueOf(realBackRadiusInMM), Toast.LENGTH_SHORT).show();
         if(realBackRadiusInMM <= 0){
             if (spherePower <= 0) {
                 edgeThickness = sag1Sphere - sag2Sphere + centerThickness;
@@ -323,23 +315,23 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         }else{
             centerThickness = Math.abs(sag1Sphere + sag2Sphere) + edgeThickness;
         }
+        // %.2f format for number(make them shorter)
+        formatForNumbers = getResources().getString(R.string.for_short_number_string_format);
 
         if(isScreenLarge){
             tv = (TextView)getActivity().findViewById(R.id.thicknessCalculateTextViewLarge);
-            String stringCenterThicknessNumbers = getResources().getString(R.string.thkns_activ_textview_center_thickness_numbers_format);
-            String stringEdgeThicknessNumbers = getResources().getString(R.string.thkns_activ_textview_edge_thickness_numbers_format);
             stringCenterThickness = getResources().getString(R.string.thkns_activ_textview_center_thickness);
             stringEdgeThickness = getResources().getString(R.string.thkns_activ_textview_edge_thickness);
-            centerThicknessResult = String.format(Locale.ENGLISH, stringCenterThicknessNumbers, centerThickness);
-            edgeThicknessResult = String.format(Locale.ENGLISH, stringEdgeThicknessNumbers, edgeThickness);
+            centerThicknessResult = String.format(Locale.ENGLISH, formatForNumbers, centerThickness);
+            edgeThicknessResult = String.format(Locale.ENGLISH, formatForNumbers, edgeThickness);
             onlySphereStringResult = stringCenterThickness + centerThicknessResult +"\n"+
                     stringEdgeThickness + edgeThicknessResult + "\n";
-            if(!getCylinderPower.getText().toString().equals("")) {
+            if(cylinderPower != 0) {
                 cylinderCalculation();
             }else{
                 tv.setText(onlySphereStringResult);
             }
-        }else if(!getCylinderPower.getText().toString().equals("")) {
+        }else if(cylinderPower > 0 || cylinderPower < 0) {
             cylinderCalculation();
         }else{
             intent.putExtra(ThicknessResultActivity.CALCULATION_CENTER_THICKNESS, centerThickness);
@@ -348,9 +340,12 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         }
     }
 
+    /**
+     * {@inheritDoc}Method calculate maximum edge thickness for astigmatic lenses. If screen is not large
+     * or xlarge, method send data to {@link ThicknessResultActivity} class, otherwise show results.
+     */
     private void cylinderCalculation() {
         double maxEdgeThickness = 0;
-        //Toast.makeText(getActivity(), "here 5", Toast.LENGTH_SHORT).show();
         if (spherePower <= realFrontBaseCurveDptr && realBackRadiusInMM < 0){
             maxEdgeThickness = sag2Cylinder - sag1Sphere + edgeThickness;
         }else if (spherePower <= realFrontBaseCurveDptr && realBackRadiusInMM > 0){
@@ -370,12 +365,8 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                 String stringCertainET = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness);
                 String stringCertainETSecond = getResources().getString(R.string.thkns_activ_textview_certain_second_half);
 
-                // get strings for numbers format with 2 symbols before dot
-                String stringMaxETNumbers = getResources().getString(R.string.thkns_activ_textview_max_edge_thickness_numbers_format);
-                String stringCertainETNumbers = getResources().getString(R.string.thkns_activ_textview_certain_edge_thickness_numbers_format);
-
-                String edgeThicknessMaxET = String.format(Locale.ENGLISH,stringMaxETNumbers,maxEdgeThickness);
-                String edgeThicknessCertainAxis = String.format(Locale.ENGLISH,stringCertainETNumbers,etOnCertainAxis);
+                String edgeThicknessMaxET = String.format(Locale.ENGLISH,formatForNumbers,maxEdgeThickness);
+                String edgeThicknessCertainAxis = String.format(Locale.ENGLISH,formatForNumbers,etOnCertainAxis);
                 String finalResult = stringCenterThickness + centerThicknessResult +"\n"+
                         stringEdgeThickness + edgeThicknessResult + "\n" + stringMaxET +
                         edgeThicknessMaxET + "\n" + stringCertainET + axisView + stringCertainETSecond +
