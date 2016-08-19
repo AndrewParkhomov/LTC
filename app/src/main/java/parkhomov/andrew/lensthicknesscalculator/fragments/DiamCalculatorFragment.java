@@ -53,6 +53,7 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
         ImageButton imageButtonED = (ImageButton) view.findViewById(R.id.imageButtonED);
         ImageButton imageButtonDBL = (ImageButton) view.findViewById(R.id.imageButtonDBL);
         ImageButton imageButtonPD = (ImageButton) view.findViewById(R.id.imageButtonPD);
+        calculateButton.setTransformationMethod(null);
 
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override

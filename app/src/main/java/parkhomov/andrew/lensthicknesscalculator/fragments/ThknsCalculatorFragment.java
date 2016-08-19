@@ -71,6 +71,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         ImageButton imageButtonCenterThickness = (ImageButton) view.findViewById(R.id.imageButtonCenterThickness);
         ImageButton imageButtonEdgeThickness = (ImageButton) view.findViewById(R.id.imageButtonEdgeThickness);
         ImageButton imageButtonLensDiameter = (ImageButton) view.findViewById(R.id.imageButtonLensDiameter);
+        calculateButton.setTransformationMethod(null);
 
         // manage 'calculate' button
         calculateButton.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +204,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
 
                 if (cylinderPower > 0) {
                     spherePower += cylinderPower;
-                    cylinderPower = cylinderPower * -1;
+                    cylinderPower = - cylinderPower;
                     if (axis + 90 > 180) {
                         axis = Math.abs(180 - (axis + 90));
                     } else if (axis > 90) {

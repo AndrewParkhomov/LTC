@@ -46,22 +46,26 @@ public class SetLanguageActivity extends AppCompatActivity {
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     int checkedPosition = radioGroup.indexOfChild(findViewById(radioGroup.getCheckedRadioButtonId()));
 
-                    Locale locale = new Locale("en-gb");
+                    String language = null;
                     switch (checkedPosition) {
                         case 0:
-                            locale = new Locale("en-gb");
+                            language = "en_GB";
                             break;
                         case 1:
-                            locale = new Locale("ru");
+                            language = "ru_RU";
                             break;
                         case 2:
-                            locale = new Locale("uk");
+                            language = "uk_UA";
                             break;
                     }
+                    Locale locale = new Locale(language);
                     Locale.setDefault(locale);
                     Configuration config = new Configuration();
                     config.locale = locale;
                     getApplicationContext().getResources().updateConfiguration(config, null);
+
+                    TestLanguage setCurrentLanguage = new TestLanguage(SetLanguageActivity.this);
+                    setCurrentLanguage.setNewLanguage(language);
 
                     Intent intent = new Intent(SetLanguageActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

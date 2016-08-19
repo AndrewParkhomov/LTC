@@ -15,7 +15,7 @@
     <string name="thkns_activ_axis">Кут</string>
     <string name="thkns_activ_base_curve">Реальна кривизна\nбази лінзи</string>
     <string name="thkns_activ_center_thickness">Товщина по центру</string>
-    <string name="thkns_activ_material_index">Індекс матеріалу</string>
+    <string name="thkns_activ_material_index">Індекс заломлення</string>
     <string name="thkns_activ_lens_diameter">Діаметр лінзи</string>
     <string name="thkns_activ_edge_thickness">Товщина по краю</string>
     <string name="thkns_activ_wrong_axis">Недопустиме значення кута циліндра</string>

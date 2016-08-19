@@ -80,7 +80,7 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "Астигматизм может быть двух видов:\n" +
                             "   — роговичный\n" +
                             "   — хрусталиковый\n" +
-                            "Также астигматизм может быть как врожденым, так и приобретенным. " +
+                            "Также астигматизм может быть как врожденным, так и приобретенным. " +
                             "При астигматизме в рецепте обязательно указывается положение оси цилиндра в градусах — " +
                             "от 1° до 180° (он же 0°). Это связано с особенностями преломления света, " +
                             "проходящего через цилиндрическую линзу:\n" +
@@ -171,7 +171,7 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "що для нарізання канавки для жилки необхідно близько 2 мм (для металевої " +
                             "жилки 2.5 - 3.0 мм), для оправ 'на гвинтах' необхідні ті ж 2 мм 'тіла' " +
                             "лінзи для того, щоб лінза не ламалася при найменших навантаженнях. " +
-                            "Для оправ 'на гвинтах' найкраще всього застосувати полікарбонат, " +
+                            "Для оправ 'на гвинтах' найкраще всього застосовувати полікарбонат, " +
                             "або ж високоіндексні матеріали (1.61, 1.67, 1.74), оскільки вони міцніші " +
                             "порівняно з низькоіндексними. Також необхідно враховувати, що у " +
                             "астигматичних лінз із знаком циліндра «-» максимальна товщина буде " +
@@ -246,6 +246,9 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
                             "   sph -10.0 cyl +3.0 axis 112°.\n" +
                             "   sph +5.75 cyl -1.25 axis 165° можна записати як:\n" +
                             "   sph +4.5 cyl +1.25 axis 75°",R.drawable.transposition_img);
+            db.execSQL("CREATE TABLE LANGUAGE (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "CURRENT_LANGUAGE TEXT);");
+            currentLanguage(db, "none");
         }
 //        if(oldVersion < DB_VERSION){
 //            ContentValues cv = new ContentValues();
@@ -268,5 +271,11 @@ public class GlossaryDatabase extends SQLiteOpenHelper{
         itemValues.put("DESCRIPTION_UKR", descriptionUkr);
         itemValues.put("IMAGE_RESOURCE_ID", imageId);
         db.insert("GLOSSARY", null, itemValues);
+    }
+
+    private void currentLanguage(SQLiteDatabase db, String language){
+        ContentValues itemValues = new ContentValues();
+        itemValues.put("CURRENT_LANGUAGE", language);
+        db.insert("LANGUAGE", null, itemValues);
     }
 }

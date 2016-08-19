@@ -18,7 +18,7 @@
     <string name="thkns_activ_axis">Axis</string>
     <string name="thkns_activ_base_curve">Real base curve</string>
     <string name="thkns_activ_center_thickness">Center thickness</string>
-    <string name="thkns_activ_material_index">Lens index</string>
+    <string name="thkns_activ_material_index">Index of refraction</string>
     <string name="thkns_activ_lens_diameter">Lens diameter</string>
     <string name="thkns_activ_edge_thickness">Edge thickness</string>
     <string name="thkns_activ_wrong_axis">Invalid axis data</string>
@@ -37,7 +37,7 @@
     <string name="diam_activ_textView_mm">" "mm</string>
     <string name="buttonCalc">Calculate</string>
     <string name="aboutLTCdeveloper">Developed by:\nParkhomov Andrew</string>
-    <string name="aboutLTCemail">\nE-mail: parkhomov.andrew@gmail.com</string>
+    <string name="aboutLTCemail">\nE-mail:\nparkhomov.andrew@gmail.com</string>
 
     <string-array name="index_of_refraction">
         <item>1.498 CR-39</item>
