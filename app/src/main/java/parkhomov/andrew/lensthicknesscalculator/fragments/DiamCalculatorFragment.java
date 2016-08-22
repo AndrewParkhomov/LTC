@@ -75,7 +75,7 @@ public class DiamCalculatorFragment extends Fragment implements View.OnClickList
         EditText edEditText = (EditText) view.findViewById(R.id.editTextED);
         EditText dblEditText = (EditText) view.findViewById(R.id.editTextDBL);
         EditText pdEditText = (EditText) view.findViewById(R.id.editTextPD);
-        TextView textResult = (TextView)view.findViewById(R.id.textViewDiamResult);
+        TextView textResult = (TextView) view.findViewById(R.id.textViewDiamResult);
         try {
             double ed = Double.parseDouble(String.valueOf(edEditText.getText()));
             double dbl = Double.parseDouble(String.valueOf(dblEditText.getText()));

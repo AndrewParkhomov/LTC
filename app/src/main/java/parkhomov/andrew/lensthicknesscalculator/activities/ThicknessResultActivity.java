@@ -57,10 +57,10 @@ public class ThicknessResultActivity extends ListActivity {
             double etOnCertainAxis = getIntent().getExtras().getDouble(CALCULATION_THICKNESS_ON_CERTAIN_AXIS);
             int axisView = getIntent().getExtras().getInt(CALCULATION_AXIS_VIEW);
 
-            String centerThicknessResult = String.format(Locale.ENGLISH,formatForNumbers, centerThickness);
+            String centerThicknessResult = String.format(Locale.ENGLISH, formatForNumbers, centerThickness);
             String edgeThicknessResult = String.format(Locale.ENGLISH, formatForNumbers, edgeThickness);
-            String edgeThicknessMaxET = String.format(Locale.ENGLISH,formatForNumbers,maxEdgeThickness);
-            String edgeThicknessCertainAxis = String.format(Locale.ENGLISH,formatForNumbers,etOnCertainAxis);
+            String edgeThicknessMaxET = String.format(Locale.ENGLISH, formatForNumbers,maxEdgeThickness);
+            String edgeThicknessCertainAxis = String.format(Locale.ENGLISH, formatForNumbers,etOnCertainAxis);
 
             listWithResult.add(stringCenterThickness + " " + centerThicknessResult);
             listWithResult.add(stringEdgeThickness + " " + edgeThicknessResult);
@@ -69,7 +69,7 @@ public class ThicknessResultActivity extends ListActivity {
                     " " + edgeThicknessCertainAxis);
             isCylinder = false;
         }else{
-            String centerThicknessResult = String.format(Locale.ENGLISH,formatForNumbers, centerThickness);
+            String centerThicknessResult = String.format(Locale.ENGLISH, formatForNumbers, centerThickness);
             String edgeThicknessResult = String.format(Locale.ENGLISH, formatForNumbers, edgeThickness);
             listWithResult.add(stringCenterThickness + " " + centerThicknessResult);
             listWithResult.add(stringEdgeThickness + " " + edgeThicknessResult);

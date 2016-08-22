@@ -129,7 +129,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             // Real radius of front curve in mm
             realRadiusMM = (LAB_INDEX - 1) / (realFrontBaseCurveDptr / 1000);
             
-            try{
+            try {
                 edgeThickness = 0;
                 edgeThickness = Double.parseDouble(String.valueOf(getEdgeThickness.getText()));
             }catch (NumberFormatException e){}
@@ -138,7 +138,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             try {
                 cylinderPower = 0;
                 cylinderPower = Double.parseDouble(String.valueOf(getCylinderPower.getText()));
-            } catch (NumberFormatException e) {}
+            }catch (NumberFormatException e) {}
 
             // set center thickness
             if (spherePower <= 0 && cylinderPower == 0) {
@@ -263,41 +263,39 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
         final double INDEX_X_1670 = 0.803;
         final double INDEX_X_1740 = 0.729;
 
-        try{
-            Spinner getLensIndex = (Spinner)view.findViewById(R.id.spinner);
-            int getSpinnerNumber = getLensIndex.getSelectedItemPosition();
-            switch(getSpinnerNumber) {
-                case 0:
-                    lensIndex = INDEX_1498;
-                    indexX = INDEX_X_1498;
-                    break;
-                case 1:
-                    lensIndex = INDEX_1560;
-                    indexX = INDEX_X_1560;
-                    break;
-                case 2:
-                    lensIndex = INDEX_1530;
-                    indexX = INDEX_X_1530;
-                    break;
-                case 3:
-                    lensIndex = INDEX_1590;
-                    indexX = INDEX_X_1590;
-                    break;
-                case 4:
-                    lensIndex = INDEX_1610;
-                    indexX = INDEX_X_1610;
-                    break;
-                case 5:
-                    lensIndex = INDEX_1670;
-                    indexX = INDEX_X_1670;
-                    break;
-                case 6:
-                    lensIndex = INDEX_1740;
-                    indexX = INDEX_X_1740;
-                    break;
-            }
-            curveCalculation();
-        }catch(Exception e){}
+        Spinner getLensIndex = (Spinner)view.findViewById(R.id.spinner);
+        int getSpinnerNumber = getLensIndex.getSelectedItemPosition();
+        switch(getSpinnerNumber) {
+            case 0:
+                lensIndex = INDEX_1498;
+                indexX = INDEX_X_1498;
+                break;
+            case 1:
+                lensIndex = INDEX_1560;
+                indexX = INDEX_X_1560;
+                break;
+            case 2:
+                lensIndex = INDEX_1530;
+                indexX = INDEX_X_1530;
+                break;
+            case 3:
+                lensIndex = INDEX_1590;
+                indexX = INDEX_X_1590;
+                break;
+            case 4:
+                lensIndex = INDEX_1610;
+                indexX = INDEX_X_1610;
+                break;
+            case 5:
+                lensIndex = INDEX_1670;
+                indexX = INDEX_X_1670;
+                break;
+            case 6:
+                lensIndex = INDEX_1740;
+                indexX = INDEX_X_1740;
+                break;
+        }
+        curveCalculation();
     }
 
     /**
@@ -342,7 +340,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
     }
 
     /**
-     * {@inheritDoc}Method calculate maximum edge thickness for astigmatic lenses. If screen is not large
+     * Method calculate maximum edge thickness for astigmatic lenses. If screen is not large
      * or xlarge, method send data to {@link ThicknessResultActivity} class, otherwise show results.
      */
     private void cylinderCalculation() {

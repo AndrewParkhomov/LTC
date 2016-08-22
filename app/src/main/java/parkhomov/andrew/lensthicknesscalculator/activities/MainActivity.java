@@ -2,16 +2,9 @@ package parkhomov.andrew.lensthicknesscalculator.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.percent.PercentFrameLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -36,7 +29,6 @@ import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.customViews.ScrimInsetsFrameLayout;
 import parkhomov.andrew.lensthicknesscalculator.fragments.DiamCalculatorFragment;
 import parkhomov.andrew.lensthicknesscalculator.fragments.ThknsCalculatorFragment;
-import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsDevice;
 import parkhomov.andrew.lensthicknesscalculator.utils.UtilsMiscellaneous;
 
@@ -51,20 +43,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FrameLayout frameLayoutThknsCalc, frameLayoutDiamCalc,
             frameLayoutSettings, frameLayoutAbout,frameLayoutGlossary;
 
-    public static MainActivity mainActivity;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainActivity = this;
-        setContentView(R.layout.activity_main);
         setUpLanguage();
+        setContentView(R.layout.activity_main);
         initialize();
     }
 
     private void setUpLanguage() {
-        TestLanguage tl = new TestLanguage(this);
-        tl.setCurrentLanguage();
+        LanguageManagerActivity languageManager = new LanguageManagerActivity(this);
+        languageManager.setCurrentLanguage();
     }
 
     private void initialize() {
@@ -244,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface arg0, int arg1) {
-                            MainActivity.super.finish();
+                            android.os.Process.killProcess(android.os.Process.myPid());
                         }
                     }).create().show();
         }

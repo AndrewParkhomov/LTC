@@ -46,62 +46,30 @@ public class GlossaryListActivity extends ListActivity{
      */
     private void createList(){
         listView = getListView();
-        String title;
-        // get info from database
-        try{
-            SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
-            SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
-            String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
-            // get lists items in certain language
-             switch(currentLanguage){
-                case "русский":
-                    title = "NAME_RUS";
-                    break;
-                case "українська":
-                    title = "NAME_UKR";
-                    break;
-                default:
-                    title = "NAME_ENG";
-                    break;
+        LanguageManagerActivity languageManager = new LanguageManagerActivity(this);
+        // create list with titles
+        languageManager.setTitlesForGlossaryList();
+
+        // list which display items(titles) in glossary
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                //get list, which was created
+                languageManager.getListWithTitles()){
+
+            //  change text color in list items
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view =super.getView(position, convertView, parent);
+
+                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+
+                textView.setTextColor(0xDE000000);
+
+                return view;
             }
-            Cursor cursor = db.query("GLOSSARY",
-                    new String[]{title},
-                    null,
-                    null,
-                    null, null, null);
-            if(cursor.moveToFirst()){
-                ArrayList<String> glossaryList = new ArrayList<>();
-                // get first position from database, and add it to list
-                glossaryList.add(cursor.getString(0));
-                // get all others position from database and add them to list
-                while(cursor.moveToNext()){
-                    glossaryList.add(cursor.getString(0));
-                }
-                // list which display items(titles) in glossary
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                        this,
-                        android.R.layout.simple_list_item_1,
-                        glossaryList){
-
-                    //  change text color in list items
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        View view =super.getView(position, convertView, parent);
-
-                        TextView textView=(TextView) view.findViewById(android.R.id.text1);
-
-                        textView.setTextColor(0xDE000000);
-
-                        return view;
-                    }
-                };
-                listView.setAdapter(adapter);
-                cursor.close();
-                db.close();
-            }
-        }catch(SQLException e){
-            Toast.makeText(this, getResources().getText(R.string.database_unavailable), Toast.LENGTH_LONG).show();
-        }
+        };
+        listView.setAdapter(adapter);
         setDividerColorAndBackground();
     }
 
@@ -119,6 +87,7 @@ public class GlossaryListActivity extends ListActivity{
         intent.putExtra(GlossaryActivity.QUERY_MARK_BUTON_ID, position+1);
         intent.putExtra(GlossaryActivity.QUERY_MARK_ID_FOR_SQL, position+1);
         GlossaryActivity.isGlossaryList = true;
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

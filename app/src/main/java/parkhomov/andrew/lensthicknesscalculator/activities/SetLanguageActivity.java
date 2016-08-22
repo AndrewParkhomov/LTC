@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -26,13 +27,15 @@ public class SetLanguageActivity extends AppCompatActivity {
         final RadioGroup radioGroup = (RadioGroup)findViewById(R.id.languageRadioGroup);
 
         // set checked button with current language
-        String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
+        String currentLanguage = Locale.getDefault().getLanguage();
         if(radioGroup != null) {
             switch (currentLanguage) {
-                case "українська":
+                case "uk_uk":
+                case "uk":
                     radioGroup.check(R.id.thirdLanguageCheckbutton);
                     break;
-                case "русский":
+                case "ru_ru":
+                case "ru":
                     radioGroup.check(R.id.secondLanguageCheckbutton);
                     break;
                 default:
@@ -49,13 +52,13 @@ public class SetLanguageActivity extends AppCompatActivity {
                     String language = null;
                     switch (checkedPosition) {
                         case 0:
-                            language = "en_GB";
+                            language = "en_gb";
                             break;
                         case 1:
-                            language = "ru_RU";
+                            language = "ru_ru";
                             break;
                         case 2:
-                            language = "uk_UA";
+                            language = "uk_uk";
                             break;
                     }
                     Locale locale = new Locale(language);
@@ -64,11 +67,12 @@ public class SetLanguageActivity extends AppCompatActivity {
                     config.locale = locale;
                     getApplicationContext().getResources().updateConfiguration(config, null);
 
-                    TestLanguage setCurrentLanguage = new TestLanguage(SetLanguageActivity.this);
+                    LanguageManagerActivity setCurrentLanguage = new LanguageManagerActivity(SetLanguageActivity.this);
                     setCurrentLanguage.setNewLanguage(language);
 
                     Intent intent = new Intent(SetLanguageActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                    Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
             });

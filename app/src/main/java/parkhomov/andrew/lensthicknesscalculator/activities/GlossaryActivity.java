@@ -1,10 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.activities;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,12 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Locale;
 
 import parkhomov.andrew.lensthicknesscalculator.R;
-import parkhomov.andrew.lensthicknesscalculator.glossaryDatabase.GlossaryDatabase;
 
 /**
  * Display detailed information about selected parameter.
@@ -36,7 +28,7 @@ public class GlossaryActivity extends AppCompatActivity {
     public static final String QUERY_MARK_ID_FOR_SQL = "listContentDescr";
 
     // this final variable need for display add Text View, when user pressed into !GLOSSARYLIST!,
-    // coz in GlosList we don't have ID of image buttons
+    // coz in GlossaryList we don't have ID of image buttons
     private final int INDEX_FROM_LISTVIEW_3 = 3, INDEX_FROM_LISTVIEW_7 = 7, INDEX_FROM_LISTVIEW_8 = 8;
 
     @Override
@@ -86,8 +78,9 @@ public class GlossaryActivity extends AppCompatActivity {
         if (itemId == R.id.imageButtonLensDiameter || itemId == INDEX_FROM_LISTVIEW_8){
             addTV.setText(getResources().getText(R.string.link_to_diamCalcActivity));
             MainActivity.isTextLinkInDatabaseClicked = true;
-            MainActivity.mainActivity.finish();
-            startActivity(new Intent(this, MainActivity.class));
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }else if (itemId == R.id.imageButtonCylinderPower || itemId == R.id.imageButtonEdgeThickness ||
                 itemId == INDEX_FROM_LISTVIEW_3 || itemId == INDEX_FROM_LISTVIEW_7){
             // 12 coz number 12 in SQL is exactly transposition
@@ -100,42 +93,12 @@ public class GlossaryActivity extends AppCompatActivity {
         }
     }
 
-    private void getDataFromDatabase(int id){
-        String getName, getDescription;
-        // get info from database
-        try{
-            SQLiteOpenHelper glossaryDatabase = new GlossaryDatabase(this);
-            SQLiteDatabase db = glossaryDatabase.getReadableDatabase();
-            String currentLanguage = String.valueOf(Locale.getDefault().getDisplayLanguage());
-            switch(currentLanguage){
-                case "русский":
-                    getName = "NAME_RUS";
-                    getDescription = "DESCRIPTION_RUS";
-                    break;
-                case "українська":
-                    getName = "NAME_UKR";
-                    getDescription = "DESCRIPTION_UKR";
-                    break;
-                default:
-                    getName = "NAME_ENG";
-                    getDescription = "DESCRIPTION_ENG";
-                    break;
-            }
-            Cursor cursor = db.query("GLOSSARY",
-                    new String[]{getName, getDescription, "IMAGE_RESOURCE_ID"},
-                    "_id = ?",
-                    new String[]{Integer.toString(id)},
-                    null, null, null);
-            if(cursor.moveToFirst()){
-                name = cursor.getString(0);
-                description = cursor.getString(1);
-                imageId = cursor.getInt(2);
-            }
-            cursor.close();
-            db.close();
-        }catch(SQLException e){
-            Toast.makeText(this, getResources().getText(R.string.database_unavailable), Toast.LENGTH_LONG).show();
-        }
+    private void getDataFromDatabase(int id) {
+        LanguageManagerActivity languageManager = new LanguageManagerActivity(this);
+        languageManager.setDataForDetailDescription(id);
+        name = languageManager.getName();
+        description = languageManager.getDescription();
+        imageId = languageManager.getImageId();
     }
 
     @Override

@@ -23,28 +23,33 @@ public class SettingsActivity extends ListActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initializeList();
+    }
+
+    private void initializeList(){
         listView = getListView();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.settings_list)){
 
-                //  change text color in list items
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
-                    View view =super.getView(position, convertView, parent);
+            //  change text color in list items
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
 
-                    TextView textView=(TextView) view.findViewById(android.R.id.text1);
+                TextView textView=(TextView) view.findViewById(android.R.id.text1);
 
-                    textView.setTextColor(0xDE000000);
+                textView.setTextColor(0xDE000000);
 
-                    return view;
-                }
+                return view;
+            }
         };
         listView.setAdapter(adapter);
         setDividerColorAndBackground();
-
     }
+
+
     private void setDividerColorAndBackground(){
         // set divider color and background
         listView = getListView();
