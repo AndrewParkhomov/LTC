@@ -32,6 +32,7 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
     private View view;
     private Intent intent;
     private TextView tv;
+    EditText getSpherePower, getCylinderPower, getCenterThickness, getEdgeThickness;
     private String centerThicknessResult, edgeThicknessResult, stringCenterThickness, stringEdgeThickness,
             onlySphereStringResult, formatForNumbers;
     private boolean isScreenLarge;
@@ -54,7 +55,93 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
             isScreenLarge = false;
         }
         setUpButtonsAndListeners();
+        disableField();
         return view;
+    }
+
+    /**
+     *This method disable unnecessary field
+     */
+    private void disableField() {
+        getSpherePower = (EditText)view.findViewById(R.id.editTextSpherePower);
+        getCylinderPower = (EditText)view.findViewById(R.id.editTextCylinderPower);
+        getCenterThickness = (EditText)view.findViewById(R.id.editTextCenterThickness);
+        getEdgeThickness = (EditText)view.findViewById(R.id.editTextEdgeThickness);
+
+        getSpherePower.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                try{
+                    spherePower = Double.parseDouble(String.valueOf(getSpherePower.getText()));
+                    cylinderPower = Double.parseDouble(String.valueOf(getCylinderPower.getText()));
+                }catch(NumberFormatException e){}
+
+                double value;
+
+                if(cylinderPower > 0){
+                    value = spherePower + cylinderPower;
+                }else{
+                    value = spherePower;
+                }
+
+                if(value > 0){
+                    getEdgeThickness.setActivated(true);
+                    getEdgeThickness.setEnabled(true);
+                    getEdgeThickness.setFocusableInTouchMode(true);
+                    getCenterThickness.setActivated(false);
+                    getCenterThickness.setEnabled(false);
+                    getCenterThickness.setFocusableInTouchMode(false);
+                    getCenterThickness.setText(null);
+                }
+                else{
+                    getCenterThickness.setActivated(true);
+                    getCenterThickness.setEnabled(true);
+                    getCenterThickness.setFocusableInTouchMode(true);
+                    getEdgeThickness.setActivated(false);
+                    getEdgeThickness.setEnabled(false);
+                    getEdgeThickness.setFocusableInTouchMode(false);
+                    getEdgeThickness.setText(null);
+                }
+            }
+        });
+
+
+        getCylinderPower.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                try{
+                    spherePower = Double.parseDouble(String.valueOf(getSpherePower.getText()));
+                    cylinderPower = Double.parseDouble(String.valueOf(getCylinderPower.getText()));
+                }catch(NumberFormatException e){}
+
+                double value;
+
+                if(cylinderPower > 0){
+                    value = spherePower + cylinderPower;
+                }else{
+                    value = spherePower;
+                }
+
+                if(value > 0){
+                    getEdgeThickness.setActivated(true);
+                    getEdgeThickness.setEnabled(true);
+                    getEdgeThickness.setFocusableInTouchMode(true);
+                    getCenterThickness.setActivated(false);
+                    getCenterThickness.setEnabled(false);
+                    getCenterThickness.setFocusableInTouchMode(false);
+                    getCenterThickness.setText(null);
+                }
+                else{
+                    getCenterThickness.setActivated(true);
+                    getCenterThickness.setEnabled(true);
+                    getCenterThickness.setFocusableInTouchMode(true);
+                    getEdgeThickness.setActivated(false);
+                    getEdgeThickness.setEnabled(false);
+                    getEdgeThickness.setFocusableInTouchMode(false);
+                    getEdgeThickness.setText(null);
+                }
+            }
+        });
     }
 
     /**
@@ -109,13 +196,9 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
      * called sag1Sphere, sag2Sphere, sag2Cylinder).
      */
     private void curveCalculation() {
-        EditText getSpherePower = (EditText)view.findViewById(R.id.editTextSpherePower);
         EditText getAxis = (EditText)view.findViewById(R.id.editTextAxis);
         EditText getBaseCurve = (EditText)view.findViewById(R.id.editTextBaseCurve);
-        EditText getCenterThickness = (EditText)view.findViewById(R.id.editTextCenterThickness);
         EditText getLensDiameter = (EditText)view.findViewById(R.id.editTextLensDiameter);
-        EditText getEdgeThickness = (EditText)view.findViewById(R.id.editTextEdgeThickness);
-        EditText getCylinderPower = (EditText)view.findViewById(R.id.editTextCylinderPower);
 
         double lensDiameter, realRadiusMM, tempDoubleForThickness, recalculatedCylinderCurve,
                 recalculatedSphereCurve ;
