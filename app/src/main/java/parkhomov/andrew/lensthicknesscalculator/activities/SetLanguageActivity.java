@@ -23,6 +23,7 @@ public class SetLanguageActivity extends AppCompatActivity {
 
         //disable outside touches in dialog activity
         this.setFinishOnTouchOutside(false);
+        setTitle(R.string.language);
 
         final RadioGroup radioGroup = (RadioGroup)findViewById(R.id.languageRadioGroup);
 

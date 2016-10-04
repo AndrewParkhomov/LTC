@@ -247,9 +247,9 @@ public class ThknsCalculatorFragment extends Fragment implements View.OnClickLis
                         throw new NumberFormatException();
                     }
                 }
-            }else if(spherePower < 0){
+            }else if(spherePower <= 0){
                 centerThickness = Double.parseDouble(String.valueOf(getCenterThickness.getText()));
-            }else if(spherePower >= 0){
+            }else if(spherePower > 0){
                 // if cylinder > 0 we add sphere power and cylinder power
                 if(cylinderPower > 0){
                     tempDoubleForThickness = spherePower + cylinderPower;

@@ -41,7 +41,6 @@
 
         <activity
             android:name=".activities.SetLanguageActivity"
-            android:label="@string/language"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog">
@@ -55,7 +54,6 @@
 
         <activity
             android:name=".activities.RateAppActivity"
-            android:label="@string/rate_dialog_title"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog">

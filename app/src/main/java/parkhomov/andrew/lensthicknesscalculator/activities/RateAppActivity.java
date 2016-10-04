@@ -19,6 +19,7 @@ public class RateAppActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_the_app);
+        setTitle(R.string.rate_dialog_title);
         TextView yesButton = (TextView) findViewById(R.id.rate_dialog_yes);
         TextView noButton = (TextView) findViewById(R.id.rate_dialog_no);
         if(yesButton != null && noButton != null){
