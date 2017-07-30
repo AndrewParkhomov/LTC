@@ -1,0 +1,201 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/calculationContainerConstr"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/edTxtInptL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/v16dp"
+        android:layout_marginLeft="@dimen/v16dp"
+        android:layout_marginRight="@dimen/v16dp"
+        android:layout_marginStart="@dimen/v16dp"
+        android:textColorHint="@color/black"
+        app:hintTextAppearance="@style/TextLabelColor"
+        app:layout_constraintBottom_toTopOf="@+id/include_2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/edImgB"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/edET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:ems="3"
+            android:hint="@string/tab_diameter_hint_ed"
+            android:inputType="date"
+            android:maxLines="1"
+            android:paddingTop="@dimen/v5dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="@dimen/v16sp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/edImgB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/v16dp"
+        android:src="@drawable/query"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/include_2"
+        layout="@layout/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/dblTxtInptL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/v16dp"
+        android:layout_marginLeft="@dimen/v16dp"
+        android:layout_marginRight="@dimen/v16dp"
+        android:layout_marginStart="@dimen/v16dp"
+        android:textColorHint="@color/black"
+        app:hintTextAppearance="@style/TextLabelColor"
+        app:layout_constraintBottom_toTopOf="@+id/include_3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/dblImgB"
+        app:layout_constraintTop_toTopOf="@+id/include_2">
+
+        <EditText
+            android:id="@+id/dblET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:ems="3"
+            android:hint="@string/tab_diameter_hint_dbl"
+            android:inputType="date"
+            android:maxLines="1"
+            android:paddingTop="@dimen/v5dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="@dimen/v16sp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/dblImgB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/v16dp"
+        android:src="@drawable/query"
+        app:layout_constraintBottom_toTopOf="@+id/include_3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include_2" />
+
+    <include
+        android:id="@+id/include_3"
+        layout="@layout/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/v60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include_2" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/pdTxtInptL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/v16dp"
+        android:layout_marginLeft="@dimen/v16dp"
+        android:layout_marginRight="@dimen/v16dp"
+        android:layout_marginStart="@dimen/v16dp"
+        android:textColorHint="@color/black"
+        app:hintTextAppearance="@style/TextLabelColor"
+        app:layout_constraintBottom_toTopOf="@+id/include_4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/pdImgB"
+        app:layout_constraintTop_toTopOf="@+id/include_3">
+
+        <EditText
+            android:id="@+id/pdET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:ems="3"
+            android:hint="@string/tab_diameter_hint_pd"
+            android:inputType="date"
+            android:maxLines="1"
+            android:paddingTop="@dimen/v5dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="@dimen/v16sp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/pdImgB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/v16dp"
+        android:src="@drawable/query"
+        app:layout_constraintBottom_toTopOf="@+id/include_4"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include_3" />
+
+    <include
+        android:id="@+id/include_4"
+        layout="@layout/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/v60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include_3" />
+
+    <com.hanks.htextview.HTextView
+        android:id="@+id/textTest"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/v20dp"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:layout_marginLeft="@dimen/v16dp"
+        android:layout_marginRight="@dimen/v16dp"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/include_4" />
+
+
+    <Button
+        android:id="@+id/thicknessCalculateButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="288dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="@dimen/v16dp"
+        android:layout_marginTop="@dimen/v20dp"
+        android:background="@drawable/round_button_blue"
+        android:text="@string/buttonCalc"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/v20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include_4"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+</android.support.constraint.ConstraintLayout>

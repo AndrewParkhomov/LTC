@@ -3,68 +3,28 @@
     package="parkhomov.andrew.lensthicknesscalculator"
     android:installLocation="auto">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
+        android:name=".activities.main.MyApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/setBackground">
+            android:name=".activities.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".activities.GlossaryActivity"
-            android:noHistory="true"
-            android:screenOrientation="portrait" >
-        </activity>
-
-        <activity
-            android:name=".activities.AboutDialogActivity"
-            android:label="@string/app_name"
-            android:noHistory="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeDialog">
-        </activity>
-
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:noHistory="true"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name=".activities.SetLanguageActivity"
-            android:noHistory="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeDialog">
-    </activity>
-
-        <activity
-            android:name=".activities.GlossaryListActivity"
-            android:noHistory="true"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name=".activities.RateAppActivity"
-            android:noHistory="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeDialog">
-        </activity>
-
-        <activity
-            android:name=".activities.ThicknessResultActivity"
-            android:theme="@style/AppThemeNoTitleBarAndDialog"
-            android:noHistory="true"
-            android:screenOrientation="portrait">
-        </activity>
-
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d0e292b865c2f52bd3fd07565284427cb5f282b7" />
     </application>
+
 </manifest>

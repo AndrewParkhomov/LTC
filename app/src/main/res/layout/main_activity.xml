@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainContainerConstr"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_200">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/v44dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/openGlossary"
+            android:layout_width="@dimen/v50dp"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/glossary"
+            android:paddingLeft="@dimen/v16dp"
+            android:paddingRight="@dimen/v16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Thicknesss calculator"
+            android:textColor="@color/black"
+            android:textSize="@dimen/v20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/openGlossary"
+            app:layout_constraintRight_toLeftOf="@+id/openSettings"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingPrefix" />
+
+        <ImageView
+            android:id="@+id/openSettings"
+            android:layout_width="@dimen/v50dp"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/settings"
+            android:paddingLeft="@dimen/v16dp"
+            android:paddingRight="@dimen/v16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/v40dp"
+            android:background="@android:color/transparent"
+            app:elevation="0dp">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/MyTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabBackground="@android:color/transparent"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/black"
+                app:tabIndicatorHeight="@dimen/v3dp"
+                app:tabMaxWidth="0dp"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextAppearance="@style/MyCustomTextAppearance"
+                app:tabTextColor="@color/black" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <include
+            layout="@layout/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/v1dp" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/MyvViewPager"
+            android:layout_width="match_parent"
+            android:animateLayoutChanges="false"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

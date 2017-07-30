@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/calculationContainerConstr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/v16dp"
+            android:layout_marginStart="@dimen/v16dp"
+            android:minWidth="@dimen/v120dp"
+            android:text="@string/thkns_activ_material_index"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/include_1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/new_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/v16dp"
+            android:layout_marginRight="@dimen/v16dp"
+            android:background="@android:color/transparent"
+            android:entries="@array/index_of_refraction"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/include_1"
+            app:layout_constraintLeft_toRightOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/indexImgB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/v16dp"
+            android:src="@drawable/query"
+            app:layout_constraintBottom_toTopOf="@+id/include_1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/include_1"
+            layout="@layout/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/v60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/sphereTxtInptL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/v16dp"
+            android:layout_marginLeft="@dimen/v16dp"
+            android:layout_marginStart="@dimen/v16dp"
+            android:textColorHint="@color/black"
+            app:hintTextAppearance="@style/TextLabelColor"
+            app:layout_constraintBottom_toTopOf="@+id/include_2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintTop_toTopOf="@+id/include_1">
+
+            <EditText
+                android:id="@+id/sphereET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:ems="3"
+                android:hint="@string/thkns_activ_sphere_power"
+                android:inputType="date"
+                android:maxLines="1"
+                android:paddingTop="@dimen/v5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="@dimen/v16sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/sphereImgB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/v16dp"
+            android:src="@drawable/query"
+            app:layout_constraintBottom_toTopOf="@+id/include_2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_1" />
+
+        <include
+            android:id="@+id/include_2"
+            layout="@layout/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/v60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_1" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/cylinderTxtInptL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/v16dp"
+            android:layout_marginLeft="@dimen/v16dp"
+            android:layout_marginStart="@dimen/v16dp"
+            android:textColorHint="@color/black"
+            app:hintTextAppearance="@style/TextLabelColor"
+            app:layout_constraintBottom_toTopOf="@+id/include_3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintTop_toTopOf="@+id/include_2">
+
+            <EditText
+                android:id="@+id/cylinderET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:ems="3"
+                android:hint="@string/thkns_activ_cylinder_power"
+                android:inputType="date"
+                android:maxLines="1"
+                android:paddingTop="@dimen/v5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="@dimen/v16sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/cylinderImgB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/v16dp"
+            android:src="@drawable/query"
+            app:layout_constraintBottom_toTopOf="@+id/include_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_2" />
+
+        <include
+            android:id="@+id/include_3"
+            layout="@layout/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/v60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_2" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/axisTxtInptL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/v16dp"
+            android:layout_marginLeft="@dimen/v16dp"
+            android:layout_marginStart="@dimen/v16dp"
+            android:textColorHint="@color/black"
+            app:hintTextAppearance="@style/TextLabelColor"
+            app:layout_constraintBottom_toTopOf="@+id/include_3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintTop_toTopOf="@+id/include_4">
+
+            <EditText
+                android:id="@+id/axisET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:ems="3"
+                android:hint="@string/thkns_activ_axis"
+                android:digits="0123456789."
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingTop="@dimen/v5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="@dimen/v16sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/axisImgB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/v16dp"
+            android:src="@drawable/query"
+            app:layout_constraintBottom_toTopOf="@+id/include_4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_3" />
+
+        <include
+            android:id="@+id/include_4"
+            layout="@layout/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/v60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_3" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/curveTxtInptL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/v16dp"
+            android:layout_marginLeft="@dimen/v16dp"
+            android:layout_marginStart="@dimen/v16dp"
+            android:textColorHint="@color/black"
+            app:hintTextAppearance="@style/TextLabelColor"
+            app:layout_constraintBottom_toTopOf="@+id/include_5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintTop_toTopOf="@+id/include_4">
+
+            <EditText
+                android:id="@+id/curveET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:ems="3"
+                android:hint="@string/thkns_activ_base_curve"
+                android:digits="0123456789."
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingTop="@dimen/v5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="@dimen/v16sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/curveImgB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/v16dp"
+            android:src="@drawable/query"
+            app:layout_constraintBottom_toTopOf="@+id/include_5"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_4" />
+
+        <include
+            android:id="@+id/include_5"
+            layout="@layout/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/v60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_4" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/thicknessTxtInptL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/v16dp"
+            android:layout_marginLeft="@dimen/v16dp"
+            android:layout_marginStart="@dimen/v16dp"
+            android:textColorHint="@color/black"
+            app:hintTextAppearance="@style/TextLabelColor"
+            app:layout_constraintBottom_toTopOf="@+id/include_6"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintTop_toTopOf="@+id/include_5">
+
+            <EditText
+                android:id="@+id/centerThicknessET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:ems="3"
+                android:hint="@string/thkns_activ_center_thickness"
+                android:digits="0123456789."
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingTop="@dimen/v5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="@dimen/v16sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/thicknessImgB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/v16dp"
+            android:src="@drawable/query"
+            app:layout_constraintBottom_toTopOf="@+id/include_6"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_5" />
+
+        <include
+            android:id="@+id/include_6"
+            layout="@layout/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/v60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_5" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/edgeTxtInptL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/v16dp"
+            android:layout_marginLeft="@dimen/v16dp"
+            android:layout_marginStart="@dimen/v16dp"
+            android:textColorHint="@color/black"
+            app:hintTextAppearance="@style/TextLabelColor"
+            app:layout_constraintBottom_toTopOf="@+id/include_7"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintTop_toTopOf="@+id/include_6">
+
+            <EditText
+                android:id="@+id/edgeThicknessET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:ems="3"
+                android:hint="@string/thkns_activ_edge_thickness"
+                android:inputType="date"
+                android:maxLines="1"
+                android:paddingTop="@dimen/v5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="@dimen/v16sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/edgeImgB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/v16dp"
+            android:src="@drawable/query"
+            app:layout_constraintBottom_toTopOf="@+id/include_7"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_6" />
+
+        <include
+            android:id="@+id/include_7"
+            layout="@layout/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/v60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_6" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/diameterTxtInptL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/v16dp"
+            android:layout_marginLeft="@dimen/v16dp"
+            android:layout_marginStart="@dimen/v16dp"
+            android:textColorHint="@color/black"
+            app:hintTextAppearance="@style/TextLabelColor"
+            app:layout_constraintBottom_toTopOf="@+id/include_8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintTop_toTopOf="@+id/include_7">
+
+            <EditText
+                android:id="@+id/diameterET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:ems="3"
+                android:digits="0123456789."
+                android:inputType="number"
+                android:hint="@string/thkns_activ_lens_diameter"
+                android:imeOptions="actionDone"
+                android:maxLines="1"
+                android:paddingTop="@dimen/v5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="@dimen/v16sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/diameterImgB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/v16dp"
+            android:src="@drawable/query"
+            app:layout_constraintBottom_toTopOf="@+id/include_8"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_7" />
+
+        <include
+            android:id="@+id/include_8"
+            layout="@layout/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/v60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_7" />
+
+        <Button
+            android:id="@+id/thicknessCalculateButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/v288dp"
+            android:layout_height="@dimen/v54dp"
+            android:layout_marginBottom="@dimen/v16dp"
+            android:layout_marginTop="@dimen/v20dp"
+            android:background="@drawable/round_button_blue"
+            android:text="@string/buttonCalc"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/v20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_8"
+            app:layout_constraintVertical_bias="1" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

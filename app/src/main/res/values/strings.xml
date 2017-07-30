@@ -2,15 +2,6 @@
     <string name="app_name">Lens thickness calculator</string>
     <string name="exit_question_title">Exit</string>
     <string name="exit_question">Are you sure you want to exit?</string>
-    <string name="database_unavailable">Database is unavailable</string>
-    <string name="link_to_diamCalcActivity"><u>Diameter calculator</u></string>
-    <string name="link_to_transposition"><u>Transposition</u></string>
-    <string name="language">Language</string>
-
-    <!-- Version & Date-->
-    <string name="version">Version 1.0.11</string>
-    <string name="year">2016</string>
-    <string name="copyright">&#169;</string>
 
     <!-- Activities-->
     <string name="thkns_activ_sphere_power">Sphere power</string>
@@ -22,18 +13,8 @@
     <string name="thkns_activ_lens_diameter">Lens diameter</string>
     <string name="thkns_activ_edge_thickness">Edge thickness</string>
     <string name="thkns_activ_wrong_axis">Invalid axis data</string>
-    <string name="diam_activ_wrong_data">Invalid input data</string>
-    <string name="thkns_activ_wrong_data">Invalid data(sphere power, base curve, thickness or diameter)</string>
-    <string name="thkns_activ_textview_center_thickness">Center thickness (mm): ""</string>
-    <string name="thkns_activ_textview_edge_thickness">Minimum edge thickness (mm): ""</string>
-    <string name="thkns_activ_textview_max_edge_thickness">Maximum edge thickness (mm): ""</string>
-    <string name="thkns_activ_textview_certain_edge_thickness">Edge thickness on ""</string>
-    <string name="thkns_activ_textview_certain_second_half"> ° (mm): ""</string>
-    <string name="for_short_number_string_format">%.2f</string>
-    <string name="diam_activ_ed">ED</string>
-    <string name="diam_activ_dbl">DBL</string>
-    <string name="diam_activ_pd">PD</string>
-    <string name="diam_activ_textView_result_formula">ED x 2 + DBL - PD = " "</string>
+
+    <string name="diam_activ_textView_result_formula">ED x 2 + DBL - PD =</string>
     <string name="diam_activ_textView_mm">" "mm</string>
     <string name="buttonCalc">Calculate</string>
     <string name="aboutLTCdeveloper">Developed by:\nParkhomov Andrew</string>
@@ -42,53 +23,102 @@
     <string-array name="index_of_refraction">
         <item>1.498 CR-39</item>
         <item>1.560</item>
-        <item>1.570 Trivex</item>
+        <item>1.530 Trivex</item>
         <item>1.590 Poly</item>
         <item>1.610</item>
         <item>1.670</item>
         <item>1.740</item>
     </string-array>
 
-    <!-- Navigation Drawer -->
-    <string name="string_thkns_calc">Thickness calculator</string>
-    <string name="string_diam_calc">Diameter calculator</string>
-    <string name="string_glossary">Glossary</string>
-    <string name="string_settings">Settings</string>
-    <string name="string_about">About</string>
-    <string name="navigation_drawer_opened">The navigation drawer is opened</string>
-    <string name="navigation_drawer_closed">The navigation drawer is closed</string>
-    <string name="tag_nav_drawer_main_entry">nav_drawer_main_entry</string>
-    <string name="tag_nav_drawer_special_entry">nav_drawer_special_entry</string>
-
-    <!--Rate this app -->
-    <string name="rate_dialog_title">Rate this app</string>
-    <string name="rate_dialog_message">If you enjoy using this app, would you mind taking a moment
-            to rate it? It won\'t take more than a minute. Thank you for your support!</string>
-    <string name="rate_dialog_ok">Rate now</string>
-    <string name="rate_dialog_no">No, thanks</string>
-
-    <!-- Query mark id for getting data from SQL-->
-    <string name="one">1</string>
-    <string name="two">2</string>
-    <string name="three">3</string>
-    <string name="four">4</string>
-    <string name="five">5</string>
-    <string name="six">6</string>
-    <string name="seven">7</string>
-    <string name="eight">8</string>
-    <string name="nine">9</string>
-    <string name="ten">10</string>
-    <string name="eleven">11</string>
-
-    <!-- Setting list items-->
-    <string-array name="settings_list">
-        <item>Language</item>
-        <item>Rate this app</item>
-    </string-array>
-
     <!-- Languages -->
     <string name="English">English</string>
     <string name="Russian">Русский</string>
     <string name="Ukrainian">Українська</string>
+
+    <!-- version data-->
+    <string name="version">Version 2.0</string>
+    <string name="year">2017</string>
+    <string name="copyright">&#169;</string>
+
+    <!--rate app messages -->
+    <string name="rate_app_header">Rate this app</string>
+    <string name="rate_app_body">If you enjoy using this app, would you mind taking a moment
+            to rate it? It won\'t take more than a minute. Thank you for your support!</string>
+    <string name="rate_app_dialog_ok">Rate now</string>
+    <string name="rate_app_dialog_no">No, thanks</string>
+
+    <string name="header_glossary_list">Glossary</string>
+    <string name="header_language">Language</string>
+    <string name="header_rate_this_app">Rate this app</string>
+    <string name="header_about">About</string>
+
+    <string name="tab_lens_thickness">Lens thickness</string>
+    <string name="tab_diameter">Lens diameter</string>
+    <string name="tab_diameter_hint_ed">Effective diameter</string>
+    <string name="tab_diameter_hint_dbl">Distance between lenses</string>
+    <string name="tab_diameter_hint_pd">Pupil distance</string>
+
+    <!-- Result dialog window -->
+    <string name="result_center_thickness">Center thk:</string>
+    <string name="result_min_edge_thickness">Minimum thk:</string>
+    <string name="result_max_edge_thickness">Max thk:</string>
+    <string name="result_on_axis_thickness">Thk on axis</string>
+    <string name="result_mm">mm</string>
+
+    <string name="index_of_refraction">Index of refraction</string>
+    <string name="sphere_power">Sphere power</string>
+    <string name="cylinder_power">Cylinder power</string>
+    <string name="axis">Axis</string>
+    <string name="real_base_curve">Real base curve</string>
+    <string name="center_thickness">Center thickness</string>
+    <string name="edge_thickness">Edge thickness</string>
+    <string name="diameter">Diameter</string>
+    <string name="effective_diameter">Effective diameter</string>
+    <string name="distance_between_lenses">Distance between lenses</string>
+    <string name="pupil_distance">Pupil distance</string>
+    <string name="transposition">Transposition</string>
+
+    <string name="description_index_of_refraction">Index of refraction, "In optics, the refractive index or index of
+        refraction of a material is a dimensionless number that describes how light
+        propagates through that medium. It is defined as n = c / v, where c is the speed
+        of light in vacuum and v is the phase velocity of light in the medium.
+        For example, the refractive index of water is 1.333, meaning that light
+        travels 1.333 times faster in a vacuum than it does in water. © Wikipedia</string>
+    <string name="description_sphere_power">Spherical correction corrects refractive error of the
+        eye with a single convergent or divergent refractive power in all meridians</string>
+    <string name="description_cylinder_power">Cylindrical correction corrects astigmatic refractive
+        error of the eye by adding or subtracting power cylindrically in a meridian
+        specified by the prescribed axis</string>
+    <string name="description_axis">Axis is present only if there is a value for cylinder. This indicates
+        the angle in degrees of one of two major meridians the prescribed
+        cylindrical power is in. Which major meridian is referenced is indicated by
+        the cylindrical correction being in plus or minus notation</string>
+    <string name="description_real_base_curve">The base curve (usually determined from the profile
+        of the front surface of an ophthalmic lens) can be changed to result in the
+        best optic and cosmetic characteristics across the entire surface of the lens.
+        Optometrists may choose to specify a particular base curve when prescribing a
+        corrective lens for either of these reasons. A multitude of mathematical formulas
+        and professional clinical experience has allowed optometrists and lens designers
+        to determine standard base curves that are ideal for most people. As a result,
+        the front surface curve is more standardized and the characteristics that
+        generate a person\'s unique prescription are typically derived from the geometry
+        of the back surface of the lens</string>
+    <string name="description_center_thickness">Thickness in optical center of the lens in millimeters</string>
+    <string name="description_edge_thickness">Thickness of the lens in edge, expressed in millimeters</string>
+    <string name="description_diameter">Diameter of the lens in millimeters</string>
+    <string name="description_effective_diameter">Effective diameter is a longest diagonal across the lens.</string>
+    <string name="description_distance_between_lenses">The shortest distance in millimeters between the nasal
+        edges of each lens. DBL is also commonly referred to as bridge size</string>
+    <string name="description_pupil_distance">Pupil Distance is the distance (expressed in millimeters) between the centers of the pupils</string>
+    <string name="description_transposition">Ophthalmologists and a few older optometrists (different types of eye doctors),
+        write astigmatism prescriptions with positive «+» cylinders. This is because many years ago the instruments used
+        to measure and cut lenses were only able to do so in positive increments.
+        Nowadays the majority of labs cut lenses in the negative «-», and require that any positive
+        «+» cylinder prescriptions be converted into the negative «-» equivalent.
+                            "Examples:\n" +
+                            "   sph -7.0 cyl -3.0 axis 22° can be written like:\n" +
+                            "   sph -10.0 cyl +3.0 axis 112°.\n" +
+                            "   sph +5.75 cyl -1.25 axis 165° can be written like:\n" +
+                            "   sph +4.5 cyl +1.25 axis 75°</string>
 
 </resources>

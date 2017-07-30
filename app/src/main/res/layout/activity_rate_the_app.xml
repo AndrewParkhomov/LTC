@@ -4,23 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:padding="@dimen/activity_horizontal_margin"
+    android:padding="@dimen/v16dp"
     android:background="@color/text_white_text_icons_100"
-    android:layout_height="match_parent"
-    tools:context=".activities.RateAppActivity">
+    android:layout_height="match_parent">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/padding_15dp"
-        android:textSize="@dimen/text_size_16"
+        android:paddingBottom="@dimen/v15dp"
+        android:textSize="@dimen/v16sp"
         android:text="@string/rate_dialog_message"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_14"
-        android:padding="@dimen/padding_15dp"
+        android:textSize="@dimen/v14sp"
+        android:padding="@dimen/v15dp"
         android:textColor="@drawable/on_text_pressed_selector"
         android:layout_gravity="end"
         android:textAllCaps="true"
@@ -31,10 +30,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_15dp"
+        android:padding="@dimen/v15dp"
         android:textColor="@drawable/on_text_pressed_selector"
         android:layout_gravity="end"
-        android:textSize="@dimen/text_size_14"
+        android:textSize="@dimen/v14sp"
         android:textAllCaps="true"
         android:id="@+id/rate_dialog_no"
         android:text="@string/rate_dialog_no"
