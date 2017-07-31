@@ -3,6 +3,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
+        <!-- this for radio button in decline order -->
+        <item name="radioButtonStyle">@style/MyCustomRadiobutton</item>
+        <!--spinner-->
         <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
     </style>
 
@@ -10,11 +13,22 @@
     <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="SpinnerStyle" parent="Widget.AppCompat.ListView.DropDown">
         <item name="android:divider">#dfdfdf</item>
         <item name="android:dividerHeight">1dp</item>
+    </style>
+
+    <style name="MyCustomRadiobutton" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/radiobutton_basic</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
     <style name="TextLabelColor" parent="TextAppearance.AppCompat">

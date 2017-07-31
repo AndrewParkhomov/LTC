@@ -185,7 +185,7 @@
         android:layout_height="54dp"
         android:layout_marginBottom="@dimen/v16dp"
         android:layout_marginTop="@dimen/v20dp"
-        android:background="@drawable/round_button_blue"
+        android:background="@drawable/round_button"
         android:text="@string/buttonCalc"
         android:textAllCaps="false"
         android:textColor="@color/black"

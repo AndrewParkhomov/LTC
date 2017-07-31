@@ -5,6 +5,16 @@
     <color name="blue_200">#90CAF9</color>
     <color name="blue_300">#64B5F6</color>
     <color name="blue">#64B5F6</color>
+    <!-- red-->
+    <color name="red_a_700">#D50000</color>
+
+<!--light green-->
+    <color name="light_green_200">#C5E1A5</color>
+    <color name="light_green_400">#9CCC65</color>
+
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_300">#E0E0E0</color>
     <color name="gray_400">#BDBDBD</color>
     <!-- END NEW-->
     <color name="colorPrimary">#3F51B5</color>

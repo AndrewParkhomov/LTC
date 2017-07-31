@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.Parent;
+import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
 
 /**
  * Class glossary list display lists with parameters titles, witch present in program.
@@ -28,6 +29,8 @@ public class GlossaryList extends Parent {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.header)
+    TextView header;
 
     private List<String> headers;
     private List<String> description;
@@ -61,6 +64,7 @@ public class GlossaryList extends Parent {
         View view = inflater.inflate(R.layout.glossary_list, container, false);
         ButterKnife.bind(this, view);
 
+        header.setText(Utils.spacing(getString(R.string.header_glossary_list), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_4));
         setUpDateInAdapter();
 
         return view;

@@ -34,4 +34,8 @@ public abstract class CONSTANT {
     public static final double INDEX_X_1610 = 0.8983;
     public static final double INDEX_X_1670 = 0.803;
     public static final double INDEX_X_1740 = 0.729;
+
+    // fragment header distance
+    public static final float FRAGMENT_HEADER_SPACING_DISTANCE_0_8 = 0.8f;
+    public static final float FRAGMENT_HEADER_SPACING_DISTANCE_0_4 = 0.4f;
 }

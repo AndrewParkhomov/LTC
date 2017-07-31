@@ -34,6 +34,10 @@ public class AboutDialogActivity extends DialogFragment {
         ButterKnife.bind(this, view);
 
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if(getDialog().getWindow() != null){
+            getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            getDialog().getWindow().setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white);
+        }
 
         String text = getResources().getString(R.string.version) + "\n\n" +
                 getResources().getString(R.string.aboutLTCdeveloper) + "\n" +

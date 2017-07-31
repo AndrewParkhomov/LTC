@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/v10dp"
         android:layout_marginStart="@dimen/v10dp"
-        android:text="DUMMY"
+        android:text="@string/header_settings"
         android:textColor="@color/black"
         android:textSize="@dimen/v16sp"
         app:layout_constraintBottom_toTopOf="@+id/include_1"

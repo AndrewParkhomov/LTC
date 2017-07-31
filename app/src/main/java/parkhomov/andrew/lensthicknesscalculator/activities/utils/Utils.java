@@ -1,8 +1,15 @@
 package parkhomov.andrew.lensthicknesscalculator.activities.utils;
 
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ScaleXSpan;
+import android.util.DisplayMetrics;
 import android.widget.EditText;
 
 import java.lang.reflect.Field;
@@ -33,18 +40,22 @@ public class Utils {
     }
 
     public static void highlightEditText(EditText editText, TextInputLayout textInputLayout){
-        editText.setTextColor(ContextCompat.getColor(MyApp.getAppContext(), R.color.horizontal_divider));
-        setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(MyApp.getAppContext(), R.color.horizontal_divider));
+        editText.setTextColor(ContextCompat.getColor(MyApp.getAppContext(), R.color.red_a_700));
+        setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(MyApp.getAppContext(), R.color.red_a_700));
     }
 
     public static void disableThicknessField(EditText editText, TextInputLayout textInputLayout){
-        editText.setTextColor(ContextCompat.getColor(MyApp.getAppContext(), R.color.imageButtonBlue));
-        setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(MyApp.getAppContext(), R.color.imageButtonBlue));
+        editText.setTextColor(ContextCompat.getColor(MyApp.getAppContext(), R.color.black));
+        setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(MyApp.getAppContext(), R.color.black));
+        editText.setAlpha(0.38f);
+        textInputLayout.setAlpha(0.38f);
     }
 
     public static void makeNormalEditText(EditText editText, TextInputLayout textInputLayout){
         editText.setTextColor(ContextCompat.getColor(MyApp.getAppContext(), R.color.black));
         setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(MyApp.getAppContext(), R.color.black));
+        editText.setAlpha(0.87f);
+        textInputLayout.setAlpha(0.87f);
     }
 
     private static void setInputTextLayoutColor(TextInputLayout textInputLayout, int color) {
@@ -59,6 +70,32 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Spannable spacing(CharSequence src, float kerning) {
+        if (src == null) return null;
+        final int srcLength = src.length();
+        if (srcLength < 2) return src instanceof Spannable
+                ? (Spannable) src
+                : new SpannableString(src);
+
+        final String nonBreakingSpace = "\u00A0";
+        final SpannableStringBuilder builder = src instanceof SpannableStringBuilder
+                ? (SpannableStringBuilder) src
+                : new SpannableStringBuilder(src);
+        for (int i = src.length() - 1; i >= 1; i--) {
+            builder.insert(i, nonBreakingSpace);
+            builder.setSpan(new ScaleXSpan(kerning), i, i + 1,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        return builder;
+    }
+
+    public static int convertDpToPixel(double dp) {
+        Resources resources = MyApp.getAppContext().getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return (int) dp * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
 }

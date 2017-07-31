@@ -15,12 +15,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import parkhomov.andrew.lensthicknesscalculator.R;
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary.GlossaryDetails;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary.GlossaryList;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings.Language;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings.Settings;
 import parkhomov.andrew.lensthicknesscalculator.activities.tabs.TabsPageFragmentAdapter;
+import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
 
 /**
  * Main activity class. Customize drawers, toolbar, fragment behaviour ect.
@@ -52,7 +52,7 @@ public class MainActivity extends FragmentActivity {
                 description,
                 images
         );
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(tabsPageFragmentAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -125,43 +125,43 @@ public class MainActivity extends FragmentActivity {
 
     private void createListWithData() {
         //add headers
-        headers.add(getString(R.string.index_of_refraction));
-        headers.add(getString(R.string.sphere_power));
-        headers.add(getString(R.string.cylinder_power));
-        headers.add(getString(R.string.axis));
-        headers.add(getString(R.string.real_base_curve));
-        headers.add(getString(R.string.center_thickness));
-        headers.add(getString(R.string.edge_thickness));
-        headers.add(getString(R.string.diameter));
-        headers.add(getString(R.string.effective_diameter));
-        headers.add(getString(R.string.distance_between_lenses));
-        headers.add(getString(R.string.pupil_distance));
-        headers.add(getString(R.string.transposition));
+        headers.add(0, getString(R.string.index_of_refraction));
+        headers.add(1, getString(R.string.sphere_power));
+        headers.add(2, getString(R.string.cylinder_power));
+        headers.add(3, getString(R.string.axis));
+        headers.add(4, getString(R.string.real_base_curve));
+        headers.add(5, getString(R.string.center_thickness));
+        headers.add(6, getString(R.string.edge_thickness));
+        headers.add(7, getString(R.string.diameter));
+        headers.add(8, getString(R.string.effective_diameter));
+        headers.add(9, getString(R.string.distance_between_lenses));
+        headers.add(10, getString(R.string.pupil_distance));
+        headers.add(11, getString(R.string.transposition));
         // add description
-        description.add(getString(R.string.description_index_of_refraction));
-        description.add(getString(R.string.description_sphere_power));
-        description.add(getString(R.string.description_cylinder_power));
-        description.add(getString(R.string.description_axis));
-        description.add(getString(R.string.description_real_base_curve));
-        description.add(getString(R.string.description_center_thickness));
-        description.add(getString(R.string.description_edge_thickness));
-        description.add(getString(R.string.description_diameter));
-        description.add(getString(R.string.description_effective_diameter));
-        description.add(getString(R.string.description_distance_between_lenses));
-        description.add(getString(R.string.description_pupil_distance));
-        description.add(getString(R.string.description_transposition));
+        description.add(0, getString(R.string.description_index_of_refraction));
+        description.add(1, getString(R.string.description_sphere_power));
+        description.add(2, getString(R.string.description_cylinder_power));
+        description.add(3, getString(R.string.description_axis));
+        description.add(4, getString(R.string.description_real_base_curve));
+        description.add(5, getString(R.string.description_center_thickness));
+        description.add(6, getString(R.string.description_edge_thickness));
+        description.add(7, getString(R.string.description_diameter));
+        description.add(8, getString(R.string.description_effective_diameter));
+        description.add(9, getString(R.string.description_distance_between_lenses));
+        description.add(10, getString(R.string.description_pupil_distance));
+        description.add(11,getString(R.string.description_transposition));
         // images for each item
-        images.add(R.drawable.index_of_refraction_img);
-        images.add(R.drawable.sphere_img);
-        images.add(R.drawable.cylinder_img);
-        images.add(R.drawable.axis_img);
-        images.add(R.drawable.front_curve_img);
-        images.add(R.drawable.thickness_gauge_img);
-        images.add(R.drawable.edge_thickness_img);
-        images.add(R.drawable.diam_img);
-        images.add(R.drawable.edge_thickness_img);
-        images.add(R.drawable.dbl_img);
-        images.add(R.drawable.pd_img);
-        images.add(R.drawable.transposition_img);
+        images.add(0, R.drawable.index_of_refraction_img);
+        images.add(1, R.drawable.sphere_img);
+        images.add(2, R.drawable.cylinder_img);
+        images.add(3, R.drawable.axis_img);
+        images.add(4, R.drawable.front_curve_img);
+        images.add(5, R.drawable.thickness_gauge_img);
+        images.add(6, R.drawable.edge_thickness_img);
+        images.add(7, R.drawable.diam_img);
+        images.add(8, R.drawable.edge_thickness_img);
+        images.add(9, R.drawable.dbl_img);
+        images.add(10, R.drawable.pd_img);
+        images.add(11, R.drawable.transposition_img);
     }
 }

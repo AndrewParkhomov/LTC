@@ -23,12 +23,15 @@ import butterknife.OnClick;
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.Parent;
+import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
 
 
 public class Settings extends Parent {
 
     @BindView(R.id.settingsRcycV)
     RecyclerView recyclerView;
+    @BindView(R.id.header)
+    TextView header;
 
     public static Settings getInstance() {
         Bundle bundle = new Bundle();
@@ -42,6 +45,8 @@ public class Settings extends Parent {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.settings_fragment, container, false);
         ButterKnife.bind(this, view);
+
+        header.setText(Utils.spacing(getString(R.string.header_settings), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_4));
 
         setUpDateInAdapter();
         return view;

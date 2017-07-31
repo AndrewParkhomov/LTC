@@ -3,8 +3,9 @@
     android:id="@+id/spinnerBodyTxtV"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/gray_50"
     android:textColor="@color/black"
+    android:alpha="0.87"
     android:ellipsize="marquee"
     android:maxLines="1"
     android:padding="@dimen/v15dp" />

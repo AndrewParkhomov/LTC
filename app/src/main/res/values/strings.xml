@@ -14,7 +14,7 @@
     <string name="thkns_activ_edge_thickness">Edge thickness</string>
     <string name="thkns_activ_wrong_axis">Invalid axis data</string>
 
-    <string name="diam_activ_textView_result_formula">ED x 2 + DBL - PD =</string>
+    <string name="diam_activ_textView_result_formula">ED x 2 + DBL - PD =" "</string>
     <string name="diam_activ_textView_mm">" "mm</string>
     <string name="buttonCalc">Calculate</string>
     <string name="aboutLTCdeveloper">Developed by:\nParkhomov Andrew</string>
@@ -31,9 +31,9 @@
     </string-array>
 
     <!-- Languages -->
-    <string name="English">English</string>
-    <string name="Russian">Русский</string>
-    <string name="Ukrainian">Українська</string>
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
+    <string name="ukrainian">Українська</string>
 
     <!-- version data-->
     <string name="version">Version 2.0</string>
@@ -47,13 +47,14 @@
     <string name="rate_app_dialog_ok">Rate now</string>
     <string name="rate_app_dialog_no">No, thanks</string>
 
-    <string name="header_glossary_list">Glossary</string>
+    <string name="header_glossary_list">GLOSSARY</string>
+    <string name="header_settings">SETTINGS</string>
     <string name="header_language">Language</string>
     <string name="header_rate_this_app">Rate this app</string>
     <string name="header_about">About</string>
 
-    <string name="tab_lens_thickness">Lens thickness</string>
-    <string name="tab_diameter">Lens diameter</string>
+    <string name="tab_lens_thickness">Thickness</string>
+    <string name="tab_diameter">Diameter</string>
     <string name="tab_diameter_hint_ed">Effective diameter</string>
     <string name="tab_diameter_hint_dbl">Distance between lenses</string>
     <string name="tab_diameter_hint_pd">Pupil distance</string>
@@ -120,5 +121,7 @@
                             "   sph -10.0 cyl +3.0 axis 112°.\n" +
                             "   sph +5.75 cyl -1.25 axis 165° can be written like:\n" +
                             "   sph +4.5 cyl +1.25 axis 75°</string>
+
+    <string name="dummy">xxxxxx</string>
 
 </resources>

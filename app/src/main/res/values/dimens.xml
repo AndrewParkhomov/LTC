@@ -84,11 +84,15 @@
     <dimen name="v176dp">176dp</dimen>
     <dimen name="v200dp">200dp</dimen>
     <dimen name="v230dp">230dp</dimen>
+    <dimen name="v240dp">240dp</dimen>
     <dimen name="v250dp">250dp</dimen>
     <dimen name="v256dp">256dp</dimen>
     <dimen name="v270dp">270dp</dimen>
+    <dimen name="v280dp">280dp</dimen>
     <dimen name="v288dp">288dp</dimen>
+    <dimen name="v300dp">300dp</dimen>
     <dimen name="v322dp">322dp</dimen>
+    <dimen name="v340dp">340dp</dimen>
     <dimen name="v400dp">400dp</dimen>
 
     <!-- Text sizes -->

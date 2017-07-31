@@ -14,6 +14,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.Parent;
+import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
+import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
 
 /**
  * Created by MyPC on 29.07.2017.
@@ -61,11 +63,11 @@ public class GlossaryDetails extends Parent {
         View view = inflater.inflate(R.layout.glossary_detail, container, false);
         ButterKnife.bind(this, view);
 
+        header.setText(Utils.spacing(title.toUpperCase(), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_4));
         //set data in holder
         imageHolder.setImageDrawable(ContextCompat.getDrawable(getActivity(), imageId));
         titleHolder.setText(title);
         descriptionHolder.setText(description);
-        header.setText(title);
 
         return view;
     }

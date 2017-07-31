@@ -7,6 +7,9 @@ import android.util.SparseArray;
 
 import java.util.List;
 
+import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
+import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
+
 public class TabsPageFragmentAdapter extends FragmentPagerAdapter {
 
     private SparseArray<AbstractTabFragment> tabs;
