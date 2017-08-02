@@ -4,12 +4,14 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ScaleXSpan;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.EditText;
 
 import java.lang.reflect.Field;
@@ -96,6 +98,18 @@ public class Utils {
         Resources resources = MyApp.getAppContext().getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         return (int) dp * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    public static class NoPageTransformer implements ViewPager.PageTransformer {
+        public void transformPage(View view, float position) {
+            if (position < 0) {
+                view.setScrollX((int)((float)(view.getWidth()) * position));
+            } else if (position > 0) {
+                view.setScrollX(-(int) ((float) (view.getWidth()) * -position));
+            } else {
+                view.setScrollX(0);
+            }
+        }
     }
 
 }

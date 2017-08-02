@@ -1,5 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.activities.main;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,22 +21,32 @@ import parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary.Glo
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary.GlossaryList;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings.Language;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings.Settings;
+import parkhomov.andrew.lensthicknesscalculator.activities.interfaces.LanguageChangedI;
 import parkhomov.andrew.lensthicknesscalculator.activities.tabs.TabsPageFragmentAdapter;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
+import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Main activity class. Customize drawers, toolbar, fragment behaviour ect.
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements LanguageChangedI {
 
     @BindView(R.id.MyvViewPager)
     ViewPager viewPager;
     @BindView(R.id.MyTabLayout)
     TabLayout tabLayout;
+    @BindView(R.id.header)
+    TextView header;
 
     private List<String> headers = new ArrayList<>(12);
     private List<String> description = new ArrayList<>(12);
     private List<Integer> images = new ArrayList<>(12);
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +67,8 @@ public class MainActivity extends FragmentActivity {
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(tabsPageFragmentAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        viewPager.setPageTransformer(false, new Utils.NoPageTransformer());
     }
 
     @Override
@@ -117,10 +131,18 @@ public class MainActivity extends FragmentActivity {
             getSupportFragmentManager()
                     .beginTransaction()
                     .addToBackStack(null)
-                    .add(R.id.mainContainerConstr, Settings.getInstance(), CONSTANT.SETTINGS)
+                    .add(R.id.mainContainerConstr, Settings.getInstance(this), CONSTANT.SETTINGS)
                     .commit();
         } catch (IllegalStateException e) {
         }
+    }
+
+    // this code reload activity when user change language
+    @Override
+    public void languageChanged() {
+        finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        startActivity(getIntent());
     }
 
     private void createListWithData() {
@@ -159,7 +181,7 @@ public class MainActivity extends FragmentActivity {
         images.add(5, R.drawable.thickness_gauge_img);
         images.add(6, R.drawable.edge_thickness_img);
         images.add(7, R.drawable.diam_img);
-        images.add(8, R.drawable.edge_thickness_img);
+        images.add(8, R.drawable.ed_img);
         images.add(9, R.drawable.dbl_img);
         images.add(10, R.drawable.pd_img);
         images.add(11, R.drawable.transposition_img);

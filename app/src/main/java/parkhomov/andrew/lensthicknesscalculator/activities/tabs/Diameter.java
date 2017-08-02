@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.hanks.htextview.HTextView;
@@ -35,6 +36,8 @@ public class Diameter extends AbstractTabFragment {
     ConstraintLayout mainHolder;
     @BindView(R.id.textTest)
     HTextView textTest;
+    @BindView(R.id.diameterCalculateButton)
+    Button button;
 
     @BindView(R.id.edTxtInptL)
     TextInputLayout edWrapper;
@@ -85,10 +88,12 @@ public class Diameter extends AbstractTabFragment {
         ButterKnife.bind(this, view);
         activity = getActivity();
 
+        button.setText(Utils.spacing(getString(R.string.button_text_calculate), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8));
+
         return view;
     }
 
-    @OnClick(R.id.thicknessCalculateButton)
+    @OnClick(R.id.diameterCalculateButton)
     public void onButtonClicked() {
         setUpViewsBehaviourBefore();
         double edValue = -1, dblValue = -1, pdValue = -1;

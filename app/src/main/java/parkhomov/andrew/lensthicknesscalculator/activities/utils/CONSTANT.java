@@ -6,8 +6,6 @@ package parkhomov.andrew.lensthicknesscalculator.activities.utils;
 
 public abstract class CONSTANT {
 
-    public static final boolean DEBUG = Boolean.TRUE;
-
     // log tag
     public static final String MY_EXCEPTION = "MY_EXCEPTION";
     public static final String GOOGLE_PLAY_LINK = "https://play.google.com/store/apps/details?id=parkhomov.andrew.lensthicknesscalculator";
@@ -18,6 +16,8 @@ public abstract class CONSTANT {
     public static final String SETTINGS = "SETTINGS";
     public static final String LANGUAGE = "LANGUAGE";
     public static final String ABOUT = "ABOUT";
+    // shared pref
+    public static final String SAVE_LANGUAGE = "SAVE_LANGUAGE";
 
     public static final double LAB_INDEX = 1.53;  // Constant index 1.53
     public static final double INDEX_1498 = 1.498;

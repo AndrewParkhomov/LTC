@@ -1,6 +1,8 @@
 package parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
@@ -23,6 +25,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import parkhomov.andrew.lensthicknesscalculator.R;
+import parkhomov.andrew.lensthicknesscalculator.activities.interfaces.LanguageChangedI;
+import parkhomov.andrew.lensthicknesscalculator.activities.main.MainActivity;
+import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
 
 /**
@@ -35,12 +40,19 @@ public class Language extends DialogFragment {
 
     private Activity activity;
     private View view;
+    private LanguageChangedI target;
+    private SharedPreferences saveLanguage;
 
-    public static Language getInstance() {
+    public static Language getInstance(MainActivity target) {
         Bundle bundle = new Bundle();
         Language language = new Language();
         language.setArguments(bundle);
+        language.setTarget(target);
         return language;
+    }
+
+    public void setTarget(MainActivity mainActivity) {
+        this.target = mainActivity;
     }
 
     @Nullable
@@ -49,6 +61,7 @@ public class Language extends DialogFragment {
         view = inflater.inflate(R.layout.activity_language, container, false);
         ButterKnife.bind(this, view);
         activity = getActivity();
+        saveLanguage = activity.getSharedPreferences(CONSTANT.SAVE_LANGUAGE, Context.MODE_PRIVATE);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         if (getDialog().getWindow() != null) {
             getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -109,6 +122,7 @@ public class Language extends DialogFragment {
                             language = "uk_uk";
                             break;
                     }
+                    saveLanguage.edit().putString(CONSTANT.SAVE_LANGUAGE, language).apply();
                     setCurrentLanguage(language);
                 }
             }
@@ -117,7 +131,7 @@ public class Language extends DialogFragment {
 
     private int getCheckedPosition() {
         int checkedButtonId;
-        switch (getCurrentLanguage()) {
+        switch (saveLanguage.getString(CONSTANT.SAVE_LANGUAGE, "en_gb")) {
             case "ru_ru":
             case "ru":
                 checkedButtonId = 1;
@@ -156,15 +170,7 @@ public class Language extends DialogFragment {
 //            } else {
 //                Log.d(Tag.AUTHORIZATION, " updateConfiguration");
             getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-            // button do not enough time to show in checked position(this for better view)
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    handler.removeCallbacksAndMessages(null);
-                    dismiss();
-                }
-            }, 200);
+            target.languageChanged();
         }
     }
 

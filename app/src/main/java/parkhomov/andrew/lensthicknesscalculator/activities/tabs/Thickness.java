@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ public class Thickness extends AbstractTabFragment {
 
     @BindView(R.id.new_spinner)
     Spinner spinner;
+    @BindView(R.id.thicknessCalculateButton)
+    Button button;
 
     @BindView(R.id.sphereTxtInptL)
     TextInputLayout sphereWrapper;
@@ -99,6 +102,9 @@ public class Thickness extends AbstractTabFragment {
         View view = inflater.inflate(R.layout.thickness_fragment, container, false);
         ButterKnife.bind(this, view);
         activity = getActivity();
+
+        button.setText(Utils.spacing(getString(R.string.button_text_calculate), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8));
+
         customizeSpinner();
         setUpTextWatchers();
         return view;

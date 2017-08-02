@@ -2,9 +2,11 @@ package parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import parkhomov.andrew.lensthicknesscalculator.R;
+import parkhomov.andrew.lensthicknesscalculator.activities.main.MainActivity;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.Parent;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
@@ -33,11 +36,18 @@ public class Settings extends Parent {
     @BindView(R.id.header)
     TextView header;
 
-    public static Settings getInstance() {
+    private MainActivity target;
+
+    public static Settings getInstance(MainActivity mainActivity) {
         Bundle bundle = new Bundle();
         Settings settings = new Settings();
         settings.setArguments(bundle);
+        settings.setTarget(mainActivity);
         return settings;
+    }
+
+    public void setTarget(MainActivity mainActivity) {
+        this.target = mainActivity;
     }
 
     @Nullable
@@ -46,7 +56,7 @@ public class Settings extends Parent {
         View view = inflater.inflate(R.layout.settings_fragment, container, false);
         ButterKnife.bind(this, view);
 
-        header.setText(Utils.spacing(getString(R.string.header_settings), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_4));
+        header.setText(Utils.spacing(getString(R.string.header_settings), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8));
 
         setUpDateInAdapter();
         return view;
@@ -101,7 +111,7 @@ public class Settings extends Parent {
                 public void onClick(View v) {
                     switch (position) {
                         case 0:
-                            Language language = Language.getInstance();
+                            Language language = Language.getInstance(target);
                             language.show(getFragmentManager(), CONSTANT.LANGUAGE);
                             break;
                         case 1:
@@ -117,16 +127,23 @@ public class Settings extends Parent {
         }
 
         private void rateThisAppClicked() {
-            new AlertDialog.Builder(getActivity())
+            AlertDialog dialog = new AlertDialog.Builder(getActivity())
                     .setTitle(R.string.rate_app_header)
                     .setMessage(R.string.rate_app_body)
+
                     .setNegativeButton(R.string.rate_app_dialog_no, null)
                     .setPositiveButton(R.string.rate_app_dialog_ok, new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface arg0, int arg1) {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(CONSTANT.GOOGLE_PLAY_LINK)));
                         }
-                    }).create().show();
+                    }).create();
+            dialog.show();
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT);
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT);
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setPadding(30,0,10,0);
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(getActivity(), R.color.blue_700));
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getActivity(), R.color.blue_700));
         }
 
         // size of list

@@ -1,5 +1,7 @@
 package parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -39,11 +41,12 @@ public class AboutDialogActivity extends DialogFragment {
             getDialog().getWindow().setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white);
         }
 
-        String text = getResources().getString(R.string.version) + "\n\n" +
-                getResources().getString(R.string.aboutLTCdeveloper) + "\n" +
-                getResources().getString(R.string.aboutLTCemail) + "\n\n" +
-                getResources().getString(R.string.copyright) + " " +
-                getResources().getString(R.string.year);
+        String text = String.format("%s\n\n%s\n%s\n\n%s %s",
+                getResources().getString(R.string.version),
+                getResources().getString(R.string.aboutLTCdeveloper),
+                getResources().getString(R.string.aboutLTCemail),
+                getResources().getString(R.string.copyright),
+                getResources().getString(R.string.year));
         if (tv != null) {
             tv.setTextColor(0xDE000000);
             tv.setText(text);

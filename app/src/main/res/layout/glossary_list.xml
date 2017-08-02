@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true">
@@ -8,18 +9,19 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/headerContainerConstr"
         android:layout_width="0dp"
-        android:layout_height="@dimen/v44dp"
-        android:background="@color/gray_100"
+        android:layout_height="@dimen/v60dp"
+        android:background="@color/gray_200"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
         <ImageButton
             android:id="@+id/turnBackImgB"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:padding="@dimen/v16dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/arrow_on_back_pressed"
+            android:src="@drawable/arrow_back"
+            android:alpha="0.87"
             app:layout_constraintBottom_toTopOf="@+id/include_1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,14 +30,17 @@
             android:id="@+id/header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/v10dp"
-            android:layout_marginStart="@dimen/v10dp"
+            fontPath="raleway_bold.ttf"
             android:text="@string/header_glossary_list"
+            android:layout_marginLeft="@dimen/v10dp"
+            android:layout_marginRight="@dimen/v10dp"
             android:textColor="@color/black"
             android:textSize="@dimen/v16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/include_1"
             app:layout_constraintLeft_toRightOf="@+id/turnBackImgB"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingPrefix" />
 
         <include
             android:id="@+id/include_1"

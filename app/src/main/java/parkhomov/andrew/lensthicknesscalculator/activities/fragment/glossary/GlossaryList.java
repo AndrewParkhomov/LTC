@@ -64,7 +64,7 @@ public class GlossaryList extends Parent {
         View view = inflater.inflate(R.layout.glossary_list, container, false);
         ButterKnife.bind(this, view);
 
-        header.setText(Utils.spacing(getString(R.string.header_glossary_list), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_4));
+        header.setText(Utils.spacing(getString(R.string.header_glossary_list), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8));
         setUpDateInAdapter();
 
         return view;

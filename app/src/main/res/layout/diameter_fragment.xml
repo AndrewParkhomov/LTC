@@ -1,5 +1,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/calculationContainerConstr"
     android:focusableInTouchMode="true"
     android:layout_width="match_parent"
@@ -179,23 +180,24 @@
 
 
     <Button
-        android:id="@+id/thicknessCalculateButton"
+        android:id="@+id/diameterCalculateButton"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="288dp"
         android:layout_height="54dp"
         android:layout_marginBottom="@dimen/v16dp"
         android:layout_marginTop="@dimen/v20dp"
         android:background="@drawable/round_button"
-        android:text="@string/buttonCalc"
+        android:text="@string/button_text_calculate"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="@color/gray_300"
         android:textSize="@dimen/v20sp"
-        android:textStyle="bold"
+        fontPath="raleway_bold.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_4"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingPrefix" />
 
 
 </android.support.constraint.ConstraintLayout>

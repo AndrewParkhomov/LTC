@@ -59,4 +59,6 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }
+    // custom fonts for app
+    compile "uk.co.chrisjenx:calligraphy:2.2.0"
 }

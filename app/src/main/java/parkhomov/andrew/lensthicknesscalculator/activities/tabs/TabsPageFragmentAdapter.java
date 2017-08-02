@@ -7,6 +7,7 @@ import android.util.SparseArray;
 
 import java.util.List;
 
+import parkhomov.andrew.lensthicknesscalculator.R;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
 

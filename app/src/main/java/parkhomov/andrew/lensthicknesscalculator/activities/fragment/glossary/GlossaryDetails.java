@@ -63,7 +63,7 @@ public class GlossaryDetails extends Parent {
         View view = inflater.inflate(R.layout.glossary_detail, container, false);
         ButterKnife.bind(this, view);
 
-        header.setText(Utils.spacing(title.toUpperCase(), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_4));
+        header.setText(Utils.spacing(title.toUpperCase(), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8));
         //set data in holder
         imageHolder.setImageDrawable(ContextCompat.getDrawable(getActivity(), imageId));
         titleHolder.setText(title);
