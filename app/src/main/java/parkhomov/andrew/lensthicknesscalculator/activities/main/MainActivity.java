@@ -22,7 +22,10 @@ import parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary.Glo
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings.Language;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings.Settings;
 import parkhomov.andrew.lensthicknesscalculator.activities.interfaces.LanguageChangedI;
+import parkhomov.andrew.lensthicknesscalculator.activities.tabs.AbstractTabFragment;
+import parkhomov.andrew.lensthicknesscalculator.activities.tabs.Diameter;
 import parkhomov.andrew.lensthicknesscalculator.activities.tabs.TabsPageFragmentAdapter;
+import parkhomov.andrew.lensthicknesscalculator.activities.tabs.Thickness;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -30,9 +33,14 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 /**
  * Main activity class. Customize drawers, toolbar, fragment behaviour ect.
  */
-public class MainActivity extends FragmentActivity implements LanguageChangedI {
+public class MainActivity extends FragmentActivity implements
+        LanguageChangedI {
 
-    @BindView(R.id.MyvViewPager)
+    public interface HideKeyboardI {
+        void hideKeyboard();
+    }
+
+    @BindView(R.id.viewPager)
     ViewPager viewPager;
     @BindView(R.id.MyTabLayout)
     TabLayout tabLayout;
@@ -123,6 +131,7 @@ public class MainActivity extends FragmentActivity implements LanguageChangedI {
                     .commit();
         } catch (IllegalStateException e) {
         }
+        closeSoftKeyboard();
     }
 
     @OnClick(R.id.openSettings)
@@ -135,6 +144,25 @@ public class MainActivity extends FragmentActivity implements LanguageChangedI {
                     .commit();
         } catch (IllegalStateException e) {
         }
+        closeSoftKeyboard();
+    }
+
+    /* try to hide all soft keyboards in viewpager. One of tab is not in focus and we get 100%
+    ClassCastException, and we handle it and ignore */
+    private void closeSoftKeyboard() {
+        int index = viewPager.getCurrentItem();
+
+        TabsPageFragmentAdapter adapter = ((TabsPageFragmentAdapter) viewPager.getAdapter());
+
+        try{
+            HideKeyboardI hide = (Thickness) adapter.getFragment(index);
+            hide.hideKeyboard();
+        }catch(ClassCastException | NullPointerException e){}
+
+        try{
+            HideKeyboardI hide = (Diameter) adapter.getFragment(index);
+            hide.hideKeyboard();
+        }catch(ClassCastException | NullPointerException e){}
     }
 
     // this code reload activity when user change language
@@ -171,7 +199,7 @@ public class MainActivity extends FragmentActivity implements LanguageChangedI {
         description.add(8, getString(R.string.description_effective_diameter));
         description.add(9, getString(R.string.description_distance_between_lenses));
         description.add(10, getString(R.string.description_pupil_distance));
-        description.add(11,getString(R.string.description_transposition));
+        description.add(11, getString(R.string.description_transposition));
         // images for each item
         images.add(0, R.drawable.index_of_refraction_img);
         images.add(1, R.drawable.sphere_img);

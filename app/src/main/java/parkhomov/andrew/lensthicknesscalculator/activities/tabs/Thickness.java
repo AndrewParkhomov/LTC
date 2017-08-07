@@ -3,6 +3,7 @@ package parkhomov.andrew.lensthicknesscalculator.activities.tabs;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,17 +22,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import parkhomov.andrew.lensthicknesscalculator.R;
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.dialog.Result;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary.GlossaryDetails;
+import parkhomov.andrew.lensthicknesscalculator.activities.main.MainActivity;
 import parkhomov.andrew.lensthicknesscalculator.activities.main.MyApp;
+import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
+import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
 
 /**
  * Created by MyPC on 29.07.2017.
  */
 
-public class Thickness extends AbstractTabFragment {
+public class Thickness extends AbstractTabFragment implements
+        MainActivity.HideKeyboardI {
 
     @BindView(R.id.new_spinner)
     Spinner spinner;
@@ -107,7 +110,33 @@ public class Thickness extends AbstractTabFragment {
 
         customizeSpinner();
         setUpTextWatchers();
+        setUpListeners();
         return view;
+    }
+
+    private void setUpListeners() {
+        ViewPager viewPager = ButterKnife.findById(activity, R.id.viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                hideSoftKeyboard();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    @Override
+    public void hideKeyboard() {
+        hideSoftKeyboard();
     }
 
     private void customizeSpinner() {
@@ -311,7 +340,7 @@ public class Thickness extends AbstractTabFragment {
             if (String.valueOf(getAxis.getText()).equals("")) {
                 axis = 0;
             } else {
-                Toast.makeText(getActivity(), getResources().getText(R.string.thkns_activ_wrong_axis), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getResources().getText(R.string.tab_thkns_wrong_axis), Toast.LENGTH_LONG).show();
                 getAxis.setText(null);
                 axis = 0;
             }
@@ -383,6 +412,7 @@ public class Thickness extends AbstractTabFragment {
     private void setUpViewsBehaviourBefore() {
         Utils.makeNormalEditText(getSpherePower, sphereWrapper);
         Utils.makeNormalEditText(getBaseCurve, curveWrapper);
+        Utils.makeNormalEditText(getCenterThickness, centerThicknessWrapper);
         Utils.makeNormalEditText(getEdgeThickness, edgeThicknessWrapper);
         Utils.makeNormalEditText(getLensDiameter, diameterWrapper);
         Utils.disableWrapper(sphereWrapper);
@@ -480,6 +510,7 @@ public class Thickness extends AbstractTabFragment {
     }
 
     private void sphereThicknessCalculation() {
+        if (lensDiameter == 0) return;
         if (realBackRadiusInMM <= 0) {
             if (spherePower <= 0) {
                 edgeThickness = sag1Sphere - sag2Sphere + centerThickness;
@@ -589,5 +620,15 @@ public class Thickness extends AbstractTabFragment {
             Utils.enableWrapper(edgeThicknessWrapper);
             Utils.enableWrapper(centerThicknessWrapper);
         }
+    }
+
+    private void hideSoftKeyboard() {
+        Utils.getInputManager().hideSoftInputFromWindow(getSpherePower.getWindowToken(), 0);
+        Utils.getInputManager().hideSoftInputFromWindow(getCylinderPower.getWindowToken(), 0);
+        Utils.getInputManager().hideSoftInputFromWindow(getAxis.getWindowToken(), 0);
+        Utils.getInputManager().hideSoftInputFromWindow(getBaseCurve.getWindowToken(), 0);
+        Utils.getInputManager().hideSoftInputFromWindow(getCenterThickness.getWindowToken(), 0);
+        Utils.getInputManager().hideSoftInputFromWindow(getEdgeThickness.getWindowToken(), 0);
+        Utils.getInputManager().hideSoftInputFromWindow(getLensDiameter.getWindowToken(), 0);
     }
 }

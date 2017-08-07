@@ -1,5 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.activities.utils;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.support.design.widget.TextInputLayout;
@@ -12,6 +13,7 @@ import android.text.Spanned;
 import android.text.style.ScaleXSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.lang.reflect.Field;
@@ -110,6 +112,10 @@ public class Utils {
                 view.setScrollX(0);
             }
         }
+    }
+
+    public static InputMethodManager getInputManager() {
+        return (InputMethodManager) MyApp.getAppContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
 }

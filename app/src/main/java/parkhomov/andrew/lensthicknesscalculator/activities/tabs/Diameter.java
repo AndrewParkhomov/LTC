@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import parkhomov.andrew.lensthicknesscalculator.R;
+import parkhomov.andrew.lensthicknesscalculator.activities.main.MainActivity;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT;
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils;
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary.GlossaryDetails;
@@ -30,7 +32,8 @@ import parkhomov.andrew.lensthicknesscalculator.activities.main.MyApp;
  */
 
 
-public class Diameter extends AbstractTabFragment {
+public class Diameter extends AbstractTabFragment implements
+        MainActivity.HideKeyboardI {
 
     @BindView(R.id.calculationContainerConstr)
     ConstraintLayout mainHolder;
@@ -47,11 +50,11 @@ public class Diameter extends AbstractTabFragment {
     TextInputLayout pdWrapper;
 
     @BindView(R.id.edET)
-    EditText ed;
+    EditText edET;
     @BindView(R.id.dblET)
-    EditText dbl;
+    EditText dblET;
     @BindView(R.id.pdET)
-    EditText pd;
+    EditText pdET;
 
 
     public static Diameter getInstance(List<String> headers, List<String> description, List<Integer> images) {
@@ -89,8 +92,33 @@ public class Diameter extends AbstractTabFragment {
         activity = getActivity();
 
         button.setText(Utils.spacing(getString(R.string.button_text_calculate), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8));
-
+        setUpListeners();
         return view;
+    }
+
+    private void setUpListeners() {
+        ViewPager viewPager = ButterKnife.findById(activity, R.id.viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                hideSoftKeyboard();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    @Override
+    public void hideKeyboard() {
+        hideSoftKeyboard();
     }
 
     @OnClick(R.id.diameterCalculateButton)
@@ -98,19 +126,19 @@ public class Diameter extends AbstractTabFragment {
         setUpViewsBehaviourBefore();
         double edValue = -1, dblValue = -1, pdValue = -1;
         try {
-            edValue = Double.valueOf(ed.getText().toString());
+            edValue = Double.valueOf(edET.getText().toString());
         } catch (NumberFormatException e) {
-            Utils.highlightEditText(ed, edWrapper);
+            Utils.highlightEditText(edET, edWrapper);
         }
         try {
-            dblValue = Double.valueOf(dbl.getText().toString());
+            dblValue = Double.valueOf(dblET.getText().toString());
         } catch (NumberFormatException e) {
-            Utils.highlightEditText(dbl, dblWrapper);
+            Utils.highlightEditText(dblET, dblWrapper);
         }
         try {
-            pdValue = Double.valueOf(pd.getText().toString());
+            pdValue = Double.valueOf(pdET.getText().toString());
         } catch (NumberFormatException e) {
-            Utils.highlightEditText(pd, pdWrapper);
+            Utils.highlightEditText(pdET, pdWrapper);
         }
 
         if (edValue != -1 && dblValue != -1 && pdValue != -1) {
@@ -136,9 +164,9 @@ public class Diameter extends AbstractTabFragment {
     }
 
     private void setUpViewsBehaviourBefore() {
-        Utils.makeNormalEditText(ed, edWrapper);
-        Utils.makeNormalEditText(dbl, dblWrapper);
-        Utils.makeNormalEditText(pd, pdWrapper);
+        Utils.makeNormalEditText(edET, edWrapper);
+        Utils.makeNormalEditText(dblET, dblWrapper);
+        Utils.makeNormalEditText(pdET, pdWrapper);
         Utils.disableWrapper(edWrapper);
         Utils.disableWrapper(dblWrapper);
         Utils.disableWrapper(pdWrapper);
@@ -177,5 +205,10 @@ public class Diameter extends AbstractTabFragment {
                 Log.d(CONSTANT.MY_EXCEPTION, e.toString() + "");
             }
         }
+    }
+    private void hideSoftKeyboard() {
+        Utils.getInputManager().hideSoftInputFromWindow(edET.getWindowToken(), 0);
+        Utils.getInputManager().hideSoftInputFromWindow(dblET.getWindowToken(), 0);
+        Utils.getInputManager().hideSoftInputFromWindow(pdET.getWindowToken(), 0);
     }
 }

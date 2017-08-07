@@ -1,7 +1,5 @@
 package parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import parkhomov.andrew.lensthicknesscalculator.R;
-import parkhomov.andrew.lensthicknesscalculator.activities.fragment.Parent;
 
 
 public class AboutDialogActivity extends DialogFragment {
@@ -43,8 +40,8 @@ public class AboutDialogActivity extends DialogFragment {
 
         String text = String.format("%s\n\n%s\n%s\n\n%s %s",
                 getResources().getString(R.string.version),
-                getResources().getString(R.string.aboutLTCdeveloper),
-                getResources().getString(R.string.aboutLTCemail),
+                getResources().getString(R.string.author_name),
+                getResources().getString(R.string.author_email),
                 getResources().getString(R.string.copyright),
                 getResources().getString(R.string.year));
         if (tv != null) {

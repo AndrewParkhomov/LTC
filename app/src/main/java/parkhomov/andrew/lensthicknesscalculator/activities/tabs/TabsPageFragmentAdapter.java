@@ -38,4 +38,8 @@ public class TabsPageFragmentAdapter extends FragmentPagerAdapter {
         return title != null ? title : null;
     }
 
+    public AbstractTabFragment getFragment(int key) {
+        return tabs.get(key);
+    }
+
 }

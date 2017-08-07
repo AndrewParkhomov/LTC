@@ -10,15 +10,15 @@
     <string name="version">Версія 1.0.11</string>
 
     <!-- Activities-->
-    <string name="thkns_activ_sphere_power">Сфера</string>
-    <string name="thkns_activ_cylinder_power">Циліндр</string>
-    <string name="thkns_activ_axis">Кут</string>
-    <string name="thkns_activ_base_curve">Реальна кривизна\nбази лінзи</string>
-    <string name="thkns_activ_center_thickness">Товщина по центру</string>
-    <string name="thkns_activ_material_index">Індекс заломлення</string>
-    <string name="thkns_activ_lens_diameter">Діаметр лінзи</string>
-    <string name="thkns_activ_edge_thickness">Товщина по краю</string>
-    <string name="thkns_activ_wrong_axis">Недопустиме значення кута циліндра</string>
+    <string name="tab_thkns_sphere_power">Сфера</string>
+    <string name="tab_thkns_cylinder_power">Циліндр</string>
+    <string name="tab_thkns_axis">Кут</string>
+    <string name="tab_thkns_base_curve">Реальна кривизна\nбази лінзи</string>
+    <string name="tab_thkns_center_thickness">Товщина по центру</string>
+    <string name="tab_thkns_material_index">Індекс заломлення</string>
+    <string name="tab_thkns_lens_diameter">Діаметр лінзи</string>
+    <string name="tab_thkns_edge_thickness">Товщина по краю</string>
+    <string name="tab_thkns_wrong_axis">Недопустиме значення кута циліндра</string>
     <string name="diam_activ_wrong_data">Введені некоректні значення</string>
     <string name="thkns_activ_wrong_data">Некоректне значення(сфери, кривизни поверхні, товщини чи діаметра)</string>
     <string name="thkns_activ_textview_center_thickness">Товщина по центру (mm): ""</string>
@@ -26,7 +26,7 @@
     <string name="thkns_activ_textview_max_edge_thickness">Максимальна товщина по краю (mm): ""</string>
     <string name="thkns_activ_textview_certain_edge_thickness">Товщина по краю під кутом " "</string>
     <string name="button_text_calculate">Розрахувати</string>
-    <string name="aboutLTCdeveloper">Розробка:\nПархомов Андрій</string>
+    <string name="author_name">Розробка:\nПархомов Андрій</string>
 
     <!-- Navigation Drawer -->
     <string name="string_thkns_calc">Розрахунок товщини лінзи</string>
