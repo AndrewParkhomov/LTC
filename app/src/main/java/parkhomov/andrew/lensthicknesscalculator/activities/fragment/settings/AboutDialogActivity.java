@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import parkhomov.andrew.lensthicknesscalculator.BuildConfig;
 import parkhomov.andrew.lensthicknesscalculator.R;
 
 
@@ -33,21 +34,19 @@ public class AboutDialogActivity extends DialogFragment {
         ButterKnife.bind(this, view);
 
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        if(getDialog().getWindow() != null){
+        if (getDialog().getWindow() != null) {
             getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             getDialog().getWindow().setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white);
         }
 
-        String text = String.format("%s\n\n%s\n%s\n\n%s %s",
-                getResources().getString(R.string.version),
+        String text = String.format("%s\n\n%s\n\n%s\n\n%s %s",
+                getResources().getString(R.string.version) + BuildConfig.VERSION_NAME,
                 getResources().getString(R.string.author_name),
                 getResources().getString(R.string.author_email),
                 getResources().getString(R.string.copyright),
                 getResources().getString(R.string.year));
-        if (tv != null) {
-            tv.setTextColor(0xDE000000);
-            tv.setText(text);
-        }
+        tv.setText(text);
+        tv.setAlpha(0.9f);
         return view;
     }
 

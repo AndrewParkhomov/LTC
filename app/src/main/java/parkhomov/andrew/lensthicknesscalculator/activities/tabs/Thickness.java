@@ -3,6 +3,7 @@ package parkhomov.andrew.lensthicknesscalculator.activities.tabs;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -205,6 +206,7 @@ public class Thickness extends AbstractTabFragment implements
             } catch (IllegalStateException e) {
                 Log.d(CONSTANT.MY_EXCEPTION, e.toString() + "");
             }
+            hideSoftKeyboard();
         }
     }
 
@@ -412,8 +414,11 @@ public class Thickness extends AbstractTabFragment implements
     private void setUpViewsBehaviourBefore() {
         Utils.makeNormalEditText(getSpherePower, sphereWrapper);
         Utils.makeNormalEditText(getBaseCurve, curveWrapper);
-        Utils.makeNormalEditText(getCenterThickness, centerThicknessWrapper);
-        Utils.makeNormalEditText(getEdgeThickness, edgeThicknessWrapper);
+        // if field is disable, we don't change it color
+        if (!(getCenterThickness.getCurrentHintTextColor() == ContextCompat.getColor(activity, R.color.black)))
+            Utils.makeNormalEditText(getCenterThickness, centerThicknessWrapper);
+        if (!(getEdgeThickness.getCurrentHintTextColor() == ContextCompat.getColor(activity, R.color.black)))
+            Utils.makeNormalEditText(getEdgeThickness, edgeThicknessWrapper);
         Utils.makeNormalEditText(getLensDiameter, diameterWrapper);
         Utils.disableWrapper(sphereWrapper);
         Utils.disableWrapper(curveWrapper);

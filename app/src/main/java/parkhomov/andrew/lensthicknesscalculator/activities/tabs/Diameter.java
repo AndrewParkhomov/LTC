@@ -15,6 +15,7 @@ import android.widget.EditText;
 import com.hanks.htextview.HTextView;
 import com.hanks.htextview.HTextViewType;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -143,9 +144,11 @@ public class Diameter extends AbstractTabFragment implements
 
         if (edValue != -1 && dblValue != -1 && pdValue != -1) {
             double diam = Math.ceil(edValue * 2 + dblValue - pdValue);
-            String result = getResources().getString(R.string.diam_activ_textView_result_formula) +
-                    String.valueOf(diam).replace(",", ".") +
-                    getResources().getString(R.string.diam_activ_textView_mm);
+            DecimalFormat df = new DecimalFormat("#");
+            String result = String.format("%s%s %s",
+                    getResources().getString(R.string.diam_activ_textView_result_formula),
+                    String.valueOf(df.format(diam)),
+                    getResources().getString(R.string.result_mm));
 
             // get random true or false and show animation according to type
             HTextViewType animationType = Math.random() < 0.5 ? HTextViewType.ANVIL : HTextViewType.LINE;
@@ -204,6 +207,7 @@ public class Diameter extends AbstractTabFragment implements
             } catch (IllegalStateException e) {
                 Log.d(CONSTANT.MY_EXCEPTION, e.toString() + "");
             }
+            hideSoftKeyboard();
         }
     }
     private void hideSoftKeyboard() {
