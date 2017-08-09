@@ -415,9 +415,11 @@ public class Thickness extends AbstractTabFragment implements
         Utils.makeNormalEditText(getSpherePower, sphereWrapper);
         Utils.makeNormalEditText(getBaseCurve, curveWrapper);
         // if field is disable, we don't change it color
-        if (!(getCenterThickness.getCurrentHintTextColor() == ContextCompat.getColor(activity, R.color.black)))
+        if (!(getCenterThickness.getCurrentHintTextColor() == ContextCompat.getColor(activity, R.color.black)) ||
+                !(getCenterThickness.getCurrentTextColor() == ContextCompat.getColor(activity, R.color.black)))
             Utils.makeNormalEditText(getCenterThickness, centerThicknessWrapper);
-        if (!(getEdgeThickness.getCurrentHintTextColor() == ContextCompat.getColor(activity, R.color.black)))
+        if (!(getEdgeThickness.getCurrentHintTextColor() == ContextCompat.getColor(activity, R.color.black)) ||
+                !(getEdgeThickness.getCurrentTextColor() == ContextCompat.getColor(activity, R.color.black)))
             Utils.makeNormalEditText(getEdgeThickness, edgeThicknessWrapper);
         Utils.makeNormalEditText(getLensDiameter, diameterWrapper);
         Utils.disableWrapper(sphereWrapper);
@@ -531,8 +533,8 @@ public class Thickness extends AbstractTabFragment implements
                 cylinderCalculation();
             } else {
                 Result result = Result.getInstance(
-                        String.format("%.4s", String.valueOf(centerThickness)),
-                        String.format("%.4s", String.valueOf(edgeThickness)));
+                        String.valueOf((long) (centerThickness * 1e2) / 1e2),
+                        String.valueOf((long) (edgeThickness * 1e2) / 1e2));
                 result.show(getFragmentManager(), "result");
             }
     }
@@ -554,16 +556,16 @@ public class Thickness extends AbstractTabFragment implements
 
         if (cylinderPower != 0) {
             Result result = Result.getInstance(
-                    String.format("%.4s", String.valueOf(centerThickness)),
-                    String.format("%.4s", String.valueOf(edgeThickness)),
-                    String.format("%.4s", String.valueOf(maxEdgeThickness)),
-                    String.format("%.4s", String.valueOf(etOnCertainAxis)),
-                    String.format("%.4s", String.valueOf(axisView)));
+                    String.valueOf((long) (centerThickness * 1e2) / 1e2),
+                    String.valueOf((long) (edgeThickness * 1e2) / 1e2),
+                    String.valueOf((long) (maxEdgeThickness * 1e2) / 1e2),
+                    String.valueOf((long) (etOnCertainAxis * 1e2) / 1e2),
+                    String.valueOf(axisView));
             result.show(getFragmentManager(), "result");
         } else {
             Result result = Result.getInstance(
-                    String.format("%.4s", String.valueOf(centerThickness)),
-                    String.format("%.4s", String.valueOf(edgeThickness)));
+                    String.valueOf((long) (centerThickness * 1e2) / 1e2),
+                    String.valueOf((long) (edgeThickness * 1e2) / 1e2));
             result.show(getFragmentManager(), "result");
         }
     }

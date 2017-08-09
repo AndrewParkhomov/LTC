@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 buildscript {
     repositories {
@@ -10,6 +13,7 @@ buildscript {
 
     dependencies {
         classpath 'io.fabric.tools:gradle:1.21.6'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 
@@ -34,6 +38,7 @@ repositories {
         dirs 'libs'
     }
     maven { url 'https://maven.fabric.io/public' }
+    mavenCentral()
 }
 
 dependencies {
@@ -49,6 +54,8 @@ dependencies {
     // view injection
     compile "com.jakewharton:butterknife:8.6.0"
     annotationProcessor "com.jakewharton:butterknife-compiler:8.6.0"
+    kapt "com.jakewharton:butterknife-compiler:8.6.0"
+
     // text animation
     compile "hanks.xyz:htextview-library:0.1.5"
     // fabric crashlytics
@@ -57,4 +64,5 @@ dependencies {
     }
     // custom fonts for app
     compile "uk.co.chrisjenx:calligraphy:2.2.0"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

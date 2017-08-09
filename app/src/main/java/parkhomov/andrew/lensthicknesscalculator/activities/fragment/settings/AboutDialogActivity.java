@@ -46,7 +46,6 @@ public class AboutDialogActivity extends DialogFragment {
                 getResources().getString(R.string.copyright),
                 getResources().getString(R.string.year));
         tv.setText(text);
-        tv.setAlpha(0.9f);
         return view;
     }
 
