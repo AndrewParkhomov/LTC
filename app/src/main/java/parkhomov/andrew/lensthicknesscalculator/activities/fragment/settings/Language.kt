@@ -124,7 +124,7 @@ class Language : DialogFragment() {
     private val radiobuttonId: Int
         get() {
             val radioButton = radioGroup.getChildAt(radioGroup.indexOfChild(radioGroup.findViewById(radioGroup.checkedRadioButtonId))) as RadioButton
-            return radioButton?.id ?: -1
+            return radioButton.id ?: -1
         }
 
     private //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -132,6 +132,7 @@ class Language : DialogFragment() {
             //                createConfigurationContext(config);
             //            } else {
             //                Log.d(Tag.AUTHORIZATION, " updateConfiguration");
+
     var currentLanguage: String?
         get() = Locale.getDefault().isO3Language.substring(0, 2)
         set(language) {

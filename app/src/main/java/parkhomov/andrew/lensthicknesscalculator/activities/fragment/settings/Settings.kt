@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
@@ -14,20 +15,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 
 import java.util.ArrayList
 
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import kotlinx.android.synthetic.main.glossary_list_item.view.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.R2
 import parkhomov.andrew.lensthicknesscalculator.activities.main.MainActivity
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT
 import parkhomov.andrew.lensthicknesscalculator.activities.fragment.Parent
 import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils
-
 
 class Settings : Parent() {
 
@@ -40,6 +40,17 @@ class Settings : Parent() {
 
     fun setTarget(mainActivity: MainActivity) {
         this.target = mainActivity
+    }
+
+    companion object {
+
+        fun getInstance(mainActivity: MainActivity): Settings {
+            val bundle = Bundle()
+            val settings = Settings()
+            settings.arguments = bundle
+            settings.setTarget(mainActivity)
+            return settings
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,9 +75,9 @@ class Settings : Parent() {
         headers.add(0, getString(R.string.header_language))
         headers.add(1, getString(R.string.header_rate_this_app))
         headers.add(2, getString(R.string.header_about))
-        //val simple = Simple(headers)
 
-        //recyclerView!!.adapter = simple
+        val adapter = SimpleAdapter(activity, headers, target)
+        recyclerView.adapter = adapter
     }
 
     @OnClick(R.id.turnBackImgB)
@@ -74,75 +85,58 @@ class Settings : Parent() {
         fragmentManager.popBackStack()
     }
 
+    class SimpleAdapter(private val context: FragmentActivity, val headers: (MutableList<String>?), private val mainActivity: MainActivity?) :
+            RecyclerView.Adapter<SimpleAdapter.ViewHolder>() {
 
-//    inner class Simple private constructor(private val headers: List<String>?) : RecyclerView.Adapter<Settings.Simple.ListViewHolder>() {
-//
-//        // create headers in list
-//        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Settings.Simple.ListViewHolder {
-//            val view = LayoutInflater.from(parent.context).inflate(R.layout.glossary_list_item, parent, false)
-//            return Settings.Simple.ListViewHolder(view)
-//        }
-//
-//        // set images and names to each list item
-//        override fun onBindViewHolder(holder: Settings.Simple.ListViewHolder, position: Int) {
-//            val docName = headers!![position]
-//            holder.itemName!!.text = docName
-//            holder.itemName!!.setOnClickListener {
-//                when (position) {
-//                    0 -> {
-//                        val language = Language.getInstance(target!!)
-//                        language.show(fragmentManager, CONSTANT.LANGUAGE)
-//                    }
-//                    1 -> rateThisAppClicked()
-//                    2 -> {
-//                        val aboutDialogActivity = AboutDialogActivity.getInstance()
-//                        aboutDialogActivity.show(fragmentManager, CONSTANT.ABOUT)
-//                    }
-//                }
-//            }
-//        }
-//
-//        private fun rateThisAppClicked() {
-//            val dialog = AlertDialog.Builder(activity)
-//                    .setTitle(R.string.rate_app_header)
-//                    .setMessage(R.string.rate_app_body)
-//
-//                    .setNegativeButton(R.string.rate_app_dialog_no, null)
-//                    .setPositiveButton(R.string.rate_app_dialog_ok) { arg0, arg1 -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(CONSTANT.GOOGLE_PLAY_LINK))) }.create()
-//            dialog.show()
-//            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
-//            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
-//            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setPadding(30, 0, 10, 0)
-//            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(activity, R.color.blue_700))
-//            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(activity, R.color.blue_700))
-//        }
-//
-//        // size of list
-//        override fun getItemCount(): Int {
-//            return headers?.size ?: 0
-//        }
-//
-//        // holder for list headers
-//        internal inner class ListViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//
-//            @BindView(R.id.itemNameTxtV)
-//            var itemName: TextView? = null
-//
-//            init {
-//                ButterKnife.bind(this, itemView)
-//            }
-//        }
-//    }
-//
-    companion object {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.glossary_list_item, parent, false)
+            return SimpleAdapter.ViewHolder(view)
+        }
 
-        fun getInstance(mainActivity: MainActivity): Settings {
-            val bundle = Bundle()
-            val settings = Settings()
-            settings.arguments = bundle
-            settings.setTarget(mainActivity)
-            return settings
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.setUpData(context, headers!![position], mainActivity!!)
+        }
+
+        override fun getItemCount() = headers!!.size
+
+        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+            fun setUpData(context: FragmentActivity,
+                          header: String, mainActivity: MainActivity){
+
+                itemView.itemNameTxtV.text = header
+
+                itemView.setOnClickListener {
+                    when (position) {
+                        0 -> {
+                            val language = Language.getInstance(mainActivity)
+                            language.show(context.supportFragmentManager, CONSTANT.LANGUAGE)
+                        }
+                        1 -> rateThisAppClicked(context)
+                        2 -> {
+                            val aboutDialogActivity = AboutDialogActivity.instance
+                            aboutDialogActivity.show(context.supportFragmentManager, CONSTANT.ABOUT)
+                        }
+                    }
+
+                }
+            }
+
+            private fun rateThisAppClicked(context: FragmentActivity) {
+                val dialog = AlertDialog.Builder(context)
+                        .setTitle(R.string.rate_app_header)
+                        .setMessage(R.string.rate_app_body)
+
+                        .setNegativeButton(R.string.rate_app_dialog_no, null)
+                        .setPositiveButton(R.string.rate_app_dialog_ok) { arg0, arg1 ->
+                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(CONSTANT.GOOGLE_PLAY_LINK))) }.create()
+                dialog.show()
+                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setPadding(30, 0, 10, 0)
+                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.blue_700))
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.blue_700))
+            }
         }
     }
-
 }
