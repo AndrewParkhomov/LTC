@@ -71,11 +71,11 @@ class MainActivity : FragmentActivity(), LanguageChangedI {
                 description,
                 images
         )
-        viewPager!!.offscreenPageLimit = 2
-        viewPager!!.adapter = tabsPageFragmentAdapter
-        tabLayout!!.setupWithViewPager(viewPager)
+        viewPager.offscreenPageLimit = 2
+        viewPager.adapter = tabsPageFragmentAdapter
+        tabLayout.setupWithViewPager(viewPager)
 
-        viewPager!!.setPageTransformer(false, Utils.NoPageTransformer())
+        viewPager.setPageTransformer(false, Utils.NoPageTransformer())
     }
 
     override fun onBackPressed() {
@@ -104,7 +104,8 @@ class MainActivity : FragmentActivity(), LanguageChangedI {
                     .setTitle(R.string.exit_question_title)
                     .setMessage(R.string.exit_question)
                     .setNegativeButton(android.R.string.no, null)
-                    .setPositiveButton(android.R.string.yes) { arg0, arg1 -> android.os.Process.killProcess(android.os.Process.myPid()) }.create().show()
+                    .setPositiveButton(android.R.string.yes) { arg0, arg1 ->
+                        android.os.Process.killProcess(android.os.Process.myPid()) }.create().show()
         }
     }
 
