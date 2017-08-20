@@ -1,13 +1,10 @@
-package parkhomov.andrew.lensthicknesscalculator.activities.tabs
+package parkhomov.andrew.lensthicknesscalculator.tabs
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.util.SparseArray
 
-import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils
 
 class TabsPageFragmentAdapter(fm: FragmentManager, headers: MutableList<String>, description: MutableList<String>, images: MutableList<Int>) : FragmentPagerAdapter(fm) {
 

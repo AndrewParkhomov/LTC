@@ -1,7 +1,8 @@
-package parkhomov.andrew.lensthicknesscalculator.activities.utils
+package parkhomov.andrew.lensthicknesscalculator.utils
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
@@ -16,21 +17,14 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.activities.main.MyApp
+import parkhomov.andrew.lensthicknesscalculator.main.MyApp
+import java.util.*
 
 /**
  * Created by MyPC on 29.07.2017.
  */
 
 object Utils {
-
-    fun enableEditTextField(editText: EditText) {
-        editText.isEnabled = true
-    }
-
-    fun disableEditTextField(editText: EditText) {
-        editText.isEnabled = false
-    }
 
     fun enableWrapper(textInputLayout: TextInputLayout) {
         textInputLayout.isEnabled = true
@@ -40,19 +34,19 @@ object Utils {
         textInputLayout.isEnabled = false
     }
 
-    fun highlightEditText(editText: EditText, textInputLayout: TextInputLayout) {
+    fun highlightEditText(editText: TextInputEditText, textInputLayout: TextInputLayout) {
         editText.setTextColor(ContextCompat.getColor(MyApp.getAppContext, R.color.red_a_700))
         setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(MyApp.getAppContext, R.color.red_a_700))
     }
 
-    fun disableThicknessField(editText: EditText, textInputLayout: TextInputLayout) {
+    fun disableThicknessField(editText: TextInputEditText, textInputLayout: TextInputLayout) {
         editText.setTextColor(ContextCompat.getColor(MyApp.getAppContext, R.color.black))
         setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(MyApp.getAppContext, R.color.black))
         editText.alpha = 0.38f
         textInputLayout.alpha = 0.38f
     }
 
-    fun makeNormalEditText(editText: EditText, textInputLayout: TextInputLayout) {
+    fun makeNormalEditText(editText: TextInputEditText, textInputLayout: TextInputLayout) {
         editText.setTextColor(ContextCompat.getColor(MyApp.getAppContext, R.color.black))
         setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(MyApp.getAppContext, R.color.black))
         editText.alpha = 0.87f
@@ -109,5 +103,7 @@ object Utils {
 
     val inputManager: InputMethodManager
         get() = MyApp.getAppContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+    fun getCurrentLanguage(): String = Locale.getDefault().isO3Language.substring(0, 2)
 
 }

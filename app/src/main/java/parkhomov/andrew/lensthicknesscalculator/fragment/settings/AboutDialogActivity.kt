@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings
+package parkhomov.andrew.lensthicknesscalculator.fragment.settings
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment

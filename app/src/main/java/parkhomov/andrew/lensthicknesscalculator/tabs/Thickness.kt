@@ -1,6 +1,7 @@
-package parkhomov.andrew.lensthicknesscalculator.activities.tabs
+package parkhomov.andrew.lensthicknesscalculator.tabs
 
 import android.os.Bundle
+import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
@@ -15,12 +16,12 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.activities.fragment.dialog.Result
-import parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary.GlossaryDetails
-import parkhomov.andrew.lensthicknesscalculator.activities.main.MainActivity
-import parkhomov.andrew.lensthicknesscalculator.activities.main.MyApp
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils
+import parkhomov.andrew.lensthicknesscalculator.fragment.dialog.Result
+import parkhomov.andrew.lensthicknesscalculator.fragment.glossary.GlossaryDetails
+import parkhomov.andrew.lensthicknesscalculator.main.MainActivity
+import parkhomov.andrew.lensthicknesscalculator.main.MyApp
+import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
+import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 
 /**
  * Created by MyPC on 29.07.2017.
@@ -45,19 +46,19 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
     lateinit var diameterWrapper: TextInputLayout
 
     @BindView(R.id.sphereET)
-    lateinit var getSpherePower: EditText
+    lateinit var getSpherePower: TextInputEditText
     @BindView(R.id.cylinderET)
-    lateinit var getCylinderPower: EditText
+    lateinit var getCylinderPower: TextInputEditText
     @BindView(R.id.axisET)
-    lateinit var getAxis: EditText
+    lateinit var getAxis: TextInputEditText
     @BindView(R.id.curveET)
-    lateinit var getBaseCurve: EditText
+    lateinit var getBaseCurve: TextInputEditText
     @BindView(R.id.centerThicknessET)
-    lateinit var getCenterThickness: EditText
+    lateinit var getCenterThickness: TextInputEditText
     @BindView(R.id.edgeThicknessET)
-    lateinit var getEdgeThickness: EditText
+    lateinit var getEdgeThickness: TextInputEditText
     @BindView(R.id.diameterET)
-    lateinit var getLensDiameter: EditText
+    lateinit var getLensDiameter: TextInputEditText
 
     private var axis: Int = 0
     private var axisView: Int = 0
@@ -509,7 +510,7 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
     }
 
     //Declaration
-    private inner class GenericTextWatcher() : TextWatcher {
+    private inner class GenericTextWatcher : TextWatcher {
 
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 

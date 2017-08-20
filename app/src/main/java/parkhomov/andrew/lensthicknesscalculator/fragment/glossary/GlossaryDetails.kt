@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary
+package parkhomov.andrew.lensthicknesscalculator.fragment.glossary
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -12,9 +12,9 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.activities.fragment.Parent
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils
+import parkhomov.andrew.lensthicknesscalculator.fragment.Parent
+import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
+import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 
 /**
  * Created by MyPC on 29.07.2017.

@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings
+package parkhomov.andrew.lensthicknesscalculator.fragment.settings
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -24,10 +24,11 @@ import butterknife.OnClick
 import kotlinx.android.synthetic.main.glossary_list_item.view.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.R2
-import parkhomov.andrew.lensthicknesscalculator.activities.main.MainActivity
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT
-import parkhomov.andrew.lensthicknesscalculator.activities.fragment.Parent
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils
+
+import parkhomov.andrew.lensthicknesscalculator.main.MainActivity
+import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
+import parkhomov.andrew.lensthicknesscalculator.fragment.Parent
+import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 
 class Settings : Parent() {
 

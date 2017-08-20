@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary
+package parkhomov.andrew.lensthicknesscalculator.fragment.glossary
 
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
@@ -16,9 +16,9 @@ import butterknife.OnClick
 import kotlinx.android.synthetic.main.glossary_list_item.view.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.R2
-import parkhomov.andrew.lensthicknesscalculator.activities.fragment.Parent
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils
+import parkhomov.andrew.lensthicknesscalculator.fragment.Parent
+import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
+import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 
 /**
  * Class glossary list display lists with parameters titles, witch present in program.

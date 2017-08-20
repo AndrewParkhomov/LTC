@@ -1,36 +1,30 @@
-package parkhomov.andrew.lensthicknesscalculator.activities.main
+package parkhomov.andrew.lensthicknesscalculator.main
 
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
-import android.view.View
 import android.widget.TextView
-import android.widget.Toast
-
-import java.util.ArrayList
-
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.R2
-import parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary.GlossaryDetails
-import parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary.GlossaryList
-import parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings.Language
-import parkhomov.andrew.lensthicknesscalculator.activities.fragment.settings.Settings
-import parkhomov.andrew.lensthicknesscalculator.activities.interfaces.LanguageChangedI
-import parkhomov.andrew.lensthicknesscalculator.activities.tabs.AbstractTabFragment
-import parkhomov.andrew.lensthicknesscalculator.activities.tabs.Diameter
-import parkhomov.andrew.lensthicknesscalculator.activities.tabs.TabsPageFragmentAdapter
-import parkhomov.andrew.lensthicknesscalculator.activities.tabs.Thickness
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils
+import parkhomov.andrew.lensthicknesscalculator.fragment.settings.Settings
+import parkhomov.andrew.lensthicknesscalculator.fragment.glossary.GlossaryDetails
+import parkhomov.andrew.lensthicknesscalculator.fragment.glossary.GlossaryList
+import parkhomov.andrew.lensthicknesscalculator.fragment.settings.Language
+import parkhomov.andrew.lensthicknesscalculator.interfaces.LanguageChangedI
+import parkhomov.andrew.lensthicknesscalculator.tabs.Diameter
+import parkhomov.andrew.lensthicknesscalculator.tabs.TabsPageFragmentAdapter
+import parkhomov.andrew.lensthicknesscalculator.tabs.Thickness
+import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
+import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import java.util.*
 
 /**
  * Main activity class. Customize drawers, toolbar, fragment behaviour ect.
@@ -90,7 +84,6 @@ class MainActivity : FragmentActivity(), LanguageChangedI {
                 language,
                 settings
         )
-
     }
 
     private fun backPressedBehaviour(vararg fragment: Fragment) {
@@ -105,7 +98,8 @@ class MainActivity : FragmentActivity(), LanguageChangedI {
                     .setMessage(R.string.exit_question)
                     .setNegativeButton(android.R.string.no, null)
                     .setPositiveButton(android.R.string.yes) { arg0, arg1 ->
-                        android.os.Process.killProcess(android.os.Process.myPid()) }.create().show()
+                        android.os.Process.killProcess(android.os.Process.myPid())
+                    }.create().show()
         }
     }
 

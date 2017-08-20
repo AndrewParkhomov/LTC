@@ -1,6 +1,7 @@
-package parkhomov.andrew.lensthicknesscalculator.activities.tabs
+package parkhomov.andrew.lensthicknesscalculator.tabs
 
 import android.os.Bundle
+import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.support.v4.view.ViewPager
 import android.util.Log
@@ -16,11 +17,11 @@ import com.hanks.htextview.HTextView
 import com.hanks.htextview.HTextViewType
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.R2
-import parkhomov.andrew.lensthicknesscalculator.activities.fragment.glossary.GlossaryDetails
-import parkhomov.andrew.lensthicknesscalculator.activities.main.MainActivity
-import parkhomov.andrew.lensthicknesscalculator.activities.main.MyApp
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.CONSTANT
-import parkhomov.andrew.lensthicknesscalculator.activities.utils.Utils
+import parkhomov.andrew.lensthicknesscalculator.fragment.glossary.GlossaryDetails
+import parkhomov.andrew.lensthicknesscalculator.main.MainActivity
+import parkhomov.andrew.lensthicknesscalculator.main.MyApp
+import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
+import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 import java.text.DecimalFormat
 
 /**
@@ -43,11 +44,11 @@ class Diameter : AbstractTabFragment(), MainActivity.HideKeyboardI {
     lateinit var pdWrapper: TextInputLayout
 
     @BindView(R2.id.edET)
-    lateinit var edET: EditText
+    lateinit var edET: TextInputEditText
     @BindView(R2.id.dblET)
-    lateinit var dblET: EditText
+    lateinit var dblET: TextInputEditText
     @BindView(R2.id.pdET)
-    lateinit var pdET: EditText
+    lateinit var pdET: TextInputEditText
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.activities.tabs
+package parkhomov.andrew.lensthicknesscalculator.tabs
 
 import android.app.Activity
 import android.support.v4.app.Fragment

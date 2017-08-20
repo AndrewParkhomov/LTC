@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.activities.interfaces
+package parkhomov.andrew.lensthicknesscalculator.interfaces
 
 /**
  * Created by MyPC on 02.08.2017.
