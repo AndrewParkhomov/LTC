@@ -1,5 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.tabs
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
@@ -8,18 +9,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
-import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.hanks.htextview.HTextView
 import com.hanks.htextview.HTextViewType
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.R2
 import parkhomov.andrew.lensthicknesscalculator.fragment.glossary.GlossaryDetails
-import parkhomov.andrew.lensthicknesscalculator.main.MainActivity
-import parkhomov.andrew.lensthicknesscalculator.main.MyApp
 import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 import java.text.DecimalFormat
@@ -29,33 +27,31 @@ import java.text.DecimalFormat
  */
 
 
-class Diameter : AbstractTabFragment(), MainActivity.HideKeyboardI {
+class Diameter : AbstractTabFragment() {
 
-    @BindView(R2.id.textTest)
+    @BindView(R.id.textTest)
     lateinit var textTest: HTextView
     @BindView(R.id.diameterCalculateButton)
     lateinit var button: Button
 
-    @BindView(R2.id.edTxtInptL)
+    @BindView(R.id.edTxtInptL)
     lateinit var edWrapper: TextInputLayout
-    @BindView(R2.id.dblTxtInptL)
+    @BindView(R.id.dblTxtInptL)
     lateinit var dblWrapper: TextInputLayout
-    @BindView(R2.id.pdTxtInptL)
+    @BindView(R.id.pdTxtInptL)
     lateinit var pdWrapper: TextInputLayout
 
-    @BindView(R2.id.edET)
+    @BindView(R.id.edET)
     lateinit var edET: TextInputEditText
-    @BindView(R2.id.dblET)
+    @BindView(R.id.dblET)
     lateinit var dblET: TextInputEditText
-    @BindView(R2.id.pdET)
+    @BindView(R.id.pdET)
     lateinit var pdET: TextInputEditText
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.diameter_fragment, container, false)
         ButterKnife.bind(this, view)
-        activity = getActivity()
-
         button.text = Utils.spacing(getString(R.string.button_text_calculate), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8)
         setUpListeners()
         return view
@@ -78,9 +74,6 @@ class Diameter : AbstractTabFragment(), MainActivity.HideKeyboardI {
         })
     }
 
-    override fun hideKeyboard() {
-        hideSoftKeyboard()
-    }
 
     @OnClick(R.id.diameterCalculateButton)
     fun onButtonClicked() {
@@ -157,7 +150,7 @@ class Diameter : AbstractTabFragment(), MainActivity.HideKeyboardI {
                                 GlossaryDetails.getInstance(
                                         headers?.get(position)!!,
                                         description?.get(position)!!,
-                                        images?.get(position)),
+                                        images?.get(position)!!),
                                 CONSTANT.GLOSSARY_DETAILS)
                         .commit()
             } catch (e: IllegalStateException) {
@@ -169,18 +162,20 @@ class Diameter : AbstractTabFragment(), MainActivity.HideKeyboardI {
     }
 
     private fun hideSoftKeyboard() {
-        Utils.inputManager.hideSoftInputFromWindow(edET.windowToken, 0)
-        Utils.inputManager.hideSoftInputFromWindow(dblET.windowToken, 0)
-        Utils.inputManager.hideSoftInputFromWindow(pdET.windowToken, 0)
+        val view = activity!!.currentFocus
+        if (view != null) {
+            val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            imm!!.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
     companion object {
 
-        fun getInstance(headers: MutableList<String>, description: MutableList<String>, images: MutableList<Int>): Diameter {
+        fun getInstance(context: Context, headers: MutableList<String>, description: MutableList<String>, images: MutableList<Int>): Diameter {
             val bundle = Bundle()
             val diameter = Diameter()
             diameter.arguments = bundle
-            Companion.setTitle(diameter, MyApp.getAppContext.getString(R.string.tab_diameter))
+            Companion.setTitle(diameter, context.getString(R.string.tab_diameter))
             Companion.setHeaders(diameter, headers)
             Companion.setDescription(diameter, description)
             Companion.setImages(diameter, images)

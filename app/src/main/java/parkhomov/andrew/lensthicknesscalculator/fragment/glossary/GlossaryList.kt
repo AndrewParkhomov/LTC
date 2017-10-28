@@ -1,6 +1,7 @@
 package parkhomov.andrew.lensthicknesscalculator.fragment.glossary
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -15,8 +16,6 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import kotlinx.android.synthetic.main.glossary_list_item.view.*
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.R2
-import parkhomov.andrew.lensthicknesscalculator.fragment.Parent
 import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 
@@ -24,11 +23,11 @@ import parkhomov.andrew.lensthicknesscalculator.utils.Utils
  * Class glossary list display lists with parameters titles, witch present in program.
  */
 
-class GlossaryList : Parent() {
+class GlossaryList : Fragment() {
 
-    @BindView(R2.id.recyclerView)
+    @BindView(R.id.recyclerView)
     lateinit var recyclerView: RecyclerView
-    @BindView(R2.id.header)
+    @BindView(R.id.header)
     lateinit var header: TextView
 
     private var headers: MutableList<String>? = null
@@ -89,7 +88,7 @@ class GlossaryList : Parent() {
 
 
     class SimpleAdapter(private val context: FragmentActivity, val headers: (MutableList<String>?),
-                        val description: (MutableList<String>?), val images: (MutableList<Int>?)) :
+                        private val description: (MutableList<String>?), private val images: (MutableList<Int>?)) :
             RecyclerView.Adapter<SimpleAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

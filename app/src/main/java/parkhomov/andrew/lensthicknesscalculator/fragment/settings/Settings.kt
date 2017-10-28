@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
@@ -15,26 +16,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
-import java.util.ArrayList
-
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import kotlinx.android.synthetic.main.glossary_list_item.view.*
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.R2
-
 import parkhomov.andrew.lensthicknesscalculator.main.MainActivity
 import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
-import parkhomov.andrew.lensthicknesscalculator.fragment.Parent
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
+import java.util.*
 
-class Settings : Parent() {
+class Settings : Fragment() {
 
-    @BindView(R2.id.settingsRcycV)
+    @BindView(R.id.settingsRcycV)
     lateinit var recyclerView: RecyclerView
-    @BindView(R2.id.header)
+    @BindView(R.id.header)
     lateinit var header: TextView
 
     private var target: MainActivity? = null
@@ -103,7 +99,7 @@ class Settings : Parent() {
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
             fun setUpData(context: FragmentActivity,
-                          header: String, mainActivity: MainActivity){
+                          header: String, mainActivity: MainActivity) {
 
                 itemView.itemNameTxtV.text = header
 
@@ -130,7 +126,8 @@ class Settings : Parent() {
 
                         .setNegativeButton(R.string.rate_app_dialog_no, null)
                         .setPositiveButton(R.string.rate_app_dialog_ok) { arg0, arg1 ->
-                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(CONSTANT.GOOGLE_PLAY_LINK))) }.create()
+                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(CONSTANT.GOOGLE_PLAY_LINK)))
+                        }.create()
                 dialog.show()
                 dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
                 dialog.getButton(DialogInterface.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)

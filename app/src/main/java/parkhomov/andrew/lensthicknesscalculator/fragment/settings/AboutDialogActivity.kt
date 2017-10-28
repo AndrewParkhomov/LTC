@@ -7,17 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.TextView
-
 import butterknife.BindView
 import butterknife.ButterKnife
 import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.R2
 
 
 class AboutDialogActivity : DialogFragment() {
 
-    @BindView(R2.id.textViewAboutDialog)
+    @BindView(R.id.textViewAboutDialog)
     lateinit var tv: TextView
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,17 +24,18 @@ class AboutDialogActivity : DialogFragment() {
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         if (dialog.window != null) {
-            dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            dialog.window!!.setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white)
+            dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            dialog.window.setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white)
         }
 
-        val text = String.format("%s\n\n%s\n\n%s\n\n%s %s",
+        val text = String.format("%s\n\n%s\n\n%s\n\n%s %s %s",
                 resources.getString(R.string.version) + BuildConfig.VERSION_NAME,
                 resources.getString(R.string.author_name),
                 resources.getString(R.string.author_email),
                 resources.getString(R.string.copyright),
-                resources.getString(R.string.year))
-        tv!!.text = text
+                resources.getString(R.string.year),
+                resources.getString(R.string.programing_language))
+        tv.text = text
         return view
     }
 
@@ -50,5 +49,4 @@ class AboutDialogActivity : DialogFragment() {
                 return aboutDialogActivity
             }
     }
-
 }

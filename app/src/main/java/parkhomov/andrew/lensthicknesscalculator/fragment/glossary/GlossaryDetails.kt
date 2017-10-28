@@ -1,18 +1,18 @@
 package parkhomov.andrew.lensthicknesscalculator.fragment.glossary
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.fragment.Parent
 import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 
@@ -20,7 +20,7 @@ import parkhomov.andrew.lensthicknesscalculator.utils.Utils
  * Created by MyPC on 29.07.2017.
  */
 
-class GlossaryDetails : Parent() {
+class GlossaryDetails : Fragment() {
 
     @BindView(R.id.glossaryImageView)
     lateinit var imageHolder: ImageView
@@ -52,6 +52,10 @@ class GlossaryDetails : Parent() {
         ButterKnife.bind(this, view)
 
         header.text = Utils.spacing(title!!.toUpperCase(), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8)
+        header.ellipsize = TextUtils.TruncateAt.MARQUEE
+        header.marqueeRepeatLimit = -1
+        header.setSingleLine(true)
+        header.isSelected = true
         //set data in holder
         imageHolder.setImageDrawable(ContextCompat.getDrawable(activity, imageId))
         titleHolder.text = title
@@ -67,15 +71,14 @@ class GlossaryDetails : Parent() {
 
     companion object {
 
-        fun getInstance(title: String, desrciption: String, imageId: Int?): GlossaryDetails {
+        fun getInstance(title: String, description: String, imageId: Int): GlossaryDetails {
             val bundle = Bundle()
             val glossaryDetails = GlossaryDetails()
             glossaryDetails.arguments = bundle
             glossaryDetails.setTitle(title)
-            glossaryDetails.setDescription(desrciption)
-            glossaryDetails.setImageId(imageId!!)
+            glossaryDetails.setDescription(description)
+            glossaryDetails.setImageId(imageId)
             return glossaryDetails
         }
     }
-
 }

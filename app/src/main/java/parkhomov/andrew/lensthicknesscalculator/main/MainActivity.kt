@@ -7,39 +7,32 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.R2
-import parkhomov.andrew.lensthicknesscalculator.fragment.settings.Settings
 import parkhomov.andrew.lensthicknesscalculator.fragment.glossary.GlossaryDetails
 import parkhomov.andrew.lensthicknesscalculator.fragment.glossary.GlossaryList
 import parkhomov.andrew.lensthicknesscalculator.fragment.settings.Language
-import parkhomov.andrew.lensthicknesscalculator.interfaces.LanguageChangedI
-import parkhomov.andrew.lensthicknesscalculator.tabs.Diameter
+import parkhomov.andrew.lensthicknesscalculator.fragment.settings.Settings
 import parkhomov.andrew.lensthicknesscalculator.tabs.TabsPageFragmentAdapter
-import parkhomov.andrew.lensthicknesscalculator.tabs.Thickness
 import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
+import parkhomov.andrew.lensthicknesscalculator.utils.MyContextWrapper
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
+import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.*
 
-/**
- * Main activity class. Customize drawers, toolbar, fragment behaviour ect.
- */
-class MainActivity : FragmentActivity(), LanguageChangedI {
+class MainActivity : FragmentActivity(), Language.LanguageChangedI {
 
-    interface HideKeyboardI {
-        fun hideKeyboard()
-    }
 
-    @BindView(R2.id.viewPager)
+    @BindView(R.id.viewPager)
     lateinit var viewPager: ViewPager
-    @BindView(R2.id.MyTabLayout)
+    @BindView(R.id.MyTabLayout)
     lateinit var tabLayout: TabLayout
-    @BindView(R2.id.header)
+    @BindView(R.id.header)
     lateinit var header: TextView
 
     private val headers = ArrayList<String>(12)
@@ -47,7 +40,9 @@ class MainActivity : FragmentActivity(), LanguageChangedI {
     private val images = ArrayList<Int>(12)
 
     override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+        val sharedPreferences = newBase.getSharedPreferences(CONSTANT.SHARED_PREF, Context.MODE_PRIVATE)
+        val languageIso2 = sharedPreferences!!.getString(CONSTANT.SAVE_LANGUAGE_ISO2, "")
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(MyContextWrapper.wrap(newBase, languageIso2)))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +55,7 @@ class MainActivity : FragmentActivity(), LanguageChangedI {
 
     private fun createTabs() {
         val tabsPageFragmentAdapter = TabsPageFragmentAdapter(
+                this,
                 supportFragmentManager,
                 headers,
                 description,
@@ -73,10 +69,10 @@ class MainActivity : FragmentActivity(), LanguageChangedI {
     }
 
     override fun onBackPressed() {
-        val glossaryList = supportFragmentManager.findFragmentByTag(CONSTANT.GLOSSARY_LIST) as GlossaryList
-        val glossaryDetails = supportFragmentManager.findFragmentByTag(CONSTANT.GLOSSARY_DETAILS) as GlossaryDetails
-        val language = supportFragmentManager.findFragmentByTag(CONSTANT.LANGUAGE) as Language
-        val settings = supportFragmentManager.findFragmentByTag(CONSTANT.SETTINGS) as Settings
+        val glossaryList: Fragment? = supportFragmentManager.findFragmentByTag(CONSTANT.GLOSSARY_LIST) as? GlossaryList
+        val glossaryDetails: Fragment? = supportFragmentManager.findFragmentByTag(CONSTANT.GLOSSARY_DETAILS) as? GlossaryDetails
+        val language: Fragment? = supportFragmentManager.findFragmentByTag(CONSTANT.LANGUAGE) as? Language
+        val settings: Fragment? = supportFragmentManager.findFragmentByTag(CONSTANT.SETTINGS) as? Settings
 
         backPressedBehaviour(
                 glossaryList,
@@ -86,9 +82,12 @@ class MainActivity : FragmentActivity(), LanguageChangedI {
         )
     }
 
-    private fun backPressedBehaviour(vararg fragment: Fragment) {
-        val isFragmentAdded = fragment.any { it.isAdded }
-        // check if one of one fragment is added
+    private fun backPressedBehaviour(vararg fragment: Fragment?) {
+        var isFragmentAdded = false
+
+        for (item in fragment) {
+            item?.let { isFragmentAdded = it.isAdded }
+        }
 
         if (isFragmentAdded) {
             supportFragmentManager.popBackStack()
@@ -103,7 +102,7 @@ class MainActivity : FragmentActivity(), LanguageChangedI {
         }
     }
 
-    @OnClick(R2.id.openGlossary)
+    @OnClick(R.id.openGlossary)
     fun onGlossaryClicked() {
         try {
             supportFragmentManager
@@ -112,13 +111,13 @@ class MainActivity : FragmentActivity(), LanguageChangedI {
                     .add(R.id.mainContainerConstr, GlossaryList.getInstance(headers, description, images), CONSTANT.GLOSSARY_LIST)
                     .commit()
         } catch (e: IllegalStateException) {
+            Timber.i(e.toString())
         }
-
         closeSoftKeyboard()
     }
 
     @OnClick(R.id.openSettings)
-    fun onStatisticClicked() {
+    fun onSettingsClicked() {
         try {
             supportFragmentManager
                     .beginTransaction()
@@ -126,32 +125,19 @@ class MainActivity : FragmentActivity(), LanguageChangedI {
                     .add(R.id.mainContainerConstr, Settings.getInstance(this), CONSTANT.SETTINGS)
                     .commit()
         } catch (e: IllegalStateException) {
+            Timber.i(e.toString())
         }
-
         closeSoftKeyboard()
     }
 
     /* try to hide all soft keyboards in viewpager. One of tab is not in focus and we get 100%
     ClassCastException, and we handle it and ignore */
     private fun closeSoftKeyboard() {
-        val index = viewPager.currentItem
-
-        val adapter = viewPager.adapter as TabsPageFragmentAdapter
-
-        try {
-            val hide = adapter.getFragment(index) as Thickness
-            hide.hideKeyboard()
-        } catch (e: ClassCastException) {
-        } catch (e: NullPointerException) {
+        val view = currentFocus
+        if (view != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            imm!!.hideSoftInputFromWindow(view.windowToken, 0)
         }
-
-        try {
-            val hide = adapter.getFragment(index) as Diameter
-            hide.hideKeyboard()
-        } catch (e: ClassCastException) {
-        } catch (e: NullPointerException) {
-        }
-
     }
 
     // this code reload activity when user change language

@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_50"
-    android:clickable="true">
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/headerContainerConstr"
@@ -19,8 +20,8 @@
             android:id="@+id/turnBackImgB"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:padding="@dimen/v16dp"
             android:background="@android:color/transparent"
+            android:padding="@dimen/v16dp"
             android:src="@drawable/arrow_back"
             app:layout_constraintBottom_toTopOf="@+id/include_1"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -28,33 +29,34 @@
 
         <TextView
             android:id="@+id/header"
+            fontPath="raleway_bold.ttf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/v10dp"
-            android:layout_marginStart="@dimen/v10dp"
-            android:layout_marginRight="@dimen/v16dp"
             android:layout_marginEnd="@dimen/v16dp"
-            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginRight="@dimen/v16dp"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:gravity="center|start"
+            android:lines="1"
+            android:maxLines="1"
             android:text="@string/dummy"
             android:textColor="@color/black"
             android:textSize="@dimen/v16sp"
-            fontPath="raleway_bold.ttf"
-            android:ellipsize="end"
-            android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@+id/include_1"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintLeft_toRightOf="@+id/turnBackImgB"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingPrefix"
-            app:layout_constraintRight_toRightOf="parent" />
+            tools:ignore="MissingPrefix" />
 
         <include
             android:id="@+id/include_1"
             layout="@layout/divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintRight_toRightOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -62,10 +64,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerContainerConstr"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/headerContainerConstr">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -75,9 +77,9 @@
                 android:id="@+id/glossaryImageView"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/v150dp"
-                android:src="@drawable/front_curve_img"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="@dimen/v16dp"
+                android:src="@drawable/front_curve_img"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -100,9 +102,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/v16dp"
                 android:gravity="start"
+                android:paddingBottom="@dimen/v16dp"
                 android:text="@string/dummy"
                 android:textSize="@dimen/v18sp"
-                android:paddingBottom="@dimen/v16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/glossaryTitleTextView" />

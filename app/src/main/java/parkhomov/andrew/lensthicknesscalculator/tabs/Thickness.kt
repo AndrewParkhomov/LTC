@@ -1,5 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.tabs
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
@@ -11,15 +12,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.fragment.dialog.Result
 import parkhomov.andrew.lensthicknesscalculator.fragment.glossary.GlossaryDetails
-import parkhomov.andrew.lensthicknesscalculator.main.MainActivity
-import parkhomov.andrew.lensthicknesscalculator.main.MyApp
 import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 
@@ -27,7 +31,7 @@ import parkhomov.andrew.lensthicknesscalculator.utils.Utils
  * Created by MyPC on 29.07.2017.
  */
 
-class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
+class Thickness : AbstractTabFragment() {
 
     @BindView(R.id.new_spinner)
     lateinit var spinner: Spinner
@@ -83,7 +87,8 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.thickness_fragment, container, false)
         ButterKnife.bind(this, view)
-        activity = getActivity()
+
+        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
         button.text = Utils.spacing(getString(R.string.button_text_calculate), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8)
 
@@ -108,10 +113,6 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
 
             }
         })
-    }
-
-    override fun hideKeyboard() {
-        hideSoftKeyboard()
     }
 
     private fun customizeSpinner() {
@@ -150,7 +151,7 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
                                 GlossaryDetails.getInstance(
                                         headers?.get(position)!!,
                                         description?.get(position)!!,
-                                        images?.get(position)),
+                                        images?.get(position)!!),
                                 CONSTANT.GLOSSARY_DETAILS)
                         .commit()
             } catch (e: IllegalStateException) {
@@ -197,25 +198,23 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
         curveCalculation()
     }
 
-    private val reaRadiusInMM: Double
+    private val getReaRadiusInMM: Double
         get() = (CONSTANT.LAB_INDEX - 1) / (realFrontBaseCurveDptr / 1000)
 
     private fun getEdgeThickness(): Double {
         return try {
-            java.lang.Double.parseDouble(getEdgeThickness.text.toString())
+            getEdgeThickness.text.toString().toDouble()
         } catch (e: NumberFormatException) {
             0.0
         }
-
     }
 
     private fun getCylinderPower(): Double {
         return try {
-            java.lang.Double.parseDouble(getCylinderPower.text.toString())
+            getCylinderPower.text.toString().toDouble()
         } catch (e: NumberFormatException) {
             0.0
         }
-
     }
 
     private fun setCenterThickness() {
@@ -269,9 +268,9 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
             // if cylinder > 0 we add sphere power and cylinder power
             tempDoubleForThickness = if (cylinderPower > 0) {
                 spherePower + cylinderPower
-            }else 
+            } else
                 spherePower
-            
+
             // ROUGH Formula for calc CT with plano - concave lens, without pay attention
             // on front curve
             centerThickness = Math.pow(lensDiameter / 2, 2.0) * tempDoubleForThickness / (2000 * (lensIndex - 1)) + edgeThickness
@@ -307,12 +306,10 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
         if (cylinderPower > 0) {
             spherePower += cylinderPower
             cylinderPower = -cylinderPower
-            if (axis + 90 > 180) {
-                axis = Math.abs(180 - (axis + 90))
-            } else if (axis > 90) {
-                axis = 180 - axis
-            } else if (axis <= 90) {
-                axis = 180 - (axis + 90)
+            when {
+                axis + 90 > 180 -> axis = Math.abs(180 - (axis + 90))
+                axis > 90 -> axis = 180 - axis
+                axis <= 90 -> axis = 180 - (axis + 90)
             }
         } else if (cylinderPower < 0) {
             if (axis > 90) axis = 180 - axis
@@ -354,10 +351,10 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
         Utils.makeNormalEditText(getSpherePower, sphereWrapper)
         Utils.makeNormalEditText(getBaseCurve, curveWrapper)
         // if field is disable, we don't change it color
-        if (getCenterThickness.currentHintTextColor != ContextCompat.getColor(activity, R.color.black) || 
+        if (getCenterThickness.currentHintTextColor != ContextCompat.getColor(activity, R.color.black) ||
                 getCenterThickness.currentTextColor != ContextCompat.getColor(activity, R.color.black))
             Utils.makeNormalEditText(getCenterThickness, centerThicknessWrapper)
-        if (getEdgeThickness.currentHintTextColor != ContextCompat.getColor(activity, R.color.black) || 
+        if (getEdgeThickness.currentHintTextColor != ContextCompat.getColor(activity, R.color.black) ||
                 getEdgeThickness.currentTextColor != ContextCompat.getColor(activity, R.color.black))
             Utils.makeNormalEditText(getEdgeThickness, edgeThicknessWrapper)
         Utils.makeNormalEditText(getLensDiameter, diameterWrapper)
@@ -371,32 +368,32 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
 
     private fun curveCalculation() {
         /* this method make like 'event' when disable fields, and after calculation enable again,
-        this allow to highlight required field that will be  highlighted in try blocks below*/
+       this allow to highlight required field that will be  highlighted in try blocks below*/
         setUpViewsBehaviourBefore()
         // try blocks here to highlight required field
+        var sphereIsEmpty = false
         try {
-            spherePower = java.lang.Double.parseDouble(getSpherePower.text.toString())
+            spherePower = getSpherePower.text.toString().toDouble()
         } catch (e: NumberFormatException) {
-            Log.d(CONSTANT.MY_EXCEPTION, e.toString() + " spherePower")
             Utils.highlightEditText(getSpherePower, sphereWrapper)
+            sphereIsEmpty = true
         }
 
         try {
-            realFrontBaseCurveDptr = java.lang.Double.parseDouble(getBaseCurve.text.toString())
+            realFrontBaseCurveDptr = getBaseCurve.text.toString().toDouble()
+            if (realFrontBaseCurveDptr == 0.0) throw NumberFormatException()
         } catch (e: NumberFormatException) {
-            Log.d(CONSTANT.MY_EXCEPTION, e.toString() + " realFrontBaseCurveDptr")
-            Utils.highlightEditText(getBaseCurve, curveWrapper)
+            handleNoBaseCurveBehaviour(sphereIsEmpty)
         }
 
         try {
             lensDiameter = java.lang.Double.parseDouble(getLensDiameter.text.toString())
         } catch (e: NumberFormatException) {
-            Log.d(CONSTANT.MY_EXCEPTION, e.toString() + " lensDiameter")
             Utils.highlightEditText(getLensDiameter, diameterWrapper)
         }
 
         // Real radius of front curve in mm
-        realRadiusMM = reaRadiusInMM
+        realRadiusMM = getReaRadiusInMM
 
         edgeThickness = getEdgeThickness()
 
@@ -434,6 +431,73 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
         sphereThicknessCalculation()
 
         setUpViewsBehaviourAfter()
+    }
+
+    private fun handleNoBaseCurveBehaviour(sphereIsEmpty: Boolean) {
+        if (!sphereIsEmpty) {
+            val cylinder = getCylinderPower()
+            val sphere: Double = if (cylinder > 0) {
+                spherePower + cylinder
+            } else {
+                spherePower
+            }
+
+            var tempCurveString = ""
+            var tempCurveDouble: Double = 0.toDouble()
+
+            when {
+                sphere <= -8.0 -> {
+                    tempCurveString = CONSTANT.base0.toString()
+                    tempCurveDouble = CONSTANT.base0
+                }
+                sphere <= -6.0 && sphere >= -7.99 -> {
+                    tempCurveString = CONSTANT.base1.toInt().toString()
+                    tempCurveDouble = CONSTANT.base1
+                }
+                sphere <= -4.0 && sphere >= -5.99 -> {
+                    tempCurveString = CONSTANT.base2.toInt().toString()
+                    tempCurveDouble = CONSTANT.base2
+                }
+                sphere <= -2.0 && sphere >= -3.99 -> {
+                    tempCurveString = CONSTANT.base3.toInt().toString()
+                    tempCurveDouble = CONSTANT.base3
+                }
+                sphere <= 2.0 && sphere >= -1.99 -> {
+                    tempCurveString = CONSTANT.base4.toInt().toString()
+                    tempCurveDouble = CONSTANT.base4
+                }
+                sphere in 2.01..2.99 -> {
+                    tempCurveString = CONSTANT.base5.toInt().toString()
+                    tempCurveDouble = CONSTANT.base5
+                }
+                sphere in 3.0..4.99 -> {
+                    tempCurveString = CONSTANT.base6.toInt().toString()
+                    tempCurveDouble = CONSTANT.base6
+                }
+                sphere in 5.0..5.99 -> {
+                    tempCurveString = CONSTANT.base7.toInt().toString()
+                    tempCurveDouble = CONSTANT.base7
+                }
+                sphere in 6.0..6.99 -> {
+                    tempCurveString = CONSTANT.base8.toInt().toString()
+                    tempCurveDouble = CONSTANT.base8
+                }
+                sphere in 7.0..7.99 -> {
+                    tempCurveString = CONSTANT.base9.toInt().toString()
+                    tempCurveDouble = CONSTANT.base9
+                }
+                sphere in 8.0..9.99 -> {
+                    tempCurveString = CONSTANT.base10.toInt().toString()
+                    tempCurveDouble = CONSTANT.base10
+                }
+                sphere >= 10.0 -> {
+                    tempCurveString = CONSTANT.base10_5.toString()
+                    tempCurveDouble = CONSTANT.base10_5
+                }
+            }
+            getBaseCurve.setText(tempCurveString)
+            realFrontBaseCurveDptr = tempCurveDouble
+        }
     }
 
     private fun clearData() {
@@ -529,10 +593,10 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
                 0.0
             }
 
-            try {
-                cylinderPower = java.lang.Double.parseDouble(getCylinderPower.text.toString())
+            cylinderPower = try {
+                java.lang.Double.parseDouble(getCylinderPower.text.toString())
             } catch (e: NumberFormatException) {
-                cylinderPower = 0.0
+                0.0
             }
 
             val value = if (cylinderPower > 0) spherePower + cylinderPower else spherePower
@@ -566,22 +630,20 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
     }
 
     private fun hideSoftKeyboard() {
-        Utils.inputManager.hideSoftInputFromWindow(getSpherePower.windowToken, 0)
-        Utils.inputManager.hideSoftInputFromWindow(getCylinderPower.windowToken, 0)
-        Utils.inputManager.hideSoftInputFromWindow(getAxis.windowToken, 0)
-        Utils.inputManager.hideSoftInputFromWindow(getBaseCurve.windowToken, 0)
-        Utils.inputManager.hideSoftInputFromWindow(getCenterThickness.windowToken, 0)
-        Utils.inputManager.hideSoftInputFromWindow(getEdgeThickness.windowToken, 0)
-        Utils.inputManager.hideSoftInputFromWindow(getLensDiameter.windowToken, 0)
+        val view = activity!!.currentFocus
+        if (view != null) {
+            val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            imm!!.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
     companion object {
 
-        fun getInstance(headers: MutableList<String>, description: MutableList<String>, images: MutableList<Int>): Thickness {
+        fun getInstance(context: Context, headers: MutableList<String>, description: MutableList<String>, images: MutableList<Int>): Thickness {
             val bundle = Bundle()
             val thickness = Thickness()
             thickness.arguments = bundle
-            Companion.setTitle(thickness, MyApp.getAppContext.getString(R.string.tab_lens_thickness))
+            Companion.setTitle(thickness, context.getString(R.string.tab_lens_thickness))
             Companion.setHeaders(thickness, headers)
             Companion.setDescription(thickness, description)
             Companion.setImages(thickness, images)
@@ -604,6 +666,5 @@ class Thickness : AbstractTabFragment(), MainActivity.HideKeyboardI {
         private fun setImages(thickness: Thickness, images: MutableList<Int>) {
             thickness.images = images
         }
-
     }
 }

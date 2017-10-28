@@ -15,7 +15,7 @@
             android:name=".main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,6 +25,7 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="d0e292b865c2f52bd3fd07565284427cb5f282b7" />
+
     </application>
 
 </manifest>

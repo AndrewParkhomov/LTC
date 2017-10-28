@@ -15,6 +15,7 @@
     </string-array>
 
      <!-- String without translations -->
+    <string name="programing_language">Kotlin</string>
     <string name="year">2017</string>
     <string name="copyright">©</string>
     <string name="diam_activ_textView_result_formula">ED x 2 + DBL - PD =" "</string>
