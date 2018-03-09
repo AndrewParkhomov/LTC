@@ -81,8 +81,4 @@ abstract class BaseDialog : DialogFragment() {
         show(transaction, tag)
     }
 
-    protected fun dismissDialog(tag: String) {
-        dismiss()
-    }
-
 }

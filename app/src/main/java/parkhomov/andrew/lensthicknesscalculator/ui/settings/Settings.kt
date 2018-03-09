@@ -1,5 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.ui.settings
 
+import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
@@ -19,7 +20,7 @@ import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
-import parkhomov.andrew.lensthicknesscalculator.utils.const
+import parkhomov.andrew.lensthicknesscalculator.utils.spacing8
 import java.util.*
 
 class Settings : BaseFragment() {
@@ -31,7 +32,6 @@ class Settings : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.settings_fragment, container, false)
-
 
         return view
     }
@@ -53,14 +53,13 @@ class Settings : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        header.text = Utils.spacing(getString(R.string.header_settings), const.spacing8)
+        header.text = Utils.spacing(getString(R.string.header_settings), spacing8)
 
         setUpDateInAdapter()
         turnBackImgB.setOnClickListener { fragmentManager!!.popBackStack() }
     }
 
-
-    class SimpleAdapter(private val context: BaseActivity, val headers: (MutableList<String>?)) :
+    class SimpleAdapter(private val context: BaseActivity, private val headers: (MutableList<String>?)) :
             RecyclerView.Adapter<SimpleAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -76,38 +75,43 @@ class Settings : BaseFragment() {
 
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-            fun setUpData(context: BaseActivity, poaition: Int, headers: MutableList<String>) {
+            fun setUpData(baseActivity: BaseActivity, position: Int, headers: MutableList<String>) {
 
-                itemView.itemNameTxtV.text = headers[poaition]
+                itemView.itemNameTxtV.text = headers[position]
 
                 itemView.setOnClickListener {
                     when (position) {
                         0 -> {
-                            Language.instance.showDialog(context.supportFragmentManager, Language.TAG)
+                            Language.instance.showDialog(baseActivity.supportFragmentManager, Language.TAG)
                         }
-                        1 -> rateThisAppClicked(context)
+                        1 -> rateThisAppClicked(baseActivity)
                         2 -> {
-                            AboutDialogActivity.instance.showDialog(context.supportFragmentManager, AboutDialogActivity.TAG)
+                            AboutDialogActivity.instance.showDialog(baseActivity.supportFragmentManager, AboutDialogActivity.TAG)
                         }
                     }
-
                 }
             }
 
-            private fun rateThisAppClicked(context: BaseActivity) {
-                val dialog = AlertDialog.Builder(context)
+            private fun rateThisAppClicked(baseActivity: BaseActivity) {
+                val dialog = AlertDialog.Builder(baseActivity)
                         .setTitle(R.string.rate_app_header)
                         .setMessage(R.string.rate_app_body)
                         .setNegativeButton(R.string.rate_app_dialog_no, null)
                         .setPositiveButton(R.string.rate_app_dialog_ok) { _, _ ->
-                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(const.GOOGLE_PLAY_LINK)))
+                            try {
+                                baseActivity.startActivity(Intent(Intent.ACTION_VIEW,
+                                        Uri.parse(baseActivity.getString(R.string.app_google_play_link) + baseActivity.packageName)))
+                            } catch (e: ActivityNotFoundException) {
+                                baseActivity.startActivity(Intent(Intent.ACTION_VIEW,
+                                        Uri.parse(baseActivity.resources.getString(R.string.app_google_play_link) + baseActivity.packageName)))
+                            }
                         }.create()
                 dialog.show()
                 dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
                 dialog.getButton(DialogInterface.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
                 dialog.getButton(DialogInterface.BUTTON_POSITIVE).setPadding(30, 0, 10, 0)
-                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.blue_700))
-                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.blue_700))
+                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(baseActivity, R.color.blue_700))
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(baseActivity, R.color.blue_700))
             }
         }
     }

@@ -14,7 +14,6 @@ class MyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        getAppContext = this
 
         if (BuildConfig.DEBUG)
             Timber.plant(object : Timber.DebugTree() {
@@ -32,10 +31,5 @@ class MyApp : Application() {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         )
-    }
-
-    companion object {
-        lateinit var getAppContext: MyApp
-            private set
     }
 }

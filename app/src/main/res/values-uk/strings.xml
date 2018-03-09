@@ -60,10 +60,6 @@
     <string name="description_distance_between_lenses">\tВідстань між лінзами (Distance between lenses) — це відстань в міліметрах між лінзами (перенісся)</string>
     <string name="description_pupil_distance">\tВідстань між зіницями, міжцентрова відстань (Pupil distance) — це відстань між зіницями в міліметрах</string>
     <string name="description_transposition">\tОптометристи можуть ставити значення циліндра як «+», так і «-». Це обумовлено тим, що інструменти багато років тому вимірювали аномалію рефракції ока тільки у \'плюсовому\' циліндрі, та виготовлялись астигматичні лінзи теж тільки у циліндрі із знаком «+». Зараз, головним чином, рецепти виписують у \'мінусовому\' циліндрі. Перераховується \'плюсовий\' циліндр у \'мінусовий\' (і навпаки) наступним чином: значення циліндра добавляється до значення cфери, та до поточного значення кута додається 90°.\n\tПриклади:\n\tsph -7.0 cyl -3.0 axis 22° можна записати як:\n\tsph -10.0 cyl +3.0 axis 112°\n\tsph +5.75 cyl -1.25 axis 165° можна записати як:\n\tsph +4.5 cyl +1.25 axis 75°</string>
-    <!-- Available languages -->
-    <string name="english">Англійська</string>
-    <string name="russian">Російська</string>
-    <string name="ukrainian">Українська</string>
     <!-- About program -->
     <string name="version">Версія " "</string>
     <string name="author_name">Розробка:\nПархомов Андрій</string>

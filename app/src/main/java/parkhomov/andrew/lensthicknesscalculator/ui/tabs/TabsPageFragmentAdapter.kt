@@ -2,20 +2,20 @@ package parkhomov.andrew.lensthicknesscalculator.ui.tabs
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.PagerAdapter
 import android.util.SparseArray
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
 
 
-class TabsPageFragmentAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class TabsPageFragmentAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-    private val tabs: SparseArray<BaseFragment> = SparseArray()
+    private val tabs: SparseArray<BaseFragment>  = SparseArray(2)
 
-   internal fun createTabs(){
-       tabs.put(0, Thickness.instance)
-       tabs.put(1, Diameter.instance)
-   }
+    init {
+        tabs.put(0, Thickness.instance)
+        tabs.put(1, Diameter.instance)
+    }
 
     override fun getItem(position: Int): Fragment? = tabs.get(position)
 

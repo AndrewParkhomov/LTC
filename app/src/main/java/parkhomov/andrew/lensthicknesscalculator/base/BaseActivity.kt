@@ -6,21 +6,21 @@ import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.utils.MyContextWrapper
-import parkhomov.andrew.lensthicknesscalculator.utils.const
+import parkhomov.andrew.lensthicknesscalculator.utils.localeIso2
+import parkhomov.andrew.lensthicknesscalculator.utils.shaderPref
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
-import java.util.*
 
 abstract class BaseActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context) {
-        val sharedPreferences = newBase.getSharedPreferences(const.SHARED_PREF, Context.MODE_PRIVATE)
-        val languageIso2 = sharedPreferences?.getString(const.SAVE_LANGUAGE_ISO2, "") ?: ""
+        val sharedPreferences = newBase.getSharedPreferences(shaderPref, Context.MODE_PRIVATE)
+        val languageIso2 = sharedPreferences?.getString(localeIso2, "") ?: ""
         super.attachBaseContext(CalligraphyContextWrapper.wrap(MyContextWrapper.wrap(newBase, languageIso2)))
     }
 
-    val headers = ArrayList<String>(12)
-    val description = ArrayList<String>(12)
-    val images = ArrayList<Int>(12)
+    val headers: MutableList<String> = mutableListOf()
+    val description: MutableList<String> = mutableListOf()
+    val images: MutableList<Int> = mutableListOf()
 
     fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -81,7 +81,4 @@ abstract class BaseActivity : AppCompatActivity() {
         images.add(10, R.drawable.pd_img)
         images.add(11, R.drawable.transposition_img)
     }
-
-    abstract fun changeLanguage()
-
 }

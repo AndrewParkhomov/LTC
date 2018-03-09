@@ -2,6 +2,7 @@
 <resources>
     <!-- App name -->
     <string name="app_name">Lens thickness calculator</string>
+    <string name="app_google_play_link">"https://play.google.com/store/apps/details?id="</string>
 
     <!--  Material item list -->
     <string-array name="index_of_refraction">
@@ -16,7 +17,7 @@
 
     <!-- String without translations -->
     <string name="programing_language">Kotlin</string>
-    <string name="year">2017</string>
+    <string name="year">2018</string>
     <string name="copyright">©</string>
     <string name="diam_activ_textView_result_formula">ED x 2 + DBL - PD =" "</string>
     <string name="dummy">xxxxxx</string>
@@ -90,8 +91,8 @@
 
     <!-- Available languages-->
     <string name="english">English</string>
-    <string name="russian">Russian</string>
-    <string name="ukrainian">Ukrainian</string>
+    <string name="russian">Русский</string>
+    <string name="ukrainian">Українська</string>
 
     <!-- About program -->
     <string name="version">Version " "</string>

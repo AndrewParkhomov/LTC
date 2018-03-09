@@ -13,7 +13,7 @@ import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
-import parkhomov.andrew.lensthicknesscalculator.utils.const
+import parkhomov.andrew.lensthicknesscalculator.utils.spacing8
 
 /**
  * Class glossary list display lists with parameters titles, witch present in program.
@@ -28,7 +28,6 @@ class GlossaryList : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.glossary_list, container, false)
-
 
         return view
     }
@@ -45,7 +44,7 @@ class GlossaryList : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        header.text = Utils.spacing(getString(R.string.header_glossary_list), const.spacing8)
+        header.text = Utils.spacing(getString(R.string.header_glossary_list), spacing8)
         setUpDateInAdapter()
         turnBackImgB.setOnClickListener { fragmentManager!!.popBackStack() }
     }

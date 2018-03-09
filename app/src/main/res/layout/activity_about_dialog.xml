@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:padding="@dimen/v4dp"
-    android:background="@drawable/image_about_background">
+    android:background="@drawable/selector_background_rounded_corners_white">
 
     <TextView
         android:id="@+id/textViewAboutDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/image_about_background"
         android:padding="@dimen/v14dp"
         android:textSize="@dimen/v18sp" />
 

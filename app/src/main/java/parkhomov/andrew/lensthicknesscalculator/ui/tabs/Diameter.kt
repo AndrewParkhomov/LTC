@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.diameter_fragment.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.ui.glossary.GlossaryDetails
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
-import parkhomov.andrew.lensthicknesscalculator.utils.const
+import parkhomov.andrew.lensthicknesscalculator.utils.spacing8
 import timber.log.Timber
 import java.text.DecimalFormat
 
@@ -23,12 +22,11 @@ class Diameter : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.diameter_fragment, container, false)
 
-        Toast.makeText(baseActivity!!, " onCreateView ", Toast.LENGTH_SHORT).show()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        diameterCalculateButton.text = Utils.spacing(getString(R.string.button_text_calculate), const.spacing8)
+        diameterCalculateButton.text = Utils.spacing(getString(R.string.button_text_calculate), spacing8)
         diameterCalculateButton.setOnClickListener { onButtonClicked() }
         edImgB.setOnClickListener(onQueryClicked)
         dblImgB.setOnClickListener(onQueryClicked)
@@ -43,19 +41,19 @@ class Diameter : BaseFragment() {
         try {
             edValue = java.lang.Double.valueOf(edET.text.toString())!!
         } catch (e: NumberFormatException) {
-            Utils.highlightEditText(edET, edTxtInptL)
+            Utils.highlightEditText(baseActivity!!, edET, edTxtInptL)
         }
 
         try {
             dblValue = java.lang.Double.valueOf(dblET.text.toString())!!
         } catch (e: NumberFormatException) {
-            Utils.highlightEditText(dblET, dblTxtInptL)
+            Utils.highlightEditText(baseActivity!!, dblET, dblTxtInptL)
         }
 
         try {
             pdValue = java.lang.Double.valueOf(pdET.text.toString())!!
         } catch (e: NumberFormatException) {
-            Utils.highlightEditText(pdET, pdTxtInptL)
+            Utils.highlightEditText(baseActivity!!, pdET, pdTxtInptL)
         }
 
         if (edValue != -1.0 && dblValue != -1.0 && pdValue != -1.0) {
@@ -72,18 +70,18 @@ class Diameter : BaseFragment() {
     }
 
     private fun setUpViewsBehaviourAfter() {
-        Utils.enableWrapper(edTxtInptL)
-        Utils.enableWrapper(dblTxtInptL)
-        Utils.enableWrapper(pdTxtInptL)
+        edTxtInptL.isEnabled = true
+        dblTxtInptL.isEnabled = true
+        pdTxtInptL.isEnabled = true
     }
 
     private fun setUpViewsBehaviourBefore() {
-        Utils.makeNormalEditText(edET, edTxtInptL)
-        Utils.makeNormalEditText(dblET, dblTxtInptL)
-        Utils.makeNormalEditText(pdET, pdTxtInptL)
-        Utils.disableWrapper(edTxtInptL)
-        Utils.disableWrapper(dblTxtInptL)
-        Utils.disableWrapper(pdTxtInptL)
+        Utils.makeNormalEditText(baseActivity!!, edET, edTxtInptL)
+        Utils.makeNormalEditText(baseActivity!!, dblET, dblTxtInptL)
+        Utils.makeNormalEditText(baseActivity!!, pdET, pdTxtInptL)
+        edTxtInptL.isEnabled = false
+        dblTxtInptL.isEnabled = false
+        pdTxtInptL.isEnabled = false
     }
 
     private val onQueryClicked = View.OnClickListener { view ->

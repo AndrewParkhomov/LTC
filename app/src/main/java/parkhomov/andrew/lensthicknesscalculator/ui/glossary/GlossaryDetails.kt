@@ -10,14 +10,13 @@ import kotlinx.android.synthetic.main.glossary_detail.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
-import parkhomov.andrew.lensthicknesscalculator.utils.const
+import parkhomov.andrew.lensthicknesscalculator.utils.spacing8
 
 /**
  * Created by MyPC on 29.07.2017.
  */
 
 class GlossaryDetails : BaseFragment() {
-
 
     private lateinit var title: String
     private lateinit var body: String
@@ -33,8 +32,13 @@ class GlossaryDetails : BaseFragment() {
         return view
     }
 
+    override fun onDestroyView() {
+        glossaryImageView.setImageDrawable(null)
+        super.onDestroyView()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        header.text = Utils.spacing(title!!.toUpperCase(), const.spacing8)
+        header.text = Utils.spacing(title.toUpperCase(), spacing8)
         header.ellipsize = TextUtils.TruncateAt.MARQUEE
         header.marqueeRepeatLimit = -1
         header.setSingleLine(true)

@@ -46,4 +46,9 @@ abstract class BaseFragment : Fragment() {
     protected fun hideKeyboard() {
         baseActivity?.hideKeyboard()
     }
+
+    override fun onDestroy() {
+        baseActivity = null
+        super.onDestroy()
+    }
 }

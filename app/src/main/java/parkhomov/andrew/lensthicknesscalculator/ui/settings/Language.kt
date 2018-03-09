@@ -12,8 +12,7 @@ import android.widget.RadioButton
 import kotlinx.android.synthetic.main.activity_language.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseDialog
-import parkhomov.andrew.lensthicknesscalculator.utils.Utils
-import parkhomov.andrew.lensthicknesscalculator.utils.const
+import parkhomov.andrew.lensthicknesscalculator.utils.*
 import java.util.*
 
 
@@ -23,16 +22,16 @@ import java.util.*
 class Language : BaseDialog() {
 
     private var sharedPreferences: SharedPreferences? = null
-    private var radioButtonId: Int? = -1
+    private var radioButtonId: Int = -1
     private var languageIso2: String? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_language, container, false)
 
-        sharedPreferences = activity!!.getSharedPreferences(const.SHARED_PREF, Context.MODE_PRIVATE)
-        radioButtonId = sharedPreferences!!.getInt(const.RADIO_BUTTON_ID, -1)
-        languageIso2 = sharedPreferences!!.getString(const.SAVE_LANGUAGE_ISO2, "")
+        sharedPreferences = activity!!.getSharedPreferences(shaderPref, Context.MODE_PRIVATE)
+        radioButtonId = sharedPreferences?.getInt(buttonId, -1)!!
+        languageIso2 = sharedPreferences?.getString(localeIso2, "")
 
         return view
     }
@@ -51,7 +50,8 @@ class Language : BaseDialog() {
                 "uk" -> radioButtonId = 2
                 "ru" -> radioButtonId = 1
                 else -> {
-                    radioButtonId = 0; languageIso2 = "en"
+                    radioButtonId = 0
+                    languageIso2 = "en"
                 }
             }
             saveLanguageInSharedPref()
@@ -66,10 +66,10 @@ class Language : BaseDialog() {
             button.textSize = 20f
             button.text = languages[i]
             button.setPadding(
-                    Utils.convertDpToPixel(20.0),
-                    Utils.convertDpToPixel(20.0),
+                    Utils.convertDpToPixel(baseActivity!!, 20.0),
+                    Utils.convertDpToPixel(baseActivity!!,20.0),
                     0,
-                    Utils.convertDpToPixel(20.0))
+                    Utils.convertDpToPixel(baseActivity!!,20.0))
             radioButtonContainer.addView(button)
         }
 
@@ -84,13 +84,16 @@ class Language : BaseDialog() {
                 else -> "en"
             }
             saveLanguageInSharedPref()
-            baseActivity?.changeLanguage()
+            baseActivity?.recreate()
+            val settingFragment = fragmentManager?.findFragmentByTag(Settings.TAG)
+            if(settingFragment != null) fragmentManager?.beginTransaction()?.remove(settingFragment)?.commit()
+            dismiss()
         }
     }
 
     private fun saveLanguageInSharedPref() {
-        sharedPreferences?.edit()?.putInt(const.RADIO_BUTTON_ID, radioButtonId!!)?.apply()
-        sharedPreferences?.edit()?.putString(const.SAVE_LANGUAGE_ISO2, languageIso2)?.apply()
+        sharedPreferences?.edit()?.putInt(buttonId, radioButtonId)?.apply()
+        sharedPreferences?.edit()?.putString(localeIso2, languageIso2)?.apply()
     }
 
     companion object {

@@ -12,8 +12,6 @@ import timber.log.Timber
 
 class SingleActivity : BaseActivity() {
 
-    private var adapter = TabsPageFragmentAdapter(supportFragmentManager)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_activity)
@@ -24,9 +22,8 @@ class SingleActivity : BaseActivity() {
     }
 
     private fun createTabs() {
-        adapter.createTabs()
         viewPager.offscreenPageLimit = 2
-        viewPager.adapter = adapter
+        viewPager.adapter = TabsPageFragmentAdapter(supportFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
         viewPager.setPageTransformer(false, pageTransformer)
         tabLayout.getTabAt(0)?.text = getString(R.string.tab_lens_thickness)
@@ -59,7 +56,7 @@ class SingleActivity : BaseActivity() {
             supportFragmentManager
                     .beginTransaction()
                     .addToBackStack(null)
-                    .add(R.id.mainContainerConstr, GlossaryList.instance, GlossaryList.TAG)
+                    .replace(R.id.mainContainerConstr, GlossaryList.instance, GlossaryList.TAG)
                     .commit()
         } catch (e: IllegalStateException) {
             Timber.i(e.toString())
@@ -72,17 +69,11 @@ class SingleActivity : BaseActivity() {
             supportFragmentManager
                     .beginTransaction()
                     .addToBackStack(null)
-                    .add(R.id.mainContainerConstr, Settings.instance, Settings.TAG)
+                    .replace(R.id.mainContainerConstr, Settings.instance, Settings.TAG)
                     .commit()
         } catch (e: IllegalStateException) {
             Timber.i(e.toString())
         }
         hideKeyboard()
-    }
-
-    override fun changeLanguage() {
-        finish()
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        startActivity(intent)
     }
 }

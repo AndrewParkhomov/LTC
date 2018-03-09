@@ -1,17 +1,16 @@
 package parkhomov.andrew.lensthicknesscalculator.utils
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewPager
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ScaleXSpan
 import android.util.DisplayMetrics
-import android.view.View
 import parkhomov.andrew.lensthicknesscalculator.MyApp
 import parkhomov.andrew.lensthicknesscalculator.R
 
@@ -22,29 +21,22 @@ import parkhomov.andrew.lensthicknesscalculator.R
 
 object Utils {
 
-    fun enableWrapper(textInputLayout: TextInputLayout) {
-        textInputLayout.isEnabled = true
+
+    fun highlightEditText(context: Context, editText: TextInputEditText, textInputLayout: TextInputLayout) {
+        editText.setTextColor(ContextCompat.getColor(context, R.color.red_a_700))
+        setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(context, R.color.red_a_700))
     }
 
-    fun disableWrapper(textInputLayout: TextInputLayout) {
-        textInputLayout.isEnabled = false
-    }
-
-    fun highlightEditText(editText: TextInputEditText, textInputLayout: TextInputLayout) {
-        editText.setTextColor(ContextCompat.getColor(MyApp.getAppContext, R.color.red_a_700))
-        setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(MyApp.getAppContext, R.color.red_a_700))
-    }
-
-    fun disableThicknessField(editText: TextInputEditText, textInputLayout: TextInputLayout) {
-        editText.setTextColor(ContextCompat.getColor(MyApp.getAppContext, R.color.black))
-        setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(MyApp.getAppContext, R.color.black))
+    fun disableThicknessField(context: Context, editText: TextInputEditText, textInputLayout: TextInputLayout) {
+        editText.setTextColor(ContextCompat.getColor(context, R.color.black))
+        setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(context, R.color.black))
         editText.alpha = 0.38f
         textInputLayout.alpha = 0.38f
     }
 
-    fun makeNormalEditText(editText: TextInputEditText, textInputLayout: TextInputLayout) {
-        editText.setTextColor(ContextCompat.getColor(MyApp.getAppContext, R.color.black))
-        setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(MyApp.getAppContext, R.color.black))
+    fun makeNormalEditText(context: Context, editText: TextInputEditText, textInputLayout: TextInputLayout) {
+        editText.setTextColor(ContextCompat.getColor(context, R.color.black))
+        setInputTextLayoutColor(textInputLayout, ContextCompat.getColor(context, R.color.black))
         editText.alpha = 0.87f
         textInputLayout.alpha = 0.87f
     }
@@ -61,7 +53,6 @@ object Utils {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     fun spacing(src: CharSequence?, kerning: Float): Spannable? {
@@ -81,10 +72,5 @@ object Utils {
         return builder
     }
 
-    fun convertDpToPixel(dp: Double): Int {
-        val resources = MyApp.getAppContext.resources
-        val metrics = resources.displayMetrics
-        return dp.toInt() * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
-    }
-
+    fun convertDpToPixel(context: Context, dp: Double): Int = dp.toInt() * (context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
 }
