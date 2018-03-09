@@ -10,7 +10,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
-        android:layout_height="@dimen/v44dp"
+        android:layout_height="@dimen/v60dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,7 +23,6 @@
             android:src="@drawable/glossary"
             android:paddingLeft="@dimen/v10dp"
             android:paddingRight="@dimen/v10dp"
-            android:paddingTop="@dimen/v10dp"
             android:alpha="0.87"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -37,7 +36,7 @@
             android:text="@string/app_name"
             android:textColor="@color/black"
             android:textSize="@dimen/v20sp"
-            app:layout_constraintVertical_bias="0.7"
+            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/openGlossary"
             app:layout_constraintRight_toLeftOf="@+id/openSettings"
@@ -51,7 +50,6 @@
             android:background="@android:color/transparent"
             android:src="@drawable/settings"
             android:alpha="0.87"
-            android:paddingTop="@dimen/v10dp"
             android:paddingLeft="@dimen/v10dp"
             android:paddingRight="@dimen/v10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -69,27 +67,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/v40dp"
-            android:background="@android:color/transparent"
-            app:elevation="0dp">
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/MyTabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabBackground="@android:color/transparent"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/blue_700"
-                app:tabIndicatorHeight="@dimen/v3dp"
-                app:tabMaxWidth="0dp"
-                app:tabMode="fixed"
-                app:tabTextAppearance="@style/MyCustomTextAppearance"
-                app:tabTextColor="@color/gray_900" />
-
-        </android.support.design.widget.AppBarLayout>
-
         <include
             layout="@layout/divider"
             android:layout_width="match_parent"
@@ -99,8 +76,22 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray_50"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:background="@color/gray_50">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabBackground="@android:color/transparent"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/blue_700"
+                app:tabIndicatorHeight="@dimen/v3dp"
+                app:tabMaxWidth="0dp"
+                app:tabMode="fixed"
+                app:tabTextAppearance="@style/MyCustomTextAppearance"
+                app:tabTextColor="@color/gray_900"/>
+
+        </android.support.v4.view.ViewPager>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

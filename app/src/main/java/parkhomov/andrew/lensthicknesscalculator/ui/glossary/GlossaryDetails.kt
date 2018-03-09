@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.fragment.glossary
+package parkhomov.andrew.lensthicknesscalculator.ui.glossary
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,13 +7,9 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
+import kotlinx.android.synthetic.main.glossary_detail.*
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
+import parkhomov.andrew.lensthicknesscalculator.utils.const
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 
 /**
@@ -22,14 +18,6 @@ import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 
 class GlossaryDetails : Fragment() {
 
-    @BindView(R.id.glossaryImageView)
-    lateinit var imageHolder: ImageView
-    @BindView(R.id.glossaryTitleTextView)
-    lateinit var titleHolder: TextView
-    @BindView(R.id.glossaryDescriptionTextView)
-    lateinit var descriptionHolder: TextView
-    @BindView(R.id.header)
-    lateinit var header: TextView
 
     private var title: String? = null
     private var description: String? = null
@@ -47,26 +35,25 @@ class GlossaryDetails : Fragment() {
         this.imageId = imageId
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.glossary_detail, container, false)
-        ButterKnife.bind(this, view)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.glossary_detail, container, false)
 
-        header.text = Utils.spacing(title!!.toUpperCase(), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        header.text = Utils.spacing(title!!.toUpperCase(), const.spacing8)
         header.ellipsize = TextUtils.TruncateAt.MARQUEE
         header.marqueeRepeatLimit = -1
         header.setSingleLine(true)
         header.isSelected = true
         //set data in holder
-        imageHolder.setImageDrawable(ContextCompat.getDrawable(activity, imageId))
-        titleHolder.text = title
-        descriptionHolder.text = description
+        glossaryImageView.setImageDrawable(ContextCompat.getDrawable(activity!!, imageId))
+        glossaryTitleTextView.text = title
+        glossaryDescriptionTextView.text = description
+        turnBackImgB.setOnClickListener {  fragmentManager!!.popBackStack() }
 
-        return view
-    }
-
-    @OnClick(R.id.turnBackImgB)
-    fun onBackPressed() {
-        fragmentManager.popBackStack()
     }
 
     companion object {

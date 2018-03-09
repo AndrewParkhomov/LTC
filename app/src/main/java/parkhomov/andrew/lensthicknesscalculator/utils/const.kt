@@ -4,7 +4,7 @@ package parkhomov.andrew.lensthicknesscalculator.utils
  * Created by MyPC on 29.07.2017.
  */
 
-object CONSTANT {
+object const {
     // log tag
     val MY_EXCEPTION = "MY_EXCEPTION"
     val GOOGLE_PLAY_LINK = "https://play.google.com/store/apps/details?id=parkhomov.andrew.lensthicknesscalculator"
@@ -54,5 +54,5 @@ object CONSTANT {
     val base10_5 = 10.5
 
     // fragment header distance
-    val FRAGMENT_HEADER_SPACING_DISTANCE_0_8 = 0.8f
+    val spacing8 = 0.8f
 }

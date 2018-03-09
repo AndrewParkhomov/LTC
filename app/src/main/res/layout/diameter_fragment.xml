@@ -164,7 +164,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_3" />
 
-    <com.hanks.htextview.HTextView
+    <TextView
         android:id="@+id/textTest"
         android:layout_width="0dp"
         android:layout_height="100dp"

@@ -1,10 +1,8 @@
-package parkhomov.andrew.lensthicknesscalculator.main
+package parkhomov.andrew.lensthicknesscalculator
 
 import android.app.Application
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
-import parkhomov.andrew.lensthicknesscalculator.BuildConfig
-import parkhomov.andrew.lensthicknesscalculator.R
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 

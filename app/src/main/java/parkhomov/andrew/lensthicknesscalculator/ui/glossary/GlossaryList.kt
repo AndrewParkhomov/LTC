@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.fragment.glossary
+package parkhomov.andrew.lensthicknesscalculator.ui.glossary
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,13 +10,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
+import kotlinx.android.synthetic.main.glossary_list.*
 import kotlinx.android.synthetic.main.glossary_list_item.view.*
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
+import parkhomov.andrew.lensthicknesscalculator.utils.const
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 
 /**
@@ -25,10 +22,6 @@ import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 
 class GlossaryList : Fragment() {
 
-    @BindView(R.id.recyclerView)
-    lateinit var recyclerView: RecyclerView
-    @BindView(R.id.header)
-    lateinit var header: TextView
 
     private var headers: MutableList<String>? = null
     private var description: MutableList<String>? = null
@@ -59,12 +52,9 @@ class GlossaryList : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.glossary_list, container, false)
-        ButterKnife.bind(this, view)
 
-        header.text = Utils.spacing(getString(R.string.header_glossary_list), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8)
-        setUpDateInAdapter()
 
         return view
     }
@@ -77,15 +67,15 @@ class GlossaryList : Fragment() {
         val dividerItemDecoration = DividerItemDecoration(recyclerView.context,
                 lm.orientation)
         recyclerView.addItemDecoration(dividerItemDecoration)
-        val adapter = SimpleAdapter(activity, headers, description, images)
+        val adapter = SimpleAdapter(activity!!, headers, description, images)
         recyclerView.adapter = adapter
     }
 
-    @OnClick(R.id.turnBackImgB)
-    fun onBackPressed() {
-        fragmentManager.popBackStack()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        header.text = Utils.spacing(getString(R.string.header_glossary_list), const.spacing8)
+        setUpDateInAdapter()
+        turnBackImgB.setOnClickListener { fragmentManager!!.popBackStack() }
     }
-
 
     class SimpleAdapter(private val context: FragmentActivity, val headers: (MutableList<String>?),
                         private val description: (MutableList<String>?), private val images: (MutableList<Int>?)) :
@@ -93,7 +83,7 @@ class GlossaryList : Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.glossary_list_item, parent, false)
-            return SimpleAdapter.ViewHolder(view)
+            return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -121,10 +111,10 @@ class GlossaryList : Fragment() {
                                                 header,
                                                 description,
                                                 image),
-                                        CONSTANT.GLOSSARY_DETAILS)
+                                        const.GLOSSARY_DETAILS)
                                 .commit()
                     } catch (e: IllegalStateException) {
-                        Log.d(CONSTANT.MY_EXCEPTION, e.toString())
+                        Log.d(const.MY_EXCEPTION, e.toString())
                     }
 
                 }

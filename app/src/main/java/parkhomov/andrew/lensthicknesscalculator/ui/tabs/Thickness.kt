@@ -1,68 +1,30 @@
-package parkhomov.andrew.lensthicknesscalculator.tabs
+package parkhomov.andrew.lensthicknesscalculator.ui.tabs
 
-import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewPager
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
 import android.widget.Toast
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
+import kotlinx.android.synthetic.main.thickness_fragment.*
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.fragment.dialog.Result
-import parkhomov.andrew.lensthicknesscalculator.fragment.glossary.GlossaryDetails
-import parkhomov.andrew.lensthicknesscalculator.utils.CONSTANT
+import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
+import parkhomov.andrew.lensthicknesscalculator.ui.dialog.Result
+import parkhomov.andrew.lensthicknesscalculator.ui.glossary.GlossaryDetails
+import parkhomov.andrew.lensthicknesscalculator.utils.const
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
+import timber.log.Timber
+import java.util.*
 
 /**
  * Created by MyPC on 29.07.2017.
  */
 
-class Thickness : AbstractTabFragment() {
-
-    @BindView(R.id.new_spinner)
-    lateinit var spinner: Spinner
-    @BindView(R.id.thicknessCalculateButton)
-    lateinit var button: Button
-
-    @BindView(R.id.sphereTxtInptL)
-    lateinit var sphereWrapper: TextInputLayout
-    @BindView(R.id.curveTxtInptL)
-    lateinit var curveWrapper: TextInputLayout
-    @BindView(R.id.thicknessTxtInptL)
-    lateinit var centerThicknessWrapper: TextInputLayout
-    @BindView(R.id.edgeTxtInptL)
-    lateinit var edgeThicknessWrapper: TextInputLayout
-    @BindView(R.id.diameterTxtInptL)
-    lateinit var diameterWrapper: TextInputLayout
-
-    @BindView(R.id.sphereET)
-    lateinit var getSpherePower: TextInputEditText
-    @BindView(R.id.cylinderET)
-    lateinit var getCylinderPower: TextInputEditText
-    @BindView(R.id.axisET)
-    lateinit var getAxis: TextInputEditText
-    @BindView(R.id.curveET)
-    lateinit var getBaseCurve: TextInputEditText
-    @BindView(R.id.centerThicknessET)
-    lateinit var getCenterThickness: TextInputEditText
-    @BindView(R.id.edgeThicknessET)
-    lateinit var getEdgeThickness: TextInputEditText
-    @BindView(R.id.diameterET)
-    lateinit var getLensDiameter: TextInputEditText
+class Thickness : BaseFragment() {
 
     private var axis: Int = 0
     private var axisView: Int = 0
@@ -84,54 +46,52 @@ class Thickness : AbstractTabFragment() {
     private var recalculatedSphereCurve: Double = 0.toDouble()
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.thickness_fragment, container, false)
-        ButterKnife.bind(this, view)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.thickness_fragment, container, false)
 
-        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        headers = arguments?.getStringArrayList(TAG + "headers") ?: listOf()
+        description = arguments?.getStringArrayList(TAG + "images") ?: listOf()
+        images = arguments?.getIntegerArrayList(TAG + "description") ?: listOf()
 
-        button.text = Utils.spacing(getString(R.string.button_text_calculate), CONSTANT.FRAGMENT_HEADER_SPACING_DISTANCE_0_8)
-
-        customizeSpinner()
-        setUpTextWatchers()
-        setUpListeners()
         return view
     }
 
-    private fun setUpListeners() {
-        val viewPager = ButterKnife.findById<ViewPager>(activity!!, R.id.viewPager)
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
-            }
+        thicknessCalculateButton.text = Utils.spacing(getString(R.string.button_text_calculate), const.spacing8)
 
-            override fun onPageSelected(position: Int) {
-                hideSoftKeyboard()
-            }
+        customizeSpinner()
+        setUpTextWatchers()
 
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-        })
+        thicknessCalculateButton.setOnClickListener { onCalculateBtnClicked() }
+        indexImgB.setOnClickListener(onQueryClicked)
+        sphereImgB.setOnClickListener(onQueryClicked)
+        cylinderImgB.setOnClickListener(onQueryClicked)
+        axisImgB.setOnClickListener(onQueryClicked)
+        curveImgB.setOnClickListener(onQueryClicked)
+        thicknessImgB.setOnClickListener(onQueryClicked)
+        edgeImgB.setOnClickListener(onQueryClicked)
+        diameterImgB.setOnClickListener(onQueryClicked)
     }
 
     private fun customizeSpinner() {
         val adapter = ArrayAdapter.createFromResource(activity,
                 R.array.index_of_refraction, R.layout.spinner_header)
         adapter.setDropDownViewResource(R.layout.spinner_body)
-        spinner.adapter = adapter
+        new_spinner.adapter = adapter
 
     }
 
     private fun setUpTextWatchers() {
-        getSpherePower.addTextChangedListener(GenericTextWatcher())
-        getCylinderPower.addTextChangedListener(GenericTextWatcher())
+        sphereET.addTextChangedListener(GenericTextWatcher())
+        cylinderET.addTextChangedListener(GenericTextWatcher())
     }
 
-    @OnClick(R.id.indexImgB, R.id.sphereImgB, R.id.cylinderImgB, R.id.axisImgB, R.id.curveImgB, R.id.thicknessImgB, R.id.edgeImgB, R.id.diameterImgB)
-    fun onQueryClicked(v: View) {
+
+    private val onQueryClicked = View.OnClickListener { view ->
         var position = -1
-        when (v.id) {
+        when (view.id) {
             R.id.indexImgB -> position = 0
             R.id.sphereImgB -> position = 1
             R.id.cylinderImgB -> position = 2
@@ -144,7 +104,7 @@ class Thickness : AbstractTabFragment() {
 
         if (position != -1) {
             try {
-                fragmentManager
+                fragmentManager!!
                         .beginTransaction()
                         .addToBackStack(null)
                         .add(R.id.mainContainerConstr,
@@ -152,66 +112,64 @@ class Thickness : AbstractTabFragment() {
                                         headers?.get(position)!!,
                                         description?.get(position)!!,
                                         images?.get(position)!!),
-                                CONSTANT.GLOSSARY_DETAILS)
+                                const.GLOSSARY_DETAILS)
                         .commit()
             } catch (e: IllegalStateException) {
-                Log.d(CONSTANT.MY_EXCEPTION, e.toString() + "")
+                Timber.i(e.toString())
             }
-
-            hideSoftKeyboard()
+            hideKeyboard()
         }
     }
 
-    @OnClick(R.id.thicknessCalculateButton)
     fun onCalculateBtnClicked() {
         clearData()
-        when (spinner.selectedItemPosition) {
+        when (new_spinner.selectedItemPosition) {
             0 -> {
-                lensIndex = CONSTANT.INDEX_1498
-                indexX = CONSTANT.INDEX_X_1498
+                lensIndex = const.INDEX_1498
+                indexX = const.INDEX_X_1498
             }
             1 -> {
-                lensIndex = CONSTANT.INDEX_1560
-                indexX = CONSTANT.INDEX_X_1560
+                lensIndex = const.INDEX_1560
+                indexX = const.INDEX_X_1560
             }
             2 -> {
-                lensIndex = CONSTANT.INDEX_1530
-                indexX = CONSTANT.INDEX_X_1530
+                lensIndex = const.INDEX_1530
+                indexX = const.INDEX_X_1530
             }
             3 -> {
-                lensIndex = CONSTANT.INDEX_1590
-                indexX = CONSTANT.INDEX_X_1590
+                lensIndex = const.INDEX_1590
+                indexX = const.INDEX_X_1590
             }
             4 -> {
-                lensIndex = CONSTANT.INDEX_1610
-                indexX = CONSTANT.INDEX_X_1610
+                lensIndex = const.INDEX_1610
+                indexX = const.INDEX_X_1610
             }
             5 -> {
-                lensIndex = CONSTANT.INDEX_1670
-                indexX = CONSTANT.INDEX_X_1670
+                lensIndex = const.INDEX_1670
+                indexX = const.INDEX_X_1670
             }
             6 -> {
-                lensIndex = CONSTANT.INDEX_1740
-                indexX = CONSTANT.INDEX_X_1740
+                lensIndex = const.INDEX_1740
+                indexX = const.INDEX_X_1740
             }
         }
         curveCalculation()
     }
 
     private val getReaRadiusInMM: Double
-        get() = (CONSTANT.LAB_INDEX - 1) / (realFrontBaseCurveDptr / 1000)
+        get() = (const.LAB_INDEX - 1) / (realFrontBaseCurveDptr / 1000)
 
-    private fun getEdgeThickness(): Double {
+    private fun edgeThicknessET(): Double {
         return try {
-            getEdgeThickness.text.toString().toDouble()
+            edgeThicknessET.text.toString().toDouble()
         } catch (e: NumberFormatException) {
             0.0
         }
     }
 
-    private fun getCylinderPower(): Double {
+    private fun cylinderET(): Double {
         return try {
-            getCylinderPower.text.toString().toDouble()
+            cylinderET.text.toString().toDouble()
         } catch (e: NumberFormatException) {
             0.0
         }
@@ -222,10 +180,9 @@ class Thickness : AbstractTabFragment() {
         val tempDoubleForThickness: Double
         if (spherePower <= 0 && cylinderPower == 0.0) {
             try {
-                centerThickness = java.lang.Double.parseDouble(getCenterThickness.text.toString())
+                centerThickness = java.lang.Double.parseDouble(centerThicknessET.text.toString())
             } catch (e: NumberFormatException) {
-                Log.d(CONSTANT.MY_EXCEPTION, e.toString() + " centerThickness 1")
-                Utils.highlightEditText(getCenterThickness, centerThicknessWrapper)
+                Utils.highlightEditText(centerThicknessET, thicknessTxtInptL)
             }
 
         } else if (spherePower <= 0 && cylinderPower > 0) {
@@ -237,16 +194,14 @@ class Thickness : AbstractTabFragment() {
             try {
                 if (spherePower + cylinderPower < 0) {
                     try {
-                        centerThickness = java.lang.Double.parseDouble(getCenterThickness.text.toString())
+                        centerThickness = java.lang.Double.parseDouble(centerThicknessET.text.toString())
                     } catch (e: NumberFormatException) {
-                        Log.d(CONSTANT.MY_EXCEPTION, e.toString() + " centerThickness 2")
-                        Utils.highlightEditText(getCenterThickness, centerThicknessWrapper)
-
+                        Utils.highlightEditText(centerThicknessET, thicknessTxtInptL)
                     }
 
                 } else {
                     // fix thickness bug, when lens is plus, and center thickness field is not empty,
-                    // when you need press calculate button twice, before you got correct CT value
+                    // when you need press calculate thicknessCalculateButton twice, before you got correct CT value
                     centerThickness = Math.pow(lensDiameter / 2, 2.0) * (spherePower + cylinderPower) / (2000 * (lensIndex - 1)) + edgeThickness
                 }
             } catch (e: NumberFormatException) {
@@ -257,10 +212,9 @@ class Thickness : AbstractTabFragment() {
 
         } else if (spherePower <= 0) {
             try {
-                centerThickness = java.lang.Double.parseDouble(getCenterThickness.text.toString())
+                centerThickness = java.lang.Double.parseDouble(centerThicknessET.text.toString())
             } catch (e: NumberFormatException) {
-                Log.d(CONSTANT.MY_EXCEPTION, e.toString() + " centerThickness 3")
-                Utils.highlightEditText(getCenterThickness, centerThicknessWrapper)
+                Utils.highlightEditText(centerThicknessET, thicknessTxtInptL)
 
             }
 
@@ -281,19 +235,19 @@ class Thickness : AbstractTabFragment() {
 
     private fun recalculatedFrontCurve(): Double = (lensIndex - 1) * 1000 / realRadiusMM
 
-    private fun getAxis(): Int {
+    private fun axisET(): Int {
         var axis: Int
         try {
-            axis = Integer.parseInt(getAxis.text.toString())
+            axis = Integer.parseInt(axisET.text.toString())
             if (axis < 0 || axis > 180) {
                 throw NumberFormatException()
             }
         } catch (e: NumberFormatException) {
-            if (getAxis.text.toString() == "") {
+            if (axisET.text.toString() == "") {
                 axis = 0
             } else {
                 Toast.makeText(getActivity(), resources.getText(R.string.tab_thkns_wrong_axis), Toast.LENGTH_LONG).show()
-                getAxis.text = null
+                axisET.text = null
                 axis = 0
             }
         }
@@ -321,7 +275,7 @@ class Thickness : AbstractTabFragment() {
             Double = (cylinderPower - (recalculatedFrontCurve / (1 - centerThickness / lensIndex / 1000.0 * recalculatedFrontCurve) - spherePower)) * indexX
 
     private val realCylinderBackRadiusInMM: Double
-        get() = (CONSTANT.LAB_INDEX - 1) / (recalculatedCylinderCurve / 1000)
+        get() = (const.LAB_INDEX - 1) / (recalculatedCylinderCurve / 1000)
 
     private fun getSag2Cylinder(): Double =
             Math.abs(realBackCylinderRadiusInMM) - Math.sqrt(Math.pow(Math.abs(realBackCylinderRadiusInMM), 2.0) - Math.pow(lensDiameter / 2, 2.0)) // sag of convex surface;
@@ -333,36 +287,36 @@ class Thickness : AbstractTabFragment() {
             (spherePower - recalculatedFrontCurve / (1 - centerThickness / lensIndex / 1000.0 * recalculatedFrontCurve)) * indexX
 
     private fun getRealBackRadiusInMM(): Double =
-            (CONSTANT.LAB_INDEX - 1) / (recalculatedSphereCurve / 1000)
+            (const.LAB_INDEX - 1) / (recalculatedSphereCurve / 1000)
 
     private fun getSag1Sphere(): Double =
             Math.abs(realBackRadiusInMM) - Math.sqrt(Math.pow(Math.abs(realBackRadiusInMM), 2.0) - Math.pow(lensDiameter / 2, 2.0))    // sag of concave surface;
 
 
     private fun setUpViewsBehaviourAfter() {
-        Utils.enableWrapper(sphereWrapper)
-        Utils.enableWrapper(curveWrapper)
-        Utils.enableWrapper(centerThicknessWrapper)
-        Utils.enableWrapper(edgeThicknessWrapper)
-        Utils.enableWrapper(diameterWrapper)
+        Utils.enableWrapper(sphereTxtInptL)
+        Utils.enableWrapper(curveTxtInptL)
+        Utils.enableWrapper(thicknessTxtInptL)
+        Utils.enableWrapper(edgeTxtInptL)
+        Utils.enableWrapper(diameterTxtInptL)
     }
 
     private fun setUpViewsBehaviourBefore() {
-        Utils.makeNormalEditText(getSpherePower, sphereWrapper)
-        Utils.makeNormalEditText(getBaseCurve, curveWrapper)
+        Utils.makeNormalEditText(sphereET, sphereTxtInptL)
+        Utils.makeNormalEditText(curveET, curveTxtInptL)
         // if field is disable, we don't change it color
-        if (getCenterThickness.currentHintTextColor != ContextCompat.getColor(activity, R.color.black) ||
-                getCenterThickness.currentTextColor != ContextCompat.getColor(activity, R.color.black))
-            Utils.makeNormalEditText(getCenterThickness, centerThicknessWrapper)
-        if (getEdgeThickness.currentHintTextColor != ContextCompat.getColor(activity, R.color.black) ||
-                getEdgeThickness.currentTextColor != ContextCompat.getColor(activity, R.color.black))
-            Utils.makeNormalEditText(getEdgeThickness, edgeThicknessWrapper)
-        Utils.makeNormalEditText(getLensDiameter, diameterWrapper)
-        Utils.disableWrapper(sphereWrapper)
-        Utils.disableWrapper(curveWrapper)
-        Utils.disableWrapper(centerThicknessWrapper)
-        Utils.disableWrapper(edgeThicknessWrapper)
-        Utils.disableWrapper(diameterWrapper)
+        if (centerThicknessET.currentHintTextColor != ContextCompat.getColor(activity!!, R.color.black) ||
+                centerThicknessET.currentTextColor != ContextCompat.getColor(activity!!, R.color.black))
+            Utils.makeNormalEditText(centerThicknessET, thicknessTxtInptL)
+        if (edgeThicknessET.currentHintTextColor != ContextCompat.getColor(activity!!, R.color.black) ||
+                edgeThicknessET.currentTextColor != ContextCompat.getColor(activity!!, R.color.black))
+            Utils.makeNormalEditText(edgeThicknessET, edgeTxtInptL)
+        Utils.makeNormalEditText(diameterET, diameterTxtInptL)
+        Utils.disableWrapper(sphereTxtInptL)
+        Utils.disableWrapper(curveTxtInptL)
+        Utils.disableWrapper(thicknessTxtInptL)
+        Utils.disableWrapper(edgeTxtInptL)
+        Utils.disableWrapper(diameterTxtInptL)
     }
 
 
@@ -373,31 +327,31 @@ class Thickness : AbstractTabFragment() {
         // try blocks here to highlight required field
         var sphereIsEmpty = false
         try {
-            spherePower = getSpherePower.text.toString().toDouble()
+            spherePower = sphereET.text.toString().toDouble()
         } catch (e: NumberFormatException) {
-            Utils.highlightEditText(getSpherePower, sphereWrapper)
+            Utils.highlightEditText(sphereET, sphereTxtInptL)
             sphereIsEmpty = true
         }
 
         try {
-            realFrontBaseCurveDptr = getBaseCurve.text.toString().toDouble()
+            realFrontBaseCurveDptr = curveET.text.toString().toDouble()
             if (realFrontBaseCurveDptr == 0.0) throw NumberFormatException()
         } catch (e: NumberFormatException) {
             handleNoBaseCurveBehaviour(sphereIsEmpty)
         }
 
         try {
-            lensDiameter = java.lang.Double.parseDouble(getLensDiameter.text.toString())
+            lensDiameter = java.lang.Double.parseDouble(edgeThicknessET.text.toString())
         } catch (e: NumberFormatException) {
-            Utils.highlightEditText(getLensDiameter, diameterWrapper)
+            Utils.highlightEditText(edgeThicknessET, diameterTxtInptL)
         }
 
         // Real radius of front curve in mm
         realRadiusMM = getReaRadiusInMM
 
-        edgeThickness = getEdgeThickness()
+        edgeThickness = edgeThicknessET()
 
-        cylinderPower = getCylinderPower()
+        cylinderPower = cylinderET()
 
         setCenterThickness()
 
@@ -407,7 +361,7 @@ class Thickness : AbstractTabFragment() {
         if (cylinderPower > 0 || cylinderPower < 0) {
 
             // check is axis valid, and get it
-            axisView = getAxis()
+            axisView = axisET()
             axis = recalculateAxisInMinusCylinder(axisView)
             //                Log.d(CONSTANT.MY_EXCEPTION, axisView + " asixview");
             //                Log.d(CONSTANT.MY_EXCEPTION, axis + " asix");
@@ -435,7 +389,7 @@ class Thickness : AbstractTabFragment() {
 
     private fun handleNoBaseCurveBehaviour(sphereIsEmpty: Boolean) {
         if (!sphereIsEmpty) {
-            val cylinder = getCylinderPower()
+            val cylinder = cylinderET()
             val sphere: Double = if (cylinder > 0) {
                 spherePower + cylinder
             } else {
@@ -447,55 +401,55 @@ class Thickness : AbstractTabFragment() {
 
             when {
                 sphere <= -8.0 -> {
-                    tempCurveString = CONSTANT.base0.toString()
-                    tempCurveDouble = CONSTANT.base0
+                    tempCurveString = const.base0.toString()
+                    tempCurveDouble = const.base0
                 }
                 sphere <= -6.0 && sphere >= -7.99 -> {
-                    tempCurveString = CONSTANT.base1.toInt().toString()
-                    tempCurveDouble = CONSTANT.base1
+                    tempCurveString = const.base1.toInt().toString()
+                    tempCurveDouble = const.base1
                 }
                 sphere <= -4.0 && sphere >= -5.99 -> {
-                    tempCurveString = CONSTANT.base2.toInt().toString()
-                    tempCurveDouble = CONSTANT.base2
+                    tempCurveString = const.base2.toInt().toString()
+                    tempCurveDouble = const.base2
                 }
                 sphere <= -2.0 && sphere >= -3.99 -> {
-                    tempCurveString = CONSTANT.base3.toInt().toString()
-                    tempCurveDouble = CONSTANT.base3
+                    tempCurveString = const.base3.toInt().toString()
+                    tempCurveDouble = const.base3
                 }
                 sphere <= 2.0 && sphere >= -1.99 -> {
-                    tempCurveString = CONSTANT.base4.toInt().toString()
-                    tempCurveDouble = CONSTANT.base4
+                    tempCurveString = const.base4.toInt().toString()
+                    tempCurveDouble = const.base4
                 }
                 sphere in 2.01..2.99 -> {
-                    tempCurveString = CONSTANT.base5.toInt().toString()
-                    tempCurveDouble = CONSTANT.base5
+                    tempCurveString = const.base5.toInt().toString()
+                    tempCurveDouble = const.base5
                 }
                 sphere in 3.0..4.99 -> {
-                    tempCurveString = CONSTANT.base6.toInt().toString()
-                    tempCurveDouble = CONSTANT.base6
+                    tempCurveString = const.base6.toInt().toString()
+                    tempCurveDouble = const.base6
                 }
                 sphere in 5.0..5.99 -> {
-                    tempCurveString = CONSTANT.base7.toInt().toString()
-                    tempCurveDouble = CONSTANT.base7
+                    tempCurveString = const.base7.toInt().toString()
+                    tempCurveDouble = const.base7
                 }
                 sphere in 6.0..6.99 -> {
-                    tempCurveString = CONSTANT.base8.toInt().toString()
-                    tempCurveDouble = CONSTANT.base8
+                    tempCurveString = const.base8.toInt().toString()
+                    tempCurveDouble = const.base8
                 }
                 sphere in 7.0..7.99 -> {
-                    tempCurveString = CONSTANT.base9.toInt().toString()
-                    tempCurveDouble = CONSTANT.base9
+                    tempCurveString = const.base9.toInt().toString()
+                    tempCurveDouble = const.base9
                 }
                 sphere in 8.0..9.99 -> {
-                    tempCurveString = CONSTANT.base10.toInt().toString()
-                    tempCurveDouble = CONSTANT.base10
+                    tempCurveString = const.base10.toInt().toString()
+                    tempCurveDouble = const.base10
                 }
                 sphere >= 10.0 -> {
-                    tempCurveString = CONSTANT.base10_5.toString()
-                    tempCurveDouble = CONSTANT.base10_5
+                    tempCurveString = const.base10_5.toString()
+                    tempCurveDouble = const.base10_5
                 }
             }
-            getBaseCurve.setText(tempCurveString)
+            curveET.setText(tempCurveString)
             realFrontBaseCurveDptr = tempCurveDouble
         }
     }
@@ -588,83 +542,57 @@ class Thickness : AbstractTabFragment() {
 
         private fun disableField() {
             spherePower = try {
-                java.lang.Double.parseDouble(getSpherePower.text.toString())
+                java.lang.Double.parseDouble(sphereET.text.toString())
             } catch (e: NumberFormatException) {
                 0.0
             }
 
             cylinderPower = try {
-                java.lang.Double.parseDouble(getCylinderPower.text.toString())
+                java.lang.Double.parseDouble(cylinderET.text.toString())
             } catch (e: NumberFormatException) {
                 0.0
             }
 
             val value = if (cylinderPower > 0) spherePower + cylinderPower else spherePower
 
-            Utils.disableWrapper(edgeThicknessWrapper)
-            Utils.disableWrapper(centerThicknessWrapper)
+            Utils.disableWrapper(edgeTxtInptL)
+            Utils.disableWrapper(thicknessTxtInptL)
             if (value > 0) {
-                Utils.makeNormalEditText(getEdgeThickness, edgeThicknessWrapper)
-                getEdgeThickness.isActivated = true
-                getEdgeThickness.isEnabled = true
-                getEdgeThickness.isFocusableInTouchMode = true
-                Utils.disableThicknessField(getCenterThickness, centerThicknessWrapper)
-                getCenterThickness.isActivated = false
-                getCenterThickness.isEnabled = false
-                getCenterThickness.isFocusableInTouchMode = false
-                getCenterThickness.text = null
+                Utils.makeNormalEditText(edgeThicknessET, edgeTxtInptL)
+                edgeThicknessET.isActivated = true
+                edgeThicknessET.isEnabled = true
+                edgeThicknessET.isFocusableInTouchMode = true
+                Utils.disableThicknessField(centerThicknessET, thicknessTxtInptL)
+                centerThicknessET.isActivated = false
+                centerThicknessET.isEnabled = false
+                centerThicknessET.isFocusableInTouchMode = false
+                centerThicknessET.text = null
             } else {
-                Utils.makeNormalEditText(getCenterThickness, centerThicknessWrapper)
-                getCenterThickness.isActivated = true
-                getCenterThickness.isEnabled = true
-                getCenterThickness.isFocusableInTouchMode = true
-                Utils.disableThicknessField(getEdgeThickness, edgeThicknessWrapper)
-                getEdgeThickness.isActivated = false
-                getEdgeThickness.isEnabled = false
-                getEdgeThickness.isFocusableInTouchMode = false
-                getEdgeThickness.text = null
+                Utils.makeNormalEditText(centerThicknessET, thicknessTxtInptL)
+                centerThicknessET.isActivated = true
+                centerThicknessET.isEnabled = true
+                centerThicknessET.isFocusableInTouchMode = true
+                Utils.disableThicknessField(edgeThicknessET, edgeTxtInptL)
+                edgeThicknessET.isActivated = false
+                edgeThicknessET.isEnabled = false
+                edgeThicknessET.isFocusableInTouchMode = false
+                edgeThicknessET.text = null
             }
-            Utils.enableWrapper(edgeThicknessWrapper)
-            Utils.enableWrapper(centerThicknessWrapper)
-        }
-    }
-
-    private fun hideSoftKeyboard() {
-        val view = activity!!.currentFocus
-        if (view != null) {
-            val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-            imm!!.hideSoftInputFromWindow(view.windowToken, 0)
+            Utils.enableWrapper(edgeTxtInptL)
+            Utils.enableWrapper(thicknessTxtInptL)
         }
     }
 
     companion object {
 
-        fun getInstance(context: Context, headers: MutableList<String>, description: MutableList<String>, images: MutableList<Int>): Thickness {
-            val bundle = Bundle()
-            val thickness = Thickness()
-            thickness.arguments = bundle
-            Companion.setTitle(thickness, context.getString(R.string.tab_lens_thickness))
-            Companion.setHeaders(thickness, headers)
-            Companion.setDescription(thickness, description)
-            Companion.setImages(thickness, images)
-            return thickness
-        }
+        val TAG: String = Thickness::class.java.simpleName
 
-
-        private fun setTitle(thickness: Thickness, title: String) {
-            thickness.title = title
-        }
-
-        private fun setHeaders(thickness: Thickness, headers: MutableList<String>) {
-            thickness.headers = headers
-        }
-
-        private fun setDescription(thickness: Thickness, description: MutableList<String>) {
-            thickness.description = description
-        }
-
-        private fun setImages(thickness: Thickness, images: MutableList<Int>) {
-            thickness.images = images
+        fun getInstance(headers: List<String>, description: List<String>, images: List<Int>) = Thickness().apply {
+            arguments = Bundle(3).apply {
+                putStringArrayList(TAG + "headers", ArrayList(headers))
+                putStringArrayList(TAG + "images", ArrayList(description))
+                putIntegerArrayList(TAG + "description", ArrayList(images))
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ import android.text.style.ScaleXSpan
 import android.util.DisplayMetrics
 import android.view.View
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.main.MyApp
+import parkhomov.andrew.lensthicknesscalculator.MyApp
 
 
 /**

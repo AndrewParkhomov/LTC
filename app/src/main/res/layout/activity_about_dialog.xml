@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/v4dp">
-
-    <TextView
-        android:background="@drawable/image_about_background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/v18sp"
-        android:padding="@dimen/v14dp"
-        android:id="@+id/textViewAboutDialog"/>
-
-</RelativeLayout>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textViewAboutDialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/image_about_background"
+    android:padding="@dimen/v14dp"
+    android:textSize="@dimen/v18sp" />
