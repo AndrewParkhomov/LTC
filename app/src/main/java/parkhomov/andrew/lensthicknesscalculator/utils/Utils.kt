@@ -87,14 +87,4 @@ object Utils {
         return dp.toInt() * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
     }
 
-    class NoPageTransformer : ViewPager.PageTransformer {
-        override fun transformPage(view: View, position: Float) {
-            when {
-                position < 0 -> view.scrollX = (view.width.toFloat() * position).toInt()
-                position > 0 -> view.scrollX = -(view.width.toFloat() * -position).toInt()
-                else -> view.scrollX = 0
-            }
-        }
-    }
-
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,16 +41,8 @@ class Language : BaseDialog() {
         addRadioButtons()
     }
 
-    fun showDialog(fragmentManager: FragmentManager) = super.show(fragmentManager, TAG)
-
-    private fun closeDialog() = super.dismissDialog(TAG)
-
     private fun addRadioButtons() {
-        val languages = ArrayList<String>(3)
-        languages.add(0, getString(R.string.english))
-        languages.add(1, getString(R.string.russian))
-        languages.add(2, getString(R.string.ukrainian))
-
+        val languages: List<String> = listOf(getString(R.string.english), getString(R.string.russian), getString(R.string.ukrainian))
         radioButtonContainer.orientation = LinearLayout.VERTICAL
 
         if (radioButtonId == -1 || languageIso2 != "") {
@@ -65,6 +56,7 @@ class Language : BaseDialog() {
             }
             saveLanguageInSharedPref()
         }
+
         for (i in languages.indices) {
             val button = RadioButton(activity, null, R.attr.radioButtonStyle)
             button.setBackgroundColor(Color.TRANSPARENT)
@@ -74,9 +66,9 @@ class Language : BaseDialog() {
             button.textSize = 20f
             button.text = languages[i]
             button.setPadding(
-                    Utils.convertDpToPixel(40.0),
                     Utils.convertDpToPixel(20.0),
                     Utils.convertDpToPixel(20.0),
+                    0,
                     Utils.convertDpToPixel(20.0))
             radioButtonContainer.addView(button)
         }
@@ -84,8 +76,7 @@ class Language : BaseDialog() {
         // This overrides the radiogroup onCheckListener
         radioButtonContainer.setOnCheckedChangeListener { group, checkedId ->
             // This will get the radiobutton that has changed in its check state
-            val checkedRadioButton = group.findViewById<RadioButton>(checkedId) as RadioButton
-            checkedRadioButton.isChecked
+            (group.findViewById(checkedId) as RadioButton).isChecked
             radioButtonId = checkedId
             languageIso2 = when (checkedId) {
                 2 -> "uk"

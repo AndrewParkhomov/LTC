@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radioButtonContainer"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_margin="@dimen/v16dp"
+    android:layout_margin="@dimen/v26dp"
+    android:gravity="start|center"
     android:minHeight="@dimen/v250dp"
-    android:minWidth="@dimen/v240dp">
-
-    <RadioGroup
-        android:id="@+id/radioButtonContainer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</android.support.constraint.ConstraintLayout>
+    android:minWidth="240dp"
+    android:paddingEnd="@dimen/v16dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="@dimen/v16dp"
+    android:paddingStart="30dp" />

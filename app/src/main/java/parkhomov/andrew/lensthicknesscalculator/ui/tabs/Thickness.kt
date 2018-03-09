@@ -49,16 +49,12 @@ class Thickness : BaseFragment() {
         val view = inflater.inflate(R.layout.thickness_fragment, container, false)
 
         activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        headers = arguments?.getStringArrayList(TAG + "headers") ?: listOf()
-        description = arguments?.getStringArrayList(TAG + "images") ?: listOf()
-        images = arguments?.getIntegerArrayList(TAG + "description") ?: listOf()
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
+        Timber.i("onViewCreated")
         thicknessCalculateButton.text = Utils.spacing(getString(R.string.button_text_calculate), const.spacing8)
 
         customizeSpinner()
@@ -157,21 +153,21 @@ class Thickness : BaseFragment() {
 
     private fun getReaRadiusInMM(): Double = (const.LAB_INDEX - 1) / (realFrontBaseCurveDptr / 1000)
 
-    private fun edgeThicknessET(): Double {
-        return try {
-            edgeThicknessET.text.toString().toDouble()
-        } catch (e: NumberFormatException) {
-            0.0
-        }
-    }
+    private fun edgeThicknessET(): Double =
+            try {
+                edgeThicknessET.text.toString().toDouble()
+            } catch (e: NumberFormatException) {
+                0.0
+            }
 
-    private fun cylinderET(): Double {
-        return try {
-            cylinderET.text.toString().toDouble()
-        } catch (e: NumberFormatException) {
-            0.0
-        }
-    }
+
+    private fun cylinderET(): Double =
+            try {
+                cylinderET.text.toString().toDouble()
+            } catch (e: NumberFormatException) {
+                0.0
+            }
+
 
     private fun setCenterThickness() {
         // set center thickness

@@ -1,7 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.base
 
 import android.content.Context
-import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
@@ -17,11 +16,6 @@ abstract class BaseActivity : AppCompatActivity() {
         val sharedPreferences = newBase.getSharedPreferences(const.SHARED_PREF, Context.MODE_PRIVATE)
         val languageIso2 = sharedPreferences?.getString(const.SAVE_LANGUAGE_ISO2, "") ?: ""
         super.attachBaseContext(CalligraphyContextWrapper.wrap(MyContextWrapper.wrap(newBase, languageIso2)))
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        createListWithData()
     }
 
     val headers = ArrayList<String>(12)
@@ -46,7 +40,7 @@ abstract class BaseActivity : AppCompatActivity() {
                     }.create().show()
     }
 
-    private fun createListWithData() {
+    protected fun createListWithData() {
         //add headers
         headers.add(0, getString(R.string.index_of_refraction))
         headers.add(1, getString(R.string.sphere_power))
@@ -88,8 +82,6 @@ abstract class BaseActivity : AppCompatActivity() {
         images.add(11, R.drawable.transposition_img)
     }
 
-    open fun changeLanguage() {
-
-    }
+    abstract fun changeLanguage()
 
 }

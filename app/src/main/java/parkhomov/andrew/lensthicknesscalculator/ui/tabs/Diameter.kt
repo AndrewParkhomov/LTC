@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import kotlinx.android.synthetic.main.diameter_fragment.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
@@ -22,7 +23,7 @@ class Diameter : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.diameter_fragment, container, false)
 
-
+        Toast.makeText(baseActivity!!, " onCreateView ", Toast.LENGTH_SHORT).show()
         return view
     }
 

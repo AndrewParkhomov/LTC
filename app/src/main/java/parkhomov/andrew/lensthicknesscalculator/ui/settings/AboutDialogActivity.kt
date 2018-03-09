@@ -1,7 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.ui.settings
 
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,6 @@ class AboutDialogActivity : BaseDialog() {
         return view
     }
 
-
     override fun setUp(view: View) {
         textViewAboutDialog.text = String.format("%s\n\n%s\n\n%s\n\n%s %s %s",
                 resources.getString(R.string.version) + BuildConfig.VERSION_NAME,
@@ -30,11 +28,6 @@ class AboutDialogActivity : BaseDialog() {
                 resources.getString(R.string.year),
                 resources.getString(R.string.programing_language))
     }
-
-
-    fun showDialog(fragmentManager: FragmentManager) = super.showDialog(fragmentManager, TAG)
-
-    private fun closeDialog() = super.dismissDialog(TAG)
 
     companion object {
         val TAG: String = AboutDialogActivity::class.java.simpleName

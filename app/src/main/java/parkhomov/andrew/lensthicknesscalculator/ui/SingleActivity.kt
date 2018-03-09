@@ -8,33 +8,29 @@ import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
 import parkhomov.andrew.lensthicknesscalculator.ui.glossary.GlossaryList
 import parkhomov.andrew.lensthicknesscalculator.ui.settings.Settings
 import parkhomov.andrew.lensthicknesscalculator.ui.tabs.TabsPageFragmentAdapter
-import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 import timber.log.Timber
 
 class SingleActivity : BaseActivity() {
 
+    private var adapter = TabsPageFragmentAdapter(supportFragmentManager)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_activity)
-        createTabs()
         openGlossary.setOnClickListener { onGlossaryClicked() }
         openSettings.setOnClickListener { onSettingsClicked() }
-        setUpListeners()
+        createListWithData()
+        createTabs()
     }
-
 
     private fun createTabs() {
-        val tabsPageFragmentAdapter = TabsPageFragmentAdapter(supportFragmentManager)
+        adapter.createTabs()
         viewPager.offscreenPageLimit = 2
-        viewPager.adapter = tabsPageFragmentAdapter
+        viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
-
-        viewPager.setPageTransformer(false, Utils.NoPageTransformer())
+        viewPager.setPageTransformer(false, pageTransformer)
         tabLayout.getTabAt(0)?.text = getString(R.string.tab_lens_thickness)
         tabLayout.getTabAt(1)?.text = getString(R.string.tab_diameter)
-    }
-
-    private fun setUpListeners() {
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
@@ -48,6 +44,14 @@ class SingleActivity : BaseActivity() {
 
             }
         })
+    }
+
+    private val pageTransformer = ViewPager.PageTransformer { view, position ->
+        when {
+            position < 0 -> view.scrollX = (view.width.toFloat() * position).toInt()
+            position > 0 -> view.scrollX = -(view.width.toFloat() * -position).toInt()
+            else -> view.scrollX = 0
+        }
     }
 
     private fun onGlossaryClicked() {
