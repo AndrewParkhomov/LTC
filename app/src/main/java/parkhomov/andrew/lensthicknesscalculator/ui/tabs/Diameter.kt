@@ -8,11 +8,10 @@ import kotlinx.android.synthetic.main.diameter_fragment.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.ui.glossary.GlossaryDetails
-import parkhomov.andrew.lensthicknesscalculator.utils.const
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
+import parkhomov.andrew.lensthicknesscalculator.utils.const
 import timber.log.Timber
 import java.text.DecimalFormat
-import java.util.*
 
 /**
  * Created by MyPC on 29.07.2017.
@@ -23,9 +22,6 @@ class Diameter : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.diameter_fragment, container, false)
 
-        headers = arguments?.getStringArrayList(TAG + "headers") ?: listOf()
-        description = arguments?.getStringArrayList(TAG + "images") ?: listOf()
-        images = arguments?.getIntegerArrayList(TAG + "description") ?: listOf()
 
         return view
     }
@@ -101,31 +97,21 @@ class Diameter : BaseFragment() {
                 fragmentManager!!
                         .beginTransaction()
                         .addToBackStack(null)
-                        .add(R.id.mainContainerConstr,
-                                GlossaryDetails.getInstance(
-                                        headers?.get(position)!!,
-                                        description?.get(position)!!,
-                                        images?.get(position)!!),
-                                const.GLOSSARY_DETAILS)
+                        .add(R.id.mainContainerConstr, GlossaryDetails.getInstance(
+                                headers!![position],
+                                description!![position],
+                                images!![position]
+                        ), GlossaryDetails.TAG)
                         .commit()
             } catch (e: IllegalStateException) {
                 Timber.i(e.toString())
             }
-
             hideKeyboard()
         }
     }
 
-
     companion object {
         val TAG: String = Diameter::class.java.simpleName
-
-        fun getInstance(headers: List<String>, description: List<String>, images: List<Int>) = Diameter().apply {
-            arguments = Bundle(3).apply {
-                putStringArrayList(TAG + "headers", ArrayList(headers))
-                putStringArrayList(TAG + "images", ArrayList(description))
-                putIntegerArrayList(TAG + "description", ArrayList(images))
-            }
-        }
+        val instance = Diameter()
     }
 }

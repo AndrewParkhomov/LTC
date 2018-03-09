@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/textViewAboutDialog"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/image_about_background"
-    android:padding="@dimen/v14dp"
-    android:textSize="@dimen/v18sp" />
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:padding="@dimen/v4dp"
+    android:background="@drawable/image_about_background">
+
+    <TextView
+        android:id="@+id/textViewAboutDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/v14dp"
+        android:textSize="@dimen/v18sp" />
+
+</android.support.constraint.ConstraintLayout>

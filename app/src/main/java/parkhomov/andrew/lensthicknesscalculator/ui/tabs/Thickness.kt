@@ -15,10 +15,9 @@ import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.ui.dialog.Result
 import parkhomov.andrew.lensthicknesscalculator.ui.glossary.GlossaryDetails
-import parkhomov.andrew.lensthicknesscalculator.utils.const
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
+import parkhomov.andrew.lensthicknesscalculator.utils.const
 import timber.log.Timber
-import java.util.*
 
 /**
  * Created by MyPC on 29.07.2017.
@@ -28,27 +27,28 @@ class Thickness : BaseFragment() {
 
     private var axis: Int = 0
     private var axisView: Int = 0
-    private var lensIndex: Double = 0.toDouble()
-    private var indexX: Double = 0.toDouble()
-    private var spherePower: Double = 0.toDouble()
-    private var edgeThickness: Double = 0.toDouble()
-    private var realBackRadiusInMM: Double = 0.toDouble()
-    private var cylinderPower: Double = 0.toDouble()
-    private var lensDiameter: Double = 0.toDouble()
-    private var centerThickness: Double = 0.toDouble()
-    private var sag1Sphere: Double = 0.toDouble()
-    private var sag2Sphere: Double = 0.toDouble()
-    private var sag2Cylinder: Double = 0.toDouble()
-    private var realBackCylinderRadiusInMM: Double = 0.toDouble()
-    private var realFrontBaseCurveDptr: Double = 0.toDouble()
-    private var realRadiusMM: Double = 0.toDouble()
-    private var recalculatedCylinderCurve: Double = 0.toDouble()
-    private var recalculatedSphereCurve: Double = 0.toDouble()
+    private var lensIndex: Double = 0.0
+    private var indexX: Double = 0.0
+    private var spherePower: Double = 0.0
+    private var edgeThickness: Double = 0.0
+    private var realBackRadiusInMM: Double = 0.0
+    private var cylinderPower: Double = 0.0
+    private var lensDiameter: Double = 0.0
+    private var centerThickness: Double = 0.0
+    private var sag1Sphere: Double = 0.0
+    private var sag2Sphere: Double = 0.0
+    private var sag2Cylinder: Double = 0.0
+    private var realBackCylinderRadiusInMM: Double = 0.0
+    private var realFrontBaseCurveDptr: Double = 0.0
+    private var realRadiusMM: Double = 0.0
+    private var recalculatedCylinderCurve: Double = 0.0
+    private var recalculatedSphereCurve: Double = 0.0
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.thickness_fragment, container, false)
 
+        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         headers = arguments?.getStringArrayList(TAG + "headers") ?: listOf()
         description = arguments?.getStringArrayList(TAG + "images") ?: listOf()
         images = arguments?.getIntegerArrayList(TAG + "description") ?: listOf()
@@ -57,7 +57,7 @@ class Thickness : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
 
         thicknessCalculateButton.text = Utils.spacing(getString(R.string.button_text_calculate), const.spacing8)
 
@@ -107,12 +107,11 @@ class Thickness : BaseFragment() {
                 fragmentManager!!
                         .beginTransaction()
                         .addToBackStack(null)
-                        .add(R.id.mainContainerConstr,
-                                GlossaryDetails.getInstance(
-                                        headers?.get(position)!!,
-                                        description?.get(position)!!,
-                                        images?.get(position)!!),
-                                const.GLOSSARY_DETAILS)
+                        .add(R.id.mainContainerConstr, GlossaryDetails.getInstance(
+                                headers!![position],
+                                description!![position],
+                                images!![position]
+                        ), GlossaryDetails.TAG)
                         .commit()
             } catch (e: IllegalStateException) {
                 Timber.i(e.toString())
@@ -121,7 +120,7 @@ class Thickness : BaseFragment() {
         }
     }
 
-    fun onCalculateBtnClicked() {
+    private fun onCalculateBtnClicked() {
         clearData()
         when (new_spinner.selectedItemPosition) {
             0 -> {
@@ -156,8 +155,7 @@ class Thickness : BaseFragment() {
         curveCalculation()
     }
 
-    private val getReaRadiusInMM: Double
-        get() = (const.LAB_INDEX - 1) / (realFrontBaseCurveDptr / 1000)
+    private fun getReaRadiusInMM(): Double = (const.LAB_INDEX - 1) / (realFrontBaseCurveDptr / 1000)
 
     private fun edgeThicknessET(): Double {
         return try {
@@ -246,7 +244,7 @@ class Thickness : BaseFragment() {
             if (axisET.text.toString() == "") {
                 axis = 0
             } else {
-                Toast.makeText(getActivity(), resources.getText(R.string.tab_thkns_wrong_axis), Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, resources.getText(R.string.tab_thkns_wrong_axis), Toast.LENGTH_LONG).show()
                 axisET.text = null
                 axis = 0
             }
@@ -341,13 +339,13 @@ class Thickness : BaseFragment() {
         }
 
         try {
-            lensDiameter = java.lang.Double.parseDouble(edgeThicknessET.text.toString())
+            lensDiameter = java.lang.Double.parseDouble(diameterET.text.toString())
         } catch (e: NumberFormatException) {
-            Utils.highlightEditText(edgeThicknessET, diameterTxtInptL)
+            Utils.highlightEditText(diameterET, diameterTxtInptL)
         }
 
         // Real radius of front curve in mm
-        realRadiusMM = getReaRadiusInMM
+        realRadiusMM = getReaRadiusInMM()
 
         edgeThickness = edgeThicknessET()
 
@@ -584,15 +582,7 @@ class Thickness : BaseFragment() {
     }
 
     companion object {
-
         val TAG: String = Thickness::class.java.simpleName
-
-        fun getInstance(headers: List<String>, description: List<String>, images: List<Int>) = Thickness().apply {
-            arguments = Bundle(3).apply {
-                putStringArrayList(TAG + "headers", ArrayList(headers))
-                putStringArrayList(TAG + "images", ArrayList(description))
-                putIntegerArrayList(TAG + "description", ArrayList(images))
-            }
-        }
+        val instance = Thickness()
     }
 }

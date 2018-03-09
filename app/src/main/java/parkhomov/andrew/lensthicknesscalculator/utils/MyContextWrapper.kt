@@ -31,7 +31,7 @@ class MyContextWrapper(base: Context) : ContextWrapper(base) {
             }
 
             if (language != "" && sysLocale.language != language) {
-                val locale = Locale(language,country)
+                val locale = Locale(language, country)
                 Locale.setDefault(locale)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     setSystemLocale(config, locale)

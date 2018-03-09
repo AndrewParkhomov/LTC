@@ -1,64 +1,37 @@
 package parkhomov.andrew.lensthicknesscalculator.ui.glossary
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.glossary_list.*
 import kotlinx.android.synthetic.main.glossary_list_item.view.*
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.utils.const
+import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
+import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
+import parkhomov.andrew.lensthicknesscalculator.utils.const
 
 /**
  * Class glossary list display lists with parameters titles, witch present in program.
  */
 
-class GlossaryList : Fragment() {
-
-
-    private var headers: MutableList<String>? = null
-    private var description: MutableList<String>? = null
-    private var images: MutableList<Int>? = null
-
-    fun setHeaders(headers: MutableList<String>) {
-        this.headers = headers
-    }
-
-    fun setDescription(description: MutableList<String>) {
-        this.description = description
-    }
-
-    fun setImages(images: MutableList<Int>) {
-        this.images = images
-    }
+class GlossaryList : BaseFragment() {
 
     companion object {
-
-        fun getInstance(headers: MutableList<String>, description: MutableList<String>, images: MutableList<Int>): GlossaryList {
-            val bundle = Bundle()
-            val glossaryList = GlossaryList()
-            glossaryList.arguments = bundle
-            glossaryList.setHeaders(headers)
-            glossaryList.setDescription(description)
-            glossaryList.setImages(images)
-            return glossaryList
-        }
+        val TAG: String = GlossaryList::class.java.simpleName
+        val instance = GlossaryList()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.glossary_list, container, false)
+        val view = inflater.inflate(R.layout.glossary_list, container, false)
 
 
         return view
     }
-
 
     private fun setUpDateInAdapter() {
         val lm = LinearLayoutManager(activity)
@@ -67,7 +40,7 @@ class GlossaryList : Fragment() {
         val dividerItemDecoration = DividerItemDecoration(recyclerView.context,
                 lm.orientation)
         recyclerView.addItemDecoration(dividerItemDecoration)
-        val adapter = SimpleAdapter(activity!!, headers, description, images)
+        val adapter = SimpleAdapter(baseActivity!!, headers!!, description!!, images!!)
         recyclerView.adapter = adapter
     }
 
@@ -77,9 +50,12 @@ class GlossaryList : Fragment() {
         turnBackImgB.setOnClickListener { fragmentManager!!.popBackStack() }
     }
 
-    class SimpleAdapter(private val context: FragmentActivity, val headers: (MutableList<String>?),
-                        private val description: (MutableList<String>?), private val images: (MutableList<Int>?)) :
+    class SimpleAdapter(private val context: BaseActivity,
+                        private val headers: List<String> = listOf(),
+                        private val description: List<String> = listOf(),
+                        private val images: List<Int> = listOf()) :
             RecyclerView.Adapter<SimpleAdapter.ViewHolder>() {
+
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.glossary_list_item, parent, false)
@@ -87,34 +63,33 @@ class GlossaryList : Fragment() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.setUpData(context, headers!![position], description!![position], images!![position])
+            holder.setUpData(context, position, headers, description, images)
         }
 
-        override fun getItemCount() = headers!!.size
+        override fun getItemCount() = headers.count()
 
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-            fun setUpData(context: FragmentActivity,
-                          header: String,
-                          description: String,
-                          image: Int) {
+            fun setUpData(context: BaseActivity,
+                          position: Int,
+                          headers: List<String>,
+                          description: List<String>,
+                          images: List<Int>) {
 
-                itemView.itemNameTxtV.text = header
+                itemView.itemNameTxtV.text = headers[position]
 
                 itemView.setOnClickListener {
                     try {
                         context.supportFragmentManager
                                 .beginTransaction()
                                 .addToBackStack(null)
-                                .add(R.id.mainContainerConstr,
-                                        GlossaryDetails.getInstance(
-                                                header,
-                                                description,
-                                                image),
-                                        const.GLOSSARY_DETAILS)
+                                .add(R.id.mainContainerConstr, GlossaryDetails.getInstance(
+                                        headers[position],
+                                        description[position],
+                                        images[position]
+                                ), GlossaryDetails.TAG)
                                 .commit()
                     } catch (e: IllegalStateException) {
-                        Log.d(const.MY_EXCEPTION, e.toString())
                     }
 
                 }

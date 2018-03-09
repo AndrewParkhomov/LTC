@@ -8,11 +8,14 @@ import android.support.v4.app.Fragment
 import timber.log.Timber
 
 
-abstract class BaseFragment: Fragment() {
+abstract class BaseFragment : Fragment() {
 
     var headers: List<String>? = null
+        get() = baseActivity?.headers
     var description: List<String>? = null
+        get() = baseActivity?.description
     var images: List<Int>? = null
+        get() = baseActivity?.images
     var baseActivity: BaseActivity? = null
         private set
 
@@ -40,8 +43,7 @@ abstract class BaseFragment: Fragment() {
         }
     }
 
-    fun hideKeyboard(){
+    protected fun hideKeyboard() {
         baseActivity?.hideKeyboard()
     }
-
 }

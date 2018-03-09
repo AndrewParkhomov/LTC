@@ -22,31 +22,18 @@ class Result : DialogFragment() {
     private var onAxis: String? = null
     private var axis: String? = null
 
-    fun setCenter(center: String) {
-        this.center = center
-    }
-
-    fun setMinimum(minimum: String) {
-        this.minimum = minimum
-    }
-
-    fun setMaximum(maximum: String) {
-        this.maximum = maximum
-    }
-
-    fun setOnAxis(onAxis: String) {
-        this.onAxis = onAxis
-    }
-
-    fun setAxis(axis: String) {
-        this.axis = axis
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.dialog_result, container)
+
+        center = arguments?.getString(TAG + "center")
+        minimum = arguments?.getString(TAG + "minimum")
+        maximum = arguments?.getString(TAG + "maximum")
+        onAxis = arguments?.getString(TAG + "thkOnAxis")
+        axis = arguments?.getString(TAG + "axis")
+
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        dialog.window!!.setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white)
+        dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog.window.setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white)
 
         return view
     }
@@ -75,25 +62,27 @@ class Result : DialogFragment() {
 
     companion object {
 
-        fun getInstance(center: String, minimum: String, maximum: String, thkOnAxis: String, axis: String): Result {
-            val bundle = Bundle()
-            val alertDialog = Result()
-            alertDialog.arguments = bundle
-            alertDialog.setCenter(center)
-            alertDialog.setMinimum(minimum)
-            alertDialog.setMaximum(maximum)
-            alertDialog.setOnAxis(thkOnAxis)
-            alertDialog.setAxis(axis)
-            return alertDialog
+        val TAG: String = Result::class.java.simpleName
+        fun getInstance(center: String,
+                        minimum: String,
+                        maximum: String,
+                        thkOnAxis: String,
+                        axis: String
+        ) = Result().apply {
+            arguments = Bundle(5).apply {
+                putString(TAG + "center", center)
+                putString(TAG + "minimum", minimum)
+                putString(TAG + "maximum", maximum)
+                putString(TAG + "thkOnAxis", thkOnAxis)
+                putString(TAG + "axis", axis)
+            }
         }
 
-        fun getInstance(center: String, minimum: String): Result {
-            val bundle = Bundle()
-            val alertDialog = Result()
-            alertDialog.arguments = bundle
-            alertDialog.setCenter(center)
-            alertDialog.setMinimum(minimum)
-            return alertDialog
+        fun getInstance(center: String, minimum: String) = Result().apply {
+            arguments = Bundle(2).apply {
+                putString(TAG + "center", center)
+                putString(TAG + "minimum", minimum)
+            }
         }
     }
 }

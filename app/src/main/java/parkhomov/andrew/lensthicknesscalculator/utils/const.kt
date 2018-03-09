@@ -5,16 +5,9 @@ package parkhomov.andrew.lensthicknesscalculator.utils
  */
 
 object const {
-    // log tag
-    val MY_EXCEPTION = "MY_EXCEPTION"
+
     val GOOGLE_PLAY_LINK = "https://play.google.com/store/apps/details?id=parkhomov.andrew.lensthicknesscalculator"
 
-    // Fragments tags
-    val GLOSSARY_DETAILS = "GLOSSARY_DETAILS"
-    val GLOSSARY_LIST = "GLOSSARY_LIST"
-    val SETTINGS = "SETTINGS"
-    val LANGUAGE = "LANGUAGE"
-    val ABOUT = "ABOUT"
     // shared pref
     val SHARED_PREF = "SHARED_PREF"
     val SAVE_LANGUAGE_ISO2 = "SAVE_LANGUAGE_ISO2"

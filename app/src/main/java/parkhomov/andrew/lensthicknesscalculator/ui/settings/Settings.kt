@@ -5,8 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
@@ -18,29 +16,17 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.glossary_list_item.view.*
 import kotlinx.android.synthetic.main.settings_fragment.*
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.ui.SingleActivity
-import parkhomov.andrew.lensthicknesscalculator.utils.const
+import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
+import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
+import parkhomov.andrew.lensthicknesscalculator.utils.const
 import java.util.*
 
-class Settings : Fragment() {
-
-
-    private var target: SingleActivity? = null
-
-    fun setTarget(mainActivity: SingleActivity) {
-        this.target = mainActivity
-    }
+class Settings : BaseFragment() {
 
     companion object {
-
-        fun getInstance(mainActivity: SingleActivity): Settings {
-            val bundle = Bundle()
-            val settings = Settings()
-            settings.arguments = bundle
-            settings.setTarget(mainActivity)
-            return settings
-        }
+        val TAG: String = Settings::class.java.simpleName
+        val instance = Settings()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,7 +37,7 @@ class Settings : Fragment() {
     }
 
     private fun setUpDateInAdapter() {
-        val lm = LinearLayoutManager(activity)
+        val lm = LinearLayoutManager(baseActivity)
         settingsRcycV.layoutManager = lm
         // make divider
         val dividerItemDecoration = DividerItemDecoration(settingsRcycV.context,
@@ -63,8 +49,7 @@ class Settings : Fragment() {
         headers.add(1, getString(R.string.header_rate_this_app))
         headers.add(2, getString(R.string.header_about))
 
-        val adapter = SimpleAdapter(activity!!, headers, target)
-        settingsRcycV.adapter = adapter
+        settingsRcycV.adapter = SimpleAdapter(baseActivity!!, headers)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,7 +60,7 @@ class Settings : Fragment() {
     }
 
 
-    class SimpleAdapter(private val context: FragmentActivity, val headers: (MutableList<String>?), private val mainActivity: SingleActivity?) :
+    class SimpleAdapter(private val context: BaseActivity, val headers: (MutableList<String>?)) :
             RecyclerView.Adapter<SimpleAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -84,41 +69,37 @@ class Settings : Fragment() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.setUpData(context, headers!![position], mainActivity!!)
+            holder.setUpData(context, position, headers!!)
         }
 
         override fun getItemCount() = headers!!.size
 
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-            fun setUpData(context: FragmentActivity,
-                          header: String, mainActivity: SingleActivity) {
+            fun setUpData(context: BaseActivity, poaition: Int, headers: MutableList<String>) {
 
-                itemView.itemNameTxtV.text = header
+                itemView.itemNameTxtV.text = headers[poaition]
 
                 itemView.setOnClickListener {
                     when (position) {
                         0 -> {
-                            val language = Language.getInstance(mainActivity)
-                            language.show(context.supportFragmentManager, const.LANGUAGE)
+                            Language.instance.showDialog(context.supportFragmentManager, Language.TAG)
                         }
                         1 -> rateThisAppClicked(context)
                         2 -> {
-                            val aboutDialogActivity = AboutDialogActivity.instance
-                            aboutDialogActivity.show(context.supportFragmentManager, const.ABOUT)
+                            AboutDialogActivity.instance.showDialog(context.supportFragmentManager, AboutDialogActivity.TAG)
                         }
                     }
 
                 }
             }
 
-            private fun rateThisAppClicked(context: FragmentActivity) {
+            private fun rateThisAppClicked(context: BaseActivity) {
                 val dialog = AlertDialog.Builder(context)
                         .setTitle(R.string.rate_app_header)
                         .setMessage(R.string.rate_app_body)
-
                         .setNegativeButton(R.string.rate_app_dialog_no, null)
-                        .setPositiveButton(R.string.rate_app_dialog_ok) { arg0, arg1 ->
+                        .setPositiveButton(R.string.rate_app_dialog_ok) { _, _ ->
                             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(const.GOOGLE_PLAY_LINK)))
                         }.create()
                 dialog.show()

@@ -2,11 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
-    android:focusable="true"
-    android:clickable="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/headerContainerConstr"
@@ -20,8 +20,8 @@
             android:id="@+id/turnBackImgB"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:padding="@dimen/v16dp"
             android:background="@android:color/transparent"
+            android:padding="@dimen/v16dp"
             android:src="@drawable/arrow_back"
             app:layout_constraintBottom_toTopOf="@+id/include_1"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -29,6 +29,7 @@
 
         <TextView
             android:id="@+id/header"
+            fontPath="raleway_bold.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/v10dp"
@@ -36,7 +37,6 @@
             android:text="@string/header_settings"
             android:textColor="@color/black"
             android:textSize="@dimen/v16sp"
-            fontPath="raleway_bold.ttf"
             app:layout_constraintBottom_toTopOf="@+id/include_1"
             app:layout_constraintLeft_toRightOf="@+id/turnBackImgB"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,9 +47,9 @@
             layout="@layout/divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintRight_toRightOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

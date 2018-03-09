@@ -4,58 +4,47 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import kotlinx.android.synthetic.main.activity_language.*
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.ui.SingleActivity
-import parkhomov.andrew.lensthicknesscalculator.utils.const
+import parkhomov.andrew.lensthicknesscalculator.base.BaseDialog
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
+import parkhomov.andrew.lensthicknesscalculator.utils.const
 import java.util.*
 
 
 /**
  * This class is for switch language. Radiobutton checked changed, and locale is update.
  */
-class Language : DialogFragment() {
+class Language : BaseDialog() {
 
-    interface LanguageChangedI {
-        fun languageChanged()
-    }
-
-
-    private var target: LanguageChangedI? = null
     private var sharedPreferences: SharedPreferences? = null
     private var radioButtonId: Int? = -1
     private var languageIso2: String? = null
 
-    fun setTarget(mainActivity: SingleActivity) {
-        this.target = mainActivity
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.activity_language, container, false)
+        val view = inflater.inflate(R.layout.activity_language, container, false)
 
+        sharedPreferences = activity!!.getSharedPreferences(const.SHARED_PREF, Context.MODE_PRIVATE)
+        radioButtonId = sharedPreferences!!.getInt(const.RADIO_BUTTON_ID, -1)
+        languageIso2 = sharedPreferences!!.getString(const.SAVE_LANGUAGE_ISO2, "")
 
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        sharedPreferences = activity!!.getSharedPreferences(const.SHARED_PREF, Context.MODE_PRIVATE)
-        radioButtonId = sharedPreferences!!.getInt(const.RADIO_BUTTON_ID, -1)
-        languageIso2 = sharedPreferences!!.getString(const.SAVE_LANGUAGE_ISO2, "")
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        if (dialog.window != null) {
-            dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            dialog.window!!.setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white)
-        }
+    override fun setUp(view: View) {
         addRadioButtons()
     }
+
+    fun showDialog(fragmentManager: FragmentManager) = super.show(fragmentManager, TAG)
+
+    private fun closeDialog() = super.dismissDialog(TAG)
 
     private fun addRadioButtons() {
         val languages = ArrayList<String>(3)
@@ -104,23 +93,18 @@ class Language : DialogFragment() {
                 else -> "en"
             }
             saveLanguageInSharedPref()
-            target!!.languageChanged()
+            baseActivity?.changeLanguage()
         }
     }
 
     private fun saveLanguageInSharedPref() {
-        sharedPreferences!!.edit().putInt(const.RADIO_BUTTON_ID, radioButtonId!!).apply()
-        sharedPreferences!!.edit().putString(const.SAVE_LANGUAGE_ISO2, languageIso2).apply()
+        sharedPreferences?.edit()?.putInt(const.RADIO_BUTTON_ID, radioButtonId!!)?.apply()
+        sharedPreferences?.edit()?.putString(const.SAVE_LANGUAGE_ISO2, languageIso2)?.apply()
     }
 
     companion object {
 
-        fun getInstance(target: SingleActivity): Language {
-            val bundle = Bundle()
-            val language = Language()
-            language.arguments = bundle
-            language.setTarget(target)
-            return language
-        }
+        val TAG: String = Language::class.java.simpleName
+        val instance = Language()
     }
 }

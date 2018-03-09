@@ -24,9 +24,9 @@ abstract class BaseActivity : AppCompatActivity() {
         createListWithData()
     }
 
-    protected val headers = ArrayList<String>(12)
-    protected val description = ArrayList<String>(12)
-    protected val images = ArrayList<Int>(12)
+    val headers = ArrayList<String>(12)
+    val description = ArrayList<String>(12)
+    val images = ArrayList<Int>(12)
 
     fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -86,6 +86,10 @@ abstract class BaseActivity : AppCompatActivity() {
         images.add(9, R.drawable.dbl_img)
         images.add(10, R.drawable.pd_img)
         images.add(11, R.drawable.transposition_img)
+    }
+
+    open fun changeLanguage() {
+
     }
 
 }

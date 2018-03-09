@@ -6,14 +6,12 @@ import kotlinx.android.synthetic.main.single_activity.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
 import parkhomov.andrew.lensthicknesscalculator.ui.glossary.GlossaryList
-import parkhomov.andrew.lensthicknesscalculator.ui.settings.Language
 import parkhomov.andrew.lensthicknesscalculator.ui.settings.Settings
 import parkhomov.andrew.lensthicknesscalculator.ui.tabs.TabsPageFragmentAdapter
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
-import parkhomov.andrew.lensthicknesscalculator.utils.const
 import timber.log.Timber
 
-class SingleActivity : BaseActivity(), Language.LanguageChangedI {
+class SingleActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +24,7 @@ class SingleActivity : BaseActivity(), Language.LanguageChangedI {
 
 
     private fun createTabs() {
-        val tabsPageFragmentAdapter = TabsPageFragmentAdapter(
-                supportFragmentManager,
-                headers,
-                description,
-                images
-        )
+        val tabsPageFragmentAdapter = TabsPageFragmentAdapter(supportFragmentManager)
         viewPager.offscreenPageLimit = 2
         viewPager.adapter = tabsPageFragmentAdapter
         tabLayout.setupWithViewPager(viewPager)
@@ -62,7 +55,7 @@ class SingleActivity : BaseActivity(), Language.LanguageChangedI {
             supportFragmentManager
                     .beginTransaction()
                     .addToBackStack(null)
-                    .add(R.id.mainContainerConstr, GlossaryList.getInstance(headers, description, images), const.GLOSSARY_LIST)
+                    .add(R.id.mainContainerConstr, GlossaryList.instance, GlossaryList.TAG)
                     .commit()
         } catch (e: IllegalStateException) {
             Timber.i(e.toString())
@@ -75,7 +68,7 @@ class SingleActivity : BaseActivity(), Language.LanguageChangedI {
             supportFragmentManager
                     .beginTransaction()
                     .addToBackStack(null)
-                    .add(R.id.mainContainerConstr, Settings.getInstance(this), const.SETTINGS)
+                    .add(R.id.mainContainerConstr, Settings.instance, Settings.TAG)
                     .commit()
         } catch (e: IllegalStateException) {
             Timber.i(e.toString())
@@ -83,12 +76,9 @@ class SingleActivity : BaseActivity(), Language.LanguageChangedI {
         hideKeyboard()
     }
 
-    // this code reload activity when user change language
-    override fun languageChanged() {
+    override fun changeLanguage() {
         finish()
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         startActivity(intent)
     }
-
-
 }
