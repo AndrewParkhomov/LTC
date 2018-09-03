@@ -2,16 +2,15 @@ package parkhomov.andrew.lensthicknesscalculator.utils
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
-import android.support.v4.content.ContextCompat
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ScaleXSpan
 import android.util.DisplayMetrics
-import parkhomov.andrew.lensthicknesscalculator.MyApp
+import androidx.core.content.ContextCompat
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import parkhomov.andrew.lensthicknesscalculator.R
 
 
@@ -43,16 +42,17 @@ object Utils {
 
     private fun setInputTextLayoutColor(textInputLayout: TextInputLayout, color: Int) {
         try {
-            val fDefaultTextColor = TextInputLayout::class.java.getDeclaredField("mDefaultTextColor")
+            val fDefaultTextColor = TextInputLayout::class.java.getDeclaredField("defaultHintTextColor")
             fDefaultTextColor.isAccessible = true
             fDefaultTextColor.set(textInputLayout, ColorStateList(arrayOf(intArrayOf(0)), intArrayOf(color)))
 
-            val fFocusedTextColor = TextInputLayout::class.java.getDeclaredField("mFocusedTextColor")
+            val fFocusedTextColor = TextInputLayout::class.java.getDeclaredField("focusedTextColor")
             fFocusedTextColor.isAccessible = true
             fFocusedTextColor.set(textInputLayout, ColorStateList(arrayOf(intArrayOf(0)), intArrayOf(color)))
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
     }
 
     fun spacing(src: CharSequence?, kerning: Float): Spannable? {
@@ -72,5 +72,6 @@ object Utils {
         return builder
     }
 
-    fun convertDpToPixel(context: Context, dp: Double): Int = dp.toInt() * (context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
+    fun convertDpToPixel(context: Context, dp: Double): Int =
+            dp.toInt() * (context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
 }

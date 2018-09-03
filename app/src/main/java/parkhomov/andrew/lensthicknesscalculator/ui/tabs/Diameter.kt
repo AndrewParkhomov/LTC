@@ -10,7 +10,6 @@ import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.ui.glossary.GlossaryDetails
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
 import parkhomov.andrew.lensthicknesscalculator.utils.spacing8
-import timber.log.Timber
 import java.text.DecimalFormat
 
 /**
@@ -39,19 +38,19 @@ class Diameter : BaseFragment() {
         var dblValue = -1.0
         var pdValue = -1.0
         try {
-            edValue = java.lang.Double.valueOf(edET.text.toString())!!
+            edValue = java.lang.Double.valueOf(edET.text.toString())
         } catch (e: NumberFormatException) {
             Utils.highlightEditText(baseActivity!!, edET, edTxtInptL)
         }
 
         try {
-            dblValue = java.lang.Double.valueOf(dblET.text.toString())!!
+            dblValue = java.lang.Double.valueOf(dblET.text.toString())
         } catch (e: NumberFormatException) {
             Utils.highlightEditText(baseActivity!!, dblET, dblTxtInptL)
         }
 
         try {
-            pdValue = java.lang.Double.valueOf(pdET.text.toString())!!
+            pdValue = java.lang.Double.valueOf(pdET.text.toString())
         } catch (e: NumberFormatException) {
             Utils.highlightEditText(baseActivity!!, pdET, pdTxtInptL)
         }
@@ -103,7 +102,7 @@ class Diameter : BaseFragment() {
                         ), GlossaryDetails.TAG)
                         .commit()
             } catch (e: IllegalStateException) {
-                Timber.i(e.toString())
+                 println(e.toString())
             }
             hideKeyboard()
         }

@@ -1,14 +1,14 @@
 package parkhomov.andrew.lensthicknesscalculator.ui
 
 import android.os.Bundle
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.single_activity.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
 import parkhomov.andrew.lensthicknesscalculator.ui.glossary.GlossaryList
 import parkhomov.andrew.lensthicknesscalculator.ui.settings.Settings
 import parkhomov.andrew.lensthicknesscalculator.ui.tabs.TabsPageFragmentAdapter
-import timber.log.Timber
+
 
 class SingleActivity : BaseActivity() {
 
@@ -59,7 +59,7 @@ class SingleActivity : BaseActivity() {
                     .replace(R.id.mainContainerConstr, GlossaryList.instance, GlossaryList.TAG)
                     .commit()
         } catch (e: IllegalStateException) {
-            Timber.i(e.toString())
+             println(e.toString())
         }
         hideKeyboard()
     }
@@ -72,7 +72,7 @@ class SingleActivity : BaseActivity() {
                     .replace(R.id.mainContainerConstr, Settings.instance, Settings.TAG)
                     .commit()
         } catch (e: IllegalStateException) {
-            Timber.i(e.toString())
+             println(e.toString())
         }
         hideKeyboard()
     }

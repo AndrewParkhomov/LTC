@@ -1,7 +1,7 @@
 package parkhomov.andrew.lensthicknesscalculator.ui.dialog
 
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,8 +32,8 @@ class Result : DialogFragment() {
         axis = arguments?.getString(TAG + "axis")
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        dialog.window.setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white)
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white)
 
         return view
     }

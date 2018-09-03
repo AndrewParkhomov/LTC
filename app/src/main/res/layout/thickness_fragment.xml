@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/calculationContainerConstr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/v16sp"
             app:layout_constraintBottom_toTopOf="@+id/include_1"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
@@ -38,7 +38,7 @@
             android:entries="@array/index_of_refraction"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/include_1"
-            app:layout_constraintLeft_toRightOf="@+id/textView"
+            app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -49,9 +49,9 @@
             android:alpha="0.87"
             android:background="@android:color/transparent"
             android:padding="@dimen/v16dp"
-            android:src="@drawable/query"
+            app:srcCompat="@drawable/query"
             app:layout_constraintBottom_toTopOf="@+id/include_1"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
@@ -60,11 +60,11 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/sphereTxtInptL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -75,11 +75,11 @@
             android:textColorHint="@color/black"
             app:hintTextAppearance="@style/TextLabelColor"
             app:layout_constraintBottom_toTopOf="@+id/include_2"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sphereImgB"
             app:layout_constraintTop_toTopOf="@+id/include_1">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sphereET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="@dimen/v16sp" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
             android:id="@+id/sphereImgB"
@@ -104,9 +104,9 @@
             android:alpha="0.87"
             android:background="@android:color/transparent"
             android:padding="@dimen/v16dp"
-            android:src="@drawable/query"
+            app:srcCompat="@drawable/query"
             app:layout_constraintBottom_toTopOf="@+id/include_2"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_1" />
 
         <include
@@ -115,11 +115,11 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_1" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/cylinderTxtInptL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -130,11 +130,11 @@
             android:textColorHint="@color/black"
             app:hintTextAppearance="@style/TextLabelColor"
             app:layout_constraintBottom_toTopOf="@+id/include_3"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sphereImgB"
             app:layout_constraintTop_toTopOf="@+id/include_2">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/cylinderET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="@dimen/v16sp" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
             android:id="@+id/cylinderImgB"
@@ -159,9 +159,9 @@
             android:alpha="0.87"
             android:background="@android:color/transparent"
             android:padding="@dimen/v16dp"
-            android:src="@drawable/query"
+            app:srcCompat="@drawable/query"
             app:layout_constraintBottom_toTopOf="@+id/include_3"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_2" />
 
         <include
@@ -170,11 +170,11 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_2" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/axisTxtInptL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -185,11 +185,11 @@
             android:textColorHint="@color/black"
             app:hintTextAppearance="@style/TextLabelColor"
             app:layout_constraintBottom_toTopOf="@+id/include_3"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sphereImgB"
             app:layout_constraintTop_toTopOf="@+id/include_4">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/axisET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -207,7 +207,7 @@
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="@dimen/v16sp" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
             android:id="@+id/axisImgB"
@@ -216,9 +216,9 @@
             android:alpha="0.87"
             android:background="@android:color/transparent"
             android:padding="@dimen/v16dp"
-            android:src="@drawable/query"
+            app:srcCompat="@drawable/query"
             app:layout_constraintBottom_toTopOf="@+id/include_4"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_3" />
 
         <include
@@ -227,11 +227,11 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_3" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/curveTxtInptL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -242,11 +242,11 @@
             android:textColorHint="@color/black"
             app:hintTextAppearance="@style/TextLabelColor"
             app:layout_constraintBottom_toTopOf="@+id/include_5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sphereImgB"
             app:layout_constraintTop_toTopOf="@+id/include_4">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/curveET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -264,7 +264,7 @@
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="@dimen/v16sp" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
             android:id="@+id/curveImgB"
@@ -273,9 +273,9 @@
             android:alpha="0.87"
             android:background="@android:color/transparent"
             android:padding="@dimen/v16dp"
-            android:src="@drawable/query"
+            app:srcCompat="@drawable/query"
             app:layout_constraintBottom_toTopOf="@+id/include_5"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_4" />
 
         <include
@@ -284,11 +284,11 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_4" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/thicknessTxtInptL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -299,11 +299,11 @@
             android:textColorHint="@color/black"
             app:hintTextAppearance="@style/TextLabelColor"
             app:layout_constraintBottom_toTopOf="@+id/include_6"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sphereImgB"
             app:layout_constraintTop_toTopOf="@+id/include_5">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/centerThicknessET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -321,7 +321,7 @@
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="@dimen/v16sp" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
             android:id="@+id/thicknessImgB"
@@ -330,9 +330,9 @@
             android:alpha="0.87"
             android:background="@android:color/transparent"
             android:padding="@dimen/v16dp"
-            android:src="@drawable/query"
+            app:srcCompat="@drawable/query"
             app:layout_constraintBottom_toTopOf="@+id/include_6"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_5" />
 
         <include
@@ -341,11 +341,11 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_5" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edgeTxtInptL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -356,11 +356,11 @@
             android:textColorHint="@color/black"
             app:hintTextAppearance="@style/TextLabelColor"
             app:layout_constraintBottom_toTopOf="@+id/include_7"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sphereImgB"
             app:layout_constraintTop_toTopOf="@+id/include_6">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edgeThicknessET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -377,7 +377,7 @@
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="@dimen/v16sp" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
             android:id="@+id/edgeImgB"
@@ -386,9 +386,9 @@
             android:alpha="0.87"
             android:background="@android:color/transparent"
             android:padding="@dimen/v16dp"
-            android:src="@drawable/query"
+            app:srcCompat="@drawable/query"
             app:layout_constraintBottom_toTopOf="@+id/include_7"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_6" />
 
         <include
@@ -397,11 +397,11 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_6" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/diameterTxtInptL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -412,11 +412,11 @@
             android:textColorHint="@color/black"
             app:hintTextAppearance="@style/TextLabelColor"
             app:layout_constraintBottom_toTopOf="@+id/include_8"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/sphereImgB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sphereImgB"
             app:layout_constraintTop_toTopOf="@+id/include_7">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/diameterET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -434,7 +434,7 @@
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="@dimen/v16sp" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
             android:id="@+id/diameterImgB"
@@ -443,9 +443,9 @@
             android:alpha="0.87"
             android:background="@android:color/transparent"
             android:padding="@dimen/v16dp"
-            android:src="@drawable/query"
+            app:srcCompat="@drawable/query"
             app:layout_constraintBottom_toTopOf="@+id/include_8"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_7" />
 
         <include
@@ -454,8 +454,8 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_7" />
 
         <Button
@@ -472,11 +472,11 @@
             android:textColor="@color/gray_300"
             android:textSize="@dimen/v20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_8"
             app:layout_constraintVertical_bias="1"
             tools:ignore="MissingPrefix" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

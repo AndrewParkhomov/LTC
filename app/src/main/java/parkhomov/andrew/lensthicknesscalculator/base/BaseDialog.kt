@@ -6,14 +6,13 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.constraintlayout.widget.ConstraintLayout
 import parkhomov.andrew.lensthicknesscalculator.R
-import timber.log.Timber
 
 abstract class BaseDialog : DialogFragment() {
 
@@ -38,7 +37,7 @@ abstract class BaseDialog : DialogFragment() {
             try {
                 this.baseActivity = context
             } catch (e: NullPointerException) {
-                Timber.i(e.toString())
+                 println(e.toString())
             }
         }
     }
@@ -51,13 +50,13 @@ abstract class BaseDialog : DialogFragment() {
                 ViewGroup.LayoutParams.WRAP_CONTENT)
 
         // creating the fullscreen dialog
-        val dialog = Dialog(activity)
+        val dialog = Dialog(activity!!)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(root)
 
         if (dialog.window != null) {
-            dialog.window.setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white)
-            dialog.window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            dialog.window?.setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white)
+            dialog.window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         } else {
             dismiss()
         }

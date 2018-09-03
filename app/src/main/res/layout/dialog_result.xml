@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/v18sp"
         app:layout_constraintBottom_toTopOf="@+id/include_1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
@@ -24,8 +24,8 @@
         android:layout_marginLeft="@dimen/v16dp"
         android:layout_marginRight="@dimen/v16dp"
         android:layout_marginTop="@dimen/v60dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -34,8 +34,8 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/v18sp"
         app:layout_constraintBottom_toTopOf="@+id/include_2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_1" />
 
     <include
@@ -46,8 +46,8 @@
         android:layout_marginLeft="@dimen/v16dp"
         android:layout_marginRight="@dimen/v16dp"
         android:layout_marginTop="@dimen/v60dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_1" />
 
     <TextView
@@ -56,8 +56,8 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/v18sp"
         app:layout_constraintBottom_toTopOf="@+id/include_3"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_2" />
 
     <include
@@ -68,8 +68,8 @@
         android:layout_marginLeft="@dimen/v16dp"
         android:layout_marginRight="@dimen/v16dp"
         android:layout_marginTop="@dimen/v60dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_2" />
 
     <TextView
@@ -78,8 +78,8 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/v18sp"
         app:layout_constraintBottom_toTopOf="@+id/include_4"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_3" />
 
     <include
@@ -91,8 +91,8 @@
         android:layout_marginRight="@dimen/v16dp"
         android:layout_marginTop="@dimen/v60dp"
         android:visibility="invisible"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_3" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

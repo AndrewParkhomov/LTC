@@ -1,22 +1,22 @@
 package parkhomov.andrew.lensthicknesscalculator.base
 
 import android.content.Context
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AlertDialog
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.utils.MyContextWrapper
 import parkhomov.andrew.lensthicknesscalculator.utils.localeIso2
 import parkhomov.andrew.lensthicknesscalculator.utils.shaderPref
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    override fun attachBaseContext(newBase: Context) {
-        val sharedPreferences = newBase.getSharedPreferences(shaderPref, Context.MODE_PRIVATE)
-        val languageIso2 = sharedPreferences?.getString(localeIso2, "") ?: ""
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(MyContextWrapper.wrap(newBase, languageIso2)))
-    }
+//    override fun attachBaseContext(newBase: Context) {
+//        val sharedPreferences = newBase.getSharedPreferences(shaderPref, Context.MODE_PRIVATE)
+//        val languageIso2 = sharedPreferences?.getString(localeIso2, "") ?: ""
+//        super.attachBaseContext(CalligraphyContextWrapper.wrap(MyContextWrapper.wrap(newBase, languageIso2)))
+//    }
 
     val headers: MutableList<String> = mutableListOf()
     val description: MutableList<String> = mutableListOf()

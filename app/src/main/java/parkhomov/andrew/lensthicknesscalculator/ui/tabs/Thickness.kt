@@ -1,7 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.ui.tabs
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -10,13 +9,13 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.thickness_fragment.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.ui.dialog.Result
 import parkhomov.andrew.lensthicknesscalculator.ui.glossary.GlossaryDetails
 import parkhomov.andrew.lensthicknesscalculator.utils.*
-import timber.log.Timber
 
 /**
  * Created by MyPC on 29.07.2017.
@@ -70,7 +69,7 @@ class Thickness : BaseFragment() {
     }
 
     private fun customizeSpinner() {
-        val adapter = ArrayAdapter.createFromResource(activity,
+        val adapter = ArrayAdapter.createFromResource(activity!!,
                 R.array.index_of_refraction, R.layout.spinner_header)
         adapter.setDropDownViewResource(R.layout.spinner_body)
         new_spinner.adapter = adapter
@@ -106,7 +105,7 @@ class Thickness : BaseFragment() {
                         ), GlossaryDetails.TAG)
                         .commit()
             } catch (e: IllegalStateException) {
-                Timber.i(e.toString())
+                 println(e.toString())
             }
             hideKeyboard()
         }

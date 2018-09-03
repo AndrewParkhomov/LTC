@@ -4,8 +4,7 @@ import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
 import android.os.Build
-import android.support.v4.app.Fragment
-import timber.log.Timber
+import androidx.fragment.app.Fragment
 
 
 abstract class BaseFragment : Fragment() {
@@ -38,7 +37,7 @@ abstract class BaseFragment : Fragment() {
             try {
                 this.baseActivity = context
             } catch (e: NullPointerException) {
-                Timber.i(e.toString())
+                 println(e.toString())
             }
         }
     }
