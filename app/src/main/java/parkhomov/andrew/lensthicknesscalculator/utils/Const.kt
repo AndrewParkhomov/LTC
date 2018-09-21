@@ -5,6 +5,11 @@ const val shaderPref = "SHARED_PREF"
 const val localeIso2 = "SAVE_LANGUAGE_ISO2"
 const val buttonId = "RADIO_BUTTON_ID"
 
+const val thickness = 0
+const val diameter = 1
+const val transposition = 2
+const val glossary = 3
+
 // index of material
 const val LAB_INDEX = 1.53  // Constant index 1.53
 const val INDEX_1498 = 1.498

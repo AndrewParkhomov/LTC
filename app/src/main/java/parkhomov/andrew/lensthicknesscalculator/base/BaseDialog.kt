@@ -6,12 +6,12 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
+import android.support.constraint.ConstraintLayout
+import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentManager
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.constraintlayout.widget.ConstraintLayout
 import parkhomov.andrew.lensthicknesscalculator.R
 
 abstract class BaseDialog : DialogFragment() {
@@ -37,7 +37,7 @@ abstract class BaseDialog : DialogFragment() {
             try {
                 this.baseActivity = context
             } catch (e: NullPointerException) {
-                 println(e.toString())
+                println(e.toString())
             }
         }
     }

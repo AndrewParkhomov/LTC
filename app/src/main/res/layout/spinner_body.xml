@@ -7,5 +7,5 @@
     android:background="@color/gray_50"
     android:ellipsize="marquee"
     android:padding="@dimen/v15dp"
-    android:textColor="@color/black"
-    android:singleLine="true" />
+    android:singleLine="true"
+    android:textColor="@color/black" />

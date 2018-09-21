@@ -1,6 +1,8 @@
 package parkhomov.andrew.lensthicknesscalculator
 
 import android.app.Application
+import org.koin.android.ext.android.startKoin
+import parkhomov.andrew.lensthicknesscalculator.di.lensThicknessCalculatorApp
 
 
 /**
@@ -28,5 +30,8 @@ class MyApp : Application() {
 //                .setFontAttrId(R.attr.fontPath)
 //                .build()
 //        )
+
+        // start Koin context
+        startKoin(this, lensThicknessCalculatorApp)
     }
 }

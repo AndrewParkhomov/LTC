@@ -19,11 +19,10 @@
     <!-- Button text -->
     <string name="button_text_calculate">Розрахувати</string>
     <!-- Tab headers -->
-    <string name="tab_lens_thickness">Т О В Щ И Н А</string>
-    <string name="tab_diameter">Д І А М Е Т Р</string>
-    <!-- Headers -->
-    <string name="header_glossary_list">ГЛОСАРІЙ</string>
-    <string name="header_settings">НАЛАШТУВАННЯ</string>
+    <string name="fragment_thickness">Товщина</string>
+    <string name="fragment_diameter">Діаметр</string>
+    <string name="fragment_transposition">Транспозиція</string>
+    <string name="fragment_glossary">Глоссарій</string>
     <!-- Settings list item -->
     <string name="header_language">Мова</string>
     <string name="header_rate_this_app">Оцінити додаток</string>

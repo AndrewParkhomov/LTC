@@ -1,31 +1,26 @@
 package parkhomov.andrew.lensthicknesscalculator.base
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
-import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AlertDialog
+import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
+import com.google.gson.Gson
 import parkhomov.andrew.lensthicknesscalculator.R
+import parkhomov.andrew.lensthicknesscalculator.data.dto.GlossaryItem
 import parkhomov.andrew.lensthicknesscalculator.utils.MyContextWrapper
 import parkhomov.andrew.lensthicknesscalculator.utils.localeIso2
 import parkhomov.andrew.lensthicknesscalculator.utils.shaderPref
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 
 abstract class BaseActivity : AppCompatActivity() {
 
-//    override fun attachBaseContext(newBase: Context) {
-//        val sharedPreferences = newBase.getSharedPreferences(shaderPref, Context.MODE_PRIVATE)
-//        val languageIso2 = sharedPreferences?.getString(localeIso2, "") ?: ""
-//        super.attachBaseContext(CalligraphyContextWrapper.wrap(MyContextWrapper.wrap(newBase, languageIso2)))
-//    }
-
-    val headers: MutableList<String> = mutableListOf()
-    val description: MutableList<String> = mutableListOf()
-    val images: MutableList<Int> = mutableListOf()
-
-    fun hideKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
+    override fun attachBaseContext(newBase: Context) {
+        val sharedPreferences = newBase.getSharedPreferences(shaderPref, Context.MODE_PRIVATE)
+        val languageIso2 = sharedPreferences?.getString(localeIso2, "") ?: ""
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(MyContextWrapper.wrap(newBase, languageIso2)))
     }
+
+    var glossaryItem: GlossaryItem? = null
 
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount != 0)
@@ -41,44 +36,30 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected fun createListWithData() {
-        //add headers
-        headers.add(0, getString(R.string.index_of_refraction))
-        headers.add(1, getString(R.string.sphere_power))
-        headers.add(2, getString(R.string.cylinder_power))
-        headers.add(3, getString(R.string.axis))
-        headers.add(4, getString(R.string.real_base_curve))
-        headers.add(5, getString(R.string.center_thickness))
-        headers.add(6, getString(R.string.edge_thickness))
-        headers.add(7, getString(R.string.diameter))
-        headers.add(8, getString(R.string.effective_diameter))
-        headers.add(9, getString(R.string.distance_between_lenses))
-        headers.add(10, getString(R.string.pupil_distance))
-        headers.add(11, getString(R.string.transposition))
-        // add description
-        description.add(0, getString(R.string.description_index_of_refraction))
-        description.add(1, getString(R.string.description_sphere_power))
-        description.add(2, getString(R.string.description_cylinder_power))
-        description.add(3, getString(R.string.description_axis))
-        description.add(4, getString(R.string.description_real_base_curve))
-        description.add(5, getString(R.string.description_center_thickness))
-        description.add(6, getString(R.string.description_edge_thickness))
-        description.add(7, getString(R.string.description_diameter))
-        description.add(8, getString(R.string.description_effective_diameter))
-        description.add(9, getString(R.string.description_distance_between_lenses))
-        description.add(10, getString(R.string.description_pupil_distance))
-        description.add(11, getString(R.string.description_transposition))
-        // images for each item
-        images.add(0, R.drawable.index_of_refraction_img)
-        images.add(1, R.drawable.sphere_img)
-        images.add(2, R.drawable.cylinder_img)
-        images.add(3, R.drawable.axis_img)
-        images.add(4, R.drawable.front_curve_img)
-        images.add(5, R.drawable.thickness_gauge_img)
-        images.add(6, R.drawable.edge_thickness_img)
-        images.add(7, R.drawable.diam_img)
-        images.add(8, R.drawable.ed_img)
-        images.add(9, R.drawable.dbl_img)
-        images.add(10, R.drawable.pd_img)
-        images.add(11, R.drawable.transposition_img)
+        val text = resources.openRawResource(R.raw.glossary)
+                .bufferedReader().use { it.readText() }
+
+        glossaryItem = Gson().fromJson(text, GlossaryItem::class.java)
+        if (glossaryItem == null)
+            throw RuntimeException("Some error occurred while parsing json file")
+
+
+        for (item in glossaryItem!!.data) {
+            val imageId = when (item.id) {
+                0 -> R.drawable.index_of_refraction_img
+                1 -> R.drawable.sphere_img
+                2 -> R.drawable.cylinder_img
+                3 -> R.drawable.axis_img
+                4 -> R.drawable.front_curve_img
+                5 -> R.drawable.thickness_gauge_img
+                6 -> R.drawable.edge_thickness_img
+                7 -> R.drawable.diam_img
+                8 -> R.drawable.ed_img
+                9 -> R.drawable.dbl_img
+                10 -> R.drawable.pd_img
+                else -> R.drawable.transposition_img
+            }
+            item.imageId = imageId
+        }
     }
 }

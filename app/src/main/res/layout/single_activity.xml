@@ -1,92 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainContainerConstr"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_200">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/v60dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/openGlossary"
-            android:layout_width="@dimen/v50dp"
-            android:layout_height="0dp"
-            android:alpha="0.87"
-            android:background="@android:color/transparent"
-            android:paddingLeft="@dimen/v10dp"
-            android:paddingRight="@dimen/v10dp"
-            app:srcCompat="@drawable/glossary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/header"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="@dimen/v20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/openGlossary"
-            app:layout_constraintEnd_toStartOf="@+id/openSettings"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            tools:ignore="MissingPrefix" />
-
-        <ImageView
-            android:id="@+id/openSettings"
-            android:layout_width="@dimen/v50dp"
-            android:layout_height="0dp"
-            android:alpha="0.87"
-            android:background="@android:color/transparent"
-            android:paddingLeft="@dimen/v10dp"
-            android:paddingRight="@dimen/v10dp"
-            app:srcCompat="@drawable/settings"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/frame_layout_tab_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="0dp"
+        app:bnbInactiveColor="@color/white"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabBackground="@color/gray_200"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/blue_700"
-                app:tabIndicatorHeight="@dimen/v3dp"
-                app:tabMaxWidth="0dp"
-                app:tabMode="fixed"
-                app:tabTextAppearance="@style/MyCustomTextAppearance"
-                app:tabTextColor="@color/gray_900" />
-
-        </androidx.viewpager.widget.ViewPager>
-
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

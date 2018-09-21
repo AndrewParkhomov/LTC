@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 7
         versionName "2.3"
@@ -29,10 +29,6 @@ android {
         disable 'MissingTranslation'
         abortOnError false
     }
-
-    androidExtensions {
-        experimental = true
-    }
 }
 
 repositories {
@@ -42,24 +38,39 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // support
+    def constraint_version = "1.1.3"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_version"
+    def support_version = "28.0.0-rc02"
+    implementation "com.android.support:recyclerview-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // DI
+    def koin_version = "1.0.0"
+    implementation "org.koin:koin-core:$koin_version"
+    implementation "org.koin:koin-android:$koin_version"
+    // navigation
+    implementation "ru.terrakok.cicerone:cicerone:3.0.0"
+    // custom fonts for app
+    def custom_font_version = "2.3.0"
+    implementation "uk.co.chrisjenx:calligraphy:$custom_font_version"
+    // annotations
+    implementation "javax.inject:javax.inject:1"
 
-    def support_version = "1.0.0-alpha1"
-    implementation "androidx.appcompat:appcompat:$support_version"
-    implementation "androidx.fragment:fragment:$support_version"
-    implementation "androidx.recyclerview:recyclerview:$support_version"
-    implementation "com.google.android.material:material:$support_version"
-    def constraint_version = "1.1.0"
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
-//    // logger
-//    def timer_version = "4.7.0"
-//    implementation "com.jakewharton.timber:timber:$timer_version"
-//    // fabric crashlytics
-//    def crashlytics_version = "2.9.5@aar"
-//    implementation("com.crashlytics.sdk.android:crashlytics:$crashlytics_version") {
-//        transitive = true
-//    }
-//    // custom fonts for app
-//    def custom_font_version = "2.3.0"
-//    implementation "uk.co.chrisjenx:calligraphy:$custom_font_version"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //Bottom Navigation Bar
+    implementation('com.ashokvarma.android:bottom-navigation-bar:2.0.5') {
+        exclude group: "com.android.support", module: "design"
+    }
+
+    // expandable view
+    def  expandable_view= "1.0.3"
+    implementation "com.mindorks.android:placeholderview:$expandable_view"
+    kapt "com.mindorks.android:placeholderview-compiler:$expandable_view"
+
+    // network
+    def rx2NetworkingVersion = '1.0.2'
+    implementation "com.amitshekhar.android:rx2-android-networking:$rx2NetworkingVersion"
+
+
 }

@@ -7,5 +7,5 @@
     android:drawablePadding="10dp"
     android:drawableRight="@drawable/arrow_gray_down"
     android:ellipsize="marquee"
-    android:textColor="@color/black"
-    android:singleLine="true" />
+    android:singleLine="true"
+    android:textColor="@color/black" />
