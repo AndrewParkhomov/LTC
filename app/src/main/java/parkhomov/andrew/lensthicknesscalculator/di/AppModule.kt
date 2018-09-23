@@ -11,6 +11,7 @@ import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.ThicknessI
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.ThicknessPresenter
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.TranspositionI
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.TranspositionPresenter
+import parkhomov.andrew.lensthicknesscalculator.utils.interactor.Interactor
 
 /**
  * App Components
@@ -18,12 +19,14 @@ import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.Transp
 val weatherAppModule = module {
 
     // Presenter with injection parameter for Diameter View
-    factory<SingleActivityI.Presenter> { SingleActivityPresenter(get()) }
+    factory<SingleActivityI.Presenter> { SingleActivityPresenter(get(), get()) }
 
-    factory<ThicknessI.Presenter> { ThicknessPresenter() }
+    factory<ThicknessI.Presenter> { ThicknessPresenter(get()) }
     factory<DiameterI.Presenter> { DiameterPresenter() }
     factory<GlossaryI.Presenter> { GlossaryPresenter() }
     factory<TranspositionI.Presenter> { TranspositionPresenter() }
+
+    single(createOnStart = true) { Interactor() }
 
 }
 

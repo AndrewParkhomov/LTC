@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.data.dto
+package parkhomov.andrew.lensthicknesscalculator.data.glossary
 
 import com.google.gson.annotations.SerializedName
 

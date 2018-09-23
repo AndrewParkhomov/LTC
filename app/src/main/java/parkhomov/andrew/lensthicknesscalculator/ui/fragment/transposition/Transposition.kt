@@ -30,9 +30,10 @@ class Transposition : BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        wrapper_sphere.hint = getString(R.string.transposition_power_sphere, spherePower)
-        wrapper_cylinder.hint = getString(R.string.transposition_power_cylinder, spherePower)
-        wrapper_axis.hint = getString(R.string.transposition_axis, spherePower)
+        setHintSphere(spherePower)
+        setHintCylinder(cylinderPower)
+        setHintAxis(axis)
+        calculate()
 
         input_edit_text_sphere.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -41,7 +42,7 @@ class Transposition : BaseFragment(),
                 } catch (e: NumberFormatException) {
                     0.0
                 }
-                wrapper_sphere.hint = getString(R.string.transposition_power_sphere, spherePower)
+                setHintSphere(spherePower)
                 calculate()
             }
 
@@ -56,7 +57,7 @@ class Transposition : BaseFragment(),
                 } catch (e: NumberFormatException) {
                     0.0
                 }
-                wrapper_cylinder.hint = getString(R.string.transposition_power_cylinder, cylinderPower)
+                setHintCylinder(cylinderPower)
                 calculate()
             }
 
@@ -75,15 +76,13 @@ class Transposition : BaseFragment(),
                     input_edit_text_axis.text?.clear()
                     axis = 0
                 }
-                wrapper_axis.hint = getString(R.string.transposition_axis, axis)
+                setHintAxis(axis)
                 calculate()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-
-        calculate()
     }
 
     private fun calculate() {
@@ -93,9 +92,9 @@ class Transposition : BaseFragment(),
             0.0
         }
         val cylinder = try {
-            if(cylinderPower == 0.0){
+            if (cylinderPower == 0.0) {
                 0.0
-            }else{
+            } else {
                 -cylinderPower
             }
         } catch (e: NumberFormatException) {
@@ -115,6 +114,17 @@ class Transposition : BaseFragment(),
         text_view_result.text = getString(R.string.transposition_result, sphere, cylinder, axis)
     }
 
+    fun setHintSphere(value: Double) {
+        wrapper_sphere.hint = getString(R.string.transposition_power_sphere, value)
+    }
+
+    fun setHintCylinder(value: Double) {
+        wrapper_cylinder.hint = getString(R.string.transposition_power_cylinder, value)
+    }
+
+    fun setHintAxis(value: Int) {
+        wrapper_axis.hint = getString(R.string.transposition_axis, value)
+    }
 
     override fun onDestroyView() {
         presenter.onDetach()

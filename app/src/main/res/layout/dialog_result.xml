@@ -10,89 +10,88 @@
         android:id="@+id/centerThicknessTxtV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/v18sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/include_1"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include
+    <View
         android:id="@+id/include_1"
-        layout="@layout/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/v16dp"
-        android:layout_marginRight="@dimen/v16dp"
-        android:layout_marginTop="@dimen/v60dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/gray_300"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/minimumEdgeThicknessTxtV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/v18sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/include_2"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_1" />
 
-    <include
+    <View
         android:id="@+id/include_2"
-        layout="@layout/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/v16dp"
-        android:layout_marginRight="@dimen/v16dp"
-        android:layout_marginTop="@dimen/v60dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/gray_300"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_1" />
 
     <TextView
         android:id="@+id/maximumEdgeThicknessTxtV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/v18sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/include_3"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_2" />
 
-    <include
+    <View
         android:id="@+id/include_3"
-        layout="@layout/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/v16dp"
-        android:layout_marginRight="@dimen/v16dp"
-        android:layout_marginTop="@dimen/v60dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/gray_300"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_2" />
 
     <TextView
         android:id="@+id/dymanicAxisEdgeThicknessTxtV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/v18sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/include_4"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_3" />
-
-    <include
+    
+    <View
         android:id="@+id/include_4"
-        layout="@layout/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/v16dp"
-        android:layout_marginRight="@dimen/v16dp"
-        android:layout_marginTop="@dimen/v60dp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/gray_300"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_3" />
 
 </android.support.constraint.ConstraintLayout>

@@ -11,7 +11,4 @@ constructor(
 ) : BasePresenter<DiameterI.View>(), DiameterI.Presenter {
 
 
-    override fun onCalculateButtonClicked() {
-        mvpView?.onCalculateButtonClicked()
-    }
 }

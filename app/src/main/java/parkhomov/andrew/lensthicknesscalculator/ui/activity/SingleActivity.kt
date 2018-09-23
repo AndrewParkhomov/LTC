@@ -1,13 +1,10 @@
 package parkhomov.andrew.lensthicknesscalculator.ui.activity
 
 import android.content.ActivityNotFoundException
-import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
@@ -16,18 +13,15 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import kotlinx.android.synthetic.main.single_activity.*
 import org.koin.android.ext.android.inject
+import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.Diameter
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.Glossary
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.settings.AboutDialogActivity
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.settings.Language
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.Thickness
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.Transposition
-import parkhomov.andrew.lensthicknesscalculator.utils.diameter
-import parkhomov.andrew.lensthicknesscalculator.utils.transposition
-import parkhomov.andrew.lensthicknesscalculator.utils.glossary
-import parkhomov.andrew.lensthicknesscalculator.utils.thickness
+import parkhomov.andrew.lensthicknesscalculator.utils.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportFragmentNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -87,6 +81,7 @@ class SingleActivity : BaseActivity(),
         when (item.itemId) {
             R.id.menu_item_language -> presenter.onLanguageClicked()
             R.id.menu_item_rate -> presenter.onRateThisAppClicked()
+            R.id.menu_item_share -> presenter.onShareResultClicked()
             R.id.menu_item_about -> presenter.onAboutClicked()
         }
         return super.onOptionsItemSelected(item)
@@ -164,7 +159,6 @@ class SingleActivity : BaseActivity(),
     ) {
         override fun createFragment(screenKey: String, data: Any?): Fragment {
             return when (screenKey) {
-                AboutDialogActivity.TAG -> AboutDialogActivity.instance
                 else -> throw RuntimeException("No screen key provided")
             }
         }
@@ -229,25 +223,43 @@ class SingleActivity : BaseActivity(),
     }
 
     override fun showRateThisAppDialog() {
-        val dialog = AlertDialog.Builder(this)
+        AlertDialog.Builder(this)
                 .setTitle(R.string.rate_app_header)
                 .setMessage(R.string.rate_app_body)
-                .setNegativeButton(R.string.rate_app_dialog_no, null)
-                .setPositiveButton(R.string.rate_app_dialog_ok) { _, _ ->
-                    try {
-                        startActivity(Intent(Intent.ACTION_VIEW,
-                                Uri.parse(getString(R.string.app_google_play_link) + packageName)))
-                    } catch (e: ActivityNotFoundException) {
-                        startActivity(Intent(Intent.ACTION_VIEW,
-                                Uri.parse(getString(R.string.app_google_play_link) + packageName)))
-                    }
-                }.create()
-        dialog.show()
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT)
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setPadding(30, 0, 10, 0)
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.blue_700))
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.blue_700))
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes) { _, _ ->
+                    presenter.onRateAppClicked()
+                }
+                .create()
+                .show()
+    }
+
+    override fun openGooglePlay() {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW,
+                    Uri.parse(getString(R.string.app_google_play_link) + packageName)))
+        } catch (e: ActivityNotFoundException) {
+            startActivity(Intent(Intent.ACTION_VIEW,
+                    Uri.parse(getString(R.string.app_google_play_link) + packageName)))
+        }
+    }
+
+    override fun shareResult(sharedText: String) {
+        val linkInPlayStore = "https://play.google.com/store/apps/details?id=" +
+                BuildConfig.APPLICATION_ID
+        val headerText = getString(R.string.app_name)
+
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_EMAIL, "")
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_result_subject))
+            putExtra(Intent.EXTRA_TEXT, headerText + "\n" + linkInPlayStore + "\n\n" + sharedText)
+        }
+        startActivity(Intent.createChooser(intent, getString(R.string.share_with)))
+    }
+
+    override fun showToast(resId: Int) {
+        showMessage(resId)
     }
 
     override fun showLanguageDialog() {
@@ -255,7 +267,14 @@ class SingleActivity : BaseActivity(),
     }
 
     override fun showAboutDialog() {
-        AboutDialogActivity.instance.showDialog(supportFragmentManager, AboutDialogActivity.TAG)
+        val version = getString(R.string.version, BuildConfig.VERSION_NAME)
+        AlertDialog.Builder(this)
+                .setMessage(version)
+                .setPositiveButton(android.R.string.yes) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
     }
 
 }

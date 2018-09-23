@@ -20,7 +20,7 @@
     <string name="programing_language">Kotlin</string>
     <string name="year">2018</string>
     <string name="copyright">©</string>
-    <string name="diam_activ_textView_result_formula">ED x 2 + DBL - PD =" "</string>
+    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f.0 mm</string>
 
     <!-- Thickness hints -->
     <string name="tab_thkns_material_index">Index of refraction</string>
@@ -34,12 +34,9 @@
     <string name="tab_thkns_wrong_axis">Invalid axis data</string>
 
     <!-- Diameter hints-->
-    <string name="tab_diameter_hint_ed">Effective diameter</string>
-    <string name="tab_diameter_hint_dbl">Distance between lenses</string>
-    <string name="tab_diameter_hint_pd">Pupil distance</string>
-
-    <!-- Button text-->
-    <string name="button_text_calculate">Calculate</string>
+    <string name="tab_diameter_hint_ed">Effective diameter %1$.0f.00</string>
+    <string name="tab_diameter_hint_dbl">Distance between lenses %1$.0f.00</string>
+    <string name="tab_diameter_hint_pd">Pupil distance %1$.0f.00</string>
 
     <!-- Tab headers-->
     <string name="fragment_thickness">Thickness</string>
@@ -50,6 +47,7 @@
     <!-- Settings list item-->
     <string name="header_language">Language</string>
     <string name="header_rate_this_app">Rate this app</string>
+    <string name="header_share">Share</string>
     <string name="header_about">About</string>
 
     <!-- Result-->
@@ -65,21 +63,22 @@
     <string name="ukrainian">Українська</string>
 
     <!-- Transposition -->
-    <string name="transposition_power_sphere">Sphere %1$s</string>
-    <string name="transposition_power_cylinder">Cylinder %1$s</string>
-    <string name="transposition_axis">Axis %1$s&#176;</string>
+    <string name="transposition_power_sphere">Sphere %1$.0f.0</string>
+    <string name="transposition_power_cylinder">Cylinder %1$.0f.0</string>
+    <string name="transposition_axis">Axis %1$d&#176;</string>
     <string name="transposition_result">Sphere power %1$s\nCyliner power %2$s\nAxis %3$s&#176;</string>
 
     <!-- About program -->
-    <string name="version">Version " "</string>
-    <string name="author_name">Developed by:\nParkhomov Andrew</string>
-    <string name="author_email">E-mail:\nparkhomov.andrew@gmail.com</string>
+    <string name="version">Version %1$s\nDeveloped by Parkhomov Andrew\nE-mail:\nparkhomov.andrew@gmail.com</string>
 
     <!-- Rate this app -->
-    <string name="rate_app_header"><b>Rate this app</b></string>
+    <string name="rate_app_header">Rate this app</string>
     <string name="rate_app_body">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thank you for your support!</string>
-    <string name="rate_app_dialog_ok">Rate now</string>
-    <string name="rate_app_dialog_no">No, thanks</string>
+
+    <!-- Share result -->
+    <string name="share_result_subject">Lens data</string>
+    <string name="share_with">Share with…</string>
+    <string name="share_result_is_empty">There is no data for sharing</string>
 
     <!-- Exit -->
     <string name="exit_question_title">Exit</string>

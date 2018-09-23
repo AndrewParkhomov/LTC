@@ -7,13 +7,11 @@ interface DiameterI {
 
     interface Presenter : MvpPresenter<View> {
 
-        fun onCalculateButtonClicked()
 
     }
 
     interface View : MvpView<Presenter> {
 
-        fun onCalculateButtonClicked()
 
     }
 

@@ -12,10 +12,6 @@
     <!-- red-->
     <color name="red_a_700">#D50000</color>
 
-    <!-- blue-->
-    <color name="blue_500">#2196F3</color>
-    <color name="blue_700">#1976D2</color>
-
     <color name="gray_50">#FAFAFA</color>
     <color name="gray_100">#F5F5F5</color>
     <color name="gray_200">#EEEEEE</color>

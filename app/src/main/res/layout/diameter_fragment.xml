@@ -1,6 +1,5 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/calculationContainerConstr"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,159 +7,88 @@
     android:focusableInTouchMode="true">
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/edTxtInptL"
+        android:id="@+id/wrapper_ed"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="@dimen/v16dp"
-        android:textColorHint="@color/black"
-        app:hintTextAppearance="@style/TextLabelColor"
-        app:layout_constraintBottom_toTopOf="@+id/include_2"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="14dp"
+        android:hint="@string/tab_diameter_hint_ed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/edET"
+            android:id="@+id/input_edit_text_ed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:digits="0123456789."
             android:ems="3"
-            android:hint="@string/tab_diameter_hint_ed"
-            android:inputType="date"
-            android:maxLines="1"
-            android:paddingTop="@dimen/v5dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textCursorDrawable="@drawable/cursor_color"
-            android:textSize="@dimen/v16sp" />
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLines="1" />
 
     </android.support.design.widget.TextInputLayout>
-
-    <include
-        android:id="@+id/include_2"
-        layout="@layout/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/dblTxtInptL"
+        android:id="@+id/wrapper_dbl"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="@dimen/v16dp"
-        android:textColorHint="@color/black"
-        app:hintTextAppearance="@style/TextLabelColor"
-        app:layout_constraintBottom_toTopOf="@+id/include_3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include_2">
+        android:layout_marginTop="14dp"
+        android:hint="@string/tab_diameter_hint_dbl"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper_ed"
+        app:layout_constraintStart_toStartOf="@+id/wrapper_ed"
+        app:layout_constraintTop_toBottomOf="@+id/wrapper_ed">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/dblET"
+            android:id="@+id/input_edit_text_dbl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:digits="0123456789."
             android:ems="3"
-            android:hint="@string/tab_diameter_hint_dbl"
-            android:inputType="date"
-            android:maxLines="1"
-            android:paddingTop="@dimen/v5dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textCursorDrawable="@drawable/cursor_color"
-            android:textSize="@dimen/v16sp" />
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLines="1" />
 
     </android.support.design.widget.TextInputLayout>
-
-    <include
-        android:id="@+id/include_3"
-        layout="@layout/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/v60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include_2" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/pdTxtInptL"
+        android:id="@+id/wrapper_pd"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="@dimen/v16dp"
-        android:textColorHint="@color/black"
-        app:hintTextAppearance="@style/TextLabelColor"
-        app:layout_constraintBottom_toTopOf="@+id/include_4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include_3">
+        android:layout_marginTop="14dp"
+        android:hint="@string/tab_diameter_hint_pd"
+        app:layout_constraintEnd_toEndOf="@+id/wrapper_dbl"
+        app:layout_constraintStart_toStartOf="@+id/wrapper_dbl"
+        app:layout_constraintTop_toBottomOf="@+id/wrapper_dbl">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/pdET"
+            android:id="@+id/input_edit_text_pd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            android:digits="0123456789."
             android:ems="3"
-            android:hint="@string/tab_diameter_hint_pd"
-            android:inputType="date"
-            android:maxLines="1"
-            android:paddingTop="@dimen/v5dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textCursorDrawable="@drawable/cursor_color"
-            android:textSize="@dimen/v16sp" />
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLines="1" />
 
     </android.support.design.widget.TextInputLayout>
-
-    <include
-        android:id="@+id/include_4"
-        layout="@layout/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/v60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include_3" />
 
     <TextView
         android:id="@+id/textTest"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="@dimen/v16dp"
-        android:layout_marginRight="@dimen/v16dp"
-        android:layout_marginTop="@dimen/v20dp"
-        android:gravity="center"
-        android:textColor="#000000"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="14dp"
         android:textSize="20sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include_4" />
-
-
-    <Button
-        android:id="@+id/diameterCalculateButton"
-        style="?android:attr/borderlessButtonStyle"
-        fontPath="raleway_bold.ttf"
-        android:layout_width="288dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="@dimen/v16dp"
-        android:layout_marginTop="@dimen/v20dp"
-        android:background="@drawable/round_button"
-        android:text="@string/button_text_calculate"
-        android:textAllCaps="false"
-        android:textColor="@color/gray_300"
-        android:textSize="@dimen/v20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include_4"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="MissingPrefix" />
-
+        app:layout_constraintTop_toBottomOf="@+id/wrapper_pd" />
 
 </android.support.constraint.ConstraintLayout>

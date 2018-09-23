@@ -7,12 +7,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.thickness_fragment.*
+import org.koin.android.ext.android.inject
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
+import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.Result
 import parkhomov.andrew.lensthicknesscalculator.utils.*
 
@@ -20,7 +21,8 @@ import parkhomov.andrew.lensthicknesscalculator.utils.*
  * Created by MyPC on 29.07.2017.
  */
 
-class Thickness : BaseFragment() {
+class Thickness : BaseFragment(),
+        ThicknessI.View {
 
     private var axis: Int = 0
     private var axisView: Int = 0
@@ -41,15 +43,18 @@ class Thickness : BaseFragment() {
     private var recalculatedCylinderCurve: Double = 0.0
     private var recalculatedSphereCurve: Double = 0.0
 
+    override val presenter: ThicknessI.Presenter  by inject()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.thickness_fragment, container, false)
+
+        presenter.onAttach(this)
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        thicknessCalculateButton.text = Utils.spacing(getString(R.string.button_text_calculate), spacing8)
 
         customizeSpinner()
         setUpTextWatchers()
@@ -433,10 +438,10 @@ class Thickness : BaseFragment() {
             if (cylinderPower > 0 || cylinderPower < 0) {
                 cylinderCalculation()
             } else {
-                val result = Result.getInstance(
+                presenter.showResultDialog(
                         ((centerThickness * 1e2).toLong() / 1e2).toString(),
-                        ((edgeThickness * 1e2).toLong() / 1e2).toString())
-                result.show(fragmentManager, "result")
+                        ((edgeThickness * 1e2).toLong() / 1e2).toString()
+                )
             }
     }
 
@@ -456,19 +461,23 @@ class Thickness : BaseFragment() {
         val etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness
 
         if (cylinderPower != 0.0) {
-            val result = Result.getInstance(
+            presenter.showResultDialog(
                     ((centerThickness * 1e2).toLong() / 1e2).toString(),
                     ((edgeThickness * 1e2).toLong() / 1e2).toString(),
                     ((maxEdgeThickness * 1e2).toLong() / 1e2).toString(),
                     ((etOnCertainAxis * 1e2).toLong() / 1e2).toString(),
-                    axisView.toString())
-            result.show(fragmentManager, "result")
+                    axisView.toString()
+            )
         } else {
-            val result = Result.getInstance(
+            presenter.showResultDialog(
                     ((centerThickness * 1e2).toLong() / 1e2).toString(),
-                    ((edgeThickness * 1e2).toLong() / 1e2).toString())
-            result.show(fragmentManager, "result")
+                    ((edgeThickness * 1e2).toLong() / 1e2).toString()
+            )
         }
+    }
+
+    override fun showResultDialog(calculatedData: CalculatedData) {
+        Result.getInstance(calculatedData).show(fragmentManager, Result.TAG)
     }
 
     //Declaration

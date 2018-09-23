@@ -10,6 +10,11 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/menu_item_share"
+        android:title="@string/header_share"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/menu_item_rate"
         android:title="@string/header_rate_this_app"
         app:showAsAction="never" />

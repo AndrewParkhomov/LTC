@@ -1,381 +1,381 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/calculationContainerConstr"
+    <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/calculationContainerConstr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:alpha="0.87"
+                android:minWidth="120dp"
+                android:text="@string/tab_thkns_material_index"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/include_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/new_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:alpha="0.87"
+                android:background="@android:color/transparent"
+                android:entries="@array/index_of_refraction"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@+id/include_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/include_1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="60dp"
+                android:background="@color/gray_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/sphereTxtInptL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:alpha="0.87"
+                android:textColorHint="@color/black"
+                app:hintTextAppearance="@style/TextLabelColor"
+                app:layout_constraintBottom_toTopOf="@+id/include_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/include_1">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/sphereET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.87"
+                    android:background="@android:color/transparent"
+                    android:ems="3"
+                    android:hint="@string/tab_thkns_sphere_power"
+                    android:inputType="date"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:id="@+id/include_2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="60dp"
+                android:background="@color/gray_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_1" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/cylinderTxtInptL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:alpha="0.87"
+                android:textColorHint="@color/black"
+                app:hintTextAppearance="@style/TextLabelColor"
+                app:layout_constraintBottom_toTopOf="@+id/include_3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/include_2">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/cylinderET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.87"
+                    android:background="@android:color/transparent"
+                    android:ems="3"
+                    android:hint="@string/tab_thkns_cylinder_power"
+                    android:inputType="date"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:id="@+id/include_3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="60dp"
+                android:background="@color/gray_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_2" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/axisTxtInptL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:alpha="0.87"
+                android:textColorHint="@color/black"
+                app:hintTextAppearance="@style/TextLabelColor"
+                app:layout_constraintBottom_toTopOf="@+id/include_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_3">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/axisET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.87"
+                    android:background="@android:color/transparent"
+                    android:digits="0123456789."
+                    android:ems="3"
+                    android:hint="@string/tab_thkns_axis"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:id="@+id/include_4"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="60dp"
+                android:background="@color/gray_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_3" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/curveTxtInptL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:alpha="0.87"
+                android:textColorHint="@color/black"
+                app:hintTextAppearance="@style/TextLabelColor"
+                app:layout_constraintBottom_toTopOf="@+id/include_5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/include_4">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/curveET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.87"
+                    android:background="@android:color/transparent"
+                    android:digits="0123456789."
+                    android:ems="3"
+                    android:hint="@string/tab_thkns_base_curve"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:id="@+id/include_5"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="60dp"
+                android:background="@color/gray_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_4" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/thicknessTxtInptL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:alpha="0.87"
+                android:textColorHint="@color/black"
+                app:hintTextAppearance="@style/TextLabelColor"
+                app:layout_constraintBottom_toTopOf="@+id/include_6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/include_5">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/centerThicknessET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.87"
+                    android:background="@android:color/transparent"
+                    android:digits="0123456789."
+                    android:ems="3"
+                    android:hint="@string/tab_thkns_center_thickness"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:id="@+id/include_6"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="60dp"
+                android:background="@color/gray_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_5" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/edgeTxtInptL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:alpha="0.87"
+                android:textColorHint="@color/black"
+                app:hintTextAppearance="@style/TextLabelColor"
+                app:layout_constraintBottom_toTopOf="@+id/include_7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/include_6">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edgeThicknessET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.87"
+                    android:background="@android:color/transparent"
+                    android:ems="3"
+                    android:hint="@string/tab_thkns_edge_thickness"
+                    android:imeOptions="actionNext"
+                    android:inputType="date"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:id="@+id/include_7"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="60dp"
+                android:background="@color/gray_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_6" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/diameterTxtInptL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:alpha="0.87"
+                android:textColorHint="@color/black"
+                app:hintTextAppearance="@style/TextLabelColor"
+                app:layout_constraintBottom_toTopOf="@+id/include_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/include_7">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/diameterET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.87"
+                    android:background="@android:color/transparent"
+                    android:digits="0123456789."
+                    android:ems="3"
+                    android:hint="@string/tab_thkns_lens_diameter"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:id="@+id/include_8"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="60dp"
+                android:background="@color/gray_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_7" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/thicknessCalculateButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="true">
+        android:clickable="true"
+        android:elevation="2dp"
+        android:focusable="true"
+        android:scaleType="center"
+        app:backgroundTint="@color/primary"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/calculate"
+        app:useCompatPadding="true" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/v16dp"
-            android:layout_marginStart="@dimen/v16dp"
-            android:alpha="0.87"
-            android:minWidth="@dimen/v120dp"
-            android:text="@string/tab_thkns_material_index"
-            android:textColor="@color/black"
-            android:textSize="@dimen/v16sp"
-            app:layout_constraintBottom_toTopOf="@+id/include_1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Spinner
-            android:id="@+id/new_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/v16dp"
-            android:layout_marginRight="@dimen/v16dp"
-            android:alpha="0.87"
-            android:background="@android:color/transparent"
-            android:entries="@array/index_of_refraction"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/include_1"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <include
-            android:id="@+id/include_1"
-            layout="@layout/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/sphereTxtInptL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="@dimen/v16dp"
-            android:alpha="0.87"
-            android:textColorHint="@color/black"
-            app:hintTextAppearance="@style/TextLabelColor"
-            app:layout_constraintBottom_toTopOf="@+id/include_2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/include_1">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/sphereET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="0.87"
-                android:background="@android:color/transparent"
-                android:ems="3"
-                android:hint="@string/tab_thkns_sphere_power"
-                android:inputType="date"
-                android:maxLines="1"
-                android:paddingTop="@dimen/v5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="@dimen/v16sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <include
-            android:id="@+id/include_2"
-            layout="@layout/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_1" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/cylinderTxtInptL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="@dimen/v16dp"
-            android:alpha="0.87"
-            android:textColorHint="@color/black"
-            app:hintTextAppearance="@style/TextLabelColor"
-            app:layout_constraintBottom_toTopOf="@+id/include_3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/include_2">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/cylinderET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="0.87"
-                android:background="@android:color/transparent"
-                android:ems="3"
-                android:hint="@string/tab_thkns_cylinder_power"
-                android:inputType="date"
-                android:maxLines="1"
-                android:paddingTop="@dimen/v5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="@dimen/v16sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-
-        <include
-            android:id="@+id/include_3"
-            layout="@layout/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_2" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/axisTxtInptL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="@dimen/v16dp"
-            android:layout_marginTop="8dp"
-            android:alpha="0.87"
-            android:textColorHint="@color/black"
-            app:hintTextAppearance="@style/TextLabelColor"
-            app:layout_constraintBottom_toTopOf="@+id/include_4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_3">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/axisET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="0.87"
-                android:background="@android:color/transparent"
-                android:digits="0123456789."
-                android:ems="3"
-                android:hint="@string/tab_thkns_axis"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLines="1"
-                android:paddingTop="@dimen/v5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="@dimen/v16sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <include
-            android:id="@+id/include_4"
-            layout="@layout/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_3" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/curveTxtInptL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="@dimen/v16dp"
-            android:alpha="0.87"
-            android:textColorHint="@color/black"
-            app:hintTextAppearance="@style/TextLabelColor"
-            app:layout_constraintBottom_toTopOf="@+id/include_5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/include_4">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/curveET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="0.87"
-                android:background="@android:color/transparent"
-                android:digits="0123456789."
-                android:ems="3"
-                android:hint="@string/tab_thkns_base_curve"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLines="1"
-                android:paddingTop="@dimen/v5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="@dimen/v16sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <include
-            android:id="@+id/include_5"
-            layout="@layout/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_4" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/thicknessTxtInptL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="@dimen/v16dp"
-            android:alpha="0.87"
-            android:textColorHint="@color/black"
-            app:hintTextAppearance="@style/TextLabelColor"
-            app:layout_constraintBottom_toTopOf="@+id/include_6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/include_5">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/centerThicknessET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="0.87"
-                android:background="@android:color/transparent"
-                android:digits="0123456789."
-                android:ems="3"
-                android:hint="@string/tab_thkns_center_thickness"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLines="1"
-                android:paddingTop="@dimen/v5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="@dimen/v16sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <include
-            android:id="@+id/include_6"
-            layout="@layout/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_5" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/edgeTxtInptL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="@dimen/v16dp"
-            android:alpha="0.87"
-            android:textColorHint="@color/black"
-            app:hintTextAppearance="@style/TextLabelColor"
-            app:layout_constraintBottom_toTopOf="@+id/include_7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/include_6">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/edgeThicknessET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="0.87"
-                android:background="@android:color/transparent"
-                android:ems="3"
-                android:hint="@string/tab_thkns_edge_thickness"
-                android:imeOptions="actionNext"
-                android:inputType="date"
-                android:maxLines="1"
-                android:paddingTop="@dimen/v5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="@dimen/v16sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <include
-            android:id="@+id/include_7"
-            layout="@layout/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_6" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/diameterTxtInptL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="@dimen/v16dp"
-            android:alpha="0.87"
-            android:textColorHint="@color/black"
-            app:hintTextAppearance="@style/TextLabelColor"
-            app:layout_constraintBottom_toTopOf="@+id/include_8"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/include_7">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/diameterET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="0.87"
-                android:background="@android:color/transparent"
-                android:digits="0123456789."
-                android:ems="3"
-                android:hint="@string/tab_thkns_lens_diameter"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:maxLines="1"
-                android:paddingTop="@dimen/v5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="@dimen/v16sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <include
-            android:id="@+id/include_8"
-            layout="@layout/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/v60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_7" />
-
-        <Button
-            android:id="@+id/thicknessCalculateButton"
-            style="?android:attr/borderlessButtonStyle"
-            fontPath="raleway_bold.ttf"
-            android:layout_width="@dimen/v288dp"
-            android:layout_height="@dimen/v54dp"
-            android:layout_marginBottom="@dimen/v16dp"
-            android:layout_marginTop="@dimen/v20dp"
-            android:background="@drawable/round_button"
-            android:text="@string/button_text_calculate"
-            android:textAllCaps="false"
-            android:textColor="@color/gray_300"
-            android:textSize="@dimen/v20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_8"
-            app:layout_constraintVertical_bias="1"
-            tools:ignore="MissingPrefix" />
-
-    </android.support.constraint.ConstraintLayout>
-</ScrollView>
+</android.support.constraint.ConstraintLayout>

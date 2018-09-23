@@ -1,5 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.ui.activity
 
+import android.support.annotation.StringRes
 import parkhomov.andrew.lensthicknesscalculator.base.MvpPresenter
 import parkhomov.andrew.lensthicknesscalculator.base.MvpView
 
@@ -14,6 +15,8 @@ interface SingleActivityI {
         fun onRateThisAppClicked()
         fun onAboutClicked()
         fun onGlossaryClicked()
+        fun onRateAppClicked()
+        fun onShareResultClicked()
     }
 
     interface View : MvpView<Presenter> {
@@ -21,7 +24,10 @@ interface SingleActivityI {
         fun showRateThisAppDialog()
         fun showLanguageDialog()
         fun showAboutDialog()
+        fun openGooglePlay()
 
+        fun shareResult(sharedText: String)
+        fun showToast(@StringRes resId: Int)
     }
 
 }

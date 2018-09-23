@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_language.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseDialog
 import parkhomov.andrew.lensthicknesscalculator.utils.Utils
-import parkhomov.andrew.lensthicknesscalculator.utils.buttonId
 import parkhomov.andrew.lensthicknesscalculator.utils.localeIso2
 import parkhomov.andrew.lensthicknesscalculator.utils.shaderPref
 import java.util.*
@@ -33,7 +32,6 @@ class Language : BaseDialog() {
         val view = inflater.inflate(R.layout.activity_language, container, false)
 
         sharedPreferences = activity!!.getSharedPreferences(shaderPref, Context.MODE_PRIVATE)
-        radioButtonId = sharedPreferences?.getInt(buttonId, -1)!!
         languageIso2 = sharedPreferences?.getString(localeIso2, "")
 
         return view
@@ -93,7 +91,6 @@ class Language : BaseDialog() {
     }
 
     private fun saveLanguageInSharedPref() {
-        sharedPreferences?.edit()?.putInt(buttonId, radioButtonId)?.apply()
         sharedPreferences?.edit()?.putString(localeIso2, languageIso2)?.apply()
     }
 

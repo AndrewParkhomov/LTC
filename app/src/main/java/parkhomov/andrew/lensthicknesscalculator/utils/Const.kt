@@ -3,7 +3,6 @@ package parkhomov.andrew.lensthicknesscalculator.utils
 // shared pref
 const val shaderPref = "SHARED_PREF"
 const val localeIso2 = "SAVE_LANGUAGE_ISO2"
-const val buttonId = "RADIO_BUTTON_ID"
 
 const val thickness = 0
 const val diameter = 1

@@ -5,7 +5,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import com.google.gson.Gson
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.data.dto.GlossaryItem
+import parkhomov.andrew.lensthicknesscalculator.data.glossary.GlossaryItem
 import parkhomov.andrew.lensthicknesscalculator.utils.MyContextWrapper
 import parkhomov.andrew.lensthicknesscalculator.utils.localeIso2
 import parkhomov.andrew.lensthicknesscalculator.utils.shaderPref
@@ -14,10 +14,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    override fun attachBaseContext(newBase: Context) {
-        val sharedPreferences = newBase.getSharedPreferences(shaderPref, Context.MODE_PRIVATE)
-        val languageIso2 = sharedPreferences?.getString(localeIso2, "") ?: ""
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(MyContextWrapper.wrap(newBase, languageIso2)))
+    lateinit var language: String
+
+    override fun attachBaseContext(context: Context) {
+        val sharedPreferences = context.getSharedPreferences(shaderPref, Context.MODE_PRIVATE)
+        language = sharedPreferences?.getString(localeIso2, "en") ?: ""
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(MyContextWrapper.wrap(context, language)))
     }
 
     var glossaryItem: GlossaryItem? = null
@@ -36,8 +38,14 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected fun createListWithData() {
-        val text = resources.openRawResource(R.raw.glossary)
-                .bufferedReader().use { it.readText() }
+        println(language)
+        val jsonId = when (language) {
+            "en" -> R.raw.glossary_eng
+            "uk" -> R.raw.glossary_ukr
+            "ru" -> R.raw.glossary_rus
+            else -> throw RuntimeException("No valid language provided")
+        }
+        val text = resources.openRawResource(jsonId).bufferedReader().use { it.readText() }
 
         glossaryItem = Gson().fromJson(text, GlossaryItem::class.java)
         if (glossaryItem == null)
@@ -57,7 +65,8 @@ abstract class BaseActivity : AppCompatActivity() {
                 8 -> R.drawable.ed_img
                 9 -> R.drawable.dbl_img
                 10 -> R.drawable.pd_img
-                else -> R.drawable.transposition_img
+                11 -> R.drawable.transposition_img
+                else -> throw RuntimeException("No resource provided for key " + item.id)
             }
             item.imageId = imageId
         }

@@ -7,9 +7,7 @@ import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 
 val navigationModule = module(createOnStart = true) {
-    // provided router
     single { provideRouter() }
-    // Fill property
     single { provideNavigatorHolder() }
 }
 
