@@ -1,7 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -13,8 +12,6 @@ import kotlinx.android.synthetic.main.thickness_fragment.*
 import org.koin.android.ext.android.inject
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
-import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.Result
 import parkhomov.andrew.lensthicknesscalculator.utils.*
 
 /**
@@ -27,6 +24,7 @@ class Thickness : BaseFragment(),
     private var axis: Int = 0
     private var axisView: Int = 0
     private var lensIndex: Double = 0.0
+    private var lensIndexText: String = ""
     private var indexX: Double = 0.0
     private var spherePower: Double = 0.0
     private var edgeThickness: Double = 0.0
@@ -60,23 +58,34 @@ class Thickness : BaseFragment(),
         setUpTextWatchers()
 
         thicknessCalculateButton.setOnClickListener { onCalculateBtnClicked() }
+        text_view_spinner.setOnClickListener { spinner.performClick() }
     }
 
     private fun customizeSpinner() {
         val adapter = ArrayAdapter.createFromResource(activity!!,
                 R.array.index_of_refraction, R.layout.spinner_header)
         adapter.setDropDownViewResource(R.layout.spinner_body)
-        new_spinner.adapter = adapter
+        spinner.adapter = adapter
     }
 
     private fun setUpTextWatchers() {
-        sphereET.addTextChangedListener(GenericTextWatcher())
-        cylinderET.addTextChangedListener(GenericTextWatcher())
+        sphere_.addTextChangedListener(GenericTextWatcher())
+        cylinder_.addTextChangedListener(GenericTextWatcher())
     }
 
     private fun onCalculateBtnClicked() {
+        if (sphere_.text?.isEmpty() == true) {
+            wrapper_sphere.isErrorEnabled = true
+            wrapper_sphere.error = getString(R.string.tab_thkns_provide_sphere)
+        } else {
+            wrapper_sphere.error = null
+            wrapper_sphere.isErrorEnabled = false
+        }
+
         clearData()
-        when (new_spinner.selectedItemPosition) {
+        presenter.clearResultData()
+        lensIndexText = spinner.selectedItem.toString()
+        when (spinner.selectedItemPosition) {
             0 -> {
                 lensIndex = INDEX_1498
                 indexX = INDEX_X_1498
@@ -113,14 +122,14 @@ class Thickness : BaseFragment(),
 
     private fun edgeThicknessET(): Double =
             try {
-                edgeThicknessET.text.toString().toDouble()
+                edge_thickness.text.toString().toDouble()
             } catch (e: NumberFormatException) {
                 0.0
             }
 
     private fun cylinderET(): Double =
             try {
-                cylinderET.text.toString().toDouble()
+                cylinder_.text.toString().toDouble()
             } catch (e: NumberFormatException) {
                 0.0
             }
@@ -130,9 +139,10 @@ class Thickness : BaseFragment(),
         val tempDoubleForThickness: Double
         if (spherePower <= 0 && cylinderPower == 0.0) {
             try {
-                centerThickness = java.lang.Double.parseDouble(centerThicknessET.text.toString())
+                centerThickness = java.lang.Double.parseDouble(center_thickness.text.toString())
             } catch (e: NumberFormatException) {
-                Utils.highlightEditText(baseActivity!!, centerThicknessET, thicknessTxtInptL)
+                wrapper_center_thickness.isErrorEnabled = true
+                wrapper_center_thickness.error = getString(R.string.tab_thkns_provide_center_thickness)
             }
 
         } else if (spherePower <= 0 && cylinderPower > 0) {
@@ -144,9 +154,10 @@ class Thickness : BaseFragment(),
             try {
                 if (spherePower + cylinderPower < 0) {
                     try {
-                        centerThickness = java.lang.Double.parseDouble(centerThicknessET.text.toString())
+                        centerThickness = java.lang.Double.parseDouble(center_thickness.text.toString())
                     } catch (e: NumberFormatException) {
-                        Utils.highlightEditText(baseActivity!!, centerThicknessET, thicknessTxtInptL)
+                        wrapper_center_thickness.isErrorEnabled = true
+                        wrapper_center_thickness.error = getString(R.string.tab_thkns_provide_center_thickness)
                     }
 
                 } else {
@@ -162,9 +173,10 @@ class Thickness : BaseFragment(),
 
         } else if (spherePower <= 0) {
             try {
-                centerThickness = java.lang.Double.parseDouble(centerThicknessET.text.toString())
+                centerThickness = java.lang.Double.parseDouble(center_thickness.text.toString())
             } catch (e: NumberFormatException) {
-                Utils.highlightEditText(baseActivity!!, centerThicknessET, thicknessTxtInptL)
+                wrapper_center_thickness.isErrorEnabled = true
+                wrapper_center_thickness.error = getString(R.string.tab_thkns_provide_center_thickness)
 
             }
 
@@ -188,16 +200,16 @@ class Thickness : BaseFragment(),
     private fun axisET(): Int {
         var axis: Int
         try {
-            axis = Integer.parseInt(axisET.text.toString())
+            axis = Integer.parseInt(axis_.text.toString())
             if (axis < 0 || axis > 180) {
                 throw NumberFormatException()
             }
         } catch (e: NumberFormatException) {
-            if (axisET.text.toString() == "") {
+            if (axis_.text.toString() == "") {
                 axis = 0
             } else {
-                Toast.makeText(activity, resources.getText(R.string.tab_thkns_wrong_axis), Toast.LENGTH_LONG).show()
-                axisET.text = null
+                activity!!.showMessage(R.string.tab_thkns_wrong_axis)
+                axis_.text = null
                 axis = 0
             }
         }
@@ -244,29 +256,34 @@ class Thickness : BaseFragment(),
 
 
     private fun setUpViewsBehaviourAfter() {
-        sphereTxtInptL.isEnabled = true
-        curveTxtInptL.isEnabled = true
-        thicknessTxtInptL.isEnabled = true
-        edgeTxtInptL.isEnabled = true
-        diameterTxtInptL.isEnabled = true
+        wrapper_sphere.isEnabled = true
+        wrapper_curve.isEnabled = true
+        wrapper_center_thickness.isEnabled = true
+        wrapper_edge_thickness.isEnabled = true
+        wrapper_diameter.isEnabled = true
     }
 
     private fun setUpViewsBehaviourBefore() {
-        Utils.makeNormalEditText(baseActivity!!, sphereET, sphereTxtInptL)
-        Utils.makeNormalEditText(baseActivity!!, curveET, curveTxtInptL)
+        wrapper_sphere.error = null
+        wrapper_curve.error = null
+        wrapper_sphere.isErrorEnabled = false
+        wrapper_curve.isErrorEnabled = false
+
         // if field is disable, we don't change it color
-        if (centerThicknessET.currentHintTextColor != ContextCompat.getColor(activity!!, R.color.black) ||
-                centerThicknessET.currentTextColor != ContextCompat.getColor(activity!!, R.color.black))
-            Utils.makeNormalEditText(baseActivity!!, centerThicknessET, thicknessTxtInptL)
-        if (edgeThicknessET.currentHintTextColor != ContextCompat.getColor(activity!!, R.color.black) ||
-                edgeThicknessET.currentTextColor != ContextCompat.getColor(activity!!, R.color.black))
-            Utils.makeNormalEditText(baseActivity!!, edgeThicknessET, edgeTxtInptL)
-        Utils.makeNormalEditText(baseActivity!!, diameterET, diameterTxtInptL)
-        sphereTxtInptL.isEnabled = false
-        curveTxtInptL.isEnabled = false
-        thicknessTxtInptL.isEnabled = false
-        edgeTxtInptL.isEnabled = false
-        diameterTxtInptL.isEnabled = false
+//        if (centerThicknessET.currentHintTextColor != ContextCompat.getColor(activity!!, R.color.black) ||
+//                centerThicknessET.currentTextColor != ContextCompat.getColor(activity!!, R.color.black))
+//            Utils.makeNormalEditText(baseActivity!!, centerThicknessET, thicknessTxtInptL)
+//        if (edgeThicknessET.currentHintTextColor != ContextCompat.getColor(activity!!, R.color.black) ||
+//                edgeThicknessET.currentTextColor != ContextCompat.getColor(activity!!, R.color.black))
+//            Utils.makeNormalEditText(baseActivity!!, edgeThicknessET, edgeTxtInptL)
+//        Utils.makeNormalEditText(baseActivity!!, diameterET, diameterTxtInptL)
+
+
+        wrapper_sphere.isEnabled = false
+        wrapper_curve.isEnabled = false
+        wrapper_center_thickness.isEnabled = false
+        wrapper_edge_thickness.isEnabled = false
+        wrapper_diameter.isEnabled = false
     }
 
     private fun curveCalculation() {
@@ -276,23 +293,25 @@ class Thickness : BaseFragment(),
         // try blocks here to highlight required field
         var sphereIsEmpty = false
         try {
-            spherePower = sphereET.text.toString().toDouble()
+            spherePower = sphere_.text.toString().toDouble()
         } catch (e: NumberFormatException) {
-            Utils.highlightEditText(baseActivity!!, sphereET, sphereTxtInptL)
+            wrapper_sphere.isErrorEnabled = true
+            wrapper_sphere.error = getString(R.string.tab_thkns_provide_sphere)
             sphereIsEmpty = true
         }
 
         try {
-            realFrontBaseCurveDptr = curveET.text.toString().toDouble()
+            realFrontBaseCurveDptr = curve_.text.toString().toDouble()
             if (realFrontBaseCurveDptr == 0.0) throw NumberFormatException()
         } catch (e: NumberFormatException) {
             handleNoBaseCurveBehaviour(sphereIsEmpty)
         }
 
         try {
-            lensDiameter = java.lang.Double.parseDouble(diameterET.text.toString())
+            lensDiameter = java.lang.Double.parseDouble(diameter_.text.toString())
         } catch (e: NumberFormatException) {
-            Utils.highlightEditText(baseActivity!!, diameterET, diameterTxtInptL)
+            wrapper_diameter.isErrorEnabled = true
+            wrapper_diameter.error = getString(R.string.tab_thkns_provide_diameter)
         }
 
         // Real radius of front curve in mm
@@ -398,7 +417,7 @@ class Thickness : BaseFragment(),
                     tempCurveDouble = base10_5
                 }
             }
-            curveET.setText(tempCurveString)
+            curve_.setText(tempCurveString)
             realFrontBaseCurveDptr = tempCurveDouble
         }
     }
@@ -439,8 +458,13 @@ class Thickness : BaseFragment(),
                 cylinderCalculation()
             } else {
                 presenter.showResultDialog(
+                        lensIndexText,
+                        spherePower.toString(),
                         ((centerThickness * 1e2).toLong() / 1e2).toString(),
-                        ((edgeThickness * 1e2).toLong() / 1e2).toString()
+                        ((edgeThickness * 1e2).toLong() / 1e2).toString(),
+                        realFrontBaseCurveDptr.toString(),
+                        lensDiameter.toString()
+
                 )
             }
     }
@@ -462,22 +486,27 @@ class Thickness : BaseFragment(),
 
         if (cylinderPower != 0.0) {
             presenter.showResultDialog(
+                    lensIndexText,
+                    spherePower.toString(),
+                    cylinderPower.toString(),
+                    axisView.toString(),
+                    ((etOnCertainAxis * 1e2).toLong() / 1e2).toString(),
                     ((centerThickness * 1e2).toLong() / 1e2).toString(),
                     ((edgeThickness * 1e2).toLong() / 1e2).toString(),
                     ((maxEdgeThickness * 1e2).toLong() / 1e2).toString(),
-                    ((etOnCertainAxis * 1e2).toLong() / 1e2).toString(),
-                    axisView.toString()
+                    realFrontBaseCurveDptr.toString(),
+                    lensDiameter.toString()
             )
         } else {
             presenter.showResultDialog(
+                    lensIndexText,
+                    spherePower.toString(),
                     ((centerThickness * 1e2).toLong() / 1e2).toString(),
-                    ((edgeThickness * 1e2).toLong() / 1e2).toString()
+                    ((edgeThickness * 1e2).toLong() / 1e2).toString(),
+                    realFrontBaseCurveDptr.toString(),
+                    lensDiameter.toString()
             )
         }
-    }
-
-    override fun showResultDialog(calculatedData: CalculatedData) {
-        Result.getInstance(calculatedData).show(fragmentManager, Result.TAG)
     }
 
     //Declaration
@@ -495,49 +524,51 @@ class Thickness : BaseFragment(),
 
         private fun disableField() {
             spherePower = try {
-                java.lang.Double.parseDouble(sphereET.text.toString())
+                java.lang.Double.parseDouble(sphere_.text.toString())
             } catch (e: NumberFormatException) {
                 0.0
             }
 
             cylinderPower = try {
-                java.lang.Double.parseDouble(cylinderET.text.toString())
+                java.lang.Double.parseDouble(cylinder_.text.toString())
             } catch (e: NumberFormatException) {
                 0.0
             }
 
             val value = if (cylinderPower > 0) spherePower + cylinderPower else spherePower
 
-            edgeTxtInptL.isEnabled = false
-            thicknessTxtInptL.isEnabled = false
+            wrapper_edge_thickness.isEnabled = false
+            wrapper_center_thickness.isEnabled = false
             if (value > 0) {
-                Utils.makeNormalEditText(baseActivity!!, edgeThicknessET, edgeTxtInptL)
-                edgeThicknessET.isActivated = true
-                edgeThicknessET.isEnabled = true
-                edgeThicknessET.isFocusableInTouchMode = true
-                Utils.disableThicknessField(baseActivity!!, centerThicknessET, thicknessTxtInptL)
-                centerThicknessET.isActivated = false
-                centerThicknessET.isEnabled = false
-                centerThicknessET.isFocusableInTouchMode = false
-                centerThicknessET.text = null
+                wrapper_edge_thickness.error = null
+                wrapper_edge_thickness.isErrorEnabled = false
+                edge_thickness.isActivated = true
+                edge_thickness.isEnabled = true
+                edge_thickness.isFocusableInTouchMode = true
+                wrapper_center_thickness.isEnabled = false
+                center_thickness.isActivated = false
+                center_thickness.isEnabled = false
+                center_thickness.isFocusableInTouchMode = false
+                center_thickness.text = null
             } else {
-                Utils.makeNormalEditText(baseActivity!!, centerThicknessET, thicknessTxtInptL)
-                centerThicknessET.isActivated = true
-                centerThicknessET.isEnabled = true
-                centerThicknessET.isFocusableInTouchMode = true
-                Utils.disableThicknessField(baseActivity!!, edgeThicknessET, edgeTxtInptL)
-                edgeThicknessET.isActivated = false
-                edgeThicknessET.isEnabled = false
-                edgeThicknessET.isFocusableInTouchMode = false
-                edgeThicknessET.text = null
+                wrapper_center_thickness.error = null
+                wrapper_center_thickness.isErrorEnabled = false
+                center_thickness.isActivated = true
+                center_thickness.isEnabled = true
+                center_thickness.isFocusableInTouchMode = true
+                wrapper_edge_thickness.isEnabled = false
+                edge_thickness.isActivated = false
+                edge_thickness.isEnabled = false
+                edge_thickness.isFocusableInTouchMode = false
+                edge_thickness.text = null
             }
-            edgeTxtInptL.isEnabled = true
-            thicknessTxtInptL.isEnabled = true
+            wrapper_edge_thickness.isEnabled = true
+            wrapper_center_thickness.isEnabled = true
         }
     }
 
     companion object {
-        val TAG: String = Thickness::class.java.simpleName
+        val TAG: String = Thickness::class.java.name
         val instance = Thickness()
     }
 }

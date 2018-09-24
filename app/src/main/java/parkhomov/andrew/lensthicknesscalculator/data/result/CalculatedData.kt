@@ -5,9 +5,14 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class CalculatedData(
+        val refractionIndex: String,
+        val spherePower: String,
+        val cylinderPower: String?,
+        val axis: String?,
+        val thicknessOnAxis: String?,
         val thicknessCenter: String,
         val thicknessEdge: String,
         val thicknessMax: String?,
-        val thicknessOnAxis: String?,
-        val axis: String?
+        val realBaseCurve: String,
+        val diameter: String
 ) : Parcelable

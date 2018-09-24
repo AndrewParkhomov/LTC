@@ -107,7 +107,7 @@ class Diameter : BaseFragment(),
     }
 
     companion object {
-        val TAG: String = Diameter::class.java.simpleName
+        val TAG: String = Diameter::class.java.name
         val instance = Diameter()
     }
 }

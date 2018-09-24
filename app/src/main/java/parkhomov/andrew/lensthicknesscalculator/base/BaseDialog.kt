@@ -19,6 +19,9 @@ abstract class BaseDialog : DialogFragment() {
     var baseActivity: BaseActivity? = null
         private set
 
+    private var isDialogCancelable = true
+
+
     @TargetApi(23)
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -37,10 +40,17 @@ abstract class BaseDialog : DialogFragment() {
             try {
                 this.baseActivity = context
             } catch (e: NullPointerException) {
-                println(e.toString())
+                e.printStackTrace()
             }
         }
     }
+
+    override fun onDetach() {
+        baseActivity = null
+        super.onDetach()
+    }
+
+    protected abstract fun setUp(view: View)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // the content
@@ -55,11 +65,17 @@ abstract class BaseDialog : DialogFragment() {
         dialog.setContentView(root)
 
         if (dialog.window != null) {
-            dialog.window?.setBackgroundDrawableResource(R.drawable.selector_background_rounded_corners_white)
-            dialog.window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            dialog.window?.setBackgroundDrawableResource(R.drawable.background_rounded_corners_white)
+            dialog.window?.setLayout(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         } else {
             dismiss()
         }
+
+        dialog.setCancelable(isDialogCancelable)
+        dialog.setCanceledOnTouchOutside(isDialogCancelable)
 
         return dialog
     }
@@ -69,9 +85,8 @@ abstract class BaseDialog : DialogFragment() {
         setUp(view)
     }
 
-    protected abstract fun setUp(view: View)
-
-    fun showDialog(fragmentManager: FragmentManager, tag: String) {
+    fun show(fragmentManager: FragmentManager, tag: String, cancelable: Boolean) {
+        this.isDialogCancelable = cancelable
         val transaction = fragmentManager.beginTransaction()
         val prevFragment = fragmentManager.findFragmentByTag(tag)
         if (prevFragment != null)

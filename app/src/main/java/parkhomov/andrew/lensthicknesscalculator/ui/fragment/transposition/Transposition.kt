@@ -133,7 +133,7 @@ class Transposition : BaseFragment(),
 
 
     companion object {
-        val TAG: String = Transposition::class.java.simpleName
+        val TAG: String = Transposition::class.java.name
         val instance = Transposition()
     }
 }

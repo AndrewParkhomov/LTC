@@ -8,21 +8,31 @@ interface ThicknessI {
 
     interface Presenter : MvpPresenter<View> {
         fun showResultDialog(
+                refractionIndex: String,
+                spherePower: String,
                 thicknessCenter: String,
-                thicknessEdge: String
+                thicknessEdge: String,
+                realBaseCurve: String,
+                diameter: String
         )
         fun showResultDialog(
+                refractionIndex: String,
+                spherePower: String,
+                cylinderPower: String,
+                axis: String,
+                thicknessOnAxis: String,
                 thicknessCenter: String,
                 thicknessEdge: String,
                 thicknessMax: String,
-                thicknessOnAxis: String,
-                axis: String
+                realBaseCurve: String,
+                diameter: String
         )
+
+        fun clearResultData()
 
     }
 
     interface View : MvpView<Presenter> {
-        fun showResultDialog(calculatedData: CalculatedData)
 
 
     }

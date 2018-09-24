@@ -4,21 +4,31 @@ import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import com.google.gson.Gson
+import org.koin.android.ext.android.inject
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.glossary.GlossaryItem
+import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.Diameter
+import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.Glossary
+import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.Thickness
+import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.Transposition
 import parkhomov.andrew.lensthicknesscalculator.utils.MyContextWrapper
-import parkhomov.andrew.lensthicknesscalculator.utils.localeIso2
-import parkhomov.andrew.lensthicknesscalculator.utils.shaderPref
+import parkhomov.andrew.lensthicknesscalculator.utils.appLanguage
+import parkhomov.andrew.lensthicknesscalculator.utils.prefs.PreferencesHelper
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import java.util.*
 
 
 abstract class BaseActivity : AppCompatActivity() {
 
     lateinit var language: String
+    private val preferencesHelper: PreferencesHelper by inject()
 
     override fun attachBaseContext(context: Context) {
-        val sharedPreferences = context.getSharedPreferences(shaderPref, Context.MODE_PRIVATE)
-        language = sharedPreferences?.getString(localeIso2, "en") ?: ""
+        language = preferencesHelper.getStringValue(appLanguage, "")
+        if (language.isEmpty()) {
+            language = Locale.getDefault().isO3Language.substring(0, 2)
+            preferencesHelper.putStringValue(appLanguage, language)
+        }
         super.attachBaseContext(CalligraphyContextWrapper.wrap(MyContextWrapper.wrap(context, language)))
     }
 
@@ -38,7 +48,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected fun createListWithData() {
-        println(language)
         val jsonId = when (language) {
             "en" -> R.raw.glossary_eng
             "uk" -> R.raw.glossary_ukr

@@ -8,11 +8,7 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/wrapper_ed"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
+        style="@style/TextInputWrapper"
         android:layout_marginTop="14dp"
         android:hint="@string/tab_diameter_hint_ed"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,10 +17,8 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/input_edit_text_ed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TextInputEditText"
             android:digits="0123456789."
-            android:ems="3"
             android:imeOptions="actionNext"
             android:inputType="number"
             android:maxLines="1" />
@@ -33,22 +27,17 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/wrapper_dbl"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/TextInputWrapper"
         android:layout_marginTop="14dp"
         android:hint="@string/tab_diameter_hint_dbl"
-        app:layout_constraintEnd_toEndOf="@+id/wrapper_ed"
-        app:layout_constraintStart_toStartOf="@+id/wrapper_ed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wrapper_ed">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/input_edit_text_dbl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TextInputEditText"
             android:digits="0123456789."
-            android:ems="3"
-            android:imeOptions="actionNext"
             android:inputType="number"
             android:maxLines="1" />
 
@@ -56,25 +45,19 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/wrapper_pd"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/TextInputWrapper"
         android:layout_marginTop="14dp"
         android:hint="@string/tab_diameter_hint_pd"
-        app:layout_constraintEnd_toEndOf="@+id/wrapper_dbl"
-        app:layout_constraintStart_toStartOf="@+id/wrapper_dbl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wrapper_dbl">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/input_edit_text_pd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            style="@style/TextInputEditText"
             android:digits="0123456789."
-            android:ems="3"
             android:imeOptions="actionDone"
-            android:inputType="number"
-            android:maxLines="1" />
+            android:inputType="number" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -85,8 +68,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="14dp"
-        android:textSize="20sp"
         android:gravity="center"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wrapper_pd" />

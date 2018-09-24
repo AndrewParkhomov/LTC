@@ -43,7 +43,7 @@ class Glossary : BaseFragment() {
     }
 
     companion object {
-        val TAG: String = Glossary::class.java.simpleName
+        val TAG: String = Glossary::class.java.name
         val instance = Glossary()
     }
 }

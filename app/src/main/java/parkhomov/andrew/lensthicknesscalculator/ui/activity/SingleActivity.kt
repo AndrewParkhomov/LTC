@@ -16,9 +16,11 @@ import org.koin.android.ext.android.inject
 import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
+import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
+import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.language.Language
+import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.result.Result
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.Diameter
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.Glossary
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.settings.Language
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.Thickness
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.Transposition
 import parkhomov.andrew.lensthicknesscalculator.utils.*
@@ -38,17 +40,17 @@ class SingleActivity : BaseActivity(),
     private var fragmentThickness: Thickness? = null
     private var fragmentDiameter: Diameter? = null
     private var fragmentTransposition: Transposition? = null
-    private var fragmentGlossaryList: Glossary? = null
+    private var fragmentGlossary: Glossary? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_activity)
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        supportActionBar?.title = getString(R.string.app_name)
 
         presenter.onAttach(this)
 
         createListWithData()
-//        createTabs()
 
         initViews()
         initContainers()
@@ -116,7 +118,8 @@ class SingleActivity : BaseActivity(),
     }
 
     private fun initContainers() {
-        val fm = supportFragmentManager!!
+        val fm = supportFragmentManager
+
         fragmentThickness = fm.findFragmentByTag(Thickness.TAG) as Thickness?
         if (fragmentThickness == null) {
             fragmentThickness = Thickness.instance
@@ -140,12 +143,13 @@ class SingleActivity : BaseActivity(),
                     .add(R.id.frame_layout_tab_container, fragmentTransposition!!, Transposition.TAG)
                     .detach(fragmentTransposition!!).commitNow()
         }
-        fragmentGlossaryList = fm.findFragmentByTag(Glossary.TAG) as Glossary?
-        if (fragmentGlossaryList == null) {
-            fragmentGlossaryList = Glossary.instance
+
+        fragmentGlossary = fm.findFragmentByTag(Glossary.TAG) as Glossary?
+        if (fragmentGlossary == null) {
+            fragmentGlossary = Glossary.instance
             fm.beginTransaction()
-                    .add(R.id.frame_layout_tab_container, fragmentGlossaryList!!, Glossary.TAG)
-                    .detach(fragmentGlossaryList!!).commitNow()
+                    .add(R.id.frame_layout_tab_container, fragmentGlossary!!, Glossary.TAG)
+                    .detach(fragmentGlossary!!).commitNow()
         }
     }
 
@@ -158,9 +162,7 @@ class SingleActivity : BaseActivity(),
             R.id.mainContainerConstr
     ) {
         override fun createFragment(screenKey: String, data: Any?): Fragment {
-            return when (screenKey) {
-                else -> throw RuntimeException("No screen key provided")
-            }
+            return throw RuntimeException("No screen key provided")
         }
 
 
@@ -177,43 +179,43 @@ class SingleActivity : BaseActivity(),
         }
 
         override fun replace(command: Replace?) {
-            val fm = supportFragmentManager!!
+            val fm = supportFragmentManager
             when (command?.screenKey) {
                 Thickness.TAG -> fm.beginTransaction()
                         .detach(fragmentDiameter!!)
                         .detach(fragmentTransposition!!)
-                        .detach(fragmentGlossaryList!!)
+                        .detach(fragmentGlossary!!)
                         .attach(fragmentThickness!!)
                         .commitNow()
                 Diameter.TAG -> fm.beginTransaction()
                         .detach(fragmentThickness!!)
                         .detach(fragmentTransposition!!)
-                        .detach(fragmentGlossaryList!!)
+                        .detach(fragmentGlossary!!)
                         .attach(fragmentDiameter!!)
                         .commitNow()
                 Transposition.TAG -> fm.beginTransaction()
                         .detach(fragmentThickness!!)
                         .detach(fragmentDiameter!!)
-                        .detach(fragmentGlossaryList!!)
+                        .detach(fragmentGlossary!!)
                         .attach(fragmentTransposition!!)
                         .commitNow()
                 Glossary.TAG -> fm.beginTransaction()
                         .detach(fragmentThickness!!)
                         .detach(fragmentDiameter!!)
                         .detach(fragmentTransposition!!)
-                        .attach(fragmentGlossaryList!!)
+                        .attach(fragmentGlossary!!)
                         .commitNow()
             }
         }
 
         override fun forward(command: Forward) {
             when (command.screenKey) {
-//                DialogInfo.TAG -> DialogInfo.getInstance(command.transitionData as DialogTransporter)
-//                        .show(supportFragmentManager)
+                Result.TAG -> Result.getInstance(command.transitionData as CalculatedData)
+                        .show(supportFragmentManager)
+                Language.TAG -> Language.instance.show(supportFragmentManager)
                 else -> super.forward(command)
             }
         }
-
 
         override fun applyCommands(commands: Array<Command>) {
             super.applyCommands(commands)
@@ -244,26 +246,53 @@ class SingleActivity : BaseActivity(),
         }
     }
 
-    override fun shareResult(sharedText: String) {
+    override fun createStringForSharing(calculatedData: CalculatedData) {
         val linkInPlayStore = "https://play.google.com/store/apps/details?id=" +
                 BuildConfig.APPLICATION_ID
-        val headerText = getString(R.string.app_name)
 
+        val sharedText = if (calculatedData.cylinderPower == null) {
+            getString(R.string.share_text_only_sphere,
+                    getString(R.string.app_name),
+                    linkInPlayStore,
+                    calculatedData.refractionIndex,
+                    calculatedData.spherePower,
+                    calculatedData.thicknessCenter,
+                    calculatedData.thicknessEdge,
+                    calculatedData.realBaseCurve,
+                    calculatedData.diameter
+            )
+        } else {
+            getString(R.string.share_text_full,
+                    getString(R.string.app_name),
+                    linkInPlayStore,
+                    calculatedData.refractionIndex,
+                    calculatedData.spherePower,
+                    calculatedData.cylinderPower,
+                    calculatedData.axis,
+                    calculatedData.axis,
+                    calculatedData.thicknessOnAxis,
+                    calculatedData.thicknessCenter,
+                    calculatedData.thicknessEdge,
+                    calculatedData.thicknessMax,
+                    calculatedData.realBaseCurve,
+                    calculatedData.diameter
+            )
+        }
+        presenter.setTestForSharing(sharedText)
+    }
+
+    override fun shareResult(sharedText: String) {
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(Intent.EXTRA_EMAIL, "")
             putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_result_subject))
-            putExtra(Intent.EXTRA_TEXT, headerText + "\n" + linkInPlayStore + "\n\n" + sharedText)
+            putExtra(Intent.EXTRA_TEXT, sharedText)
         }
         startActivity(Intent.createChooser(intent, getString(R.string.share_with)))
     }
 
     override fun showToast(resId: Int) {
         showMessage(resId)
-    }
-
-    override fun showLanguageDialog() {
-        Language.instance.showDialog(supportFragmentManager, Language.TAG)
     }
 
     override fun showAboutDialog() {

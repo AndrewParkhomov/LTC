@@ -27,16 +27,18 @@
     <string name="header_rate_this_app">Оцените приложение</string>
     <string name="header_about">О программе</string>
     <!-- Result -->
-    <string name="result_center_thickness">Толщина по центру:</string>
-    <string name="result_min_edge_thickness">Минимальная толщина:</string>
-    <string name="result_max_edge_thickness">Максимальная толщина:</string>
-    <string name="result_on_axis_thickness">Толщина под углом</string>
-    <string name="result_mm">мм</string>
+    <string name="result_center_thickness">Толщина по центру: %1$s мм</string>
+    <string name="result_min_edge_thickness">Минимальная толщина: %1$s мм</string>
+    <string name="result_max_edge_thickness">Максимальная толщина: %1$s мм</string>
+    <string name="result_on_axis_thickness">Толщина под углом %1$s&#176;: %2$s мм</string>
     <!-- About program -->
     <string name="version">Версия %1$s\nРазработка: Пархомов Андрей\nE-mail:\nparkhomov.andrew@gmail.com</string>
     <!-- Rate this app -->
     <string name="rate_app_header">Оценить приложение</string>
     <string name="rate_app_body">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
+    <string name="share_text_only_sphere">Посчитано с помощью приложения %1$s\n%2$s\nИндекс преломления = %3$s\nСфера = %4$s\nТолщина по центру = %5$s мм\nТолщина по краю = %6$s мм\nРеальная кривизна базы линзы = %7$s\nДиаметр линзы = %8$s мм</string>
+    <string name="share_text_full">Посчитано с помощью приложения %1$s\n%2$s\nИндекс преломления = %3$s\nСфера = %4$s\nЦилиндр = %5$s\nУгол = %6$s&#176;\nТолщина под углом %7$s&#176; = %8$s мм\nТолщина по центру = %9$s мм\nТолщина по краю = %10$s мм\nМаксимальная толщина = %11$s мм\nРеальная кривизна базы линзы = %12$s\nДиаметр линзы = %13$s мм</string>
+
     <!-- Exit -->
     <string name="exit_question_title">Выход</string>
     <string name="exit_question">Вы действительно хотите выйти?</string>

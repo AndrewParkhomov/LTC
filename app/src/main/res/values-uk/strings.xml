@@ -27,16 +27,18 @@
     <string name="header_rate_this_app">Оцінити додаток</string>
     <string name="header_about">Про програму</string>
     <!-- Result -->
-    <string name="result_center_thickness">Товщина по центру:</string>
-    <string name="result_min_edge_thickness">Мінімальна товщина:</string>
-    <string name="result_max_edge_thickness">Максимальна товщина:</string>
-    <string name="result_on_axis_thickness">Товщина під кутом</string>
-    <string name="result_mm">мм</string>
+    <string name="result_center_thickness">Товщина по центру: %1$s мм</string>
+    <string name="result_min_edge_thickness">Мінімальна товщина: %1$s мм</string>
+    <string name="result_max_edge_thickness">Максимальна товщина: %1$s мм</string>
+    <string name="result_on_axis_thickness">Товщина під кутом %1$s&#176;: %2$s мм</string>
     <!-- About program -->
     <string name="version">Версія %1$s\nРозробка: Пархомов Андрій\nE-mail:\nparkhomov.andrew@gmail.com</string>
     <!-- Rate this app -->
     <string name="rate_app_header">Оцінити додаток</string>
     <string name="rate_app_body">Якщо Вам подобається цей додаток, чи не могли б Ви знайти час, щоб оцінити його? Це займе не більше хвилини. Дякую за Вашу підтримку!</string>
+    <string name="share_text_only_sphere">Пораховано за допомогою додатку %1$s\n%2$s\nІндекс заломлення = %3$s\nСфера = %4$s\nТовщина по центру = %5$s мм\nТовщина по краю = %6$s мм\nРеальна кривизна бази лінзи = %7$s\nДіаметр лінзи = %8$s мм</string>
+    <string name="share_text_full">Пораховано за допомогою додатку %1$s\n%2$s\nІндекс заломлення = %3$s\nСфера = %4$s\nЦиліндр = %5$s\nКут = %6$s&#176;\nТовщина під кутом %7$s&#176; = %8$s мм\nТовщина по центру = %9$s мм\nТовщина по краю = %10$s мм\nМаксимальна товщина = %11$s мм\nРеальна кривизна бази лінзи = %12$s\nДіаметр лінзи = %13$s мм</string>
+
     <!-- Exit -->
     <string name="exit_question_title">Вихід</string>
     <string name="exit_question">Ви дійсно бажаєте вийти?</string>

@@ -32,6 +32,11 @@
     <string name="tab_thkns_edge_thickness">Edge thickness</string>
     <string name="tab_thkns_lens_diameter">Lens diameter</string>
     <string name="tab_thkns_wrong_axis">Invalid axis data</string>
+    <string name="tab_thkns_provide_sphere">Please, provide sphere power</string>
+    <string name="tab_thkns_provide_center_thickness">Please, provide center thickness</string>
+    <string name="tab_thkns_provide_edge_thickness">Please, provide edge thickness</string>
+    <string name="tab_thkns_provide_base_curve">Please, provide base thickness</string>
+    <string name="tab_thkns_provide_diameter">Please, provide lens diameter</string>
 
     <!-- Diameter hints-->
     <string name="tab_diameter_hint_ed">Effective diameter %1$.0f.00</string>
@@ -51,11 +56,10 @@
     <string name="header_about">About</string>
 
     <!-- Result-->
-    <string name="result_center_thickness">Center thk:</string>
-    <string name="result_min_edge_thickness">Minimum thk:</string>
-    <string name="result_max_edge_thickness">Maximum thk:</string>
-    <string name="result_on_axis_thickness">Thk on axis</string>
-    <string name="result_mm">mm</string>
+    <string name="result_center_thickness">Center thk: %1$s mm</string>
+    <string name="result_min_edge_thickness">Minimum thk: %1$s mm</string>
+    <string name="result_max_edge_thickness">Maximum thk: %1$s mm</string>
+    <string name="result_on_axis_thickness">Thk on axis %1$s&#176;: %2$s mm</string>
 
     <!-- Available languages-->
     <string name="english">English</string>
@@ -79,6 +83,8 @@
     <string name="share_result_subject">Lens data</string>
     <string name="share_with">Share with…</string>
     <string name="share_result_is_empty">There is no data for sharing</string>
+    <string name="share_text_only_sphere">Calculated via %1$s\n%2$s\nIndex of refraction = %3$s\nSphere power = %4$s\nCenter thickness = %5$s mm\nEdge thickness = %6$s mm\nReal base curve = %7$s\nDiameter = %8$s mm</string>
+    <string name="share_text_full">Calculated via %1$s\n%2$s\nIndex of refraction = %3$s\nSphere power = %4$s\nCylinder Power = %5$s\nAxis = %6$s&#176;\nThickness on axis %7$s&#176; = %8$s mm\nCenter thickness = %9$s mm\nEdge thickness = %10$s mm\nMax thickness = %11$s mm\nReal base curve = %12$s\nDiameter = %13$s mm</string>
 
     <!-- Exit -->
     <string name="exit_question_title">Exit</string>

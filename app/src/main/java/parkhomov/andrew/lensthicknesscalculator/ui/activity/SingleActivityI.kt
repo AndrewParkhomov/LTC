@@ -3,6 +3,7 @@ package parkhomov.andrew.lensthicknesscalculator.ui.activity
 import android.support.annotation.StringRes
 import parkhomov.andrew.lensthicknesscalculator.base.MvpPresenter
 import parkhomov.andrew.lensthicknesscalculator.base.MvpView
+import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
 
 interface SingleActivityI {
 
@@ -17,17 +18,18 @@ interface SingleActivityI {
         fun onGlossaryClicked()
         fun onRateAppClicked()
         fun onShareResultClicked()
+        fun setTestForSharing(sharedText: String)
     }
 
     interface View : MvpView<Presenter> {
         fun highlightTab(position: Int)
         fun showRateThisAppDialog()
-        fun showLanguageDialog()
         fun showAboutDialog()
         fun openGooglePlay()
 
         fun shareResult(sharedText: String)
         fun showToast(@StringRes resId: Int)
+        fun createStringForSharing(calculatedData: CalculatedData)
     }
 
 }

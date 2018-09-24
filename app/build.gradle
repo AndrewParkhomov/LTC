@@ -22,6 +22,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
     }
 
@@ -71,10 +72,6 @@ dependencies {
     def  expandable_view= "1.0.3"
     implementation "com.mindorks.android:placeholderview:$expandable_view"
     kapt "com.mindorks.android:placeholderview-compiler:$expandable_view"
-
-    // network
-    def rx2NetworkingVersion = '1.0.2'
-    implementation "com.amitshekhar.android:rx2-android-networking:$rx2NetworkingVersion"
-
-
+    // for parsing json
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
