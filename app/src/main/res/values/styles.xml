@@ -46,9 +46,10 @@
 
     <style name="TextInputWrapper" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">0dp</item>
-        <item name="errorEnabled">true</item>
+        <item name="errorEnabled">false</item>
         <item name="errorTextAppearance">@style/ErrorTextAppearance</item>
-        <item name="hintTextAppearance">@style/HintTextAppearance</item>
+        <item name="hintTextAppearance">@style/HintTextAppearanceEnable</item>
+        <item name="boxStrokeColor">@color/accent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
@@ -65,9 +66,14 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="HintTextAppearance" parent="TextAppearance.Design.Hint">
+    <style name="HintTextAppearanceEnable" parent="TextAppearance.Design.Hint">
         <!-- Inactive and Active label color, pointing to a selector-->
         <item name="android:textColor">@color/accent</item>
+    </style>
+
+    <style name="HintTextAppearanceDisable" parent="TextAppearance.Design.Hint">
+        <!-- Inactive and Active label color, pointing to a selector-->
+        <item name="android:textColor">@color/gray_400</item>
     </style>
 
     <style name="ErrorTextAppearance" parent="TextAppearance.Design.Error">

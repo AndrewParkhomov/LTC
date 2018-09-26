@@ -24,7 +24,7 @@ import parkhomov.andrew.lensthicknesscalculator.utils.prefs.PreferencesHelper
 /**
  * App Components
  */
-val weatherAppModule = module {
+val appModule = module {
 
     // Presenter with injection parameter for Diameter View
     factory<SingleActivityI.Presenter> { SingleActivityPresenter(get(), get()) }
@@ -44,4 +44,4 @@ val weatherAppModule = module {
 }
 
 // Gather all app modules
-val lensThicknessCalculatorApp = listOf(weatherAppModule, navigationModule)
+val lensThicknessCalculatorApp = listOf(appModule, navigationModule)

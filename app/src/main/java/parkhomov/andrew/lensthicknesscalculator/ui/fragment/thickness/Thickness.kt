@@ -3,11 +3,11 @@ package parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import kotlinx.android.synthetic.main.thickness_fragment.*
 import org.koin.android.ext.android.inject
 import parkhomov.andrew.lensthicknesscalculator.R
@@ -57,7 +57,21 @@ class Thickness : BaseFragment(),
         customizeSpinner()
         setUpTextWatchers()
 
-        thicknessCalculateButton.setOnClickListener { onCalculateBtnClicked() }
+        thicknessCalculateButtonOld.setOnClickListener {
+            onCalculateBtnClicked()
+        }
+        thicknessCalculateButton.setOnClickListener {
+            presenter.onCalculateBtnClicked(
+                    getLensIndex(),
+                    sphere_.text.toString(),
+                    cylinder_.text.toString(),
+                    axis_.text.toString(),
+                    curve_.text.toString(),
+                    center_thickness.text.toString(),
+                    edge_thickness.text.toString(),
+                    diameter_.text.toString()
+            )
+        }
         text_view_spinner.setOnClickListener { spinner.performClick() }
     }
 
@@ -73,17 +87,56 @@ class Thickness : BaseFragment(),
         cylinder_.addTextChangedListener(GenericTextWatcher())
     }
 
-    private fun onCalculateBtnClicked() {
-        if (sphere_.text?.isEmpty() == true) {
+    private fun getLensIndex(): Triple<Double, Double, String> {
+        val spinnerText = spinner.selectedItem.toString()
+        return when (spinner.selectedItemPosition) {
+            0 -> Triple(INDEX_1498, INDEX_X_1498, spinnerText)
+            1 -> Triple(INDEX_1560, INDEX_X_1560, spinnerText)
+            2 -> Triple(INDEX_1530, INDEX_X_1530, spinnerText)
+            3 -> Triple(INDEX_1590, INDEX_X_1590, spinnerText)
+            4 -> Triple(INDEX_1610, INDEX_X_1610, spinnerText)
+            5 -> Triple(INDEX_1670, INDEX_X_1670, spinnerText)
+            6 -> Triple(INDEX_1740, INDEX_X_1740, spinnerText)
+            else -> throw NoSuchElementException("No valid lens index of refraction provided")
+        }
+    }
+
+    override fun highlightSpherePower(isShowError: Boolean) {
+        if (isShowError) {
             wrapper_sphere.isErrorEnabled = true
             wrapper_sphere.error = getString(R.string.tab_thkns_provide_sphere)
         } else {
             wrapper_sphere.error = null
             wrapper_sphere.isErrorEnabled = false
         }
+    }
 
+    override fun highlightCenterThickness(isShowError: Boolean) {
+        if (isShowError) {
+            wrapper_center_thickness.isErrorEnabled = true
+            wrapper_center_thickness.error = getString(R.string.tab_thkns_provide_center_thickness)
+        } else {
+            wrapper_center_thickness.error = null
+            wrapper_center_thickness.isErrorEnabled = false
+        }
+    }
+
+    override fun highlightDiameter(isShowError: Boolean) {
+        if (isShowError) {
+            wrapper_diameter.isErrorEnabled = true
+            wrapper_diameter.error = getString(R.string.tab_thkns_provide_diameter)
+        } else {
+            wrapper_diameter.error = null
+            wrapper_diameter.isErrorEnabled = false
+        }
+    }
+
+    override fun setCurrentBaseCurve(curveValue: String) {
+        curve_.setText(curveValue)
+    }
+
+    private fun onCalculateBtnClicked() {
         clearData()
-        presenter.clearResultData()
         lensIndexText = spinner.selectedItem.toString()
         when (spinner.selectedItemPosition) {
             0 -> {
@@ -139,7 +192,7 @@ class Thickness : BaseFragment(),
         val tempDoubleForThickness: Double
         if (spherePower <= 0 && cylinderPower == 0.0) {
             try {
-                centerThickness = java.lang.Double.parseDouble(center_thickness.text.toString())
+                centerThickness = center_thickness.text.toString().toDouble()
             } catch (e: NumberFormatException) {
                 wrapper_center_thickness.isErrorEnabled = true
                 wrapper_center_thickness.error = getString(R.string.tab_thkns_provide_center_thickness)
@@ -154,7 +207,7 @@ class Thickness : BaseFragment(),
             try {
                 if (spherePower + cylinderPower < 0) {
                     try {
-                        centerThickness = java.lang.Double.parseDouble(center_thickness.text.toString())
+                        centerThickness = center_thickness.text.toString().toDouble()
                     } catch (e: NumberFormatException) {
                         wrapper_center_thickness.isErrorEnabled = true
                         wrapper_center_thickness.error = getString(R.string.tab_thkns_provide_center_thickness)
@@ -173,7 +226,7 @@ class Thickness : BaseFragment(),
 
         } else if (spherePower <= 0) {
             try {
-                centerThickness = java.lang.Double.parseDouble(center_thickness.text.toString())
+                centerThickness = center_thickness.text.toString().toDouble()
             } catch (e: NumberFormatException) {
                 wrapper_center_thickness.isErrorEnabled = true
                 wrapper_center_thickness.error = getString(R.string.tab_thkns_provide_center_thickness)
@@ -200,7 +253,7 @@ class Thickness : BaseFragment(),
     private fun axisET(): Int {
         var axis: Int
         try {
-            axis = Integer.parseInt(axis_.text.toString())
+            axis = axis_.text.toString().toInt()
             if (axis < 0 || axis > 180) {
                 throw NumberFormatException()
             }
@@ -316,15 +369,18 @@ class Thickness : BaseFragment(),
 
         // Real radius of front curve in mm
         realRadiusMM = getReaRadiusInMM()
+        Log.i("realRadiusMm", realRadiusMM.toString())
 
         edgeThickness = edgeThicknessET()
 
         cylinderPower = cylinderET()
 
         setCenterThickness()
+        Log.i("tempCenterThickness", centerThickness.toString())
 
         // Find D1
         val recalculatedFrontCurve = recalculatedFrontCurve()
+        Log.i("recalculatedFrontCurve", recalculatedFrontCurve.toString())
 
         if (cylinderPower > 0 || cylinderPower < 0) {
 
@@ -335,20 +391,27 @@ class Thickness : BaseFragment(),
             //                Log.d(CONSTANT.MY_EXCEPTION, axis + " asix");
 
             recalculatedCylinderCurve = getRecalculatedCylinderCurve(recalculatedFrontCurve)
+            Log.i("recalculatedCylinderCu", recalculatedCylinderCurve.toString())
 
             realBackCylinderRadiusInMM = realCylinderBackRadiusInMM
+            Log.i("realCylinderBackRadMM", realBackCylinderRadiusInMM.toString())
 
             sag2Cylinder = getSag2Cylinder()
+            Log.i("sag2Cylinder", sag2Cylinder.toString())
         }
         sag2Sphere = getSag2Sphere()
+        Log.i("sag2Sphere", sag2Sphere.toString())
 
         // Corrected back curve
         recalculatedSphereCurve = getRecalculatedSphereCurve(recalculatedFrontCurve)
+        Log.i("recalculatedSphereCurve", recalculatedSphereCurve.toString())
 
         // Real radius of back curve in mm(we need exactly in mm for sag formula)
         realBackRadiusInMM = getRealBackRadiusInMM()
+        Log.i("realBackRadiusInMM", realBackRadiusInMM.toString())
 
         sag1Sphere = getSag1Sphere()
+        Log.i("sag1Sphere", sag1Sphere.toString())
 
         sphereThicknessCalculation()
 
@@ -453,6 +516,13 @@ class Thickness : BaseFragment(),
             centerThickness = Math.abs(sag1Sphere + sag2Sphere) + edgeThickness
         }
 
+        Log.d("check parameter", spherePower.toString())
+        Log.d("check parameter", cylinderPower.toString())
+        Log.d("check parameter", axis.toString())
+        Log.d("check parameter", realFrontBaseCurveDptr.toString())
+        Log.d("check parameter", centerThickness.toString())
+        Log.d("check parameter", edgeThickness.toString())
+
         if (centerThickness != 0.0 && !java.lang.Double.isNaN(centerThickness))
             if (cylinderPower > 0 || cylinderPower < 0) {
                 cylinderCalculation()
@@ -482,7 +552,17 @@ class Thickness : BaseFragment(),
         } else if (spherePower >= realFrontBaseCurveDptr && realBackCylinderRadiusInMM < 0) {
             maxEdgeThickness = sag1Sphere + sag2Cylinder + edgeThickness
         }
+        Log.i("maxEdgeThickness", maxEdgeThickness.toString())
         val etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness
+        Log.i("etOnCertainAxis", etOnCertainAxis.toString())
+        Log.i("spherePower", spherePower.toString())
+        Log.i("cylinderPower", cylinderPower.toString())
+        Log.i("axisView", axisView.toString())
+        Log.i("(1)", ((etOnCertainAxis * 1e2).toLong() / 1e2).toString())
+        Log.i("(2)",  ((centerThickness * 1e2).toLong() / 1e2).toString())
+        Log.i("(3)", ((edgeThickness * 1e2).toLong() / 1e2).toString())
+        Log.i("(4)", ((maxEdgeThickness * 1e2).toLong() / 1e2).toString())
+        Log.i("realFrontBaseCurveDptr", realFrontBaseCurveDptr.toString())
 
         if (cylinderPower != 0.0) {
             presenter.showResultDialog(
@@ -509,61 +589,56 @@ class Thickness : BaseFragment(),
         }
     }
 
-    //Declaration
     private inner class GenericTextWatcher : TextWatcher {
+
+        val enabled = R.style.HintTextAppearanceEnable
+        val disabled = R.style.HintTextAppearanceDisable
+        val colorTextEnable = activity!!.getColorFromId(R.color.text_color_enable)
+        val colorEnable = activity!!.getColorFromId(R.color.accent)
+        val colorDisable = activity!!.getColorFromId(R.color.gray_400)
 
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
         override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-            disableField()
+            val spherePower = try {
+                sphere_.text.toString().toDouble()
+            } catch (e: NumberFormatException) {
+                null
+            }
+
+            val cylinderPower = try {
+                cylinder_.text.toString().toDouble()
+            } catch (e: NumberFormatException) {
+                null
+            }
+
+            if (spherePower != null) {
+                val value = if (cylinderPower != null)
+                    spherePower + cylinderPower
+                else
+                    spherePower
+                wrapper_center_thickness.isEnabled = value <= 0
+                wrapper_edge_thickness.isEnabled = value > 0
+                highlightCenterThickness(false)
+                center_thickness.setTextColor(if (value <= 0) colorTextEnable else colorDisable)
+                edge_thickness.setTextColor(if (value > 0) colorTextEnable else colorDisable)
+                wrapper_center_thickness.boxStrokeColor = if (value <= 0) colorEnable else colorDisable
+                wrapper_edge_thickness.boxStrokeColor = if (value > 0) colorEnable else colorDisable
+                wrapper_center_thickness.setHintTextAppearance(if (value <= 0) enabled else disabled)
+                wrapper_edge_thickness.setHintTextAppearance(if (value > 0) enabled else disabled)
+            } else {
+                wrapper_center_thickness.isEnabled = true
+                wrapper_edge_thickness.isEnabled = true
+                highlightCenterThickness(false)
+                wrapper_center_thickness.boxStrokeColor = colorEnable
+                wrapper_edge_thickness.boxStrokeColor = colorEnable
+                wrapper_center_thickness.setHintTextAppearance(enabled)
+                wrapper_edge_thickness.setHintTextAppearance(enabled)
+            }
         }
 
         override fun afterTextChanged(editable: Editable) {
 
-        }
-
-        private fun disableField() {
-            spherePower = try {
-                java.lang.Double.parseDouble(sphere_.text.toString())
-            } catch (e: NumberFormatException) {
-                0.0
-            }
-
-            cylinderPower = try {
-                java.lang.Double.parseDouble(cylinder_.text.toString())
-            } catch (e: NumberFormatException) {
-                0.0
-            }
-
-            val value = if (cylinderPower > 0) spherePower + cylinderPower else spherePower
-
-            wrapper_edge_thickness.isEnabled = false
-            wrapper_center_thickness.isEnabled = false
-            if (value > 0) {
-                wrapper_edge_thickness.error = null
-                wrapper_edge_thickness.isErrorEnabled = false
-                edge_thickness.isActivated = true
-                edge_thickness.isEnabled = true
-                edge_thickness.isFocusableInTouchMode = true
-                wrapper_center_thickness.isEnabled = false
-                center_thickness.isActivated = false
-                center_thickness.isEnabled = false
-                center_thickness.isFocusableInTouchMode = false
-                center_thickness.text = null
-            } else {
-                wrapper_center_thickness.error = null
-                wrapper_center_thickness.isErrorEnabled = false
-                center_thickness.isActivated = true
-                center_thickness.isEnabled = true
-                center_thickness.isFocusableInTouchMode = true
-                wrapper_edge_thickness.isEnabled = false
-                edge_thickness.isActivated = false
-                edge_thickness.isEnabled = false
-                edge_thickness.isFocusableInTouchMode = false
-                edge_thickness.text = null
-            }
-            wrapper_edge_thickness.isEnabled = true
-            wrapper_center_thickness.isEnabled = true
         }
     }
 

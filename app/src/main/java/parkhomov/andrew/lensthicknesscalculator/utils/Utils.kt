@@ -1,23 +1,14 @@
 package parkhomov.andrew.lensthicknesscalculator.utils
 
 import android.content.Context
-import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.support.annotation.StringRes
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
 import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.ScaleXSpan
 import android.util.DisplayMetrics
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
 
 
 object Utils {
@@ -40,3 +31,7 @@ fun Context.showMessage(message: String?) {
 fun Context.showMessage(@StringRes resId: Int) {
     showMessage(getString(resId))
 }
+
+fun Context.getColorFromId(resId: Int): Int = ContextCompat.getColor(this, resId)
+
+fun Context.getDrawableFromId(resId: Int): Drawable = ContextCompat.getDrawable(this, resId)!!

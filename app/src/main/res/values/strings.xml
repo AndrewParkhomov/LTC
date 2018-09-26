@@ -70,7 +70,7 @@
     <string name="transposition_power_sphere">Sphere %1$.0f.0</string>
     <string name="transposition_power_cylinder">Cylinder %1$.0f.0</string>
     <string name="transposition_axis">Axis %1$d&#176;</string>
-    <string name="transposition_result">Sphere power %1$s\nCyliner power %2$s\nAxis %3$s&#176;</string>
+    <string name="transposition_result">Sphere power %1$f\nCyliner power %2$f\nAxis %3$d&#176;</string>
 
     <!-- About program -->
     <string name="version">Version %1$s\nDeveloped by Parkhomov Andrew\nE-mail:\nparkhomov.andrew@gmail.com</string>

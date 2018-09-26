@@ -24,6 +24,7 @@ import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.Glossary
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.Thickness
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.Transposition
 import parkhomov.andrew.lensthicknesscalculator.utils.*
+import parkhomov.andrew.lensthicknesscalculator.utils.navigation.BackButtonListener
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportFragmentNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -159,7 +160,7 @@ class SingleActivity : BaseActivity(),
 
     private val navigator = object : SupportFragmentNavigator(
             supportFragmentManager,
-            R.id.mainContainerConstr
+            R.id.container_parent
     ) {
         override fun createFragment(screenKey: String, data: Any?): Fragment {
             return throw RuntimeException("No screen key provided")
@@ -175,7 +176,7 @@ class SingleActivity : BaseActivity(),
         }
 
         override fun back() {
-            presenter.onBackPressed()
+
         }
 
         override fun replace(command: Replace?) {
@@ -293,6 +294,23 @@ class SingleActivity : BaseActivity(),
 
     override fun showToast(resId: Int) {
         showMessage(resId)
+    }
+
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.container_parent)
+        if (fragment != null
+                && fragment is BackButtonListener
+                && (fragment as BackButtonListener).onBackPressed()) {
+            return
+        } else {
+            AlertDialog.Builder(this)
+                    .setTitle(R.string.exit_question_title)
+                    .setMessage(R.string.exit_question)
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes) { _, _ ->
+                        android.os.Process.killProcess(android.os.Process.myPid())
+                    }.create().show()
+        }
     }
 
     override fun showAboutDialog() {

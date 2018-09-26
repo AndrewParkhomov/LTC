@@ -5,6 +5,7 @@
     <color name="accent">#81D4FA</color>
 
     <!-- new -->
+    <color name="text_color_enable">#000000</color>
     <color name="black">#000000</color>
     <color name="blue_200">#90CAF9</color>
     <color name="blue_300">#64B5F6</color>

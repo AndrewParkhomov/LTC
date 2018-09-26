@@ -1,16 +1,11 @@
 package parkhomov.andrew.lensthicknesscalculator.base
 
 import android.content.Context
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import com.google.gson.Gson
 import org.koin.android.ext.android.inject
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.glossary.GlossaryItem
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.Diameter
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.Glossary
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.Thickness
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.Transposition
 import parkhomov.andrew.lensthicknesscalculator.utils.MyContextWrapper
 import parkhomov.andrew.lensthicknesscalculator.utils.appLanguage
 import parkhomov.andrew.lensthicknesscalculator.utils.prefs.PreferencesHelper
@@ -33,19 +28,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     var glossaryItem: GlossaryItem? = null
-
-    override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount != 0)
-            supportFragmentManager.popBackStack()
-        else
-            AlertDialog.Builder(this)
-                    .setTitle(R.string.exit_question_title)
-                    .setMessage(R.string.exit_question)
-                    .setNegativeButton(android.R.string.no, null)
-                    .setPositiveButton(android.R.string.yes) { _, _ ->
-                        android.os.Process.killProcess(android.os.Process.myPid())
-                    }.create().show()
-    }
 
     protected fun createListWithData() {
         val jsonId = when (language) {
