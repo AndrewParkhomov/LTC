@@ -12,10 +12,8 @@ import javax.inject.Inject
 class ThicknessPresenter
 @Inject
 constructor(
-        private val router: Router,
         private val interactor: Interactor
 ) : BasePresenter<ThicknessI.View>(), ThicknessI.Presenter {
-
 
     override fun showResultDialog(
             refractionIndex: String,
@@ -37,7 +35,7 @@ constructor(
                 realBaseCurve = realBaseCurve,
                 diameter = diameter
         )
-        router.navigateTo(Result.TAG, interactor.calculatedData!!)
+        mvpView?.showResultDialog(interactor.calculatedData!!)
     }
 
     override fun showResultDialog(
@@ -64,7 +62,7 @@ constructor(
                 realBaseCurve = realBaseCurve,
                 diameter = diameter
         )
-        router.navigateTo(Result.TAG, interactor.calculatedData!!)
+        mvpView?.showResultDialog(interactor.calculatedData!!)
     }
 
     override fun onCalculateBtnClicked(
@@ -292,8 +290,8 @@ constructor(
 
                 showResultDialog(
                         lensIndex.third,
-                        spherePower.toString(),
-                        cylinderPower.toString(),
+                        spherePowerString,
+                        cylinderPowerString,
                         axisView,
                         ((etOnCertainAxis * 1e2).toLong() / 1e2).toString(),
                         centerString,

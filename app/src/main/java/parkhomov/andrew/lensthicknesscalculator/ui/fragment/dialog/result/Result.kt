@@ -14,9 +14,7 @@ import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
 class Result : BaseDialog(),
         ResultI.View {
 
-    override val presenter: ResultI.Presenter  by inject()
-
-    private var data: CalculatedData? = null
+    override val presenter: ResultI.Presenter by inject()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -29,27 +27,66 @@ class Result : BaseDialog(),
                 false
         )
 
-        data = arguments?.getParcelable(TAG)
         presenter.onAttach(this)
 
         return view
     }
 
     override fun setUp(view: View) {
-        centerThicknessTxtV.text = getString(R.string.result_center_thickness, data?.thicknessCenter)
-        centerThicknessTxtV.text = getString(R.string.result_center_thickness, data?.thicknessCenter)
-        minimumEdgeThicknessTxtV.text = getString(R.string.result_min_edge_thickness, data?.thicknessEdge)
-        if (data?.thicknessMax?.isNotEmpty() == true) {
-            maximumEdgeThicknessTxtV.text = getString(R.string.result_max_edge_thickness, data?.thicknessMax)
-        } else {
-            maximumEdgeThicknessTxtV.visibility = View.GONE
-            include_3.visibility = View.GONE
-        }
-        if (data?.thicknessOnAxis?.isNotEmpty() == true) {
-            dymanicAxisEdgeThicknessTxtV.text = getString(R.string.result_on_axis_thickness, data?.axis, data?.thicknessOnAxis)
-        } else {
-            dymanicAxisEdgeThicknessTxtV.visibility = View.GONE
-        }
+        presenter.setResult(arguments!!.getParcelable(TAG)!!)
+    }
+
+    override fun showCylinderViews(isShow: Boolean) {
+        view_cylinder.visibility = if (isShow) View.VISIBLE else View.GONE
+        text_view_cylinder_power.visibility = if (isShow) View.VISIBLE else View.GONE
+        view_axis.visibility = if (isShow) View.VISIBLE else View.GONE
+        text_view_axis.visibility = if (isShow) View.VISIBLE else View.GONE
+        view_thickness_on_axis.visibility = if (isShow) View.VISIBLE else View.GONE
+        text_view_thickness_on_axis.visibility = if (isShow) View.VISIBLE else View.GONE
+        view_min_thickness.visibility = if (isShow) View.VISIBLE else View.GONE
+        text_view_min_thickness.visibility = if (isShow) View.VISIBLE else View.GONE
+        view_max_thickness.visibility = if (isShow) View.VISIBLE else View.GONE
+        text_view_max_thickness.visibility = if (isShow) View.VISIBLE else View.GONE
+    }
+
+    override fun setRefractionIndex(refractionIndex: String) {
+        text_view_index_of_refraction.text = getString(R.string.result_index_of_refraction, refractionIndex)
+    }
+
+    override fun setSpherePower(spherePower: String) {
+        text_view_sphere_power.text = getString(R.string.result_sphere_power, spherePower)
+    }
+
+    override fun setCylinderPower(cylinderPower: String) {
+        text_view_cylinder_power.text = getString(R.string.result_cylinder_power, cylinderPower)
+    }
+
+    override fun setAxis(axis: String?) {
+        text_view_axis.text = getString(R.string.result_axis, axis)
+    }
+
+    override fun setThicknessOnAxis(axis: String?, thicknessOnAxis: String?) {
+        text_view_thickness_on_axis.text = getString(R.string.result_on_axis_thickness, axis, thicknessOnAxis)
+    }
+
+    override fun setCenterThickness(thicknessCenter: String) {
+        text_view_center_thickness.text = getString(R.string.result_center_thickness, thicknessCenter)
+    }
+
+    override fun setEdgeThickness(thicknessEdge: String) {
+        text_view_min_thickness.text = getString(R.string.result_min_edge_thickness, thicknessEdge)
+    }
+
+    override fun setMaxThickness(thicknessMax: String?) {
+        text_view_max_thickness.text = getString(R.string.result_max_edge_thickness, thicknessMax)
+    }
+
+    override fun setBaseCurve(realBaseCurve: String) {
+        text_view_real_base_curve.text = getString(R.string.result_base_curve, realBaseCurve)
+    }
+
+    override fun setDiameter(diameter: String) {
+        text_view_diameter.text = getString(R.string.result_diameter, diameter)
     }
 
     fun show(fragmentManager: FragmentManager) = super.show(fragmentManager, TAG)

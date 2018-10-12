@@ -18,18 +18,16 @@ import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
 import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.language.Language
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.result.Result
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.Diameter
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.Glossary
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.Thickness
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.Transposition
 import parkhomov.andrew.lensthicknesscalculator.utils.*
 import parkhomov.andrew.lensthicknesscalculator.utils.navigation.BackButtonListener
+import parkhomov.andrew.lensthicknesscalculator.utils.navigation.Screens
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.android.SupportFragmentNavigator
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
-import ru.terrakok.cicerone.commands.Forward
-import ru.terrakok.cicerone.commands.Replace
 
 
 class SingleActivity : BaseActivity(),
@@ -37,11 +35,6 @@ class SingleActivity : BaseActivity(),
 
     private val navigatorHolder: NavigatorHolder by inject()
     override val presenter: SingleActivityI.Presenter  by inject()
-
-    private var fragmentThickness: Thickness? = null
-    private var fragmentDiameter: Diameter? = null
-    private var fragmentTransposition: Transposition? = null
-    private var fragmentGlossary: Glossary? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +46,7 @@ class SingleActivity : BaseActivity(),
 
         createListWithData()
 
-        initViews()
-        initContainers()
+        presenter.initViews()
         if (savedInstanceState == null) {
             bottom_navigation_bar.selectTab(thickness, true)
         }
@@ -90,7 +82,7 @@ class SingleActivity : BaseActivity(),
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initViews() {
+    override fun initViews() {
         bottom_navigation_bar
                 .addItem(BottomNavigationItem(R.drawable.ic_thickness, R.string.fragment_thickness))
                 .addItem(BottomNavigationItem(R.drawable.ic_diameter, R.string.fragment_diameter))
@@ -99,12 +91,13 @@ class SingleActivity : BaseActivity(),
                 .initialise()
         bottom_navigation_bar.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
             override fun onTabSelected(position: Int) {
-                when (position) {
-                    thickness -> presenter.onThicknessClicked()
-                    diameter -> presenter.onDiameterClicked()
-                    transposition -> presenter.onTranspositionClicked()
-                    glossary -> presenter.onGlossaryClicked()
+                val tabId = when (position) {
+                    diameter -> Diameter.TAG
+                    transposition -> Transposition.TAG
+                    glossary -> Glossary.TAG
+                    else -> Thickness.TAG
                 }
+                presenter.selectTab(tabId, position)
             }
 
             override fun onTabUnselected(position: Int) {
@@ -118,111 +111,52 @@ class SingleActivity : BaseActivity(),
 
     }
 
-    private fun initContainers() {
-        val fm = supportFragmentManager
-
-        fragmentThickness = fm.findFragmentByTag(Thickness.TAG) as Thickness?
-        if (fragmentThickness == null) {
-            fragmentThickness = Thickness.instance
-            fm.beginTransaction()
-                    .add(R.id.frame_layout_tab_container, fragmentThickness!!, Thickness.TAG)
-                    .detach(fragmentThickness!!).commitNow()
-        }
-
-        fragmentDiameter = fm.findFragmentByTag(Diameter.TAG) as Diameter?
-        if (fragmentDiameter == null) {
-            fragmentDiameter = Diameter.instance
-            fm.beginTransaction()
-                    .add(R.id.frame_layout_tab_container, fragmentDiameter!!, Diameter.TAG)
-                    .detach(fragmentDiameter!!).commitNow()
-        }
-
-        fragmentTransposition = fm.findFragmentByTag(Transposition.TAG) as Transposition?
-        if (fragmentTransposition == null) {
-            fragmentTransposition = Transposition.instance
-            fm.beginTransaction()
-                    .add(R.id.frame_layout_tab_container, fragmentTransposition!!, Transposition.TAG)
-                    .detach(fragmentTransposition!!).commitNow()
-        }
-
-        fragmentGlossary = fm.findFragmentByTag(Glossary.TAG) as Glossary?
-        if (fragmentGlossary == null) {
-            fragmentGlossary = Glossary.instance
-            fm.beginTransaction()
-                    .add(R.id.frame_layout_tab_container, fragmentGlossary!!, Glossary.TAG)
-                    .detach(fragmentGlossary!!).commitNow()
-        }
-    }
-
-    override fun highlightTab(position: Int) {
+    override fun selectTabPosition(position: Int) {
         bottom_navigation_bar.selectTab(position, false)
     }
 
-    private val navigator = object : SupportFragmentNavigator(
-            supportFragmentManager,
+    override fun selectTab(tabId: String) {
+        var currentFragment: Fragment? = null
+        val fragments = supportFragmentManager.fragments
+        for (f in fragments) {
+            if (f.isVisible) {
+                currentFragment = f
+                break
+            }
+        }
+        val newFragment = supportFragmentManager.findFragmentByTag(tabId)
+
+        if (currentFragment != null && newFragment != null && currentFragment === newFragment) return
+
+        val transaction = supportFragmentManager.beginTransaction()
+        if (newFragment == null) {
+            transaction.add(R.id.frame_layout_tab_container, Screens.GetBottomTabFragment(tabId).fragment, tabId)
+        }
+
+        if (currentFragment != null) {
+            transaction.hide(currentFragment)
+        }
+
+        if (newFragment != null) {
+            transaction.show(newFragment)
+        }
+        transaction.commitNow()
+    }
+
+    private val navigator = object : SupportAppNavigator(
+            this,
             R.id.container_parent
     ) {
-        override fun createFragment(screenKey: String, data: Any?): Fragment {
-            return throw RuntimeException("No screen key provided")
-        }
-
-
-        override fun exit() {
-
-        }
-
-        override fun showSystemMessage(message: String) {
-
-        }
-
-        override fun back() {
-
-        }
-
-        override fun replace(command: Replace?) {
-            val fm = supportFragmentManager
-            when (command?.screenKey) {
-                Thickness.TAG -> fm.beginTransaction()
-                        .detach(fragmentDiameter!!)
-                        .detach(fragmentTransposition!!)
-                        .detach(fragmentGlossary!!)
-                        .attach(fragmentThickness!!)
-                        .commitNow()
-                Diameter.TAG -> fm.beginTransaction()
-                        .detach(fragmentThickness!!)
-                        .detach(fragmentTransposition!!)
-                        .detach(fragmentGlossary!!)
-                        .attach(fragmentDiameter!!)
-                        .commitNow()
-                Transposition.TAG -> fm.beginTransaction()
-                        .detach(fragmentThickness!!)
-                        .detach(fragmentDiameter!!)
-                        .detach(fragmentGlossary!!)
-                        .attach(fragmentTransposition!!)
-                        .commitNow()
-                Glossary.TAG -> fm.beginTransaction()
-                        .detach(fragmentThickness!!)
-                        .detach(fragmentDiameter!!)
-                        .detach(fragmentTransposition!!)
-                        .attach(fragmentGlossary!!)
-                        .commitNow()
-            }
-        }
-
-        override fun forward(command: Forward) {
-            when (command.screenKey) {
-                Result.TAG -> Result.getInstance(command.transitionData as CalculatedData)
-                        .show(supportFragmentManager)
-                Language.TAG -> Language.instance.show(supportFragmentManager)
-                else -> super.forward(command)
-            }
-        }
 
         override fun applyCommands(commands: Array<Command>) {
             super.applyCommands(commands)
             supportFragmentManager.executePendingTransactions()
         }
 
+    }
+
+    override fun showLanguageDialog() {
+        Language.instance.show(supportFragmentManager)
     }
 
     override fun showRateThisAppDialog() {
@@ -279,7 +213,7 @@ class SingleActivity : BaseActivity(),
                     calculatedData.diameter
             )
         }
-        presenter.setTestForSharing(sharedText)
+        presenter.setTextForSharing(sharedText)
     }
 
     override fun shareResult(sharedText: String) {
@@ -297,7 +231,14 @@ class SingleActivity : BaseActivity(),
     }
 
     override fun onBackPressed() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.container_parent)
+        var fragment: Fragment? = null
+        val fragments = supportFragmentManager.fragments
+        for (f in fragments) {
+            if (f.isVisible) {
+                fragment = f
+                break
+            }
+        }
         if (fragment != null
                 && fragment is BackButtonListener
                 && (fragment as BackButtonListener).onBackPressed()) {

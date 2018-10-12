@@ -2,6 +2,7 @@ package parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness
 
 import parkhomov.andrew.lensthicknesscalculator.base.MvpPresenter
 import parkhomov.andrew.lensthicknesscalculator.base.MvpView
+import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
 
 interface ThicknessI {
 
@@ -45,6 +46,7 @@ interface ThicknessI {
         fun highlightDiameter(isShowError: Boolean)
         fun highlightCenterThickness(isShowError: Boolean)
         fun setCurrentBaseCurve(curveValue: String)
+        fun showResultDialog(calculatedData: CalculatedData)
 
 
     }

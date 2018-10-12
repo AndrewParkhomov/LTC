@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -19,15 +20,14 @@
 
             <TextView
                 android:id="@+id/text_view_spinner"
+                style="@style/SimpleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.87"
-                android:padding="16dp"
                 android:layout_marginStart="4dp"
+                android:padding="16dp"
                 android:text="@string/tab_thkns_material_index"
-                android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/view_divider"
+                app:layout_constraintBottom_toTopOf="@+id/view_cylinder"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,19 +35,28 @@
                 android:id="@+id/spinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:alpha="0.87"
                 android:background="@android:color/transparent"
                 android:entries="@array/index_of_refraction"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toTopOf="@+id/view_divider"
+                android:padding="16dp"
+                android:theme="@style/SpinnerAuthorizationTextStyle"
+                app:layout_constraintBottom_toTopOf="@+id/view_cylinder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/text_view_spinner"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/image_view_spinner_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/spinner"
+                app:layout_constraintEnd_toEndOf="@+id/spinner"
+                app:layout_constraintTop_toTopOf="@+id/spinner"
+                app:srcCompat="@drawable/arrow_gray_down"
+                tools:ignore="ContentDescription" />
+
             <View
-                android:id="@+id/view_divider"
+                android:id="@+id/view_cylinder"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="60dp"
@@ -61,15 +70,14 @@
                 style="@style/TextInputWrapper"
                 android:layout_marginTop="14dp"
                 android:hint="@string/tab_thkns_sphere_power"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/view_divider">
+                app:layout_constraintTop_toTopOf="@+id/view_cylinder">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/sphere_"
-                    android:maxLength="6"
-                    style="@style/TextInputEditText" />
+                    style="@style/TextInputEditText"
+                    android:maxLength="6" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -85,16 +93,16 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/cylinder_"
-                    android:maxLength="6"
-                    style="@style/TextInputEditText" />
+                    style="@style/TextInputEditText"
+                    android:maxLength="6" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/wrapper_axis"
                 style="@style/TextInputWrapper"
-                android:hint="@string/tab_thkns_axis"
                 android:layout_marginTop="8dp"
+                android:hint="@string/tab_thkns_axis"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,8 +110,8 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/axis_"
-                    android:maxLength="3"
-                    style="@style/TextInputEditText" />
+                    style="@style/TextInputEditText"
+                    android:maxLength="3" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -119,8 +127,8 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/curve_"
-                    android:maxLength="5"
-                    style="@style/TextInputEditText"  />
+                    style="@style/TextInputEditText"
+                    android:maxLength="5" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -136,8 +144,8 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/center_thickness"
-                    android:maxLength="5"
-                    style="@style/TextInputEditText" />
+                    style="@style/TextInputEditText"
+                    android:maxLength="5" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -153,8 +161,8 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/edge_thickness"
-                    android:maxLength="5"
-                    style="@style/TextInputEditText" />
+                    style="@style/TextInputEditText"
+                    android:maxLength="5" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -163,7 +171,6 @@
                 style="@style/TextInputWrapper"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="8dp"
-
                 android:hint="@string/tab_thkns_lens_diameter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -172,8 +179,8 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/diameter_"
-                    android:maxLength="5"
-                    style="@style/TextInputEditText" />
+                    style="@style/TextInputEditText"
+                    android:maxLength="5" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -181,22 +188,7 @@
     </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/thicknessCalculateButtonOld"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:elevation="2dp"
-        android:focusable="true"
-        android:scaleType="center"
-        app:backgroundTint="@color/primary"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toTopOf="@+id/thicknessCalculateButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_share"
-        app:useCompatPadding="true" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/thicknessCalculateButton"
+        android:id="@+id/button_calculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"

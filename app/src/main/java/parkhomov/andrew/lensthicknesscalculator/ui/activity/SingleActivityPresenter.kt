@@ -2,48 +2,28 @@ package parkhomov.andrew.lensthicknesscalculator.ui.activity
 
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BasePresenter
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.language.Language
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.Diameter
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.Glossary
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.Thickness
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.Transposition
-import parkhomov.andrew.lensthicknesscalculator.utils.diameter
-import parkhomov.andrew.lensthicknesscalculator.utils.glossary
 import parkhomov.andrew.lensthicknesscalculator.utils.interactor.Interactor
-import parkhomov.andrew.lensthicknesscalculator.utils.thickness
-import parkhomov.andrew.lensthicknesscalculator.utils.transposition
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class SingleActivityPresenter
 @Inject
 constructor(
-        private val router: Router,
         private val interactor: Interactor
-) : BasePresenter<SingleActivityI.View>(), SingleActivityI.Presenter {
+) : BasePresenter<SingleActivityI.View>(),
+        SingleActivityI.Presenter {
 
-    override fun onThicknessClicked() {
-        mvpView?.highlightTab(thickness)
-        router.replaceScreen(Thickness.TAG)
+
+    override fun initViews() {
+        mvpView?.initViews()
+        mvpView?.selectTab(interactor.selectedTabId)
+        mvpView?.selectTabPosition(interactor.position)
     }
 
-    override fun onDiameterClicked() {
-        mvpView?.highlightTab(diameter)
-        router.replaceScreen(Diameter.TAG)
-    }
-
-    override fun onTranspositionClicked() {
-        mvpView?.highlightTab(transposition)
-        router.replaceScreen(Transposition.TAG)
-    }
-
-    override fun onGlossaryClicked() {
-        mvpView?.highlightTab(glossary)
-        router.replaceScreen(Glossary.TAG)
-    }
-
-    override fun onBackPressed() {
-
+    override fun selectTab(tabId: String, position: Int) {
+        interactor.selectedTabId = tabId
+        interactor.position = position
+        mvpView?.selectTab(interactor.selectedTabId)
+        mvpView?.selectTabPosition(interactor.position)
     }
 
     override fun onRateThisAppClicked() {
@@ -55,7 +35,7 @@ constructor(
     }
 
     override fun onLanguageClicked() {
-        router.navigateTo(Language.TAG)
+        mvpView?.showLanguageDialog()
     }
 
     override fun onRateAppClicked() {
@@ -70,7 +50,7 @@ constructor(
         }
     }
 
-    override fun setTestForSharing(sharedText: String) {
+    override fun setTextForSharing(sharedText: String) {
         mvpView?.shareResult(sharedText)
     }
 }

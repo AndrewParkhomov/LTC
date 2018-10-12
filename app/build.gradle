@@ -26,11 +26,6 @@ android {
         }
     }
 
-    lintOptions {
-        disable 'MissingTranslation'
-        abortOnError false
-    }
-
     androidExtensions {
         experimental = true
     }
@@ -55,7 +50,7 @@ dependencies {
     implementation "org.koin:koin-core:$koin_version"
     implementation "org.koin:koin-android:$koin_version"
     // navigation
-    implementation "ru.terrakok.cicerone:cicerone:3.0.0"
+    implementation "ru.terrakok.cicerone:cicerone:4.0.2"
     // custom fonts for app
     def custom_font_version = "2.3.0"
     implementation "uk.co.chrisjenx:calligraphy:$custom_font_version"

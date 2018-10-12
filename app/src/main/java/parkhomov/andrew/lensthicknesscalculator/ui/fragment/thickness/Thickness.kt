@@ -7,11 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.thickness_fragment.*
 import org.koin.android.ext.android.inject
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
+import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
+import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.result.Result
 import parkhomov.andrew.lensthicknesscalculator.utils.*
 
 /**
@@ -54,13 +55,9 @@ class Thickness : BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        customizeSpinner()
         setUpTextWatchers()
 
-        thicknessCalculateButtonOld.setOnClickListener {
-            onCalculateBtnClicked()
-        }
-        thicknessCalculateButton.setOnClickListener {
+        button_calculate.setOnClickListener {
             presenter.onCalculateBtnClicked(
                     getLensIndex(),
                     sphere_.text.toString(),
@@ -73,13 +70,6 @@ class Thickness : BaseFragment(),
             )
         }
         text_view_spinner.setOnClickListener { spinner.performClick() }
-    }
-
-    private fun customizeSpinner() {
-        val adapter = ArrayAdapter.createFromResource(activity!!,
-                R.array.index_of_refraction, R.layout.spinner_header)
-        adapter.setDropDownViewResource(R.layout.spinner_body)
-        spinner.adapter = adapter
     }
 
     private fun setUpTextWatchers() {
@@ -559,7 +549,7 @@ class Thickness : BaseFragment(),
         Log.i("cylinderPower", cylinderPower.toString())
         Log.i("axisView", axisView.toString())
         Log.i("(1)", ((etOnCertainAxis * 1e2).toLong() / 1e2).toString())
-        Log.i("(2)",  ((centerThickness * 1e2).toLong() / 1e2).toString())
+        Log.i("(2)", ((centerThickness * 1e2).toLong() / 1e2).toString())
         Log.i("(3)", ((edgeThickness * 1e2).toLong() / 1e2).toString())
         Log.i("(4)", ((maxEdgeThickness * 1e2).toLong() / 1e2).toString())
         Log.i("realFrontBaseCurveDptr", realFrontBaseCurveDptr.toString())
@@ -593,7 +583,7 @@ class Thickness : BaseFragment(),
 
         val enabled = R.style.HintTextAppearanceEnable
         val disabled = R.style.HintTextAppearanceDisable
-        val colorTextEnable = activity!!.getColorFromId(R.color.text_color_enable)
+        val colorTextEnable = activity!!.getColorFromId(R.color.black)
         val colorEnable = activity!!.getColorFromId(R.color.accent)
         val colorDisable = activity!!.getColorFromId(R.color.gray_400)
 
@@ -613,7 +603,7 @@ class Thickness : BaseFragment(),
             }
 
             if (spherePower != null) {
-                val value = if (cylinderPower != null)
+                val value = if (cylinderPower != null && cylinderPower > 0)
                     spherePower + cylinderPower
                 else
                     spherePower
@@ -640,6 +630,10 @@ class Thickness : BaseFragment(),
         override fun afterTextChanged(editable: Editable) {
 
         }
+    }
+
+    override fun showResultDialog(calculatedData: CalculatedData) {
+        Result.getInstance(calculatedData).show(childFragmentManager)
     }
 
     companion object {

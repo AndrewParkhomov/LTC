@@ -21,8 +21,7 @@
             style="@style/TextInputEditText"
             android:digits="0123456789."
             android:imeOptions="actionNext"
-            android:inputType="number"
-            android:maxLines="1" />
+            android:inputType="number"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -30,7 +29,6 @@
         android:id="@+id/wrapper_dbl"
         style="@style/TextInputWrapper"
         android:layout_marginTop="8dp"
-
         android:hint="@string/tab_diameter_hint_dbl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +39,7 @@
             style="@style/TextInputEditText"
             android:digits="0123456789."
             android:inputType="number"
-            android:imeOptions="actionNext"
-            android:maxLines="1" />
+            android:imeOptions="actionNext" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -50,7 +47,6 @@
         android:id="@+id/wrapper_pd"
         style="@style/TextInputWrapper"
         android:layout_marginTop="8dp"
-
         android:hint="@string/tab_diameter_hint_pd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,6 +69,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="14dp"
         android:gravity="center"
+        style="@style/SimpleText"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

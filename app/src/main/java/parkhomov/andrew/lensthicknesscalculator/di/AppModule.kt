@@ -27,9 +27,9 @@ import parkhomov.andrew.lensthicknesscalculator.utils.prefs.PreferencesHelper
 val appModule = module {
 
     // Presenter with injection parameter for Diameter View
-    factory<SingleActivityI.Presenter> { SingleActivityPresenter(get(), get()) }
+    factory<SingleActivityI.Presenter> { SingleActivityPresenter(get()) }
 
-    factory<ThicknessI.Presenter> { ThicknessPresenter(get(), get()) }
+    factory<ThicknessI.Presenter> { ThicknessPresenter(get()) }
     factory<DiameterI.Presenter> { DiameterPresenter() }
     factory<GlossaryI.Presenter> { GlossaryPresenter() }
     factory<TranspositionI.Presenter> { TranspositionPresenter() }
