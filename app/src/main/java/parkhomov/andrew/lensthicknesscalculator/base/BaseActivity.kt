@@ -1,7 +1,9 @@
 package parkhomov.andrew.lensthicknesscalculator.base
 
 import android.content.Context
+import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.google.gson.Gson
 import org.koin.android.ext.android.inject
 import parkhomov.andrew.lensthicknesscalculator.R
@@ -16,6 +18,7 @@ import java.util.*
 abstract class BaseActivity : AppCompatActivity() {
 
     lateinit var language: String
+    var glossaryItem: GlossaryItem? = null
     private val preferencesHelper: PreferencesHelper by inject()
 
     override fun attachBaseContext(context: Context) {
@@ -27,7 +30,14 @@ abstract class BaseActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(MyContextWrapper.wrap(context, language)))
     }
 
-    var glossaryItem: GlossaryItem? = null
+    fun showMessage(message: String?) {
+        Toast.makeText(this, message
+                ?: getString(R.string.error_unknown), Toast.LENGTH_SHORT).show()
+    }
+
+    fun showMessage(@StringRes resId: Int) {
+        showMessage(getString(resId))
+    }
 
     protected fun createListWithData() {
         val jsonId = when (language) {

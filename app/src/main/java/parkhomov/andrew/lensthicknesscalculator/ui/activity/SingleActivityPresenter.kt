@@ -46,7 +46,7 @@ constructor(
         if (interactor.calculatedData != null) {
             mvpView?.createStringForSharing(interactor.calculatedData!!)
         } else {
-            mvpView?.showToast(R.string.share_result_is_empty)
+            mvpView?.showSnackbar(R.string.share_result_is_empty)
         }
     }
 

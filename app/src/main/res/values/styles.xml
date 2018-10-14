@@ -7,25 +7,19 @@
         <!-- this for radio button in decline order -->
         <item name="radioButtonStyle">@style/MyCustomRadiobutton</item>
         <!-- Text color in menu -->
-        <item name="android:itemTextAppearance">@style/myCustomMenuTextApearance</item>
-        <item name="android:spinnerItemStyle">@style/SpinnerDividerStyle</item>
-    </style>
-
-    <!-- Disable all caps letters in tab view -->
-    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="textAllCaps">false</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <!-- Spinner fin authorization -->
-    <style name="SpinnerAuthorizationTextStyle" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:spinnerItemStyle">@style/SpinnerAppearance</item>
+        <item name="android:itemTextAppearance">@style/myCustomMenuTextAppearance</item>
+        <!-- spinner -->
         <item name="android:dropDownListViewStyle">@style/SpinnerDividerStyle</item>
+        <item name="dropDownListViewStyle">@style/SpinnerDividerStyle</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerAppearance</item>
+        <!-- To change the background of options menu-->
+        <item name="android:itemBackground">@drawable/selector_background_menu</item>
     </style>
 
-    <style name="SpinnerDividerStyle" parent="Base.TextAppearance.AppCompat.Widget.DropDownItem">
-        <item name="android:divider">#dfdfdf</item>
+    <style name="SpinnerDividerStyle" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:background">@color/gray_300</item>
+        <item name="android:textColor">@color/main_text_color</item>
+        <item name="android:divider">@color/gray_400</item>
         <item name="android:dividerHeight">1dp</item>
     </style>
 
@@ -34,7 +28,7 @@
         <item name="android:textColor">@color/main_text_color</item>
     </style>
 
-    <style name="myCustomMenuTextApearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+    <style name="myCustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textColor">@color/main_text_color</item>
     </style>
 
@@ -84,6 +78,10 @@
         <item name="android:textColor">@color/main_text_color</item>
     </style>
 
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textColorPrimary">@color/main_text_color</item>
+    </style>
 
     <style name="HintTextAppearanceEnable" parent="TextAppearance.Design.Hint">
         <!-- Inactive and Active label color, pointing to a selector-->
@@ -97,7 +95,7 @@
 
     <style name="ErrorTextAppearance" parent="TextAppearance.Design.Error">
         <!-- Error text color-->
-        <item name="android:textColor">@color/red_a_700</item>
+        <item name="android:textColor">@color/color_error</item>
     </style>
 
 </resources>

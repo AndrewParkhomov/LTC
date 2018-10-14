@@ -27,7 +27,7 @@
             android:drawableStart="@drawable/radiobutton_basic"
             android:text="@string/english"
             style="@style/SimpleText"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radio_button_rus"
@@ -40,7 +40,7 @@
             android:drawableStart="@drawable/radiobutton_basic"
             android:text="@string/russian"
             style="@style/SimpleText"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radio_button_ukr"
@@ -54,7 +54,7 @@
             android:drawableStart="@drawable/radiobutton_basic"
             android:text="@string/ukrainian"
             style="@style/SimpleText"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
     </RadioGroup>
 

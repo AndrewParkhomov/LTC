@@ -22,11 +22,6 @@
     <string name="tab_thkns_provide_sphere">Пожалуйста, введите значение сферы</string>
     <string name="tab_thkns_provide_center_thickness">Пожалуйста, введите толщину по центру</string>
     <string name="tab_thkns_provide_diameter">Пожалуйста, введите диаметр линзы</string>
-    <!-- Diameter hints -->
-    <string name="tab_diameter_hint_ed">Эффективный диаметр %1$.0f.00</string>
-    <string name="tab_diameter_hint_dbl">Расстояние между линзами %1$.0f.00</string>
-    <string name="tab_diameter_hint_pd">Расстояние между зрачками %1$.0f.00</string>
-    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f.0 mm</string>
     <!-- Result -->
     <string name="result_index_of_refraction">Индекс преломления: %1$s</string>
     <string name="result_sphere_power">Сфера: %1$s</string>
@@ -38,11 +33,16 @@
     <string name="result_max_edge_thickness">Максимальная толщина: %1$s мм</string>
     <string name="result_base_curve">Кривизна базы линзы: %1$s</string>
     <string name="result_diameter">Диаметр: %1$s мм</string>
+    <!-- Diameter hints -->
+    <string name="tab_diameter_hint_ed">Эффективный диаметр %1$.0f.00</string>
+    <string name="tab_diameter_hint_dbl">Расстояние между линзами %1$.0f.00</string>
+    <string name="tab_diameter_hint_pd">Расстояние между зрачками %1$.0f.00</string>
+    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f.0 mm</string>
     <!-- Transposition -->
-    <string name="transposition_power_sphere">Сфера %1$.0f.0</string>
-    <string name="transposition_power_cylinder">Цилиндр %1$.0f.0</string>
+    <string name="transposition_power_sphere">Сфера %1$s</string>
+    <string name="transposition_power_cylinder">Цилиндр %1$s</string>
     <string name="transposition_axis">Угол %1$d&#176;</string>
-    <string name="transposition_result">Сфера %1$.0f.0\nЦилиндр %2$.0f.0\nУгол %3$d&#176;</string>
+    <string name="transposition_result">Сфера %1$s\nЦилиндр %2$s\nУгол %3$d&#176;</string>
     <!-- Settings list item -->
     <string name="header_language">Язык</string>
     <string name="header_share">Поделится</string>
@@ -55,7 +55,7 @@
     <!-- Share result -->
     <string name="share_result_subject">Данные об линзе</string>
     <string name="share_with">Поделиться с помощью…</string>
-    <string name="share_result_is_empty">Нету даныых которыми можно поделиться</string>
+    <string name="share_result_is_empty">Сначала просчитайте параметры линзы</string>
     <string name="share_text_only_sphere">Посчитано с помощью приложения %1$s\n%2$s\nИндекс преломления = %3$s\nСфера = %4$s\nТолщина по центру = %5$s мм\nТолщина по краю = %6$s мм\nРеальная кривизна базы линзы = %7$s\nДиаметр линзы = %8$s мм</string>
     <string name="share_text_full">Посчитано с помощью приложения %1$s\n%2$s\nИндекс преломления = %3$s\nСфера = %4$s\nЦилиндр = %5$s\nУгол = %6$s&#176;\nТолщина под углом %7$s&#176; = %8$s мм\nТолщина по центру = %9$s мм\nТолщина по краю = %10$s мм\nМаксимальная толщина = %11$s мм\nРеальная кривизна базы линзы = %12$s\nДиаметр линзы = %13$s мм</string>
     <!-- Rate this app -->
@@ -63,9 +63,6 @@
     <string name="rate_app_body">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
     <!-- About program -->
     <string name="version">Версия %1$s\nРазработка: Пархомов Андрей\nE-mail:\nparkhomov.andrew@gmail.com</string>
-    <string name="programing_language">Kotlin</string>
-    <string name="year">2018</string>
-    <string name="copyright">©</string>
     <!-- Exit -->
     <string name="exit_question_title">Выход</string>
     <string name="exit_question">Вы действительно хотите выйти?</string>

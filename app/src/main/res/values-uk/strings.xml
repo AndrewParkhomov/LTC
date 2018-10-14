@@ -39,10 +39,10 @@
     <string name="tab_diameter_hint_pd">Відстань між зіницями %1$.0f.00</string>
     <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f.0 mm</string>
     <!-- Transposition -->
-    <string name="transposition_power_sphere">Сфера %1$.0f.0</string>
-    <string name="transposition_power_cylinder">Циліндр %1$.0f.0</string>
+    <string name="transposition_power_sphere">Сфера %1$s</string>
+    <string name="transposition_power_cylinder">Циліндр %1$s</string>
     <string name="transposition_axis">Кут %1$d&#176;</string>
-    <string name="transposition_result">Сфера %1$.0f.0\nЦиліндр %2$.0f.0\nКут %3$d&#176;</string>
+    <string name="transposition_result">Сфера %1$s\nЦиліндр %2$s\nКут %3$d&#176;</string>
     <!-- Settings list item -->
     <string name="header_language">Мова</string>
     <string name="header_share">Поділитись</string>
@@ -55,7 +55,7 @@
     <!-- Share result -->
     <string name="share_result_subject">Дані про лінзу</string>
     <string name="share_with">Поділитись з допомогою…</string>
-    <string name="share_result_is_empty">Немає даних якими можна поділитись</string>
+    <string name="share_result_is_empty">Спочатку прорахуйте параметри лінзи</string>
     <string name="share_text_only_sphere">Пораховано за допомогою додатку %1$s\n%2$s\nІндекс заломлення = %3$s\nСфера = %4$s\nТовщина по центру = %5$s мм\nТовщина по краю = %6$s мм\nРеальна кривизна бази лінзи = %7$s\nДіаметр лінзи = %8$s мм</string>
     <string name="share_text_full">Пораховано за допомогою додатку %1$s\n%2$s\nІндекс заломлення = %3$s\nСфера = %4$s\nЦиліндр = %5$s\nКут = %6$s&#176;\nТовщина під кутом %7$s&#176; = %8$s мм\nТовщина по центру = %9$s мм\nТовщина по краю = %10$s мм\nМаксимальна товщина = %11$s мм\nРеальна кривизна бази лінзи = %12$s\nДіаметр лінзи = %13$s мм</string>
     <!-- Rate this app -->
@@ -63,9 +63,6 @@
     <string name="rate_app_body">Якщо Вам подобається цей додаток, чи не могли б Ви знайти час, щоб оцінити його? Це займе не більше хвилини. Дякую за Вашу підтримку!</string>
     <!-- About program -->
     <string name="version">Версія %1$s\nРозробка: Пархомов Андрій\nE-mail:\nparkhomov.andrew@gmail.com</string>
-    <string name="programing_language">Kotlin</string>
-    <string name="year">2018</string>
-    <string name="copyright">©</string>
     <!-- Exit -->
     <string name="exit_question_title">Вихід</string>
     <string name="exit_question">Ви дійсно бажаєте вийти?</string>

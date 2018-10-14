@@ -38,6 +38,9 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    def junit_version = "4.12"
+    testImplementation "junit:junit:$junit_version"
     // support
     def constraint_version = "1.1.3"
     implementation "com.android.support.constraint:constraint-layout:$constraint_version"
@@ -56,16 +59,26 @@ dependencies {
     implementation "uk.co.chrisjenx:calligraphy:$custom_font_version"
     // annotations
     implementation "javax.inject:javax.inject:1"
-
-    //Bottom Navigation Bar
-    implementation('com.ashokvarma.android:bottom-navigation-bar:2.0.5') {
+    //bottom navigation bar
+    def bottom_bar = "2.0.5"
+    implementation("com.ashokvarma.android:bottom-navigation-bar:$bottom_bar") {
         exclude group: "com.android.support", module: "design"
     }
+    // fabric
+    def fabric_version = "2.9.5"
+    implementation("com.crashlytics.sdk.android:crashlytics:$fabric_version") {
+        transitive = true
+    }
+
+    // logger
+//    def logger = "4.7.1"
+//    implementation "com.jakewharton.timber:timber:$logger"
 
     // expandable view
-    def  expandable_view= "1.0.3"
+    def expandable_view = "1.0.3"
     implementation "com.mindorks.android:placeholderview:$expandable_view"
     kapt "com.mindorks.android:placeholderview-compiler:$expandable_view"
     // for parsing json
-    implementation 'com.google.code.gson:gson:2.8.5'
+    def gson_version = "2.8.5"
+    implementation "com.google.code.gson:gson:$gson_version"
 }

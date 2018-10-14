@@ -12,10 +12,8 @@
             android:translateX="16.000000"
             android:translateY="21.000000">
             <path
-                android:fillAlpha="0.8"
                 android:pathData="M 0 8.97609036 L 5.00058847 4 L 10 9 "
-                android:strokeAlpha="0.8"
-                android:strokeColor="@color/gray_400"
+                android:strokeColor="@color/gray_500"
                 android:strokeWidth="1.7" />
         </group>
     </group>

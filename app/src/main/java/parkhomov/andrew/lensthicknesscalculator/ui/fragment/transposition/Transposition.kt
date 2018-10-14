@@ -87,7 +87,13 @@ class Transposition : BaseFragment(),
 
     private fun calculate() {
         val sphere = try {
-            spherePower + cylinderPower
+            val sphereOriginal = (spherePower + cylinderPower)
+            // prevent 0.000000000000002
+            if (sphereOriginal.toString().length >= 5) {
+                sphereOriginal.toString().substring(0, 5).toDouble()
+            } else {
+                sphereOriginal
+            }
         } catch (e: NumberFormatException) {
             0.0
         }
@@ -111,15 +117,20 @@ class Transposition : BaseFragment(),
             0
         }
 
-        text_view_result.text = getString(R.string.transposition_result, sphere, cylinder, axis)
+        text_view_result.text = getString(
+                R.string.transposition_result,
+                sphere.toString(),
+                cylinder.toString(),
+                axis
+        )
     }
 
     fun setHintSphere(value: Double) {
-        wrapper_sphere.hint = getString(R.string.transposition_power_sphere, value)
+        wrapper_sphere.hint = getString(R.string.transposition_power_sphere, value.toString())
     }
 
     fun setHintCylinder(value: Double) {
-        wrapper_cylinder.hint = getString(R.string.transposition_power_cylinder, value)
+        wrapper_cylinder.hint = getString(R.string.transposition_power_cylinder, value.toString())
     }
 
     fun setHintAxis(value: Int) {

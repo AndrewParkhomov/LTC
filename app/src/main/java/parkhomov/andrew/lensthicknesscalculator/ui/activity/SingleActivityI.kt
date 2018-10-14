@@ -23,12 +23,12 @@ interface SingleActivityI {
         fun showAboutDialog()
         fun openGooglePlay()
         fun shareResult(sharedText: String)
-        fun showToast(@StringRes resId: Int)
         fun createStringForSharing(calculatedData: CalculatedData)
         fun showLanguageDialog()
         fun initViews()
         fun selectTab(tabId: String)
         fun selectTabPosition(position: Int)
+        fun showSnackbar(@StringRes resId: Int)
     }
 
 }

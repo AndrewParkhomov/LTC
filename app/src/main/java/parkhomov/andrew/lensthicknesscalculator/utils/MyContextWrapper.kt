@@ -24,14 +24,13 @@ class MyContextWrapper(base: Context) : ContextWrapper(base) {
                 getSystemLocaleLegacy(config)
             }
 
-            val country = when (language) {
-                "uk" -> "uk_UA"
-                "ru" -> "RU"
-                else -> "en_US"
+            val locale = when (language) {
+                "uk" -> Locale("uk","uk_UA")
+                "ru" -> Locale("ru","RU")
+                else -> Locale.US
             }
 
             if (language != "" && sysLocale.language != language) {
-                val locale = Locale(language, country)
                 Locale.setDefault(locale)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     setSystemLocale(config, locale)

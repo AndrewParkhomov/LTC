@@ -27,7 +27,7 @@
     <string name="result_sphere_power">Sphere power: %1$s</string>
     <string name="result_cylinder_power">Cylinder power: %1$s</string>
     <string name="result_axis">Axis: %1$s&#176;</string>
-    <string name="result_on_axis_thickness">Thk on axis %1$s&#176;: %2$s mm</string>
+    <string name="result_on_axis_thickness">Thickness on axis %1$s&#176;: %2$s mm</string>
     <string name="result_center_thickness">Center thickness: %1$s mm</string>
     <string name="result_min_edge_thickness">Minimum thickness: %1$s mm</string>
     <string name="result_max_edge_thickness">Maximum thickness: %1$s mm</string>
@@ -39,10 +39,10 @@
     <string name="tab_diameter_hint_pd">Pupil distance %1$.0f.00</string>
     <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f.0 mm</string>
     <!-- Transposition -->
-    <string name="transposition_power_sphere">Sphere %1$.0f.0</string>
-    <string name="transposition_power_cylinder">Cylinder %1$.0f.0</string>
+    <string name="transposition_power_sphere">Sphere %1$s</string>
+    <string name="transposition_power_cylinder">Cylinder %1$s</string>
     <string name="transposition_axis">Axis %1$d&#176;</string>
-    <string name="transposition_result">Sphere power %1$.0f.0\nCyliner power %1$.0f.0\nAxis %3$d&#176;</string>
+    <string name="transposition_result">Sphere power %1$s\nCylinder power %2$s\nAxis %3$d&#176;</string>
     <!-- Settings list item-->
     <string name="header_language">Language</string>
     <string name="header_rate_this_app">Rate this app</string>
@@ -55,7 +55,7 @@
     <!-- Share result -->
     <string name="share_result_subject">Lens data</string>
     <string name="share_with">Share with…</string>
-    <string name="share_result_is_empty">There is no data for sharing</string>
+    <string name="share_result_is_empty">Calculate lens data first</string>
     <string name="share_text_only_sphere">Calculated via %1$s\n%2$s\nIndex of refraction = %3$s\nSphere power = %4$s\nCenter thickness = %5$s mm\nEdge thickness = %6$s mm\nReal base curve = %7$s\nDiameter = %8$s mm</string>
     <string name="share_text_full">Calculated via %1$s\n%2$s\nIndex of refraction = %3$s\nSphere power = %4$s\nCylinder Power = %5$s\nAxis = %6$s&#176;\nThickness on axis %7$s&#176; = %8$s mm\nCenter thickness = %9$s mm\nEdge thickness = %10$s mm\nMax thickness = %11$s mm\nReal base curve = %12$s\nDiameter = %13$s mm</string>
     <!-- Rate this app -->
@@ -63,10 +63,7 @@
     <string name="rate_app_body">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thank you for your support!</string>
     <!-- About program -->
     <string name="version">Version %1$s\nDeveloped by Parkhomov Andrew\nE-mail:\nparkhomov.andrew@gmail.com</string>
-    <string name="programing_language">Kotlin</string>
-    <string name="year">2018</string>
-    <string name="copyright">©</string>
-   <!-- Exit -->
+    <!-- Exit -->
     <string name="exit_question_title">Exit</string>
     <string name="exit_question">Are you sure you want to exit?</string>
 

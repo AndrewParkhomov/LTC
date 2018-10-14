@@ -3,10 +3,8 @@ package parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness
 import android.util.Log
 import parkhomov.andrew.lensthicknesscalculator.base.BasePresenter
 import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.result.Result
 import parkhomov.andrew.lensthicknesscalculator.utils.*
 import parkhomov.andrew.lensthicknesscalculator.utils.interactor.Interactor
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class ThicknessPresenter
@@ -131,7 +129,7 @@ constructor(
             mvpView?.highlightSpherePower(false)
 
 
-            if (spherePower <= 0.0) {
+            if ((spherePower + cylinderPower) <= 0.0) {
                 isContinueCalculation = if (centerThickness == null) {
                     mvpView?.highlightCenterThickness(true)
                     false
@@ -194,7 +192,7 @@ constructor(
                     cylinderPower,
                     centerThickness!!,
                     lensIndex,
-                    spherePower!!
+                    spherePower
             )
             Log.i("recalculatedCylinderCu", recalculatedCylinderCurve.toString())
 
@@ -312,19 +310,19 @@ constructor(
                 tempCurveString = base0.toString()
                 base0
             }
-            value <= -6.0 && value >= -7.99 -> {
+            value in -7.99..-6.0 -> {
                 tempCurveString = base1.toString()
                 base1
             }
-            value <= -4.0 && value >= -5.99 -> {
+            value in -5.99..-4.0 -> {
                 tempCurveString = base2.toString()
                 base2
             }
-            value <= -2.0 && value >= -3.99 -> {
+            value in -3.99..-2.0 -> {
                 tempCurveString = base3.toString()
                 base3
             }
-            value <= 2.0 && value >= -1.99 -> {
+            value in -1.99..2.0 -> {
                 tempCurveString = base4.toString()
                 base4
             }

@@ -43,8 +43,6 @@ class Result : BaseDialog(),
         text_view_axis.visibility = if (isShow) View.VISIBLE else View.GONE
         view_thickness_on_axis.visibility = if (isShow) View.VISIBLE else View.GONE
         text_view_thickness_on_axis.visibility = if (isShow) View.VISIBLE else View.GONE
-        view_min_thickness.visibility = if (isShow) View.VISIBLE else View.GONE
-        text_view_min_thickness.visibility = if (isShow) View.VISIBLE else View.GONE
         view_max_thickness.visibility = if (isShow) View.VISIBLE else View.GONE
         text_view_max_thickness.visibility = if (isShow) View.VISIBLE else View.GONE
     }

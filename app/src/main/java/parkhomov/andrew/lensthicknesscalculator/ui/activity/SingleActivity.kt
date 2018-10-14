@@ -4,7 +4,9 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v4.view.MenuCompat
 import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
@@ -22,9 +24,12 @@ import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.Diameter
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.Glossary
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.Thickness
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.Transposition
-import parkhomov.andrew.lensthicknesscalculator.utils.*
+import parkhomov.andrew.lensthicknesscalculator.utils.diameter
+import parkhomov.andrew.lensthicknesscalculator.utils.glossary
 import parkhomov.andrew.lensthicknesscalculator.utils.navigation.BackButtonListener
 import parkhomov.andrew.lensthicknesscalculator.utils.navigation.Screens
+import parkhomov.andrew.lensthicknesscalculator.utils.thickness
+import parkhomov.andrew.lensthicknesscalculator.utils.transposition
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -69,6 +74,7 @@ class SingleActivity : BaseActivity(),
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_action, menu)
+        MenuCompat.setGroupDividerEnabled(menu, true)
         return true
     }
 
@@ -160,7 +166,7 @@ class SingleActivity : BaseActivity(),
     }
 
     override fun showRateThisAppDialog() {
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, R.style.AlertDialogCustom)
                 .setTitle(R.string.rate_app_header)
                 .setMessage(R.string.rate_app_body)
                 .setNegativeButton(android.R.string.no, null)
@@ -226,8 +232,8 @@ class SingleActivity : BaseActivity(),
         startActivity(Intent.createChooser(intent, getString(R.string.share_with)))
     }
 
-    override fun showToast(resId: Int) {
-        showMessage(resId)
+    override fun showSnackbar(resId: Int) {
+        Snackbar.make(frame_layout_tab_container, resId, Snackbar.LENGTH_LONG).show()
     }
 
     override fun onBackPressed() {
@@ -244,7 +250,7 @@ class SingleActivity : BaseActivity(),
                 && (fragment as BackButtonListener).onBackPressed()) {
             return
         } else {
-            AlertDialog.Builder(this)
+            AlertDialog.Builder(this, R.style.AlertDialogCustom)
                     .setTitle(R.string.exit_question_title)
                     .setMessage(R.string.exit_question)
                     .setNegativeButton(android.R.string.no, null)
@@ -256,7 +262,7 @@ class SingleActivity : BaseActivity(),
 
     override fun showAboutDialog() {
         val version = getString(R.string.version, BuildConfig.VERSION_NAME)
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, R.style.AlertDialogCustom)
                 .setMessage(version)
                 .setPositiveButton(android.R.string.yes) { dialog, _ ->
                     dialog.dismiss()
