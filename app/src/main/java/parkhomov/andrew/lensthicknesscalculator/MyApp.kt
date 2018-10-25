@@ -9,11 +9,6 @@ import org.koin.standalone.StandAloneContext.startKoin
 import parkhomov.andrew.lensthicknesscalculator.di.lensThicknessCalculatorApp
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
-
-/**
- * Created by MyPC on 28.07.2017.
- */
-
 class MyApp : Application() {
 
     override fun onCreate() {

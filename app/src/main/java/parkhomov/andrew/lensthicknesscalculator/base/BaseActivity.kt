@@ -41,10 +41,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected fun createListWithData() {
         val jsonId = when (language) {
-            "en" -> R.raw.glossary_eng
             "uk" -> R.raw.glossary_ukr
             "ru" -> R.raw.glossary_rus
-            else -> throw RuntimeException("No valid language provided")
+            else -> R.raw.glossary_eng
         }
         val text = resources.openRawResource(jsonId).bufferedReader().use { it.readText() }
 
