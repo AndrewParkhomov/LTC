@@ -3,7 +3,6 @@
     <!-- App name -->
     <string name="app_name">Расчет толщины линзы</string>
     <string name="app_google_play_link">"https://play.google.com/store/apps/details?id="</string>
-    <string name="error_unknown">Неизвестная ошибка</string>
     <!-- Tab headers -->
     <string name="fragment_thickness">Толщина</string>
     <string name="fragment_diameter">Диаметр</string>

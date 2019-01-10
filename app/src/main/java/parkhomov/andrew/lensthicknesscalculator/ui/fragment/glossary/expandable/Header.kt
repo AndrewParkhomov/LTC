@@ -1,7 +1,7 @@
 package parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.expandable
 
 import android.graphics.drawable.Drawable
-import android.support.constraint.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.mindorks.placeholderview.annotations.Layout
@@ -26,7 +26,7 @@ class Header(
     lateinit var toggleIcon: ImageView
 
     @Toggle(R.id.container_expandable_header)
-    lateinit var toggleView: ConstraintLayout
+    lateinit var toggleView: androidx.constraintlayout.widget.ConstraintLayout
 
     @Resolve
     fun onResolved() {

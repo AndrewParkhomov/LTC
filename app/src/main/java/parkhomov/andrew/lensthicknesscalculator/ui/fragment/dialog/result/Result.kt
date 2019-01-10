@@ -1,42 +1,53 @@
 package parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.result
 
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.dialog_result.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.base.BaseDialog
-import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
+import parkhomov.andrew.base.base.BaseDialog
+import parkhomov.andrew.base.data.result.CalculatedData
+import parkhomov.andrew.lensthicknesscalculator.utils.LensCalculatedData
 
-class Result : BaseDialog(),
-        ResultI.View {
+class Result : BaseDialog() {
 
-    override val presenter: ResultI.Presenter by inject()
+    private val viewModelResult: ResultViewModel by viewModel()
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        val view: View = inflater.inflate(
-                R.layout.dialog_result,
-                container,
-                false
-        )
-
-        presenter.onAttach(this)
-
-        return view
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.dialog_result, container, false)
     }
 
     override fun setUp(view: View) {
-        presenter.setResult(arguments!!.getParcelable(TAG)!!)
+        viewModelResult.events.observe(this, Observer { event ->
+            when (event) {
+                is LensCalculatedData -> {
+                    text_view_index_of_refraction.text = getString(R.string.result_index_of_refraction, event.refractionIndex)
+                    text_view_sphere_power.text = getString(R.string.result_sphere_power, event.spherePower)
+                    text_view_cylinder_power.text = getString(R.string.result_cylinder_power, event.cylinderPower)
+                    text_view_axis.text = getString(R.string.result_axis, event.axis)
+                    text_view_thickness_on_axis.text = getString(
+                            R.string.result_on_axis_thickness,
+                            event.thicknessOnAxis.first,
+                            event.thicknessOnAxis.second
+                    )
+                    text_view_center_thickness.text = getString(R.string.result_center_thickness, event.thicknessCenter)
+                    text_view_min_thickness.text = getString(R.string.result_min_edge_thickness, event.thicknessEdge)
+                    text_view_max_thickness.text = getString(R.string.result_max_edge_thickness, event.thicknessMax)
+                    text_view_real_base_curve.text = getString(R.string.result_base_curve, event.realBaseCurve)
+                    text_view_diameter.text = getString(R.string.result_diameter, event.diameter)
+                }
+            }
+        })
+        val result: CalculatedData = arguments!!.getParcelable(TAG)!!
+        showCylinderViews(result.cylinderPower != null)
+        viewModelResult.setResult(result)
     }
 
-    override fun showCylinderViews(isShow: Boolean) {
+    private fun showCylinderViews(isShow: Boolean) {
         view_cylinder.visibility = if (isShow) View.VISIBLE else View.GONE
         text_view_cylinder_power.visibility = if (isShow) View.VISIBLE else View.GONE
         view_axis.visibility = if (isShow) View.VISIBLE else View.GONE
@@ -47,52 +58,7 @@ class Result : BaseDialog(),
         text_view_max_thickness.visibility = if (isShow) View.VISIBLE else View.GONE
     }
 
-    override fun setRefractionIndex(refractionIndex: String) {
-        text_view_index_of_refraction.text = getString(R.string.result_index_of_refraction, refractionIndex)
-    }
-
-    override fun setSpherePower(spherePower: String) {
-        text_view_sphere_power.text = getString(R.string.result_sphere_power, spherePower)
-    }
-
-    override fun setCylinderPower(cylinderPower: String) {
-        text_view_cylinder_power.text = getString(R.string.result_cylinder_power, cylinderPower)
-    }
-
-    override fun setAxis(axis: String?) {
-        text_view_axis.text = getString(R.string.result_axis, axis)
-    }
-
-    override fun setThicknessOnAxis(axis: String?, thicknessOnAxis: String?) {
-        text_view_thickness_on_axis.text = getString(R.string.result_on_axis_thickness, axis, thicknessOnAxis)
-    }
-
-    override fun setCenterThickness(thicknessCenter: String) {
-        text_view_center_thickness.text = getString(R.string.result_center_thickness, thicknessCenter)
-    }
-
-    override fun setEdgeThickness(thicknessEdge: String) {
-        text_view_min_thickness.text = getString(R.string.result_min_edge_thickness, thicknessEdge)
-    }
-
-    override fun setMaxThickness(thicknessMax: String?) {
-        text_view_max_thickness.text = getString(R.string.result_max_edge_thickness, thicknessMax)
-    }
-
-    override fun setBaseCurve(realBaseCurve: String) {
-        text_view_real_base_curve.text = getString(R.string.result_base_curve, realBaseCurve)
-    }
-
-    override fun setDiameter(diameter: String) {
-        text_view_diameter.text = getString(R.string.result_diameter, diameter)
-    }
-
     fun show(fragmentManager: FragmentManager) = super.show(fragmentManager, TAG)
-
-    override fun onDestroyView() {
-        presenter.onDetach()
-        super.onDestroyView()
-    }
 
     companion object {
         val TAG: String = Result::class.java.name

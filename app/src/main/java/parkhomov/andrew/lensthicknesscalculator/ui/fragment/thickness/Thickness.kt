@@ -6,41 +6,49 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.thickness_fragment.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
-import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
+import parkhomov.andrew.base.base.BaseFragment
+import parkhomov.andrew.base.data.result.CalculatedData
+import parkhomov.andrew.base.utils.*
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.result.Result
 import parkhomov.andrew.lensthicknesscalculator.utils.*
 
-/**
- * Created by MyPC on 29.07.2017.
- */
+class Thickness : BaseFragment() {
 
-class Thickness : BaseFragment(),
-        ThicknessI.View {
-
-    override val presenter: ThicknessI.Presenter  by inject()
-
+    private val viewModelThickness: ThicknessViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.thickness_fragment, container, false)
-
-        presenter.onAttach(this)
-
-        return view
+        activity!!.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        return inflater.inflate(R.layout.thickness_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModelThickness.events.observe(this, Observer { event ->
+            when (event) {
+                is ShowResultDialog -> {
+                    event.data?.let { resultData ->
+                        showResultDialog(resultData)
+                    }
+                }
+                is HighlightSpherePower -> highlightSpherePower(event.isHighlight)
+                is HighlightCenterThickness -> highlightCenterThickness(event.isHighlight)
+                is HighlightDiameter -> highlightDiameter(event.isHighlight)
+                is BaseCurve -> setCurrentBaseCurve(event.baseCurve)
+            }
+        })
+
         // add textwatcher
         sphere_.addTextChangedListener(GenericTextWatcher())
         cylinder_.addTextChangedListener(GenericTextWatcher())
 
         button_calculate.setOnClickListener {
-            presenter.onCalculateBtnClicked(
+            viewModelThickness.onCalculateBtnClicked(
                     getLensIndex(),
                     sphere_.text.toString(),
                     cylinder_.text.toString(),
@@ -103,7 +111,7 @@ class Thickness : BaseFragment(),
         }
     }
 
-    override fun highlightSpherePower(isShowError: Boolean) {
+    private fun highlightSpherePower(isShowError: Boolean) {
         if (isShowError) {
             wrapper_sphere.isErrorEnabled = true
             wrapper_sphere.error = getString(R.string.tab_thkns_provide_sphere)
@@ -113,7 +121,7 @@ class Thickness : BaseFragment(),
         }
     }
 
-    override fun highlightCenterThickness(isShowError: Boolean) {
+    private fun highlightCenterThickness(isShowError: Boolean) {
         if (isShowError) {
             wrapper_center_thickness.isErrorEnabled = true
             wrapper_center_thickness.error = getString(R.string.tab_thkns_provide_center_thickness)
@@ -123,7 +131,7 @@ class Thickness : BaseFragment(),
         }
     }
 
-    override fun highlightDiameter(isShowError: Boolean) {
+    private fun highlightDiameter(isShowError: Boolean) {
         if (isShowError) {
             wrapper_diameter.isErrorEnabled = true
             wrapper_diameter.error = getString(R.string.tab_thkns_provide_diameter)
@@ -133,7 +141,7 @@ class Thickness : BaseFragment(),
         }
     }
 
-    override fun setCurrentBaseCurve(curveValue: String) {
+    private fun setCurrentBaseCurve(curveValue: String) {
         curve_.setText(curveValue)
     }
 
@@ -190,7 +198,7 @@ class Thickness : BaseFragment(),
         }
     }
 
-    override fun showResultDialog(calculatedData: CalculatedData) {
+    private fun showResultDialog(calculatedData: CalculatedData) {
         Result.getInstance(calculatedData).show(childFragmentManager)
     }
 

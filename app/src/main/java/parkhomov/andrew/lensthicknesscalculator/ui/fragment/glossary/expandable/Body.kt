@@ -11,9 +11,9 @@ import parkhomov.andrew.lensthicknesscalculator.R
 
 @Layout(R.layout.expandable_body)
 class Body(
-        private var onBodyClicked: (() -> Unit)? = null,
         private val itemImage: Drawable,
-        private val itemDescription: String
+        private val itemDescription: String,
+        private var onBodyClicked: (() -> Unit)? = null
 ) {
 
     @View(R.id.image_view)

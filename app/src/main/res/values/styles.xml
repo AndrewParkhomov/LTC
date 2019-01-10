@@ -7,7 +7,7 @@
         <!-- this for radio button in decline order -->
         <item name="radioButtonStyle">@style/MyCustomRadiobutton</item>
         <!-- Text color in menu -->
-        <item name="android:itemTextAppearance">@style/myCustomMenuTextAppearance</item>
+        <item name="android:itemTextAppearance">@style/CustomMenuTextAppearance</item>
         <!-- spinner -->
         <item name="android:dropDownListViewStyle">@style/SpinnerDividerStyle</item>
         <item name="dropDownListViewStyle">@style/SpinnerDividerStyle</item>
@@ -17,7 +17,7 @@
     </style>
 
     <style name="SpinnerDividerStyle" parent="Widget.AppCompat.ListView.DropDown">
-        <item name="android:background">@color/gray_300</item>
+        <item name="android:background">@color/gray_100</item>
         <item name="android:textColor">@color/main_text_color</item>
         <item name="android:divider">@color/gray_400</item>
         <item name="android:dividerHeight">1dp</item>
@@ -28,7 +28,7 @@
         <item name="android:textColor">@color/main_text_color</item>
     </style>
 
-    <style name="myCustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+    <style name="CustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textColor">@color/main_text_color</item>
     </style>
 
@@ -58,7 +58,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:ems">3</item>
-        <item name="android:inputType">date</item>
+        <item name="android:inputType">numberDecimal|numberSigned</item>
         <item name="android:maxLines">1</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/main_text_color</item>

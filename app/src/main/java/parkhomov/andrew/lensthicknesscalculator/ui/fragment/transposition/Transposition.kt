@@ -6,44 +6,43 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.transposition.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
+import parkhomov.andrew.base.base.BaseFragment
+import parkhomov.andrew.lensthicknesscalculator.utils.CalculatedTransposition
+import parkhomov.andrew.lensthicknesscalculator.utils.ClearEditText
+import parkhomov.andrew.lensthicknesscalculator.utils.SetData
 
 
-class Transposition : BaseFragment(),
-        TranspositionI.View {
+class Transposition : BaseFragment() {
 
-    override val presenter: TranspositionI.Presenter  by inject()
-    private var spherePower: Double = 0.0
-    private var cylinderPower: Double = 0.0
-    private var axis: Int = 0
+    private val viewModelTransposition: TranspositionViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.transposition, container, false)
-
-        presenter.onAttach(this)
-
-        return view
+        return inflater.inflate(R.layout.transposition, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        setHintSphere(spherePower)
-        setHintCylinder(cylinderPower)
-        setHintAxis(axis)
-        calculate()
+        setDefaultValues()
+        viewModelTransposition.events.observe(this, Observer { event ->
+            when (event) {
+                is SetData -> {
+                    when (event.viewId) {
+                        R.id.input_edit_text_sphere -> setHintSphere(event.value)
+                        R.id.input_edit_text_cylinder -> setHintCylinder(event.value)
+                        R.id.input_edit_text_axis -> setHintAxis(event.value)
+                    }
+                }
+                is CalculatedTransposition -> calculate(event.sphere, event.cylinder, event.axis)
+                is ClearEditText -> input_edit_text_axis.text?.clear()
+            }
+        })
 
         input_edit_text_sphere.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                spherePower = try {
-                    s?.toString()?.toDouble() ?: 0.0
-                } catch (e: NumberFormatException) {
-                    0.0
-                }
-                setHintSphere(spherePower)
-                calculate()
+                viewModelTransposition.convertDistanceToDouble(s?.toString(), R.id.input_edit_text_sphere)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -52,13 +51,7 @@ class Transposition : BaseFragment(),
 
         input_edit_text_cylinder.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                cylinderPower = try {
-                    s?.toString()?.toDouble() ?: 0.0
-                } catch (e: NumberFormatException) {
-                    0.0
-                }
-                setHintCylinder(cylinderPower)
-                calculate()
+                viewModelTransposition.convertDistanceToDouble(s?.toString(), R.id.input_edit_text_cylinder)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -67,17 +60,7 @@ class Transposition : BaseFragment(),
 
         input_edit_text_axis.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                axis = try {
-                    s?.toString()?.toInt() ?: 0
-                } catch (e: NumberFormatException) {
-                    0
-                }
-                if (axis > 180) {
-                    input_edit_text_axis.text?.clear()
-                    axis = 0
-                }
-                setHintAxis(axis)
-                calculate()
+                viewModelTransposition.convertDistanceToDouble(s?.toString(), R.id.input_edit_text_axis)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -85,63 +68,33 @@ class Transposition : BaseFragment(),
         })
     }
 
-    private fun calculate() {
-        val sphere = try {
-            val sphereOriginal = (spherePower + cylinderPower)
-            // prevent 0.000000000000002
-            if (sphereOriginal.toString().length >= 5) {
-                sphereOriginal.toString().substring(0, 5).toDouble()
-            } else {
-                sphereOriginal
-            }
-        } catch (e: NumberFormatException) {
-            0.0
-        }
-        val cylinder = try {
-            if (cylinderPower == 0.0) {
-                0.0
-            } else {
-                -cylinderPower
-            }
-        } catch (e: NumberFormatException) {
-            0.0
-        }
+    private fun setDefaultValues() {
+        setHintSphere(0.0)
+        setHintCylinder(0.0)
+        setHintAxis(0.0)
+        calculate(0.0, 0.0, 0.0)
+    }
 
-        val axis = try {
-            if (axis > 90) {
-                Math.abs(180 - (axis + 90))
-            } else {
-                axis + 90
-            }
-        } catch (e: NumberFormatException) {
-            0
-        }
-
+    private fun calculate(sphere: Double, cylinder: Double, axis: Double) {
         text_view_result.text = getString(
                 R.string.transposition_result,
                 sphere.toString(),
                 cylinder.toString(),
-                axis
+                axis.toInt()
         )
     }
 
-    fun setHintSphere(value: Double) {
+    private fun setHintSphere(value: Double) {
         wrapper_sphere.hint = getString(R.string.transposition_power_sphere, value.toString())
     }
 
-    fun setHintCylinder(value: Double) {
+    private fun setHintCylinder(value: Double) {
         wrapper_cylinder.hint = getString(R.string.transposition_power_cylinder, value.toString())
     }
 
-    fun setHintAxis(value: Int) {
-        wrapper_axis.hint = getString(R.string.transposition_axis, value)
+    private fun setHintAxis(value: Double) {
+        wrapper_axis.hint = getString(R.string.transposition_axis, value.toInt())
     }
-
-    override fun onDestroyView() {
-        presenter.onDetach()
-        super.onDestroyView()
-    }
-
 
     companion object {
         val TAG: String = Transposition::class.java.name

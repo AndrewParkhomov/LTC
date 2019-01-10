@@ -4,42 +4,48 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v4.view.MenuCompat
-import android.support.v7.app.AlertDialog
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.single_activity.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import parkhomov.andrew.base.base.BaseActivity
+import parkhomov.andrew.base.data.result.CalculatedData
+import parkhomov.andrew.base.utils.diameter
+import parkhomov.andrew.base.utils.glossary
+import parkhomov.andrew.base.utils.thickness
+import parkhomov.andrew.base.utils.transposition
+import parkhomov.andrew.language.view.Language
 import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
-import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.language.Language
+import parkhomov.andrew.lensthicknesscalculator.utils.CreateStringForSharing
+import parkhomov.andrew.lensthicknesscalculator.utils.MakeTabSelected
+import parkhomov.andrew.lensthicknesscalculator.utils.OpenNewTab
+import parkhomov.andrew.lensthicknesscalculator.utils.ShowSnackbar
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.Diameter
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.Glossary
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.Thickness
 import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.Transposition
-import parkhomov.andrew.lensthicknesscalculator.utils.diameter
-import parkhomov.andrew.lensthicknesscalculator.utils.glossary
 import parkhomov.andrew.lensthicknesscalculator.utils.navigation.BackButtonListener
 import parkhomov.andrew.lensthicknesscalculator.utils.navigation.Screens
-import parkhomov.andrew.lensthicknesscalculator.utils.thickness
-import parkhomov.andrew.lensthicknesscalculator.utils.transposition
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 
 
-class SingleActivity : BaseActivity(),
-        SingleActivityI.View {
+class SingleActivity : BaseActivity() {
 
     private val navigatorHolder: NavigatorHolder by inject()
-    override val presenter: SingleActivityI.Presenter  by inject()
+    private val viewModelSingleActivity: SingleActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,13 +53,25 @@ class SingleActivity : BaseActivity(),
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         supportActionBar?.title = getString(R.string.app_name)
 
-        presenter.onAttach(this)
-
         createListWithData()
-
-        presenter.initViews()
+        initViews()
+        setObserver()
         if (savedInstanceState == null) {
             bottom_navigation_bar.selectTab(thickness, true)
+        }
+    }
+
+    private fun setObserver() {
+        viewModelSingleActivity.events.observe(this, Observer { event ->
+            when (event) {
+                is ShowSnackbar -> showSnackbar(event.id)
+                is CreateStringForSharing -> createStringForSharing(event.data)
+                is OpenNewTab -> openNewTab(event.tabId)
+                is MakeTabSelected -> makeTabSelected(event.position)
+            }
+        })
+        Handler().post {
+            viewModelSingleActivity.initViews()
         }
     }
 
@@ -67,11 +85,6 @@ class SingleActivity : BaseActivity(),
         super.onPause()
     }
 
-    override fun onDestroy() {
-        presenter.onDetach()
-        super.onDestroy()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_action, menu)
         MenuCompat.setGroupDividerEnabled(menu, true)
@@ -80,15 +93,15 @@ class SingleActivity : BaseActivity(),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_item_language -> presenter.onLanguageClicked()
-            R.id.menu_item_rate -> presenter.onRateThisAppClicked()
-            R.id.menu_item_share -> presenter.onShareResultClicked()
-            R.id.menu_item_about -> presenter.onAboutClicked()
+            R.id.menu_item_language -> Language.instance.show(supportFragmentManager)
+            R.id.menu_item_rate -> showRateThisAppDialog()
+            R.id.menu_item_share -> viewModelSingleActivity.onShareResultClicked()
+            R.id.menu_item_about -> showAboutDialog()
         }
         return super.onOptionsItemSelected(item)
     }
 
-    override fun initViews() {
+    private fun initViews() {
         bottom_navigation_bar
                 .addItem(BottomNavigationItem(R.drawable.ic_thickness, R.string.fragment_thickness))
                 .addItem(BottomNavigationItem(R.drawable.ic_diameter, R.string.fragment_diameter))
@@ -103,7 +116,7 @@ class SingleActivity : BaseActivity(),
                     glossary -> Glossary.TAG
                     else -> Thickness.TAG
                 }
-                presenter.selectTab(tabId, position)
+                viewModelSingleActivity.selectTab(tabId, position)
             }
 
             override fun onTabUnselected(position: Int) {
@@ -117,11 +130,11 @@ class SingleActivity : BaseActivity(),
 
     }
 
-    override fun selectTabPosition(position: Int) {
+    private fun makeTabSelected(position: Int) {
         bottom_navigation_bar.selectTab(position, false)
     }
 
-    override fun selectTab(tabId: String) {
+    private fun openNewTab(tabId: String) {
         var currentFragment: Fragment? = null
         val fragments = supportFragmentManager.fragments
         for (f in fragments) {
@@ -161,23 +174,19 @@ class SingleActivity : BaseActivity(),
 
     }
 
-    override fun showLanguageDialog() {
-        Language.instance.show(supportFragmentManager)
-    }
-
-    override fun showRateThisAppDialog() {
+    private fun showRateThisAppDialog() {
         AlertDialog.Builder(this, R.style.AlertDialogCustom)
                 .setTitle(R.string.rate_app_header)
                 .setMessage(R.string.rate_app_body)
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes) { _, _ ->
-                    presenter.onRateAppClicked()
+                    openGooglePlay()
                 }
                 .create()
                 .show()
     }
 
-    override fun openGooglePlay() {
+    private fun openGooglePlay() {
         try {
             startActivity(Intent(Intent.ACTION_VIEW,
                     Uri.parse(getString(R.string.app_google_play_link) + packageName)))
@@ -187,42 +196,44 @@ class SingleActivity : BaseActivity(),
         }
     }
 
-    override fun createStringForSharing(calculatedData: CalculatedData) {
-        val linkInPlayStore = "https://play.google.com/store/apps/details?id=" +
-                BuildConfig.APPLICATION_ID
+    private fun createStringForSharing(calculatedData: CalculatedData?) {
+        calculatedData?.let {
+            val linkInPlayStore = "https://play.google.com/store/apps/details?id=" +
+                    BuildConfig.APPLICATION_ID
 
-        val sharedText = if (calculatedData.cylinderPower == null) {
-            getString(R.string.share_text_only_sphere,
-                    getString(R.string.app_name),
-                    linkInPlayStore,
-                    calculatedData.refractionIndex,
-                    calculatedData.spherePower,
-                    calculatedData.thicknessCenter,
-                    calculatedData.thicknessEdge,
-                    calculatedData.realBaseCurve,
-                    calculatedData.diameter
-            )
-        } else {
-            getString(R.string.share_text_full,
-                    getString(R.string.app_name),
-                    linkInPlayStore,
-                    calculatedData.refractionIndex,
-                    calculatedData.spherePower,
-                    calculatedData.cylinderPower,
-                    calculatedData.axis,
-                    calculatedData.axis,
-                    calculatedData.thicknessOnAxis,
-                    calculatedData.thicknessCenter,
-                    calculatedData.thicknessEdge,
-                    calculatedData.thicknessMax,
-                    calculatedData.realBaseCurve,
-                    calculatedData.diameter
-            )
+            val sharedText = if (calculatedData.cylinderPower == null) {
+                getString(R.string.share_text_only_sphere,
+                        getString(R.string.app_name),
+                        linkInPlayStore,
+                        calculatedData.refractionIndex,
+                        calculatedData.spherePower,
+                        calculatedData.thicknessCenter,
+                        calculatedData.thicknessEdge,
+                        calculatedData.realBaseCurve,
+                        calculatedData.diameter
+                )
+            } else {
+                getString(R.string.share_text_full,
+                        getString(R.string.app_name),
+                        linkInPlayStore,
+                        calculatedData.refractionIndex,
+                        calculatedData.spherePower,
+                        calculatedData.cylinderPower,
+                        calculatedData.axis,
+                        calculatedData.axis,
+                        calculatedData.thicknessOnAxis,
+                        calculatedData.thicknessCenter,
+                        calculatedData.thicknessEdge,
+                        calculatedData.thicknessMax,
+                        calculatedData.realBaseCurve,
+                        calculatedData.diameter
+                )
+            }
+            shareResult(sharedText)
         }
-        presenter.setTextForSharing(sharedText)
     }
 
-    override fun shareResult(sharedText: String) {
+    private fun shareResult(sharedText: String) {
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(Intent.EXTRA_EMAIL, "")
@@ -232,7 +243,7 @@ class SingleActivity : BaseActivity(),
         startActivity(Intent.createChooser(intent, getString(R.string.share_with)))
     }
 
-    override fun showSnackbar(resId: Int) {
+    private fun showSnackbar(resId: Int) {
         Snackbar.make(frame_layout_tab_container, resId, Snackbar.LENGTH_LONG).show()
     }
 
@@ -260,7 +271,7 @@ class SingleActivity : BaseActivity(),
         }
     }
 
-    override fun showAboutDialog() {
+    private fun showAboutDialog() {
         val version = getString(R.string.version, BuildConfig.VERSION_NAME)
         AlertDialog.Builder(this, R.style.AlertDialogCustom)
                 .setMessage(version)

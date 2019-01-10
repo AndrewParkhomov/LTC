@@ -5,14 +5,16 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 28
 
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration["compile_version"]
     defaultConfig {
-        minSdkVersion 17
-        targetSdkVersion 28
-        versionCode 9
-        versionName "3.0.2"
-        vectorDrawables.useSupportLibrary = true
+        minSdkVersion globalConfiguration["min_version"]
+        targetSdkVersion globalConfiguration["compile_version"]
+        versionCode globalConfiguration["version_code"]
+        versionName globalConfiguration["version_name"]
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -35,50 +37,29 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    def junit_version = "4.12"
     testImplementation "junit:junit:$junit_version"
-    // support
-    def constraint_version = "1.1.3"
-    implementation "com.android.support.constraint:constraint-layout:$constraint_version"
-    def support_version = "28.0.0"
-    implementation "com.android.support:recyclerview-v7:$support_version"
-    implementation "com.android.support:design:$support_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "com.google.android.material:material:$support_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    // DI
-    def koin_version = "1.0.0"
-    implementation "org.koin:koin-core:$koin_version"
     implementation "org.koin:koin-android:$koin_version"
-    // navigation
-    implementation "ru.terrakok.cicerone:cicerone:4.0.2"
-    // custom fonts for app
-    def custom_font_version = "2.3.0"
-    implementation "uk.co.chrisjenx:calligraphy:$custom_font_version"
-    // annotations
-    implementation "javax.inject:javax.inject:1"
-    //bottom navigation bar
-    def bottom_bar = "2.0.5"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation "ru.terrakok.cicerone:cicerone:$cicerone_version"
+    implementation "javax.inject:javax.inject:$annotaion_version"
     implementation("com.ashokvarma.android:bottom-navigation-bar:$bottom_bar") {
         exclude group: "com.android.support", module: "design"
     }
-    // fabric
-    def fabric_version = "2.9.5"
     implementation("com.crashlytics.sdk.android:crashlytics:$fabric_version") {
         transitive = true
     }
-
-    // logger
-//    def logger = "4.7.1"
-//    implementation "com.jakewharton.timber:timber:$logger"
-
-    // expandable view
-    def expandable_view = "1.0.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation "com.mindorks.android:placeholderview:$expandable_view"
     kapt "com.mindorks.android:placeholderview-compiler:$expandable_view"
-    // for parsing json
-    def gson_version = "2.8.5"
     implementation "com.google.code.gson:gson:$gson_version"
+
+    implementation project(':base')
+    implementation project(':language')
 }

@@ -3,6 +3,7 @@ package parkhomov.andrew.lensthicknesscalculator.utils.prefs
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import parkhomov.andrew.base.helper.PreferencesHelper
 import javax.inject.Inject
 
 class AppPreferencesHelper

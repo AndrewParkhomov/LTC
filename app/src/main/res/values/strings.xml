@@ -3,7 +3,6 @@
     <!-- App name -->
     <string name="app_name">Lens thickness calculator</string>
     <string name="app_google_play_link">"https://play.google.com/store/apps/details?id="</string>
-    <string name="error_unknown">Unknown error</string>
     <!-- Tab headers-->
     <string name="fragment_thickness">Thickness</string>
     <string name="fragment_diameter">Diameter</string>

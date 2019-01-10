@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
@@ -212,5 +212,5 @@
             app:layout_constraintTop_toBottomOf="@+id/view_diameter"
             tools:text="Diameter: 70 mm" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

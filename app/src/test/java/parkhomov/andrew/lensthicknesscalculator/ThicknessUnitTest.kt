@@ -2,7 +2,7 @@ package parkhomov.andrew.lensthicknesscalculator
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import parkhomov.andrew.lensthicknesscalculator.utils.*
+import parkhomov.andrew.base.utils.*
 import java.util.*
 
 

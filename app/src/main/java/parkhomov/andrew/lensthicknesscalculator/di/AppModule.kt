@@ -1,45 +1,42 @@
 package parkhomov.andrew.lensthicknesscalculator.di
 
 import android.preference.PreferenceManager
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
-import parkhomov.andrew.lensthicknesscalculator.ui.activity.SingleActivityI
-import parkhomov.andrew.lensthicknesscalculator.ui.activity.SingleActivityPresenter
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.language.LanguageI
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.language.LanguagePresenter
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.result.ResultI
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.result.ResultPresenter
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.DiameterI
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.DiameterPresenter
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.GlossaryI
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.GlossaryPresenter
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.ThicknessI
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.ThicknessPresenter
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.TranspositionI
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.TranspositionPresenter
+import parkhomov.andrew.base.helper.PreferencesHelper
+import parkhomov.andrew.language.domain.FetchMemesUseCase
+import parkhomov.andrew.language.domain.FetchMemesUseCaseImpl
+import parkhomov.andrew.language.viewmodel.ListViewModel
+import parkhomov.andrew.language.viewmodel.ListViewModelImpl
+import parkhomov.andrew.lensthicknesscalculator.ui.activity.SingleActivityViewModel
+import parkhomov.andrew.lensthicknesscalculator.ui.fragment.dialog.result.ResultViewModel
+import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.DiameterViewModel
+import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.ThicknessViewModel
+import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.TranspositionViewModel
 import parkhomov.andrew.lensthicknesscalculator.utils.interactor.Interactor
 import parkhomov.andrew.lensthicknesscalculator.utils.prefs.AppPreferencesHelper
-import parkhomov.andrew.lensthicknesscalculator.utils.prefs.PreferencesHelper
 
 /**
  * App Components
  */
 val appModule = module {
 
-    // Presenter with injection parameter for Diameter View
-    factory<SingleActivityI.Presenter> { SingleActivityPresenter(get()) }
-
-    factory<ThicknessI.Presenter> { ThicknessPresenter(get()) }
-    factory<DiameterI.Presenter> { DiameterPresenter() }
-    factory<GlossaryI.Presenter> { GlossaryPresenter() }
-    factory<TranspositionI.Presenter> { TranspositionPresenter() }
-    factory<ResultI.Presenter> { ResultPresenter() }
-    factory<LanguageI.Presenter> { LanguagePresenter(get()) }
+    viewModel { SingleActivityViewModel(get()) }
+    viewModel { ThicknessViewModel(get()) }
+    viewModel { DiameterViewModel() }
+    viewModel { TranspositionViewModel() }
+    viewModel { ResultViewModel() }
+    viewModel<ListViewModel> { ListViewModelImpl(get(), get()) }
 
     single(createOnStart = true) { Interactor(get()) }
+    single(createOnStart = true) { MediatorLiveData<ListViewModel.State>() }
     single { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
     single<PreferencesHelper> { AppPreferencesHelper(get()) }
 
+    factory<FetchMemesUseCase>{ FetchMemesUseCaseImpl(get()) }
 
 }
 

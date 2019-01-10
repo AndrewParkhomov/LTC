@@ -6,49 +6,42 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.diameter_fragment.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
+import parkhomov.andrew.base.base.BaseFragment
+import parkhomov.andrew.lensthicknesscalculator.utils.CalculatedDiameter
+import parkhomov.andrew.lensthicknesscalculator.utils.SetData
 
 
-class Diameter : BaseFragment(),
-        DiameterI.View {
+class Diameter : BaseFragment() {
 
-    override val presenter: DiameterI.Presenter  by inject()
-    /**
-     * ed - effective diameter
-     * dbl - distance between lenses
-     * pd - pupil distance
-     */
-    private var ed = 0.0
-    private var dbl = 0.0
-    private var pd = 0.0
+    private val viewModelDiameter: DiameterViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.diameter_fragment, container, false)
 
-        presenter.onAttach(this)
-
-        return view
+        return inflater.inflate(R.layout.diameter_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        setHintEd(ed)
-        setHintDbl(dbl)
-        setHintPd(pd)
-        calculate()
+        setDefaultValues()
+        viewModelDiameter.events.observe(this, Observer { event ->
+            when (event) {
+                is SetData -> {
+                    when (event.viewId) {
+                        R.id.input_edit_text_ed -> setHintEd(event.value)
+                        R.id.input_edit_text_dbl -> setHintDbl(event.value)
+                        R.id.input_edit_text_pd -> setHintPd(event.value)
+                    }
+                }
+                is CalculatedDiameter -> calculate(event.diameter)
+            }
+        })
 
         input_edit_text_ed.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                ed = try {
-                    s?.toString()?.toDouble() ?: 0.0
-                } catch (e: NumberFormatException) {
-                    0.0
-                }
-                setHintEd(ed)
-                calculate()
+                viewModelDiameter.convertDistanceToDouble(s?.toString(), R.id.input_edit_text_ed)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -56,13 +49,7 @@ class Diameter : BaseFragment(),
         })
         input_edit_text_dbl.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                dbl = try {
-                    s?.toString()?.toDouble() ?: 0.0
-                } catch (e: NumberFormatException) {
-                    0.0
-                }
-                setHintDbl(dbl)
-                calculate()
+                viewModelDiameter.convertDistanceToDouble(s?.toString(), R.id.input_edit_text_dbl)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -70,28 +57,23 @@ class Diameter : BaseFragment(),
         })
         input_edit_text_pd.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                pd = try {
-                    s?.toString()?.toDouble() ?: 0.0
-                } catch (e: NumberFormatException) {
-                    0.0
-                }
-                setHintPd(pd)
-                calculate()
+                viewModelDiameter.convertDistanceToDouble(s?.toString(), R.id.input_edit_text_pd)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-
     }
 
-    override fun onDestroyView() {
-        presenter.onDetach()
-        super.onDestroyView()
+    private fun setDefaultValues() {
+        setHintEd(0.0)
+        setHintDbl(0.0)
+        setHintPd(0.0)
+        calculate(0.0)
     }
 
-    private fun calculate() {
-        textTest.text = getString(R.string.lens_diameter_result, Math.ceil(ed * 2 + dbl - pd))
+    private fun calculate(diameter: Double) {
+        text_view_diameter_result.text = getString(R.string.lens_diameter_result, diameter)
     }
 
     private fun setHintEd(value: Double) {
