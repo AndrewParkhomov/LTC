@@ -24,6 +24,8 @@ import parkhomov.andrew.base.utils.diameter
 import parkhomov.andrew.base.utils.glossary
 import parkhomov.andrew.base.utils.thickness
 import parkhomov.andrew.base.utils.transposition
+import parkhomov.andrew.diameter.view.Diameter
+import parkhomov.andrew.glossary.view.Glossary
 import parkhomov.andrew.language.view.Language
 import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
@@ -31,12 +33,9 @@ import parkhomov.andrew.lensthicknesscalculator.utils.CreateStringForSharing
 import parkhomov.andrew.lensthicknesscalculator.utils.MakeTabSelected
 import parkhomov.andrew.lensthicknesscalculator.utils.OpenNewTab
 import parkhomov.andrew.lensthicknesscalculator.utils.ShowSnackbar
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.diameter.Diameter
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.glossary.Glossary
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.thickness.Thickness
-import parkhomov.andrew.lensthicknesscalculator.ui.fragment.transposition.Transposition
 import parkhomov.andrew.lensthicknesscalculator.utils.navigation.BackButtonListener
-import parkhomov.andrew.lensthicknesscalculator.utils.navigation.Screens
+import parkhomov.andrew.thickness.view.Thickness
+import parkhomov.andrew.transposition.view.Transposition
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -66,7 +65,7 @@ class SingleActivity : BaseActivity() {
             when (event) {
                 is ShowSnackbar -> showSnackbar(event.id)
                 is CreateStringForSharing -> createStringForSharing(event.data)
-                is OpenNewTab -> openNewTab(event.tabId)
+                is OpenNewTab -> openNewTab(event.screen)
                 is MakeTabSelected -> makeTabSelected(event.position)
             }
         })
@@ -134,7 +133,10 @@ class SingleActivity : BaseActivity() {
         bottom_navigation_bar.selectTab(position, false)
     }
 
-    private fun openNewTab(tabId: String) {
+    private fun openNewTab(newFragment: Fragment?) {
+        if (newFragment == null) {
+            throw RuntimeException("Tab screen is null")
+        }
         var currentFragment: Fragment? = null
         val fragments = supportFragmentManager.fragments
         for (f in fragments) {
@@ -143,22 +145,14 @@ class SingleActivity : BaseActivity() {
                 break
             }
         }
-        val newFragment = supportFragmentManager.findFragmentByTag(tabId)
 
-        if (currentFragment != null && newFragment != null && currentFragment === newFragment) return
-
+        if (currentFragment != null && currentFragment === newFragment) return
         val transaction = supportFragmentManager.beginTransaction()
-        if (newFragment == null) {
-            transaction.add(R.id.frame_layout_tab_container, Screens.GetBottomTabFragment(tabId).fragment, tabId)
-        }
-
+        transaction.replace(R.id.frame_layout_tab_container, newFragment)
         if (currentFragment != null) {
             transaction.hide(currentFragment)
         }
-
-        if (newFragment != null) {
-            transaction.show(newFragment)
-        }
+        transaction.show(newFragment)
         transaction.commitNow()
     }
 

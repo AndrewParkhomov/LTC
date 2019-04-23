@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'io.fabric'
 
 android {
 
@@ -19,7 +18,8 @@ android {
 
     buildTypes {
         debug {
-            testCoverageEnabled true
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
         }
         release {
             minifyEnabled true
@@ -56,10 +56,13 @@ dependencies {
         transitive = true
     }
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-    implementation "com.mindorks.android:placeholderview:$expandable_view"
-    kapt "com.mindorks.android:placeholderview-compiler:$expandable_view"
     implementation "com.google.code.gson:gson:$gson_version"
 
     implementation project(':base')
     implementation project(':language')
+    implementation project(':result')
+    implementation project(':glossary')
+    implementation project(':diameter')
+    implementation project(':transposition')
+    implementation project(':thickness')
 }

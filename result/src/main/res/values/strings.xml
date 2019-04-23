@@ -1,0 +1,12 @@
+<resources>
+    <string name="result_index_of_refraction">Index of refraction: %1$s</string>
+    <string name="result_sphere_power">Sphere power: %1$s</string>
+    <string name="result_cylinder_power">Cylinder power: %1$s</string>
+    <string name="result_axis">Axis: %1$s&#176;</string>
+    <string name="result_on_axis_thickness">Thickness on axis %1$s&#176;: %2$s mm</string>
+    <string name="result_center_thickness">Center thickness: %1$s mm</string>
+    <string name="result_min_edge_thickness">Minimum thickness: %1$s mm</string>
+    <string name="result_max_edge_thickness">Maximum thickness: %1$s mm</string>
+    <string name="result_base_curve">Base curve: %1$s</string>
+    <string name="result_diameter">Diameter: %1$s mm</string>
+</resources>

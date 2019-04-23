@@ -7,4 +7,5 @@ interface UseCase<T> {
     fun getLiveData(): LiveData<T>
 
     fun cleanUp()
+
 }

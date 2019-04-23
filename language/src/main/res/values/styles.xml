@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="SimpleText">
+        <item name="android:textColor">@color/main_text_color</item>
+    </style>
+
+</resources>

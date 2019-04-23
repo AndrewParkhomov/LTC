@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="tab_diameter_hint_ed">Ефективний діаметр %1$.0f.00</string>
+    <string name="tab_diameter_hint_dbl">Відстань між лінзами %1$.0f.00</string>
+    <string name="tab_diameter_hint_pd">Відстань між зіницями %1$.0f.00</string>
+    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f.0 mm</string>
+</resources>

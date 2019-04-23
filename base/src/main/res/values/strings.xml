@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="error_unknown">Unknown error</string>
+
+    <!--  Material item list -->
+    <string-array name="index_of_refraction">
+        <item>1.498 CR-39</item>
+        <item>1.560</item>
+        <item>1.530 Trivex</item>
+        <item>1.590 Poly</item>
+        <item>1.610</item>
+        <item>1.670</item>
+        <item>1.740</item>
+    </string-array>
 </resources>

@@ -1,0 +1,35 @@
+apply plugin: 'com.android.feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration["compile_version"]
+    defaultConfig {
+        minSdkVersion globalConfiguration["min_version"]
+        targetSdkVersion globalConfiguration["compile_version"]
+        versionCode globalConfiguration["version_code"]
+        versionName globalConfiguration["version_name"]
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    baseFeature true
+
+    androidExtensions {
+        experimental = true
+    }
+}
+
+dependencies {
+
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation "javax.inject:javax.inject:$annotaion_version"
+    implementation "com.google.android.material:material:$support_version"
+
+    implementation project(':base')
+}

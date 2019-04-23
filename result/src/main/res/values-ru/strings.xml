@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="result_index_of_refraction">Индекс преломления: %1$s</string>
+    <string name="result_sphere_power">Сфера: %1$s</string>
+    <string name="result_cylinder_power">Цилиндр: %1$s</string>
+    <string name="result_axis">Угол: %1$s&#176;</string>
+    <string name="result_on_axis_thickness">Толщина под углом %1$s&#176;: %2$s мм</string>
+    <string name="result_center_thickness">Толщина по центру: %1$s мм</string>
+    <string name="result_min_edge_thickness">Минимальная толщина: %1$s мм</string>
+    <string name="result_max_edge_thickness">Максимальная толщина: %1$s мм</string>
+    <string name="result_base_curve">Кривизна базы линзы: %1$s</string>
+    <string name="result_diameter">Диаметр: %1$s мм</string>
+</resources>

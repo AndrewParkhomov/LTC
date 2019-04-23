@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="transposition_power_sphere">Sphere %1$s</string>
+    <string name="transposition_power_cylinder">Cylinder %1$s</string>
+    <string name="transposition_axis">Axis %1$d&#176;</string>
+    <string name="transposition_result">Sphere power %1$s\nCylinder power %2$s\nAxis %3$d&#176;</string>
+</resources>

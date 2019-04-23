@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import org.koin.android.ext.android.inject
 import parkhomov.andrew.base.R
-import parkhomov.andrew.base.data.glossary.GlossaryItem
+import parkhomov.andrew.base.data.glossary.GlossaryList
 import parkhomov.andrew.base.helper.PreferencesHelper
 import parkhomov.andrew.base.utils.MyContextWrapper
 import parkhomov.andrew.base.utils.appLanguage
@@ -17,7 +17,7 @@ import java.util.*
 abstract class BaseActivity : AppCompatActivity() {
 
     lateinit var language: String
-    var glossaryItem: GlossaryItem? = null
+    var glossaryItem: GlossaryList? = null
     private val preferencesHelper: PreferencesHelper by inject()
 
     override fun attachBaseContext(context: Context) {
@@ -46,10 +46,10 @@ abstract class BaseActivity : AppCompatActivity() {
         }
         val text = resources.openRawResource(jsonId).bufferedReader().use { it.readText() }
 
-        glossaryItem = Gson().fromJson(text, GlossaryItem::class.java)
-        if (glossaryItem == null)
+        glossaryItem = Gson().fromJson(text, GlossaryList::class.java)
+        if (glossaryItem == null) {
             throw RuntimeException("Some error occurred while parsing json file")
-
+        }
 
         for (item in glossaryItem!!.data) {
             val imageId = when (item.id) {

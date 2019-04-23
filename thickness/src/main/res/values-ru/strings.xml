@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="tab_thkns_material_index">Индекс преломления</string>
+    <string name="tab_thkns_sphere_power">Сфера</string>
+    <string name="tab_thkns_cylinder_power">Цилиндр</string>
+    <string name="tab_thkns_axis">Угол</string>
+    <string name="tab_thkns_base_curve">Реальная кривизна базы линзы</string>
+    <string name="tab_thkns_center_thickness">Толщина по центру</string>
+    <string name="tab_thkns_edge_thickness">Толщина по краю</string>
+    <string name="tab_thkns_lens_diameter">Диаметр линзы</string>
+    <string name="tab_thkns_wrong_axis">Недопустимое значение угла цилиндра</string>
+    <string name="tab_thkns_provide_sphere">Пожалуйста, введите значение сферы</string>
+    <string name="tab_thkns_provide_center_thickness">Пожалуйста, введите толщину по центру</string>
+    <string name="tab_thkns_provide_diameter">Пожалуйста, введите диаметр линзы</string>
+</resources>

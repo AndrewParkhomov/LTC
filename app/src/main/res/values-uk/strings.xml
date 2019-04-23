@@ -21,17 +21,6 @@
     <string name="tab_thkns_provide_sphere">Будь ласка, введіть значення сфери</string>
     <string name="tab_thkns_provide_center_thickness">Будь ласка, введіть товщину по центру</string>
     <string name="tab_thkns_provide_diameter">Будь ласка, введіть діаметр лінзи</string>
-    <!-- Result -->
-    <string name="result_index_of_refraction">Індекс заломлення: %1$s</string>
-    <string name="result_sphere_power">Сфера: %1$s</string>
-    <string name="result_cylinder_power">Циліндр: %1$s</string>
-    <string name="result_axis">Кут: %1$s&#176;</string>
-    <string name="result_on_axis_thickness">Товщина під кутом %1$s&#176;: %2$s мм</string>
-    <string name="result_center_thickness">Товщина по центру: %1$s мм</string>
-    <string name="result_min_edge_thickness">Мінімальна товщина: %1$s мм</string>
-    <string name="result_max_edge_thickness">Максимальна товщина: %1$s мм</string>
-    <string name="result_base_curve">Кривизна бази лінзи: %1$s</string>
-    <string name="result_diameter">Діаметр: %1$s мм</string>
     <!-- Diameter hints -->
     <string name="tab_diameter_hint_ed">Ефективний діаметр %1$.0f.00</string>
     <string name="tab_diameter_hint_dbl">Відстань між лінзами %1$.0f.00</string>
@@ -47,10 +36,6 @@
     <string name="header_share">Поділитись</string>
     <string name="header_rate_this_app">Оцінити додаток</string>
     <string name="header_about">Про програму</string>
-    <!-- Available languages-->
-    <string name="english">English</string>
-    <string name="russian">Русский</string>
-    <string name="ukrainian">Українська</string>
     <!-- Share result -->
     <string name="share_result_subject">Дані про лінзу</string>
     <string name="share_with">Поділитись з допомогою…</string>

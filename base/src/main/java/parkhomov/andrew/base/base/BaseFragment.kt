@@ -30,7 +30,7 @@ abstract class BaseFragment : Fragment() {
             try {
                 this.baseActivity = context
             } catch (e: NullPointerException) {
-                println(e.toString())
+               e.printStackTrace()
             }
         }
     }

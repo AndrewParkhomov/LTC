@@ -1,1 +1,1 @@
-include ':app', ':base', ':language'
+include ':app', ':base', ':language', ':result', ':glossary', ':diameter', ':transposition', ':thickness'

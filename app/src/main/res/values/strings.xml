@@ -21,22 +21,6 @@
     <string name="tab_thkns_provide_sphere">Please, provide sphere power</string>
     <string name="tab_thkns_provide_center_thickness">Please, provide center thickness</string>
     <string name="tab_thkns_provide_diameter">Please, provide lens diameter</string>
-    <!-- Result-->
-    <string name="result_index_of_refraction">Index of refraction: %1$s</string>
-    <string name="result_sphere_power">Sphere power: %1$s</string>
-    <string name="result_cylinder_power">Cylinder power: %1$s</string>
-    <string name="result_axis">Axis: %1$s&#176;</string>
-    <string name="result_on_axis_thickness">Thickness on axis %1$s&#176;: %2$s mm</string>
-    <string name="result_center_thickness">Center thickness: %1$s mm</string>
-    <string name="result_min_edge_thickness">Minimum thickness: %1$s mm</string>
-    <string name="result_max_edge_thickness">Maximum thickness: %1$s mm</string>
-    <string name="result_base_curve">Base curve: %1$s</string>
-    <string name="result_diameter">Diameter: %1$s mm</string>
-    <!-- Diameter hints-->
-    <string name="tab_diameter_hint_ed">Effective diameter %1$.0f.00</string>
-    <string name="tab_diameter_hint_dbl">Distance between lenses %1$.0f.00</string>
-    <string name="tab_diameter_hint_pd">Pupil distance %1$.0f.00</string>
-    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f.0 mm</string>
     <!-- Transposition -->
     <string name="transposition_power_sphere">Sphere %1$s</string>
     <string name="transposition_power_cylinder">Cylinder %1$s</string>
@@ -47,10 +31,6 @@
     <string name="header_rate_this_app">Rate this app</string>
     <string name="header_share">Share</string>
     <string name="header_about">About</string>
-    <!-- Available languages-->
-    <string name="english">English</string>
-    <string name="russian">Русский</string>
-    <string name="ukrainian">Українська</string>
     <!-- Share result -->
     <string name="share_result_subject">Lens data</string>
     <string name="share_with">Share with…</string>
