@@ -1,4 +1,4 @@
-apply plugin: 'com.android.feature'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -14,8 +14,6 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    baseFeature true
-
     androidExtensions {
         experimental = true
     }
@@ -23,7 +21,6 @@ android {
 
 dependencies {
 
-    api 'com.android.support:appcompat-v7:28.0.0'
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
@@ -31,9 +28,9 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     implementation "javax.inject:javax.inject:$annotaion_version"
     implementation "com.google.android.material:material:$support_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation project(':base')
-    feature project(":transposition")
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    feature project(":thickness")
+    implementation project(":transposition")
+    implementation project(":thickness")
 }

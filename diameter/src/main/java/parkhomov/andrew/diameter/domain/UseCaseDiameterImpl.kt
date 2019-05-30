@@ -6,7 +6,7 @@ import parkhomov.andrew.diameter.R
 
 class UseCaseDiameterImpl(
         private val preferencesHelper: PreferencesHelper
-) : BaseUseCase<parkhomov.andrew.diameter.domain.UseCaseDiameter.Result>(),
+) : BaseUseCase<UseCaseDiameter.Result>(),
         UseCaseDiameter {
 
     /**

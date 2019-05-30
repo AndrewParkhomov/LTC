@@ -2,7 +2,7 @@ package parkhomov.andrew.diameter.domain
 
 import parkhomov.andrew.base.domain.UseCase
 
-interface UseCaseDiameter : UseCase<parkhomov.andrew.diameter.domain.UseCaseDiameter.Result> {
+interface UseCaseDiameter : UseCase<UseCaseDiameter.Result> {
 
     sealed class Result {
         data class SetValue(val value: Double, val viewId: Int) : Result()

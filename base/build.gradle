@@ -1,4 +1,4 @@
-apply plugin: 'com.android.feature'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
@@ -12,8 +12,6 @@ android {
         versionName globalConfiguration["version_name"]
         vectorDrawables.useSupportLibrary = true
     }
-
-    baseFeature true
 
     androidExtensions {
         experimental = true
@@ -33,6 +31,4 @@ dependencies {
     implementation "javax.inject:javax.inject:$annotaion_version"
     implementation "ru.terrakok.cicerone:cicerone:$cicerone_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-
-    application project(':app')
 }
