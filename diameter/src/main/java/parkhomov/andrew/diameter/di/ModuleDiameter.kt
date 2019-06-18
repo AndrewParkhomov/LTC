@@ -13,9 +13,7 @@ import parkhomov.andrew.diameter.viewmodel.ViewModelDiameterImpl
  */
 val moduleDiameter = module {
 
-    viewModel<ViewModeDiameter> { ViewModelDiameterImpl(get(), get()) }
     single<UseCaseDiameter> { UseCaseDiameterImpl(get()) }
-    factory(override = true) { MediatorLiveData<Any>() }
-    factory { ViewModelDiameterImpl(get(), get()) }
-
+    factory("StateDiameter") { MediatorLiveData<ViewModeDiameter.State>() }
+    viewModel<ViewModeDiameter> { ViewModelDiameterImpl(get("StateDiameter"), get()) }
 }

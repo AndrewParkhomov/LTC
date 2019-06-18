@@ -8,7 +8,7 @@ import parkhomov.andrew.base.utils.*
 
 class UseCaseThicknessImpl(
         private val interactor: Interactor
-) : BaseUseCase<parkhomov.andrew.thickness.domain.UseCaseThickness.Result>(),
+) : BaseUseCase<UseCaseThickness.Result>(),
         UseCaseThickness {
 
     private fun showResultDialog(

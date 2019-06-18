@@ -13,10 +13,8 @@ import parkhomov.andrew.language.viewmodel.ViewModelLanguageImpl
  */
 val moduleLanguage = module {
 
-    viewModel<ViewModeLanguage> { ViewModelLanguageImpl(get(), get()) }
     single<UseCaseLanguage> { UseCaseLanguageImpl(get()) }
-    factory(override = true) { MediatorLiveData<Any>() }
-    factory { ViewModelLanguageImpl(get(), get()) }
-
+    factory("StateLanguage") { MediatorLiveData<ViewModeLanguage.State>() }
+    viewModel<ViewModeLanguage> { ViewModelLanguageImpl(get("StateLanguage"), get()) }
 
 }

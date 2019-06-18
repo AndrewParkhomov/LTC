@@ -13,8 +13,8 @@ import parkhomov.andrew.transposition.viewmodel.ViewModelTranspositionImpl
  */
 val moduleTransposition = module {
 
-    viewModel<ViewModeTransposition> { ViewModelTranspositionImpl(get(), get()) }
     single<UseCaseTransposition> { UseCaseTranspositionImpl(get()) }
-    factory(override = true) { MediatorLiveData<Any>() }
-    factory { ViewModelTranspositionImpl(get(), get()) }
+    factory("StateTransposition") { MediatorLiveData<ViewModeTransposition.State>() }
+    viewModel<ViewModeTransposition> { ViewModelTranspositionImpl(get("StateTransposition"), get()) }
 }
+

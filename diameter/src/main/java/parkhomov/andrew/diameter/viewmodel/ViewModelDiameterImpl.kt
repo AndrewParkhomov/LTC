@@ -5,7 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import parkhomov.andrew.diameter.domain.UseCaseDiameter
 
 class ViewModelDiameterImpl(
-        private val state: MediatorLiveData<State> = MediatorLiveData(),
+        private val state: MediatorLiveData<State>,
         private val useCaseDiameter: UseCaseDiameter
 ) : ViewModeDiameter() {
 
