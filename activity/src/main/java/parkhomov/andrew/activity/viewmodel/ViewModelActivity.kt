@@ -2,6 +2,7 @@ package parkhomov.andrew.activity.viewmodel
 
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import parkhomov.andrew.base.data.result.CalculatedData
@@ -19,4 +20,6 @@ abstract class ViewModelActivity : ViewModel() {
     abstract fun selectTab(position: Int)
 
     abstract fun onShareResultClicked()
+
+    abstract fun onLanguageItemClicked(supportFragmentManager: FragmentManager)
 }

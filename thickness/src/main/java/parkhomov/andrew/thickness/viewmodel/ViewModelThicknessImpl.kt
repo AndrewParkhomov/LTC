@@ -1,5 +1,6 @@
 package parkhomov.andrew.thickness.viewmodel
 
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import parkhomov.andrew.thickness.usecase.UseCaseThickness
@@ -20,6 +21,7 @@ class ViewModelThicknessImpl(
     override fun getState(): LiveData<State> = state
 
     override fun onCalculateBtnClicked(
+            childFragmentManager: FragmentManager,
             lensIndex: Triple<Double, Double, String>,
             spherePowerString: String,
             cylinderPowerString: String,
@@ -30,6 +32,7 @@ class ViewModelThicknessImpl(
             diameterString: String
     ) {
         useCaseThickness.calculateThickness(
+                childFragmentManager,
                 lensIndex,
                 spherePowerString,
                 cylinderPowerString,
@@ -54,9 +57,6 @@ class ViewModelThicknessImpl(
             }
             is UseCaseThickness.Result.SetCurrentBaseCurve -> {
                 state.value = State.SetCurrentBaseCurve(result.curveValue)
-            }
-            is UseCaseThickness.Result.ShowResultDialog -> {
-                state.value = State.ShowResultDialog(result.calculatedData)
             }
         }
     }

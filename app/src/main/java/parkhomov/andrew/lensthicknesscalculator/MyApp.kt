@@ -1,11 +1,10 @@
 package parkhomov.andrew.lensthicknesscalculator
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
 import org.koin.android.ext.android.startKoin
-import androidx.appcompat.app.AppCompatDelegate
-import org.koin.standalone.StandAloneContext.startKoin
 import parkhomov.andrew.lensthicknesscalculator.di.lensThicknessCalculatorApp
 
 class MyApp : Application() {

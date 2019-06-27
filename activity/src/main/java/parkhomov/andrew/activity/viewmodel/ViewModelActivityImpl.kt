@@ -1,5 +1,6 @@
 package parkhomov.andrew.activity.viewmodel
 
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import parkhomov.andrew.activity.usecase.UseCaseActivity
@@ -31,6 +32,10 @@ class ViewModelActivityImpl(
                 state.value = State.ShowSnackbar(result.id)
             }
         }
+    }
+
+    override fun onLanguageItemClicked(supportFragmentManager: FragmentManager) {
+        useCaseActivity.onLanguageItemClicked(supportFragmentManager)
     }
 
     override fun selectTab(position: Int) {

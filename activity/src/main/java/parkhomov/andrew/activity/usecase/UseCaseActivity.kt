@@ -2,6 +2,7 @@ package parkhomov.andrew.activity.usecase
 
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import parkhomov.andrew.base.data.result.CalculatedData
 import parkhomov.andrew.base.usecase.UseCase
 
@@ -17,4 +18,6 @@ interface UseCaseActivity : UseCase<UseCaseActivity.Result> {
     fun selectTab(position: Int)
 
     fun onShareResultClicked()
+
+    fun onLanguageItemClicked(supportFragmentManager: FragmentManager)
 }

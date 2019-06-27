@@ -38,6 +38,7 @@ class Thickness : BaseFragment() {
 
         button_calculate.setOnClickListener {
             viewModel.onCalculateBtnClicked(
+                    childFragmentManager,
                     getLensIndex(),
                     sphere_.text.toString(),
                     cylinder_.text.toString(),
@@ -99,9 +100,6 @@ class Thickness : BaseFragment() {
             }
             is ViewModelThickness.State.SetCurrentBaseCurve -> {
                 setCurrentBaseCurve(event.curveValue)
-            }
-            is ViewModelThickness.State.ShowResultDialog -> {
-                showResultDialog(event.calculatedData)
             }
         }
     }
@@ -205,10 +203,6 @@ class Thickness : BaseFragment() {
         override fun afterTextChanged(editable: Editable) {
 
         }
-    }
-
-    private fun showResultDialog(calculatedData: CalculatedData) {
-        parkhomov.andrew.result.view.Result.getInstance(calculatedData).show(childFragmentManager)
     }
 
     fun Context.getColorFromId(resId: Int): Int = ContextCompat.getColor(this, resId)

@@ -1,20 +1,24 @@
 package parkhomov.andrew.thickness.usecase
 
 import android.util.Log
+import androidx.fragment.app.FragmentManager
 import parkhomov.andrew.base.data.result.CalculatedData
-import parkhomov.andrew.base.usecase.BaseUseCase
+import parkhomov.andrew.base.helper.NavigationI
 import parkhomov.andrew.base.interactor.Interactor
+import parkhomov.andrew.base.usecase.BaseUseCase
 import parkhomov.andrew.base.utils.*
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 class UseCaseThicknessImpl(
-        private val interactor: Interactor
+        private val interactor: Interactor,
+        private val navigation: NavigationI
 ) : BaseUseCase<UseCaseThickness.Result>(),
         UseCaseThickness {
 
     override fun calculateThickness(
+            childFragmentManager: FragmentManager,
             lensIndex: Triple<Double, Double, String>,
             spherePowerString: String,
             cylinderPowerString: String,
@@ -24,7 +28,6 @@ class UseCaseThicknessImpl(
             edgeThicknessString: String,
             diameterString: String
     ) {
-        interactor.calculatedData = null
         val axisView: String
 
         var spherePower = try {
@@ -200,6 +203,7 @@ class UseCaseThicknessImpl(
 
             if (cylinderPower == 0.0) {
                 showResultDialog(
+                        childFragmentManager,
                         lensIndex.third,
                         spherePower.toString(),
                         centerString,
@@ -237,6 +241,7 @@ class UseCaseThicknessImpl(
                 Log.i("realFrontBaseCurveDptr", curve.toString())
 
                 showResultDialog(
+                        childFragmentManager,
                         lensIndex.third,
                         spherePowerString,
                         cylinderPowerString,
@@ -253,6 +258,7 @@ class UseCaseThicknessImpl(
     }
 
     private fun showResultDialog(
+            childFragmentManager: FragmentManager,
             refractionIndex: String,
             spherePower: String,
             thicknessCenter: String,
@@ -260,7 +266,7 @@ class UseCaseThicknessImpl(
             realBaseCurve: String,
             diameter: String
     ) {
-        interactor.calculatedData = CalculatedData(
+        val calculatedData = CalculatedData(
                 refractionIndex = refractionIndex,
                 spherePower = spherePower,
                 cylinderPower = null,
@@ -272,10 +278,12 @@ class UseCaseThicknessImpl(
                 realBaseCurve = realBaseCurve,
                 diameter = diameter
         )
-        liveData.value = UseCaseThickness.Result.ShowResultDialog(interactor.calculatedData!!)
+        interactor.calculatedData = calculatedData
+        navigation.showResultDialog(childFragmentManager, calculatedData)
     }
 
     private fun showResultDialog(
+            childFragmentManager: FragmentManager,
             refractionIndex: String,
             spherePower: String,
             cylinderPower: String,
@@ -287,7 +295,7 @@ class UseCaseThicknessImpl(
             realBaseCurve: String,
             diameter: String
     ) {
-        interactor.calculatedData = CalculatedData(
+        val calculatedData = CalculatedData(
                 refractionIndex = refractionIndex,
                 spherePower = spherePower,
                 cylinderPower = cylinderPower,
@@ -299,7 +307,8 @@ class UseCaseThicknessImpl(
                 realBaseCurve = realBaseCurve,
                 diameter = diameter
         )
-        liveData.value = UseCaseThickness.Result.ShowResultDialog(interactor.calculatedData!!)
+        interactor.calculatedData = calculatedData
+        navigation.showResultDialog(childFragmentManager, calculatedData)
     }
 
     private fun handleNoBaseCurveBehaviour(value: Double): Double {
@@ -417,8 +426,8 @@ class UseCaseThicknessImpl(
     private fun getRealBackRadiusInMM(recalculatedSphereCurve: Double): Double =
             (LAB_INDEX - 1) / (recalculatedSphereCurve / 1000)
 
-    private fun getSag1Sphere(realBackRadiusInMM: Double, diameter: Double): Double{
-       return  abs(realBackRadiusInMM) - sqrt(abs(realBackRadiusInMM).pow(2.0) - (diameter / 2).pow(2.0))    // sag of concave surface
+    private fun getSag1Sphere(realBackRadiusInMM: Double, diameter: Double): Double {
+        return abs(realBackRadiusInMM) - sqrt(abs(realBackRadiusInMM).pow(2.0) - (diameter / 2).pow(2.0))    // sag of concave surface
     }
 
 

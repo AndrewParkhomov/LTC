@@ -73,9 +73,9 @@ class SingleActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_item_language -> Language.instance.show(supportFragmentManager)
+//            R.id.menu_item_language -> viewModelMyAct.onLanguageItemClicked(supportFragmentManager)
             R.id.menu_item_rate -> showRateThisAppDialog()
-            R.id.menu_item_share -> viewModel.onShareResultClicked()
+//            R.id.menu_item_share -> viewModelMyAct.onShareResultClicked()
             R.id.menu_item_about -> showAboutDialog()
         }
         return super.onOptionsItemSelected(item)
@@ -96,7 +96,7 @@ class SingleActivity : BaseActivity() {
                             else -> glossary
                         }
                         bottom_navigation_bar.selectTab(position, false)
-                        viewModel.selectTab(tabId)
+//                        viewModelMyAct.selectTab(tabId)
                     }
 
                     override fun onTabUnselected(position: Int) {
