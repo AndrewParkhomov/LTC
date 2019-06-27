@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<resources>
-    <string name="transposition_power_sphere">Сфера %1$s</string>
-    <string name="transposition_power_cylinder">Циліндр %1$s</string>
-    <string name="transposition_axis">Кут %1$d&#176;</string>
-    <string name="transposition_result">Сфера %1$s\nЦиліндр %2$s\nКут %3$d&#176;</string>
-</resources>

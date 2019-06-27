@@ -2,12 +2,12 @@ package parkhomov.andrew.language.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import parkhomov.andrew.language.domain.UseCaseLanguage
+import parkhomov.andrew.language.usecase.UseCaseLanguage
 
 class ViewModelLanguageImpl(
         private val state: MediatorLiveData<State>,
         private val useCaseLanguage: UseCaseLanguage
-) : ViewModeLanguage() {
+) : ViewModelLanguage() {
 
     init {
         state.addSource(useCaseLanguage.getLiveData(), ::onGetRadioButtonIdResult)

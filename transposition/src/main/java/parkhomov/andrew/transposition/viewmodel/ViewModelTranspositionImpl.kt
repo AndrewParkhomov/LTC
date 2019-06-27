@@ -2,12 +2,12 @@ package parkhomov.andrew.transposition.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import parkhomov.andrew.transposition.domain.UseCaseTransposition
+import parkhomov.andrew.transposition.usecase.UseCaseTransposition
 
 class ViewModelTranspositionImpl(
         private val state: MediatorLiveData<State>,
         private val useCaseTransposition: UseCaseTransposition
-) : ViewModeTransposition() {
+) : ViewModelTransposition() {
 
     init {
         state.addSource(useCaseTransposition.getLiveData(), ::handleUseCaseResult)

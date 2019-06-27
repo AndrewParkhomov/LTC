@@ -50,9 +50,7 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     implementation "ru.terrakok.cicerone:cicerone:$cicerone_version"
     implementation "javax.inject:javax.inject:$annotaion_version"
-    implementation("com.ashokvarma.android:bottom-navigation-bar:$bottom_bar") {
-        exclude group: "com.android.support", module: "design"
-    }
+
     implementation("com.crashlytics.sdk.android:crashlytics:$fabric_version") {
         transitive = true
     }
@@ -66,4 +64,5 @@ dependencies {
     implementation project(':diameter')
     implementation project(':transposition')
     implementation project(':thickness')
+    implementation project(':activity')
 }

@@ -1,1 +1,9 @@
-include ':app', ':base', ':language', ':result', ':glossary', ':diameter', ':transposition', ':thickness'
+include ':app',
+        ':activity',
+        ':base',
+        ':language',
+        ':result',
+        ':glossary',
+        ':diameter',
+        ':transposition',
+        ':thickness'

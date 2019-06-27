@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.thickness_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.base.base.BaseFragment
 import parkhomov.andrew.base.data.result.CalculatedData
+import parkhomov.andrew.base.extension.observe
 import parkhomov.andrew.base.utils.*
 import parkhomov.andrew.thickness.R
 import parkhomov.andrew.thickness.viewmodel.ViewModelThickness
@@ -30,21 +31,8 @@ class Thickness : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        viewModel.events.observe(this, Observer { event ->
-//            when (event) {
-//                is ShowResultDialog -> {
-//                    event.data?.let { resultData ->
-//                        showResultDialog(resultData)
-//                    }
-//                }
-//                is HighlightSpherePower -> highlightSpherePower(event.isHighlight)
-//                is HighlightCenterThickness -> highlightCenterThickness(event.isHighlight)
-//                is HighlightDiameter -> highlightDiameter(event.isHighlight)
-//                is BaseCurve -> setCurrentBaseCurve(event.baseCurve)
-//            }
-//        })
+        observe(viewModel.getState()) { onStateChanged(it) }
 
-        // add textwatcher
         sphere_.addTextChangedListener(GenericTextWatcher())
         cylinder_.addTextChangedListener(GenericTextWatcher())
 
@@ -96,6 +84,26 @@ class Thickness : BaseFragment() {
                     }
                     false
                 })
+    }
+
+    private fun onStateChanged(event: ViewModelThickness.State) {
+        when (event) {
+            is ViewModelThickness.State.HighlightSpherePower -> {
+                highlightSpherePower(event.isShowError)
+            }
+            is ViewModelThickness.State.HighlightDiameter -> {
+                highlightDiameter(event.isShowError)
+            }
+            is ViewModelThickness.State.HighlightCenterThickness -> {
+                highlightCenterThickness(event.isShowError)
+            }
+            is ViewModelThickness.State.SetCurrentBaseCurve -> {
+                setCurrentBaseCurve(event.curveValue)
+            }
+            is ViewModelThickness.State.ShowResultDialog -> {
+                showResultDialog(event.calculatedData)
+            }
+        }
     }
 
     private fun getLensIndex(): Triple<Double, Double, String> {

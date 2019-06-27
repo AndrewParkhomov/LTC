@@ -2,12 +2,12 @@ package parkhomov.andrew.diameter.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import parkhomov.andrew.diameter.domain.UseCaseDiameter
+import parkhomov.andrew.diameter.usecase.UseCaseDiameter
 
 class ViewModelDiameterImpl(
         private val state: MediatorLiveData<State>,
         private val useCaseDiameter: UseCaseDiameter
-) : ViewModeDiameter() {
+) : ViewModelDiameter() {
 
     init {
         state.addSource(useCaseDiameter.getLiveData(), ::handleUseCaseResult)

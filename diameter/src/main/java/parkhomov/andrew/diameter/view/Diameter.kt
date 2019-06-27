@@ -11,12 +11,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.base.base.BaseFragment
 import parkhomov.andrew.diameter.R
 import parkhomov.andrew.base.extension.observe
-import parkhomov.andrew.diameter.viewmodel.ViewModeDiameter
+import parkhomov.andrew.diameter.viewmodel.ViewModelDiameter
 
 
 class Diameter : BaseFragment() {
 
-    private val viewModel: ViewModeDiameter by viewModel()
+    private val viewModel: ViewModelDiameter by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.diameter_fragment, container, false)
@@ -28,28 +28,17 @@ class Diameter : BaseFragment() {
         setTextWatcherListeners()
     }
 
-    private fun onStateChanged(event: ViewModeDiameter.State) {
+    private fun onStateChanged(event: ViewModelDiameter.State) {
         when (event) {
-            is ViewModeDiameter.State.SetValue -> {
+            is ViewModelDiameter.State.SetValue -> {
                 when (event.viewId) {
                     R.id.input_edit_text_ed -> setHintEd(event.value)
                     R.id.input_edit_text_dbl -> setHintDbl(event.value)
                     R.id.input_edit_text_pd -> setHintPd(event.value)
                 }
             }
-            is ViewModeDiameter.State.ShowDiameterResult -> calculate(event.targetValue)
+            is ViewModelDiameter.State.ShowDiameterResult -> calculate(event.targetValue)
         }
-    }
-
-    override fun onResume() {
-        println("onResume")
-        super.onResume()
-    }
-
-    override fun onPause() {
-        println("onPause")
-        super.onDestroy()
-        super.onPause()
     }
 
     private fun setDefaultValues() {

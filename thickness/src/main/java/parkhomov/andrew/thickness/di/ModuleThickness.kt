@@ -3,8 +3,8 @@ package parkhomov.andrew.thickness.di
 import androidx.lifecycle.MediatorLiveData
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
-import parkhomov.andrew.thickness.domain.UseCaseThickness
-import parkhomov.andrew.thickness.domain.UseCaseThicknessImpl
+import parkhomov.andrew.thickness.usecase.UseCaseThickness
+import parkhomov.andrew.thickness.usecase.UseCaseThicknessImpl
 import parkhomov.andrew.thickness.viewmodel.ViewModelThickness
 import parkhomov.andrew.thickness.viewmodel.ViewModelThicknessImpl
 
@@ -13,7 +13,7 @@ import parkhomov.andrew.thickness.viewmodel.ViewModelThicknessImpl
  */
 val moduleThickness = module {
 
-    single<UseCaseThickness> { UseCaseThicknessImpl(get()) }
+    single<UseCaseThickness>(createOnStart= true) { UseCaseThicknessImpl(get()) }
     factory("StateThickness") { MediatorLiveData<ViewModelThickness.State>() }
     viewModel<ViewModelThickness> { ViewModelThicknessImpl(get( "StateThickness"), get()) }
 }

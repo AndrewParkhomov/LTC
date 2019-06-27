@@ -11,12 +11,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.base.base.BaseFragment
 import parkhomov.andrew.base.extension.observe
 import parkhomov.andrew.transposition.R
-import parkhomov.andrew.transposition.viewmodel.ViewModeTransposition
+import parkhomov.andrew.transposition.viewmodel.ViewModelTransposition
 
 
 class Transposition : BaseFragment() {
 
-    private val viewModel: ViewModeTransposition by viewModel()
+    private val viewModel: ViewModelTransposition by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.transposition, container, false)
@@ -28,17 +28,17 @@ class Transposition : BaseFragment() {
         observe(viewModel.getState()) { onStateChanged(it) }
     }
 
-    private fun onStateChanged(event: ViewModeTransposition.State) {
+    private fun onStateChanged(event: ViewModelTransposition.State) {
         when (event) {
-            is ViewModeTransposition.State.SetValue -> {
+            is ViewModelTransposition.State.SetValue -> {
                 when (event.viewId) {
                     R.id.input_edit_text_sphere -> setHintSphere(event.value)
                     R.id.input_edit_text_cylinder -> setHintCylinder(event.value)
                     R.id.input_edit_text_axis -> setHintAxis(event.value)
                 }
             }
-            is ViewModeTransposition.State.CalculatedTransposition -> calculate(event.sphere, event.cylinder, event.axis)
-            is ViewModeTransposition.State.ClearEditText -> input_edit_text_axis.text?.clear()
+            is ViewModelTransposition.State.CalculatedTransposition -> calculate(event.sphere, event.cylinder, event.axis)
+            is ViewModelTransposition.State.ClearEditText -> input_edit_text_axis.text?.clear()
         }
     }
 

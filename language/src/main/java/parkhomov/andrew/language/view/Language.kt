@@ -11,11 +11,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.base.base.BaseDialog
 import parkhomov.andrew.base.extension.observe
 import parkhomov.andrew.language.R
-import parkhomov.andrew.language.viewmodel.ViewModeLanguage
+import parkhomov.andrew.language.viewmodel.ViewModelLanguage
 
 class Language : BaseDialog() {
 
-    private val viewModel: ViewModeLanguage by viewModel()
+    private val viewModel: ViewModelLanguage by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.language, container, false)
@@ -26,9 +26,9 @@ class Language : BaseDialog() {
         viewModel.setRadioButtons()
     }
 
-    private fun onStateChanged(state: ViewModeLanguage.State) {
+    private fun onStateChanged(state: ViewModelLanguage.State) {
         when (state) {
-            is ViewModeLanguage.State.LanguageReceived -> {
+            is ViewModelLanguage.State.LanguageReceived -> {
                 checkRadioButton(state.radioButtonId)
                 setButtonClickListener()
             }
