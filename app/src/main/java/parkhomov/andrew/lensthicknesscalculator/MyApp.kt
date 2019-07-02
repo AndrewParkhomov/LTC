@@ -4,8 +4,9 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
-import org.koin.android.ext.android.startKoin
-import parkhomov.andrew.lensthicknesscalculator.di.lensThicknessCalculatorApp
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import parkhomov.andrew.lensthicknesscalculator.di.modulesList
 
 class MyApp : Application() {
 
@@ -16,14 +17,10 @@ class MyApp : Application() {
             Fabric.with(this, Crashlytics())
         }
 
-//        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
-//                .setDefaultFontPath("raleway.ttf")
-//                .setFontAttrId(R.attr.fontPath)
-//                .build()
-//        )
-
-        // start Koin context
-        startKoin(this, lensThicknessCalculatorApp)
+        startKoin {
+            androidContext(this@MyApp)
+            modules(modulesList)
+        }
     }
 
     companion object {

@@ -8,7 +8,7 @@ buildscript {
     ext.constraint_version = "2.0.0-alpha3"
     ext.appcompat_version = "1.0.2"
     ext.support_version = "1.0.0"
-    ext.koin_version = "1.0.2"
+    ext.koin_version = "2.0.1"
     ext.bottom_bar = "2.1.0"
     ext.fabric_version = "2.10.1"
     ext.coroutines_version = "1.0.1"

@@ -2,7 +2,7 @@ package parkhomov.andrew.lensthicknesscalculator.di
 
 import androidx.preference.PreferenceManager
 import org.koin.android.ext.koin.androidContext
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 import parkhomov.andrew.activity.di.moduleActivity
 import parkhomov.andrew.base.helper.NavigationI
 import parkhomov.andrew.base.helper.PreferencesHelper
@@ -24,7 +24,7 @@ val appModule = module {
 }
 
 // Gather all app modules
-val lensThicknessCalculatorApp = listOf(
+val modulesList = listOf(
         appModule,
         moduleActivity,
         navigationModule,

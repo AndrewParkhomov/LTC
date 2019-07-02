@@ -26,7 +26,6 @@ import parkhomov.andrew.base.utils.glossary
 import parkhomov.andrew.base.utils.navigation.BackButtonListener
 import parkhomov.andrew.base.utils.thickness
 import parkhomov.andrew.base.utils.transposition
-import parkhomov.andrew.language.view.Language
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -73,9 +72,9 @@ class SingleActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-//            R.id.menu_item_language -> viewModelMyAct.onLanguageItemClicked(supportFragmentManager)
+            R.id.menu_item_language -> viewModel.onLanguageItemClicked(supportFragmentManager)
             R.id.menu_item_rate -> showRateThisAppDialog()
-//            R.id.menu_item_share -> viewModelMyAct.onShareResultClicked()
+            R.id.menu_item_share -> viewModel.onShareResultClicked()
             R.id.menu_item_about -> showAboutDialog()
         }
         return super.onOptionsItemSelected(item)
@@ -96,7 +95,7 @@ class SingleActivity : BaseActivity() {
                             else -> glossary
                         }
                         bottom_navigation_bar.selectTab(position, false)
-//                        viewModelMyAct.selectTab(tabId)
+                        viewModel.selectTab(tabId)
                     }
 
                     override fun onTabUnselected(position: Int) {
@@ -104,7 +103,6 @@ class SingleActivity : BaseActivity() {
                     }
 
                     override fun onTabReselected(position: Int) {
-//                        onTabSelected(position)
                     }
                 })
                 .initialise()

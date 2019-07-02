@@ -1,8 +1,9 @@
 package parkhomov.andrew.transposition.di
 
 import androidx.lifecycle.MediatorLiveData
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 import parkhomov.andrew.transposition.usecase.UseCaseTransposition
 import parkhomov.andrew.transposition.usecase.UseCaseTranspositionImpl
 import parkhomov.andrew.transposition.viewmodel.ViewModelTransposition
@@ -13,8 +14,8 @@ import parkhomov.andrew.transposition.viewmodel.ViewModelTranspositionImpl
  */
 val moduleTransposition = module {
 
-    single<UseCaseTransposition>(createOnStart= true) { UseCaseTranspositionImpl(get()) }
-    factory("StateTransposition") { MediatorLiveData<ViewModelTransposition.State>() }
-    viewModel<ViewModelTransposition> { ViewModelTranspositionImpl(get("StateTransposition"), get()) }
+    single<UseCaseTransposition>(createdAtStart= true) { UseCaseTranspositionImpl(get()) }
+    factory(named("StateTransposition")) { MediatorLiveData<ViewModelTransposition.State>() }
+    viewModel<ViewModelTransposition> { ViewModelTranspositionImpl(get(named("StateTransposition")), get()) }
 }
 
