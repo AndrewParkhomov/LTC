@@ -7,10 +7,10 @@ import parkhomov.andrew.activity.di.moduleActivity
 import parkhomov.andrew.base.helper.NavigationI
 import parkhomov.andrew.base.helper.PreferencesHelper
 import parkhomov.andrew.base.interactor.Interactor
+import parkhomov.andrew.base.utils.prefs.AppPreferencesHelper
 import parkhomov.andrew.diameter.di.moduleDiameter
 import parkhomov.andrew.language.di.moduleLanguage
 import parkhomov.andrew.lensthicknesscalculator.navigation.NavigationHandlerImpl
-import parkhomov.andrew.lensthicknesscalculator.utils.prefs.AppPreferencesHelper
 import parkhomov.andrew.thickness.di.moduleThickness
 import parkhomov.andrew.transposition.di.moduleTransposition
 

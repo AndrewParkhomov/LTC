@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.utils.prefs
+package parkhomov.andrew.base.utils.prefs
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
