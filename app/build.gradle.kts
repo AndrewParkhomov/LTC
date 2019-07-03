@@ -1,18 +1,17 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    id("org.jetbrains.kotlin.android.extensions")
+    id(Dependencies.BuildPlugins.androidApplication)
+    id(Dependencies.BuildPlugins.kotlinAndroid)
+    id(Dependencies.BuildPlugins.kotlinAndroidExtensions)
 }
 
 android {
-    compileSdkVersion(extra["compile_version"] as Int)
+    compileSdkVersion(Dependencies.AndroidSdk.compileVersion)
     defaultConfig {
-        applicationId = extra["applicationId"] as String
-        minSdkVersion(extra["min_version"] as Int)
-        targetSdkVersion(extra["compile_version"] as Int)
-        versionName = extra["version_name"] as String
-        versionCode = extra["version_code"] as Int
+        applicationId = Dependencies.AndroidSdk.applicationId
+        minSdkVersion(Dependencies.AndroidSdk.minVersion)
+        targetSdkVersion(Dependencies.AndroidSdk.targetVersion)
+        versionName = Dependencies.AndroidSdk.versionName
+        versionCode = Dependencies.AndroidSdk.versionCode
     }
 
     buildTypes {
@@ -32,18 +31,18 @@ android {
 
 dependencies {
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${extra["kotlin_version"] as String}")
-    implementation("androidx.preference:preference:${extra["pref_version"] as String}")
-    implementation("org.koin:koin-android:${extra["koin_version"] as String}")
-    implementation("ru.terrakok.cicerone:cicerone:${extra["cicerone_version"] as String}")
-    implementation("com.crashlytics.sdk.android:crashlytics:${extra["fabric_version"] as String}")
+    implementation(Dependencies.Libraries.kotlinStdLib)
+    implementation(Dependencies.Libraries.preference)
+    implementation(Dependencies.Libraries.koinAndroid)
+    implementation(Dependencies.Libraries.cicerone)
+    implementation(Dependencies.Libraries.fabric)
 
-    implementation(project(":base"))
-    implementation(project(":language"))
-    implementation(project(":result"))
-    implementation(project(":glossary"))
-    implementation(project(":diameter"))
-    implementation(project(":transposition"))
-    implementation(project(":thickness"))
-    implementation(project(":activity"))
+    implementation(project(Dependencies.Module.activity))
+    implementation(project(Dependencies.Module.base))
+    implementation(project(Dependencies.Module.language))
+    implementation(project(Dependencies.Module.result))
+    implementation(project(Dependencies.Module.glossary))
+    implementation(project(Dependencies.Module.diameter))
+    implementation(project(Dependencies.Module.transposition))
+    implementation(project(Dependencies.Module.thickness))
 }

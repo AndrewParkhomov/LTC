@@ -1,16 +1,16 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    id("org.jetbrains.kotlin.android.extensions")
+    id(Dependencies.BuildPlugins.androidLibrary)
+    id(Dependencies.BuildPlugins.kotlinAndroid)
+    id(Dependencies.BuildPlugins.kotlinAndroidExtensions)
 }
 
 android {
-    compileSdkVersion(extra["compile_version"] as Int)
+    compileSdkVersion(Dependencies.AndroidSdk.compileVersion)
     defaultConfig {
-        minSdkVersion(extra["min_version"] as Int)
-        targetSdkVersion(extra["compile_version"] as Int)
-        versionName = extra["version_name"] as String
-        versionCode = extra["version_code"] as Int
+        minSdkVersion(Dependencies.AndroidSdk.minVersion)
+        targetSdkVersion(Dependencies.AndroidSdk.targetVersion)
+        versionName = Dependencies.AndroidSdk.versionName
+        versionCode = Dependencies.AndroidSdk.versionCode
         vectorDrawables.useSupportLibrary = true
     }
     androidExtensions {
@@ -20,18 +20,18 @@ android {
 
 dependencies {
 
-    implementation("androidx.appcompat:appcompat:${extra["appcompat_version"] as String}")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${extra["kotlin_version"] as String}")
-    implementation("com.google.android.material:material:${extra["support_version"] as String}")
-    implementation("org.koin:koin-android:${extra["koin_version"] as String}")
-    implementation("org.koin:koin-androidx-viewmodel:${extra["koin_version"] as String}")
-    implementation("ru.terrakok.cicerone:cicerone:${extra["cicerone_version"] as String}")
-    implementation("com.ashokvarma.android:bottom-navigation-bar:${extra["bottom_bar"] as String}")
+    implementation(Dependencies.Libraries.kotlinStdLib)
+    implementation(Dependencies.Libraries.appCompat)
+    implementation(Dependencies.Libraries.material)
+    implementation(Dependencies.Libraries.koinAndroid)
+    implementation(Dependencies.Libraries.koinAndroidViewmodel)
+    implementation(Dependencies.Libraries.cicerone)
+    implementation(Dependencies.Libraries.bottomBar)
 
-    implementation(project(":base"))
-    implementation(project(":language"))
-    implementation(project(":glossary"))
-    implementation(project(":diameter"))
-    implementation(project(":transposition"))
-    implementation(project(":thickness"))
+    implementation(project(Dependencies.Module.base))
+    implementation(project(Dependencies.Module.language))
+    implementation(project(Dependencies.Module.glossary))
+    implementation(project(Dependencies.Module.diameter))
+    implementation(project(Dependencies.Module.transposition))
+    implementation(project(Dependencies.Module.thickness))
 }
