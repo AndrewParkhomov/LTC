@@ -3,6 +3,7 @@ package parkhomov.andrew.lensthicknesscalculator
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.fabric.sdk.android.Fabric
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -21,6 +22,9 @@ class MyApp : Application() {
             androidContext(this@MyApp)
             modules(modulesList)
         }
+
+        Fabric.with(this, Crashlytics())
+        FirebaseAnalytics.getInstance(this)
     }
 
     companion object {

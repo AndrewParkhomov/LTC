@@ -38,6 +38,8 @@
     <string name="result_max_edge_thickness">Максимальная толщина: %1$s мм</string>
     <string name="result_base_curve">Кривизна базы линзы: %1$s</string>
     <string name="result_diameter">Диаметр: %1$s мм</string>
+    <string name="result_add_to_list">Добавить в список сравнения</string>
+    <string name="result_remove_from_list">Удалить из списка сравнения</string>
     <!-- Transposition -->
     <string name="transposition_power_sphere">Сфера %1$s</string>
     <string name="transposition_power_cylinder">Цилиндр %1$s</string>

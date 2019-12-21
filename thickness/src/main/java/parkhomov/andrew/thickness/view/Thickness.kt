@@ -11,11 +11,9 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.thickness_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.base.base.BaseFragment
-import parkhomov.andrew.base.data.result.CalculatedData
 import parkhomov.andrew.base.extension.observe
 import parkhomov.andrew.base.utils.*
 import parkhomov.andrew.thickness.R

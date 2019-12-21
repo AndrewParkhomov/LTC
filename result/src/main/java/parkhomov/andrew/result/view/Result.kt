@@ -1,13 +1,18 @@
 package parkhomov.andrew.result.view
 
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
+import androidx.transition.TransitionManager
+import com.transitionseverywhere.ChangeText
 import kotlinx.android.synthetic.main.dialog_result.*
 import parkhomov.andrew.base.base.BaseDialog
 import parkhomov.andrew.base.data.result.CalculatedData
+import parkhomov.andrew.base.utils.getDrawableFromId
 import parkhomov.andrew.result.R
 
 class Result : BaseDialog() {
@@ -17,10 +22,38 @@ class Result : BaseDialog() {
         return inflater.inflate(R.layout.dialog_result, container, false)
     }
 
+    private fun dpToPx(res: Resources, dp: Float): Float {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics)
+    }
+
     override fun setUp(view: View) {
         val result: CalculatedData = arguments!!.getParcelable(TAG)!!
         showCylinderViews(result.cylinderPower != null)
+        setAddToListListener(false)
+
         setCalculatedData(result)
+    }
+
+    private fun setAddToListListener(isAdded: Boolean) {
+        val add = getString(R.string.result_add_to_list)
+        val remove = getString(R.string.result_remove_from_list)
+        val addImage = context?.getDrawableFromId(R.drawable.ic_add_black)
+        val removeImage = context?.getDrawableFromId(R.drawable.ic_remove_black)
+
+        text_view_add_to_compare_list.compoundDrawablePadding = dpToPx(resources, 10f).toInt()
+        text_view_add_to_compare_list.text = if(!isAdded) add else remove
+        image_view_add.setImageDrawable(if (!isAdded) addImage else removeImage)
+        text_view_add_to_compare_list.setOnClickListener {
+            TransitionManager.beginDelayedTransition(
+                    container_constraint,
+                    ChangeText().setChangeBehavior(ChangeText.CHANGE_BEHAVIOR_OUT_IN)
+            )
+            val isAdd = text_view_add_to_compare_list.text == add
+            val text = if (isAdd) remove else add
+            val image = if (isAdd) removeImage else addImage
+            text_view_add_to_compare_list.text = text
+            image_view_add.setImageDrawable(image)
+        }
     }
 
     private fun showCylinderViews(isShow: Boolean) {

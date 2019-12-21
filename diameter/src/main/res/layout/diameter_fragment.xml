@@ -60,7 +60,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_view_diameter_result"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

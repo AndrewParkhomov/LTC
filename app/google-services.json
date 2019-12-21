@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "812601773450",
+    "firebase_url": "https://lens-thickness-calculator.firebaseio.com",
+    "project_id": "lens-thickness-calculator",
+    "storage_bucket": "lens-thickness-calculator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812601773450:android:d1ab332e9cfd3f513ecc73",
+        "android_client_info": {
+          "package_name": "parkhomov.andrew.lensthicknesscalculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812601773450-pb4dbj73dli5dml9t9amreup5poj06tu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEspkCI9Jjact6vuOM8v4pRd75EqIRcdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "812601773450-pb4dbj73dli5dml9t9amreup5poj06tu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

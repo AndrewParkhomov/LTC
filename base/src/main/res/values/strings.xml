@@ -38,6 +38,9 @@
     <string name="result_max_edge_thickness">Maximum thickness: %1$s mm</string>
     <string name="result_base_curve">Base curve: %1$s</string>
     <string name="result_diameter">Diameter: %1$s mm</string>
+    <string name="result_add_to_list">Add to compare list</string>
+    <string name="result_remove_from_list">Remove from list</string>
+
     <!-- Transposition -->
     <string name="transposition_power_sphere">Sphere %1$s</string>
     <string name="transposition_power_cylinder">Cylinder %1$s</string>

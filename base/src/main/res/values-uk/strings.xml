@@ -38,6 +38,8 @@
     <string name="result_max_edge_thickness">Максимальна товщина: %1$s мм</string>
     <string name="result_base_curve">Кривизна бази лінзи: %1$s</string>
     <string name="result_diameter">Діаметр: %1$s мм</string>
+    <string name="result_add_to_list">Додати у порівняльний список</string>
+    <string name="result_remove_from_list">Видалити із списку</string>
     <!-- Transposition -->
     <string name="transposition_power_sphere">Сфера %1$s</string>
     <string name="transposition_power_cylinder">Циліндр %1$s</string>

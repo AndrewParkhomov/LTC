@@ -8,10 +8,9 @@ import parkhomov.andrew.base.utils.diameter
 import parkhomov.andrew.base.utils.thickness
 import parkhomov.andrew.base.utils.transposition
 import parkhomov.andrew.language.view.Language
+import parkhomov.andrew.result.view.Result
 
-class NavigationHandlerImpl(
-
-) : NavigationI {
+class NavigationHandlerImpl : NavigationI {
 
     override fun getSelectedFragment(position: Int): Fragment {
         return when (position) {
@@ -27,6 +26,6 @@ class NavigationHandlerImpl(
     }
 
     override fun showResultDialog(childFragmentManager: FragmentManager, caseThickness: CalculatedData) {
-        parkhomov.andrew.result.view.Result.getInstance(caseThickness).show(childFragmentManager)
+        Result.getInstance(caseThickness).show(childFragmentManager)
     }
 }
