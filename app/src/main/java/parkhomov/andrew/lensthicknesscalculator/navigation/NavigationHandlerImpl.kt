@@ -28,4 +28,5 @@ class NavigationHandlerImpl : NavigationI {
     override fun showResultDialog(childFragmentManager: FragmentManager, caseThickness: CalculatedData) {
         Result.getInstance(caseThickness).show(childFragmentManager)
     }
+
 }

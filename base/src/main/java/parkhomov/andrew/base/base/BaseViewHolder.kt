@@ -11,6 +11,6 @@ abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
         const val VIEW_TYPE_EMPTY = 0
         const val VIEW_TYPE_NORMAL = 1
-        const val VIEW_TYPE_DISCOUNT = 2
+        const val VIEW_TYPE_DESCRIPTION = 2
     }
 }

@@ -28,6 +28,7 @@
             android:layout_height="50dp"
             android:layout_width="0dp"
             android:padding="10dp"
+            android:lines="1"
             android:gravity="start|center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_view_add"

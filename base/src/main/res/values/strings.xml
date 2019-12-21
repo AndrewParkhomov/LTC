@@ -51,6 +51,7 @@
     <string name="header_rate_this_app">Rate this app</string>
     <string name="header_share">Share</string>
     <string name="header_about">About</string>
+    <string name="header_compare_list">Compare list</string>
     <!-- Share result -->
     <string name="share_result_subject">Lens data</string>
     <string name="share_with">Share with…</string>
@@ -69,6 +70,17 @@
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="ukrainian">Українська</string>
+    <!-- Compare list -->
+    <string name="compare_list_index_of_refraction">Index</string>
+    <string name="compare_list_sphere_power">Sphere</string>
+    <string name="compare_list_cylinder_power">Cylinder</string>
+    <string name="compare_list_axis">Axis</string>
+    <string name="compare_list_on_axis_thickness">Thk axis</string>
+    <string name="compare_list_center_thickness">Thk cntr</string>
+    <string name="compare_list_min_edge_thickness">Thk min</string>
+    <string name="compare_list_max_edge_thickness">Thk max</string>
+    <string name="compare_list_base_curve">Curve</string>
+    <string name="compare_list_diameter">Diameter</string>
 
     <!--  Material item list -->
     <string-array name="index_of_refraction">

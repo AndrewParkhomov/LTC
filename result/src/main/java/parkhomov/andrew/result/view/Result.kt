@@ -1,7 +1,9 @@
 package parkhomov.andrew.result.view
 
 import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +12,19 @@ import androidx.fragment.app.FragmentManager
 import androidx.transition.TransitionManager
 import com.transitionseverywhere.ChangeText
 import kotlinx.android.synthetic.main.dialog_result.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.base.base.BaseDialog
 import parkhomov.andrew.base.data.result.CalculatedData
+import parkhomov.andrew.base.extension.observe
+import parkhomov.andrew.base.utils.argument
 import parkhomov.andrew.base.utils.getDrawableFromId
 import parkhomov.andrew.result.R
+import parkhomov.andrew.result.viewmodel.ViewModelResult
 
 class Result : BaseDialog() {
 
+    private val viewModel: ViewModelResult by viewModel()
+    private val result by argument<CalculatedData>(TAG)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_result, container, false)
@@ -27,33 +35,50 @@ class Result : BaseDialog() {
     }
 
     override fun setUp(view: View) {
-        val result: CalculatedData = arguments!!.getParcelable(TAG)!!
+        observe(viewModel.getState()) { onStateChanged(it) }
+        viewModel.checkState(result)
         showCylinderViews(result.cylinderPower != null)
-        setAddToListListener(false)
-
         setCalculatedData(result)
+        text_view_add_to_compare_list.setOnClickListener {
+            if (text_view_add_to_compare_list.text != getString(R.string.result_add_to_list)) {
+                viewModel.removeFromList(result)
+            } else {
+                viewModel.addToList(result)
+            }
+        }
     }
 
-    private fun setAddToListListener(isAdded: Boolean) {
+    private fun onStateChanged(event: ViewModelResult.State) {
         val add = getString(R.string.result_add_to_list)
         val remove = getString(R.string.result_remove_from_list)
-        val addImage = context?.getDrawableFromId(R.drawable.ic_add_black)
-        val removeImage = context?.getDrawableFromId(R.drawable.ic_remove_black)
+        val addImage = context?.getDrawableFromId(R.drawable.ic_add_black)!!
+        val removeImage = context?.getDrawableFromId(R.drawable.ic_remove_black)!!
 
-        text_view_add_to_compare_list.compoundDrawablePadding = dpToPx(resources, 10f).toInt()
-        text_view_add_to_compare_list.text = if(!isAdded) add else remove
-        image_view_add.setImageDrawable(if (!isAdded) addImage else removeImage)
-        text_view_add_to_compare_list.setOnClickListener {
-            TransitionManager.beginDelayedTransition(
-                    container_constraint,
-                    ChangeText().setChangeBehavior(ChangeText.CHANGE_BEHAVIOR_OUT_IN)
-            )
-            val isAdd = text_view_add_to_compare_list.text == add
-            val text = if (isAdd) remove else add
-            val image = if (isAdd) removeImage else addImage
-            text_view_add_to_compare_list.text = text
-            image_view_add.setImageDrawable(image)
+        when (event) {
+            is ViewModelResult.State.AddToList -> {
+                stateChanged(event.isSuccess, add, remove, addImage, removeImage)
+            }
+            is ViewModelResult.State.RemoveFromList -> {
+                stateChanged(!event.isSuccess, add, remove, addImage, removeImage)
+            }
+            is ViewModelResult.State.CheckState -> {
+                text_view_add_to_compare_list.compoundDrawablePadding = dpToPx(resources, 10f).toInt()
+                text_view_add_to_compare_list.text = if (!event.isInList) add else remove
+                image_view_add.setImageDrawable(if (!event.isInList) addImage else removeImage)
+            }
         }
+    }
+
+
+    private fun stateChanged(isAdd: Boolean, add: String, remove: String, addImage: Drawable, removeImage: Drawable) {
+        TransitionManager.beginDelayedTransition(
+                container_constraint,
+                ChangeText().setChangeBehavior(ChangeText.CHANGE_BEHAVIOR_OUT_IN)
+        )
+        val text = if (isAdd) remove else add
+        val image = if (isAdd) removeImage else addImage
+        text_view_add_to_compare_list.text = text
+        image_view_add.setImageDrawable(image)
     }
 
     private fun showCylinderViews(isShow: Boolean) {

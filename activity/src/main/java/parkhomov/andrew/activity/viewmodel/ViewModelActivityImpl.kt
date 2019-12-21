@@ -38,6 +38,10 @@ class ViewModelActivityImpl(
         useCaseActivity.onLanguageItemClicked(supportFragmentManager)
     }
 
+    override fun showCompareListScreen() {
+        useCaseActivity.showCompareListScreen()
+    }
+
     override fun selectTab(position: Int) {
         useCaseActivity.selectTab(position)
     }

@@ -22,4 +22,5 @@ abstract class ViewModelActivity : ViewModel() {
     abstract fun onShareResultClicked()
 
     abstract fun onLanguageItemClicked(supportFragmentManager: FragmentManager)
+    abstract fun showCompareListScreen()
 }

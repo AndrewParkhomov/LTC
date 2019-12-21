@@ -50,6 +50,7 @@
     <string name="header_share">Поділитись</string>
     <string name="header_rate_this_app">Оцінити додаток</string>
     <string name="header_about">Про програму</string>
+    <string name="header_compare_list">Список порівняння</string>
     <!-- Share result -->
     <string name="share_result_subject">Дані про лінзу</string>
     <string name="share_with">Поділитись з допомогою…</string>

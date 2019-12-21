@@ -10,5 +10,6 @@ class Interactor
         private val preferencesHelper: PreferencesHelper
 ) {
     var calculatedData: CalculatedData? = null
+    var compareList: MutableSet<CalculatedData> = mutableSetOf()
 
 }

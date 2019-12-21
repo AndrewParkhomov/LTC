@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuCompat
 import androidx.fragment.app.Fragment
@@ -76,6 +77,10 @@ class SingleActivity : BaseActivity() {
             R.id.menu_item_rate -> showRateThisAppDialog()
             R.id.menu_item_share -> viewModel.onShareResultClicked()
             R.id.menu_item_about -> showAboutDialog()
+            R.id.menu_item_compare_list -> {
+                viewModel.showCompareListScreen()
+//                bottom_navigation_bar.visibility = View.GONE
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -96,6 +101,9 @@ class SingleActivity : BaseActivity() {
                         }
                         bottom_navigation_bar.selectTab(position, false)
                         viewModel.selectTab(tabId)
+                        if(tabId==1){
+                            supportFragmentManager.popBackStack()
+                        }
                     }
 
                     override fun onTabUnselected(position: Int) {

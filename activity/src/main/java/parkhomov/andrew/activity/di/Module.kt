@@ -11,7 +11,7 @@ import parkhomov.andrew.activity.viewmodel.ViewModelActivityImpl
 
 val moduleActivity = module {
 
-    single<UseCaseActivity>(createdAtStart= true) { UseCaseActivityImpl(get(),get()) }
+    single<UseCaseActivity>(createdAtStart= true) { UseCaseActivityImpl(get(),get(), get()) }
     factory(named("StateActivity")) { MediatorLiveData<ViewModelActivity.State>() }
     viewModel<ViewModelActivity> { ViewModelActivityImpl(get(named("StateActivity")), get()) }
 

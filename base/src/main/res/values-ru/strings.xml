@@ -50,6 +50,7 @@
     <string name="header_share">Поделится</string>
     <string name="header_rate_this_app">Оцените приложение</string>
     <string name="header_about">О программе</string>
+    <string name="header_compare_list">Список сравнения</string>
     <!-- Share result -->
     <string name="share_result_subject">Данные об линзе</string>
     <string name="share_with">Поделиться с помощью…</string>

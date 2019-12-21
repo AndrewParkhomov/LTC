@@ -20,4 +20,5 @@ interface UseCaseActivity : UseCase<UseCaseActivity.Result> {
     fun onShareResultClicked()
 
     fun onLanguageItemClicked(supportFragmentManager: FragmentManager)
+    fun showCompareListScreen()
 }

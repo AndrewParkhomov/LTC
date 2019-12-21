@@ -31,13 +31,13 @@ android {
 }
 
 dependencies {
-    
+
     implementation "com.google.android.material:material:$material"
     implementation "org.koin:koin-android:$koin_version"
     implementation "ru.terrakok.cicerone:cicerone:$navigation_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
-    implementation "com.andkulikov:transitionseverywhere:$transition_version"
     implementation "org.koin:koin-androidx-viewmodel:$view_model_version"
+    implementation "org.jetbrains.anko:anko:$anko_version"
 
     implementation project(':base')
 }

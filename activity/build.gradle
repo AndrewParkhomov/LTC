@@ -45,4 +45,5 @@ dependencies {
     implementation project(':diameter')
     implementation project(':transposition')
     implementation project(':thickness')
+    implementation project(':comparelist')
 }
