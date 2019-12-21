@@ -2,10 +2,7 @@ package parkhomov.andrew.thickness.viewmodel
 
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ReportFragment
 import androidx.lifecycle.ViewModel
-import parkhomov.andrew.base.data.result.CalculatedData
-import parkhomov.andrew.thickness.usecase.UseCaseThickness
 
 abstract class ViewModelThickness : ViewModel() {
 

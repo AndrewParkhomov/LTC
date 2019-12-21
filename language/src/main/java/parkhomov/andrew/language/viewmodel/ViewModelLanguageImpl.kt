@@ -2,36 +2,27 @@ package parkhomov.andrew.language.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import parkhomov.andrew.language.usecase.UseCaseLanguage
+import parkhomov.andrew.base.helper.PreferencesHelper
+import parkhomov.andrew.base.utils.appLanguage
+import parkhomov.andrew.language.R
 
 class ViewModelLanguageImpl(
         private val state: MediatorLiveData<State>,
-        private val useCaseLanguage: UseCaseLanguage
+        private val preferencesHelper: PreferencesHelper
 ) : ViewModelLanguage() {
-
-    init {
-        state.addSource(useCaseLanguage.getLiveData(), ::onGetRadioButtonIdResult)
-    }
-
-    override fun onCleared() {
-        useCaseLanguage.cleanUp()
-    }
 
     override fun getState(): LiveData<State> = state
 
     override fun setRadioButtons() {
-        useCaseLanguage.getRadioButtonId()
+        val id = when (preferencesHelper.getStringValue(appLanguage, "en")) {
+            "ru" -> R.id.radio_button_rus
+            "uk" -> R.id.radio_button_ukr
+            else -> R.id.radio_button_eng
+        }
+        state.value = State.LanguageReceived(id)
     }
 
     override fun setNewLanguage(language: String) {
-        useCaseLanguage.setNewLanguage(language)
-    }
-
-    private fun onGetRadioButtonIdResult(result: UseCaseLanguage.Result?) {
-        when (result) {
-            is UseCaseLanguage.Result.RadioButtonId -> {
-                state.value = State.LanguageReceived(result.radioButtonId)
-            }
-        }
+        preferencesHelper.putStringValue(appLanguage, language)
     }
 }
