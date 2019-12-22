@@ -6,6 +6,7 @@
     <string name="error_unknown">Неизвестная ошибка</string>
     <!-- Tab headers -->
     <string name="fragment_thickness">Толщина</string>
+    <string name="fragment_compare">Сравнить линзы</string>
     <string name="fragment_diameter">Диаметр</string>
     <string name="fragment_transposition">Транспозиция</string>
     <string name="fragment_glossary">Глоссарий</string>

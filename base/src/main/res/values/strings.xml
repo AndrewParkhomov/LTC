@@ -6,6 +6,7 @@
     <string name="error_unknown">Unknown error</string>
     <!-- Tab headers-->
     <string name="fragment_thickness">Thickness</string>
+    <string name="fragment_compare">Compare lens</string>
     <string name="fragment_diameter">Diameter</string>
     <string name="fragment_transposition">Transposition</string>
     <string name="fragment_glossary">Glossary</string>
@@ -51,7 +52,6 @@
     <string name="header_rate_this_app">Rate this app</string>
     <string name="header_share">Share</string>
     <string name="header_about">About</string>
-    <string name="header_compare_list">Compare list</string>
     <!-- Share result -->
     <string name="share_result_subject">Lens data</string>
     <string name="share_with">Share with…</string>

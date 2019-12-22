@@ -21,10 +21,12 @@ import parkhomov.andrew.activity.viewmodel.ViewModelActivity
 import parkhomov.andrew.base.base.BaseActivity
 import parkhomov.andrew.base.data.result.CalculatedData
 import parkhomov.andrew.base.extension.observe
+import parkhomov.andrew.base.utils.compare
 import parkhomov.andrew.base.utils.diameter
 import parkhomov.andrew.base.utils.navigation.BackButtonListener
 import parkhomov.andrew.base.utils.thickness
 import parkhomov.andrew.base.utils.transposition
+import parkhomov.andrew.comparelist.view.CompareList
 import parkhomov.andrew.language.view.Language
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -75,10 +77,6 @@ class SingleActivity : BaseActivity() {
             R.id.menu_item_rate -> showRateThisAppDialog()
             R.id.menu_item_share -> viewModel.onShareResultClicked()
             R.id.menu_item_about -> showAboutDialog()
-            R.id.menu_item_compare_list -> {
-                viewModel.showCompareListScreen()
-//                bottom_navigation_bar.visibility = View.GONE
-            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -86,6 +84,7 @@ class SingleActivity : BaseActivity() {
     private fun initViews() {
         bottom_navigation_bar
                 .addItem(BottomNavigationItem(R.drawable.ic_thickness, R.string.fragment_thickness))
+                .addItem(BottomNavigationItem(R.drawable.ic_compare_arrows, R.string.fragment_compare))
                 .addItem(BottomNavigationItem(R.drawable.ic_diameter, R.string.fragment_diameter))
                 .addItem(BottomNavigationItem(R.drawable.ic_transposition, R.string.fragment_transposition))
                 .addItem(BottomNavigationItem(R.drawable.ic_glossary, R.string.fragment_glossary))
@@ -93,6 +92,7 @@ class SingleActivity : BaseActivity() {
                     override fun onTabSelected(position: Int) {
                         val tabId = when (position) {
                             thickness -> parkhomov.andrew.thickness.navigation.Screens.ScreenThickness.fragment
+                            compare -> parkhomov.andrew.comparelist.navigation.Screens.ScreenCompareList.fragment
                             diameter -> parkhomov.andrew.diameter.navigation.Screens.ScreenDiameter.fragment
                             transposition -> parkhomov.andrew.transposition.navigation.Screens.ScreenTransposition.fragment
                             else -> parkhomov.andrew.glossary.navigation.Screens.ScreenGlossary.fragment
@@ -107,8 +107,7 @@ class SingleActivity : BaseActivity() {
 
                     override fun onTabReselected(position: Int) {
                     }
-                })
-                .initialise()
+                }).initialise()
         bottom_navigation_bar.selectTab(thickness, true)
     }
 
@@ -144,7 +143,6 @@ class SingleActivity : BaseActivity() {
             super.applyCommands(commands)
             supportFragmentManager.executePendingTransactions()
         }
-
     }
 
     private fun showRateThisAppDialog() {
@@ -171,9 +169,7 @@ class SingleActivity : BaseActivity() {
 
     private fun createStringForSharing(calculatedData: CalculatedData?) {
         calculatedData?.let {
-            val linkInPlayStore = "https://play.google.com/store/apps/details?id=" +
-                    BuildConfig.APPLICATION_ID
-
+            val linkInPlayStore = "https://play.google.com/store/apps/details?id=$packageName"
             val sharedText = if (calculatedData.cylinderPower == null) {
                 getString(R.string.share_text_only_sphere,
                         getString(R.string.app_name),
@@ -248,9 +244,7 @@ class SingleActivity : BaseActivity() {
         val version = getString(R.string.version, BuildConfig.VERSION_NAME)
         AlertDialog.Builder(this, R.style.AlertDialogCustom)
                 .setMessage(version)
-                .setPositiveButton(android.R.string.yes) { dialog, _ ->
-                    dialog.dismiss()
-                }
+                .setPositiveButton(android.R.string.yes) { dialog, _ -> }
                 .create()
                 .show()
     }

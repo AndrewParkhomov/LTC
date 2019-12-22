@@ -16,6 +16,4 @@ abstract class ViewModelActivity : ViewModel() {
     abstract fun getState(): LiveData<State>
 
     abstract fun onShareResultClicked()
-
-    abstract fun showCompareListScreen()
 }

@@ -4,9 +4,10 @@ package parkhomov.andrew.base.utils
 const val appLanguage = "SAVE_LANGUAGE_ISO2"
 
 const val thickness = 0
-const val diameter = 1
-const val transposition = 2
-const val glossary = 3
+const val compare = 1
+const val diameter = 2
+const val transposition = 3
+const val glossary = 4
 
 // index of material
 const val LAB_INDEX = 1.53  // Constant index 1.53

@@ -16,9 +16,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.base.base.BaseFragment
 import parkhomov.andrew.base.extension.observe
 import parkhomov.andrew.base.utils.*
+import parkhomov.andrew.result.view.Result
 import parkhomov.andrew.thickness.R
 import parkhomov.andrew.thickness.viewmodel.ViewModelThickness
-import parkhomov.andrew.result.view.Result
 
 
 class Thickness : BaseFragment() {
@@ -26,7 +26,7 @@ class Thickness : BaseFragment() {
     private val viewModel: ViewModelThickness by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        activity!!.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         return inflater.inflate(R.layout.thickness_fragment, container, false)
     }
 
@@ -38,7 +38,6 @@ class Thickness : BaseFragment() {
 
         button_calculate.setOnClickListener {
             viewModel.onCalculateBtnClicked(
-                    childFragmentManager,
                     getLensIndex(),
                     sphere_.text.toString(),
                     cylinder_.text.toString(),

@@ -1,7 +1,6 @@
 package parkhomov.andrew.thickness.viewmodel
 
 import android.util.Log
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import parkhomov.andrew.base.data.result.CalculatedData
@@ -16,11 +15,9 @@ class ViewModelThicknessImpl(
         private val interactor: Interactor
 ) : ViewModelThickness() {
 
-
     override fun getState(): LiveData<State> = state
 
     override fun onCalculateBtnClicked(
-            childFragmentManager: FragmentManager,
             lensIndex: Triple<Double, Double, String>,
             spherePowerString: String,
             cylinderPowerString: String,
@@ -205,7 +202,6 @@ class ViewModelThicknessImpl(
 
             if (cylinderPower == 0.0) {
                 showResultDialog(
-                        childFragmentManager,
                         lensIndex.third,
                         spherePower.toString(),
                         centerString,
@@ -243,7 +239,6 @@ class ViewModelThicknessImpl(
                 Log.i("realFrontBaseCurveDptr", curve.toString())
 
                 showResultDialog(
-                        childFragmentManager,
                         lensIndex.third,
                         spherePowerString,
                         cylinderPowerString,
@@ -260,7 +255,6 @@ class ViewModelThicknessImpl(
     }
 
     private fun showResultDialog(
-            childFragmentManager: FragmentManager,
             refractionIndex: String,
             spherePower: String,
             thicknessCenter: String,
@@ -285,7 +279,6 @@ class ViewModelThicknessImpl(
     }
 
     private fun showResultDialog(
-            childFragmentManager: FragmentManager,
             refractionIndex: String,
             spherePower: String,
             cylinderPower: String,

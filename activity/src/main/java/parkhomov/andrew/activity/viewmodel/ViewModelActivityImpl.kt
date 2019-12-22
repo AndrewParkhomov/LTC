@@ -8,15 +8,10 @@ import ru.terrakok.cicerone.Router
 
 class ViewModelActivityImpl(
         private val state: MediatorLiveData<State>,
-        private val interactor: Interactor,
-        private val router: Router
+        private val interactor: Interactor
 ) : ViewModelActivity() {
 
     override fun getState(): LiveData<State> = state
-
-    override fun showCompareListScreen() {
-        router.navigateTo(parkhomov.andrew.comparelist.navigation.Screens.ScreenCompareList)
-    }
 
     override fun onShareResultClicked() {
         if (interactor.calculatedData != null) {

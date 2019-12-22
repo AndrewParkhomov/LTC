@@ -1,6 +1,5 @@
 package parkhomov.andrew.thickness.viewmodel
 
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import parkhomov.andrew.base.data.result.CalculatedData
@@ -18,7 +17,6 @@ abstract class ViewModelThickness : ViewModel() {
     abstract fun getState(): LiveData<State>
 
     abstract fun onCalculateBtnClicked(
-            childFragmentManager: FragmentManager,
             lensIndex: Triple<Double, Double, String>,
             spherePowerString: String,
             cylinderPowerString: String,
