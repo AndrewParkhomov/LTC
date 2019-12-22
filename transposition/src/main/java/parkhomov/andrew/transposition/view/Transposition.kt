@@ -23,9 +23,9 @@ class Transposition : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setDefaultValues()
+        observe(viewModel.state) { onStateChanged(it) }
         setTextWatcherListeners()
-        observe(viewModel.getState()) { onStateChanged(it) }
+        setDefaultValues()
     }
 
     private fun onStateChanged(event: ViewModelTransposition.State) {
@@ -40,6 +40,11 @@ class Transposition : BaseFragment() {
             is ViewModelTransposition.State.CalculatedTransposition -> calculate(event.sphere, event.cylinder, event.axis)
             is ViewModelTransposition.State.ClearEditText -> input_edit_text_axis.text?.clear()
         }
+    }
+
+    override fun onDestroyView() {
+        viewModel.clearEvents()
+        super.onDestroyView()
     }
 
     private fun setTextWatcherListeners() {
@@ -72,10 +77,9 @@ class Transposition : BaseFragment() {
     }
 
     private fun setDefaultValues() {
-        setHintSphere(0.0)
-        setHintCylinder(0.0)
-        setHintAxis(0.0)
-        calculate(0.0, 0.0, 0.0)
+        input_edit_text_sphere?.post { viewModel.convertToValue(input_edit_text_sphere?.text.toString(), R.id.input_edit_text_sphere) }
+        input_edit_text_cylinder?.post { viewModel.convertToValue(input_edit_text_cylinder?.text.toString(), R.id.input_edit_text_cylinder) }
+        input_edit_text_axis?.post { viewModel.convertToValue(input_edit_text_axis.text?.toString(), R.id.input_edit_text_axis) }
     }
 
     private fun calculate(sphere: Double, cylinder: Double, axis: Double) {

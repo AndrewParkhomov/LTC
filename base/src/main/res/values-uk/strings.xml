@@ -51,7 +51,6 @@
     <string name="header_share">Поділитись</string>
     <string name="header_rate_this_app">Оцінити додаток</string>
     <string name="header_about">Про програму</string>
-    <string name="header_compare_list">Список порівняння</string>
     <!-- Share result -->
     <string name="share_result_subject">Дані про лінзу</string>
     <string name="share_with">Поділитись з допомогою…</string>
@@ -70,7 +69,19 @@
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="ukrainian">Українська</string>
-
+    <!-- Compare list -->
+    <string name="compare_list_index_of_refraction">Індекс</string>
+    <string name="compare_list_sphere_power">Сфера</string>
+    <string name="compare_list_cylinder_power">Циліндр</string>
+    <string name="compare_list_axis">Кут</string>
+    <string name="compare_list_on_axis_thickness">Тов. кут</string>
+    <string name="compare_list_center_thickness">Тов. центр</string>
+    <string name="compare_list_min_edge_thickness">Тов. мін</string>
+    <string name="compare_list_max_edge_thickness">Тов. макс</string>
+    <string name="compare_list_base_curve">Кривизна</string>
+    <string name="compare_list_diameter">Діаметр</string>
+    <string name="compare_list_is_empty">Список порожній</string>
+    <string name="compare_list_clear">Очистити список</string>
     <!--  Material item list -->
     <string-array name="index_of_refraction">
         <item>1.498 CR-39</item>

@@ -1,6 +1,8 @@
 package parkhomov.andrew.comparelist.view
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -24,8 +26,15 @@ class CompareList : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observe(viewModel.getState) { onStateChanged(it) }
+        observe(viewModel.state) { onStateChanged(it) }
         viewModel.getListForCompare()
+        text_view_clear_list.setOnClickListener {
+            viewModel.clearCompareList()
+            container_description.removeAllViews()
+            container_scroll_view.removeAllViews()
+            text_view_clear_list.visibility = View.GONE
+            createEmptyListView()
+        }
     }
 
     private fun onStateChanged(event: ViewModelCompareList.State) {
@@ -36,25 +45,21 @@ class CompareList : BaseFragment() {
         }
     }
 
+    override fun onDestroyView() {
+        viewModel.clearEvents()
+        super.onDestroyView()
+    }
+
     private fun setUpAdapter(compareSet: MutableSet<CalculatedData>) {
         val compareList: MutableList<CalculatedData> = compareSet.toMutableList()
 
         val textColorBlack = requireContext().getColorFromId(R.color.black)
         val dividerColor = requireContext().getColorFromId(R.color.gray_500)
 
+        text_view_clear_list.visibility = if (compareList.isEmpty()) View.GONE else View.VISIBLE
+        container_description.visibility = if (compareList.isEmpty()) View.GONE else View.VISIBLE
         if (compareList.isEmpty()) {
-            container_main_compare.linearLayout {
-                lparams(matchParent, matchParent)
-                textView("List is empty") {
-                    textSize = 30f
-                    textColor = dividerColor
-                    gravity = Gravity.CENTER_HORIZONTAL
-                    setPadding(0, dip(20), 0, 0)
-                }.lparams(matchParent, matchParent) {
-                    gravity = Gravity.CENTER_HORIZONTAL
-                }
-            }
-            container_description.visibility = View.GONE
+            createEmptyListView()
             return
         }
 
@@ -71,7 +76,7 @@ class CompareList : BaseFragment() {
                 diameter = getString(R.string.compare_list_diameter)
         )
 
-        container_description.createVerticalLayout(item, textColorBlack, dividerColor)
+        container_description.createVerticalLayout(item, textColorBlack, dividerColor, 20f)
         container_scroll_view.linearLayout {
             compareList.forEach { item ->
                 createVerticalLayout(item, textColorBlack, dividerColor)
@@ -82,37 +87,59 @@ class CompareList : BaseFragment() {
         }
     }
 
-    private fun ViewManager.createVerticalLayout(item: CalculatedData, textColorBlack: Int, dividerColor: Int): LinearLayout {
+    private fun createEmptyListView() {
+        container_main_compare.linearLayout {
+            lparams(matchParent, matchParent)
+            textView(R.string.compare_list_is_empty) {
+                textSize = 26f
+                setTypeface(typeface, Typeface.BOLD)
+                textColor = context.getColorFromId(R.color.main_text_color)
+                gravity = Gravity.CENTER_HORIZONTAL
+                setPadding(0, dip(60), 0, 0)
+            }.lparams(matchParent, matchParent) {
+                gravity = Gravity.CENTER_HORIZONTAL
+            }
+        }
+    }
+
+    private fun ViewManager.createVerticalLayout(
+            item: CalculatedData,
+            textColorBlack: Int,
+            dividerColor: Int,
+            mTextSize: Float = 24f
+    ): LinearLayout {
         return verticalLayout {
-            getTextView(item.refractionIndex, textColorBlack)
+            getTextView(item.refractionIndex, textColorBlack, mTextSize)
             getDivider(dividerColor)
-            getTextView(item.spherePower, textColorBlack)
+            getTextView(item.spherePower, textColorBlack, mTextSize)
             getDivider(dividerColor)
-            getTextView(item.cylinderPower, textColorBlack)
+            getTextView(item.cylinderPower, textColorBlack, mTextSize)
             getDivider(dividerColor)
-            getTextView(item.axis, textColorBlack)
+            getTextView(item.axis, textColorBlack, mTextSize)
             getDivider(dividerColor)
-            getTextView(item.thicknessOnAxis, textColorBlack)
+            getTextView(item.thicknessOnAxis, textColorBlack, mTextSize)
             getDivider(dividerColor)
-            getTextView(item.thicknessCenter, textColorBlack)
+            getTextView(item.thicknessCenter, textColorBlack, mTextSize)
             getDivider(dividerColor)
-            getTextView(item.thicknessEdge, textColorBlack)
+            getTextView(item.thicknessEdge, textColorBlack, mTextSize)
             getDivider(dividerColor)
-            getTextView(item.thicknessMax, textColorBlack)
+            getTextView(item.thicknessMax, textColorBlack, mTextSize)
             getDivider(dividerColor)
-            getTextView(item.realBaseCurve, textColorBlack)
+            getTextView(item.realBaseCurve, textColorBlack, mTextSize)
             getDivider(dividerColor)
-            getTextView(item.diameter, textColorBlack)
+            getTextView(item.diameter, textColorBlack, mTextSize)
             getDivider(dividerColor)
         }
     }
 
-    private fun ViewManager.getTextView(text: String?, color: Int): TextView {
+    private fun ViewManager.getTextView(text: String?, color: Int, mTextSize: Float = 24f): TextView {
         return textView(text) {
-            layoutParams = ViewGroup.LayoutParams(wrapContent, dip(50))
-            textSize = 24f
+            layoutParams = ViewGroup.LayoutParams(wrapContent, dip(44))
+            textSize = mTextSize
             textColor = color
-            gravity = Gravity.CENTER
+            lines = 1
+            ellipsize = TextUtils.TruncateAt.END
+            gravity = Gravity.START or Gravity.CENTER
             setPadding(dip(4), 0, dip(4), 0)
         }
     }

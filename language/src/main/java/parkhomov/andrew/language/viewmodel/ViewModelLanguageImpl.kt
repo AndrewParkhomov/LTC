@@ -1,17 +1,19 @@
 package parkhomov.andrew.language.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import parkhomov.andrew.base.helper.PreferencesHelper
 import parkhomov.andrew.base.utils.appLanguage
 import parkhomov.andrew.language.R
 
 class ViewModelLanguageImpl(
-        private val state: MediatorLiveData<State>,
         private val preferencesHelper: PreferencesHelper
 ) : ViewModelLanguage() {
 
-    override fun getState(): LiveData<State> = state
+    override val state: MutableLiveData<State> = MutableLiveData()
+
+    override fun clearEvents() {
+        state.value = null
+    }
 
     override fun setRadioButtons() {
         val id = when (preferencesHelper.getStringValue(appLanguage, "en")) {

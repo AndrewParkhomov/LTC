@@ -1,15 +1,16 @@
 package parkhomov.andrew.diameter.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import parkhomov.andrew.diameter.R
 import kotlin.math.ceil
 
-class ViewModelDiameterImpl(
-        private val state: MediatorLiveData<State>
-) : ViewModelDiameter() {
+class ViewModelDiameterImpl : ViewModelDiameter() {
 
-    override fun getState(): LiveData<State> = state
+    override val state: MutableLiveData<State> = MutableLiveData()
+
+    override fun clearEvents() {
+        state.value = null
+    }
 
     /**
      * ed - effective diameter

@@ -41,7 +41,6 @@
     <string name="result_diameter">Diameter: %1$s mm</string>
     <string name="result_add_to_list">Add to compare list</string>
     <string name="result_remove_from_list">Remove from list</string>
-
     <!-- Transposition -->
     <string name="transposition_power_sphere">Sphere %1$s</string>
     <string name="transposition_power_cylinder">Cylinder %1$s</string>
@@ -62,7 +61,7 @@
     <string name="rate_app_header">Rate this app</string>
     <string name="rate_app_body">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thank you for your support!</string>
     <!-- About program -->
-    <string name="version">Version %1$s\nDeveloped by Parkhomov Andrew\nE-mail:\nparkhomov.andrew@gmail.com</string>
+    <string name="version">Version %1$s\nDeveloped by Parkhomov Andrew\nE-mail:\nparkhomov.andrew@gmail.com\n\nIf you want to help me translate app on your local language, please contact me on email.</string>
     <!-- Exit -->
     <string name="exit_question_title">Exit</string>
     <string name="exit_question">Are you sure you want to exit?</string>
@@ -81,7 +80,8 @@
     <string name="compare_list_max_edge_thickness">Thk max</string>
     <string name="compare_list_base_curve">Curve</string>
     <string name="compare_list_diameter">Diameter</string>
-
+    <string name="compare_list_is_empty">List is empty</string>
+    <string name="compare_list_clear">Clear List</string>
     <!--  Material item list -->
     <string-array name="index_of_refraction">
         <item>1.498 CR-39</item>

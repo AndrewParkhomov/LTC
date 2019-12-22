@@ -1,8 +1,6 @@
 package parkhomov.andrew.diameter.di
 
-import androidx.lifecycle.MediatorLiveData
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import parkhomov.andrew.diameter.viewmodel.ViewModelDiameter
 import parkhomov.andrew.diameter.viewmodel.ViewModelDiameterImpl
@@ -12,6 +10,5 @@ import parkhomov.andrew.diameter.viewmodel.ViewModelDiameterImpl
  */
 val moduleDiameter = module {
 
-    factory(named("StateDiameter")) { MediatorLiveData<ViewModelDiameter.State>() }
-    viewModel<ViewModelDiameter> { ViewModelDiameterImpl(get(named("StateDiameter"))) }
+    viewModel<ViewModelDiameter> { ViewModelDiameterImpl() }
 }

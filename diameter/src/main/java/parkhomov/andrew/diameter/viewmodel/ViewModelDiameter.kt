@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModel
 
 abstract class ViewModelDiameter : ViewModel() {
 
-    abstract fun getState(): LiveData<State>
+    abstract val state: LiveData<State>
+    abstract fun clearEvents()
 
     sealed class State {
         data class SetValue(val value: Double, val viewId: Int) : State()

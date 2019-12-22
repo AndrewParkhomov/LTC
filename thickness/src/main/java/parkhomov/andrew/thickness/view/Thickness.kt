@@ -31,7 +31,7 @@ class Thickness : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observe(viewModel.getState()) { onStateChanged(it) }
+        observe(viewModel.state) { onStateChanged(it) }
 
         sphere_.addTextChangedListener(GenericTextWatcher())
         cylinder_.addTextChangedListener(GenericTextWatcher())
@@ -118,6 +118,11 @@ class Thickness : BaseFragment() {
             6 -> Triple(INDEX_1740, INDEX_X_1740, spinnerText)
             else -> throw NoSuchElementException("No valid lens index of refraction provided")
         }
+    }
+
+    override fun onDestroyView() {
+        viewModel.clearEvents()
+        super.onDestroyView()
     }
 
     private fun highlightSpherePower(isShowError: Boolean) {

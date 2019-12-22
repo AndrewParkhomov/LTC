@@ -1,18 +1,19 @@
 package parkhomov.andrew.transposition.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import parkhomov.andrew.transposition.R
 
-class ViewModelTranspositionImpl(
-        private val state: MediatorLiveData<State>
-) : ViewModelTransposition() {
+class ViewModelTranspositionImpl : ViewModelTransposition() {
 
     private var spherePower: Double = 0.0
     private var cylinderPower: Double = 0.0
     private var axis: Double = 0.0
 
-    override fun getState(): LiveData<State> = state
+    override val state: MutableLiveData<State> = MutableLiveData()
+
+    override fun clearEvents() {
+        state.value = null
+    }
 
     /**
      * @param value - dptr value that must be converted to double if possible

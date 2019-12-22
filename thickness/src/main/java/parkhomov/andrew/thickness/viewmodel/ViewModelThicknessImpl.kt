@@ -3,6 +3,7 @@ package parkhomov.andrew.thickness.viewmodel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import parkhomov.andrew.base.data.result.CalculatedData
 import parkhomov.andrew.base.interactor.Interactor
 import parkhomov.andrew.base.utils.*
@@ -11,11 +12,14 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 class ViewModelThicknessImpl(
-        private val state: MediatorLiveData<State>,
         private val interactor: Interactor
 ) : ViewModelThickness() {
 
-    override fun getState(): LiveData<State> = state
+    override val state: MutableLiveData<State> = MutableLiveData()
+
+    override fun clearEvents() {
+        state.value = null
+    }
 
     override fun onCalculateBtnClicked(
             lensIndex: Triple<Double, Double, String>,
@@ -203,14 +207,16 @@ class ViewModelThicknessImpl(
             if (cylinderPower == 0.0) {
                 showResultDialog(
                         lensIndex.third,
-                        spherePower.toString(),
+                        spherePowerString,
+                        null,
+                        null,
+                        null,
                         centerString,
                         edgeString,
+                        null,
                         curve.toString(),
                         diameter.toString()
                 )
-
-
             } else {
 
                 var maxEdgeThickness = 0.0
@@ -257,36 +263,12 @@ class ViewModelThicknessImpl(
     private fun showResultDialog(
             refractionIndex: String,
             spherePower: String,
+            cylinderPower: String?,
+            axis: String?,
+            thicknessOnAxis: String?,
             thicknessCenter: String,
             thicknessEdge: String,
-            realBaseCurve: String,
-            diameter: String
-    ) {
-        val calculatedData = CalculatedData(
-                refractionIndex = refractionIndex,
-                spherePower = spherePower,
-                cylinderPower = null,
-                axis = null,
-                thicknessOnAxis = null,
-                thicknessCenter = thicknessCenter,
-                thicknessEdge = thicknessEdge,
-                thicknessMax = null,
-                realBaseCurve = realBaseCurve,
-                diameter = diameter
-        )
-        interactor.calculatedData = calculatedData
-        state.value = State.ShowResultDialog(calculatedData)
-    }
-
-    private fun showResultDialog(
-            refractionIndex: String,
-            spherePower: String,
-            cylinderPower: String,
-            axis: String,
-            thicknessOnAxis: String,
-            thicknessCenter: String,
-            thicknessEdge: String,
-            thicknessMax: String,
+            thicknessMax: String?,
             realBaseCurve: String,
             diameter: String
     ) {

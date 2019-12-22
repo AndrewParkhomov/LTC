@@ -22,7 +22,7 @@ class Language : BaseDialog() {
     }
 
     override fun setUp(view: View) {
-        observe(viewModel.getState()) { onStateChanged(it) }
+        observe(viewModel.state) { onStateChanged(it) }
         viewModel.setRadioButtons()
     }
 
@@ -33,6 +33,11 @@ class Language : BaseDialog() {
                 setButtonClickListener()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        viewModel.clearEvents()
+        super.onDestroyView()
     }
 
     private fun checkRadioButton(radioButtonId: Int) {

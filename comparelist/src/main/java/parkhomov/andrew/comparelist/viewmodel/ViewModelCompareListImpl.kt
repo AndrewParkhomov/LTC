@@ -1,18 +1,20 @@
 package parkhomov.andrew.comparelist.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import parkhomov.andrew.base.interactor.Interactor
 
 class ViewModelCompareListImpl(
-        private val state: MediatorLiveData<State>,
         private val interactor: Interactor
 ) : ViewModelCompareList() {
 
-    override val getState: LiveData<State> = state
+    override val state: MutableLiveData<State> = MutableLiveData()
 
-    override fun onCleared() {
+    override fun clearEvents() {
+        state.value = null
+    }
 
+    override fun clearCompareList() {
+        interactor.compareList.clear()
     }
 
     override fun getListForCompare() {

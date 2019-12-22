@@ -1,16 +1,18 @@
 package parkhomov.andrew.result.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import parkhomov.andrew.base.data.result.CalculatedData
 import parkhomov.andrew.base.interactor.Interactor
 
 class ViewModelResultImpl(
-        private val state: MediatorLiveData<State>,
         private val interactor: Interactor
 ) : ViewModelResult() {
 
-    override fun getState(): LiveData<State> = state
+    override val state: MutableLiveData<State> = MutableLiveData()
+
+    override fun clearEvents() {
+        state.value = null
+    }
 
     override fun addToList(data: CalculatedData) {
         state.value = State.AddToList(interactor.compareList.add(data))

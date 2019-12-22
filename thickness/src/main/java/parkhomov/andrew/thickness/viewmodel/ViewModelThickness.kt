@@ -14,7 +14,8 @@ abstract class ViewModelThickness : ViewModel() {
         data class ShowResultDialog(val calculatedData: CalculatedData) : State()
     }
 
-    abstract fun getState(): LiveData<State>
+    abstract val state: LiveData<State>
+    abstract fun clearEvents()
 
     abstract fun onCalculateBtnClicked(
             lensIndex: Triple<Double, Double, String>,

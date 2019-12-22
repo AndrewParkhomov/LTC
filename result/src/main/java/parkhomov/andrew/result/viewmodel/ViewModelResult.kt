@@ -6,7 +6,8 @@ import parkhomov.andrew.base.data.result.CalculatedData
 
 abstract class ViewModelResult : ViewModel() {
 
-    abstract fun getState(): LiveData<State>
+    abstract val state: LiveData<State>
+    abstract fun clearEvents()
 
     sealed class State {
         data class AddToList(val isSuccess: Boolean) : State()

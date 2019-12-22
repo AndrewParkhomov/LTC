@@ -43,7 +43,7 @@ class SingleActivity : BaseActivity() {
         setContentView(R.layout.single_activity)
         supportActionBar?.title = getString(R.string.app_name)
 
-        observe(viewModel.getState()) { onStateChanged(it) }
+        observe(viewModel.state) { onStateChanged(it) }
         createListWithData()
         initViews()
     }

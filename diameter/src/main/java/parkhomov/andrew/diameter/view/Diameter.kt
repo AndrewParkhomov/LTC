@@ -23,9 +23,9 @@ class Diameter : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setDefaultValues()
-        observe(viewModel.getState()) { onStateChanged(it) }
+        observe(viewModel.state) { onStateChanged(it) }
         setTextWatcherListeners()
+        setDefaultValues()
     }
 
     private fun onStateChanged(event: ViewModelDiameter.State) {
@@ -42,10 +42,14 @@ class Diameter : BaseFragment() {
     }
 
     private fun setDefaultValues() {
-        setHintEd(0.0)
-        setHintDbl(0.0)
-        setHintPd(0.0)
-        calculate(0.0)
+        input_edit_text_ed?.post { viewModel.setSize(input_edit_text_ed?.text.toString(), R.id.input_edit_text_ed) }
+        input_edit_text_dbl?.post { viewModel.setSize(input_edit_text_dbl?.text.toString(), R.id.input_edit_text_dbl) }
+        input_edit_text_pd?.post { viewModel.setSize(input_edit_text_pd?.text.toString(), R.id.input_edit_text_pd) }
+    }
+
+    override fun onDestroyView() {
+        viewModel.clearEvents()
+        super.onDestroyView()
     }
 
     private fun setTextWatcherListeners() {

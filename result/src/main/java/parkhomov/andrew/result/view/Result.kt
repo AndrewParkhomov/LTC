@@ -35,7 +35,7 @@ class Result : BaseDialog() {
     }
 
     override fun setUp(view: View) {
-        observe(viewModel.getState()) { onStateChanged(it) }
+        observe(viewModel.state) { onStateChanged(it) }
         viewModel.checkState(result)
         showCylinderViews(result.cylinderPower != null)
         setCalculatedData(result)
@@ -46,6 +46,11 @@ class Result : BaseDialog() {
                 viewModel.addToList(result)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        viewModel.clearEvents()
+        super.onDestroyView()
     }
 
     private fun onStateChanged(event: ViewModelResult.State) {
