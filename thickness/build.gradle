@@ -38,4 +38,5 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$view_model_version"
 
     implementation project(':base')
+    implementation project(':result')
 }

@@ -10,5 +10,5 @@ import parkhomov.andrew.thickness.viewmodel.ViewModelThicknessImpl
 val moduleThickness = module {
 
     factory(named("StateThickness")) { MediatorLiveData<ViewModelThickness.State>() }
-    viewModel<ViewModelThickness> { ViewModelThicknessImpl(get(named( "StateThickness")), get(), get()) }
+    viewModel<ViewModelThickness> { ViewModelThicknessImpl(get(named( "StateThickness")), get()) }
 }

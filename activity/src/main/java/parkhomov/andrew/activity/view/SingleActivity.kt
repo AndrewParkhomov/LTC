@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuCompat
 import androidx.fragment.app.Fragment
@@ -23,10 +22,10 @@ import parkhomov.andrew.base.base.BaseActivity
 import parkhomov.andrew.base.data.result.CalculatedData
 import parkhomov.andrew.base.extension.observe
 import parkhomov.andrew.base.utils.diameter
-import parkhomov.andrew.base.utils.glossary
 import parkhomov.andrew.base.utils.navigation.BackButtonListener
 import parkhomov.andrew.base.utils.thickness
 import parkhomov.andrew.base.utils.transposition
+import parkhomov.andrew.language.view.Language
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -51,7 +50,6 @@ class SingleActivity : BaseActivity() {
         when (event) {
             is ViewModelActivity.State.ShowSnackbar -> showSnackbar(event.id)
             is ViewModelActivity.State.CreateStringForSharing -> createStringForSharing(event.data)
-            is ViewModelActivity.State.OpenNewTab -> openNewTab(event.screen)
         }
     }
 
@@ -73,7 +71,7 @@ class SingleActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_item_language -> viewModel.onLanguageItemClicked(supportFragmentManager)
+            R.id.menu_item_language -> Language.instance.show(supportFragmentManager)
             R.id.menu_item_rate -> showRateThisAppDialog()
             R.id.menu_item_share -> viewModel.onShareResultClicked()
             R.id.menu_item_about -> showAboutDialog()
@@ -94,16 +92,13 @@ class SingleActivity : BaseActivity() {
                 .setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
                     override fun onTabSelected(position: Int) {
                         val tabId = when (position) {
-                            0 -> thickness
-                            1 -> diameter
-                            2 -> transposition
-                            else -> glossary
+                            thickness -> parkhomov.andrew.thickness.navigation.Screens.ScreenThickness.fragment
+                            diameter -> parkhomov.andrew.diameter.navigation.Screens.ScreenDiameter.fragment
+                            transposition -> parkhomov.andrew.transposition.navigation.Screens.ScreenTransposition.fragment
+                            else -> parkhomov.andrew.glossary.navigation.Screens.ScreenGlossary.fragment
                         }
                         bottom_navigation_bar.selectTab(position, false)
-                        viewModel.selectTab(tabId)
-                        if(tabId==1){
-                            supportFragmentManager.popBackStack()
-                        }
+                        openNewTab(tabId)
                     }
 
                     override fun onTabUnselected(position: Int) {

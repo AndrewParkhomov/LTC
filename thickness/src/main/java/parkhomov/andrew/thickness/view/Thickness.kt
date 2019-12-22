@@ -18,6 +18,8 @@ import parkhomov.andrew.base.extension.observe
 import parkhomov.andrew.base.utils.*
 import parkhomov.andrew.thickness.R
 import parkhomov.andrew.thickness.viewmodel.ViewModelThickness
+import parkhomov.andrew.result.view.Result
+
 
 class Thickness : BaseFragment() {
 
@@ -98,6 +100,9 @@ class Thickness : BaseFragment() {
             }
             is ViewModelThickness.State.SetCurrentBaseCurve -> {
                 setCurrentBaseCurve(event.curveValue)
+            }
+            is ViewModelThickness.State.ShowResultDialog -> {
+                Result.getInstance(event.calculatedData).show(childFragmentManager)
             }
         }
     }

@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import parkhomov.andrew.base.data.result.CalculatedData
-import parkhomov.andrew.base.helper.NavigationI
 import parkhomov.andrew.base.interactor.Interactor
 import parkhomov.andrew.base.utils.*
 import kotlin.math.abs
@@ -14,8 +13,7 @@ import kotlin.math.sqrt
 
 class ViewModelThicknessImpl(
         private val state: MediatorLiveData<State>,
-        private val interactor: Interactor,
-        private val navigation: NavigationI
+        private val interactor: Interactor
 ) : ViewModelThickness() {
 
 
@@ -283,7 +281,7 @@ class ViewModelThicknessImpl(
                 diameter = diameter
         )
         interactor.calculatedData = calculatedData
-        navigation.showResultDialog(childFragmentManager, calculatedData)
+        state.value = State.ShowResultDialog(calculatedData)
     }
 
     private fun showResultDialog(
@@ -312,7 +310,7 @@ class ViewModelThicknessImpl(
                 diameter = diameter
         )
         interactor.calculatedData = calculatedData
-        navigation.showResultDialog(childFragmentManager, calculatedData)
+        state.value = State.ShowResultDialog(calculatedData)
     }
 
     private fun handleNoBaseCurveBehaviour(value: Double): Double {
