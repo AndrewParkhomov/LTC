@@ -26,7 +26,6 @@ import parkhomov.andrew.base.utils.diameter
 import parkhomov.andrew.base.utils.navigation.BackButtonListener
 import parkhomov.andrew.base.utils.thickness
 import parkhomov.andrew.base.utils.transposition
-import parkhomov.andrew.comparelist.view.CompareList
 import parkhomov.andrew.language.view.Language
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
