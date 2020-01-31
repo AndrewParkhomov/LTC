@@ -44,7 +44,7 @@ buildscript {
 ext {
     major_version = "3"
     minor_version = "0"
-    patch_version = "4"
+    patch_version = "5"
 }
 
 allprojects {
@@ -57,7 +57,7 @@ allprojects {
     ext {
         application_id = 'parkhomov.andrew.lensthicknesscalculator'
         build_version = 29
-        version_code = 11
+        version_code = 12
         version_name = "${major_version}.${minor_version}.${patch_version}"
         compile_version = 29
         min_version = 17

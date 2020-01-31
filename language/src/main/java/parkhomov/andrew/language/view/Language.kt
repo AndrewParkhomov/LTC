@@ -49,10 +49,11 @@ class Language : BaseDialog() {
             val radioButton = radioGroup.findViewById<RadioButton>(radioGroup.checkedRadioButtonId).id
             when (radioButton) {
                 R.id.radio_button_eng -> viewModel.setNewLanguage("en")
+                R.id.radio_button_portuguese -> viewModel.setNewLanguage("po")
                 R.id.radio_button_rus -> viewModel.setNewLanguage("ru")
                 R.id.radio_button_ukr -> viewModel.setNewLanguage("uk")
             }
-            baseActivity!!.recreate()
+            baseActivity?.recreate()
             dismiss()
         }
     }

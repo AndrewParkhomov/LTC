@@ -240,7 +240,9 @@ class SingleActivity : BaseActivity() {
     }
 
     private fun showAboutDialog() {
-        val version = getString(R.string.version, BuildConfig.VERSION_NAME)
+        val version = StringBuilder(getString(R.string.version, BuildConfig.VERSION_NAME)) // todo replace with normal dialog
+        version.append("\n\n")
+        version.append(getString(R.string.translate_to_brazilian_portuguese))
         AlertDialog.Builder(this, R.style.AlertDialogCustom)
                 .setMessage(version)
                 .setPositiveButton(android.R.string.yes) { dialog, _ -> }

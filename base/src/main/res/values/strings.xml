@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <!-- App name -->
-    <string name="app_name">Lens thickness calculator</string>
+    <string name="app_name">LTC</string>
     <string name="app_google_play_link">"https://play.google.com/store/apps/details?id="</string>
     <string name="error_unknown">Unknown error</string>
     <!-- Tab headers-->
@@ -62,11 +62,13 @@
     <string name="rate_app_body">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thank you for your support!</string>
     <!-- About program -->
     <string name="version">Version %1$s\nDeveloped by Parkhomov Andrew\nE-mail:\nparkhomov.andrew@gmail.com\n\nIf you want to help me translate app on your local language, please contact me on email.</string>
+    <string name="translate_to_brazilian_portuguese">Translate to portuguese: Edison Bucchianico Gil</string>
     <!-- Exit -->
     <string name="exit_question_title">Exit</string>
     <string name="exit_question">Are you sure you want to exit?</string>
     <!-- Language -->
     <string name="english">English</string>
+    <string name="portuguese">Portuguese</string>
     <string name="russian">Русский</string>
     <string name="ukrainian">Українська</string>
     <!-- Compare list -->

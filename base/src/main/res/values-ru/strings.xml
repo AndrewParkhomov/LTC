@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <!-- App name -->
-    <string name="app_name">Расчет толщины линзы</string>
+    <string name="app_name">LTC</string>
     <string name="app_google_play_link">"https://play.google.com/store/apps/details?id="</string>
     <string name="error_unknown">Неизвестная ошибка</string>
     <!-- Tab headers -->
@@ -62,11 +62,13 @@
     <string name="rate_app_body">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
     <!-- About program -->
     <string name="version">Версия %1$s\nРазработка: Пархомов Андрей\nE-mail:\nparkhomov.andrew@gmail.com</string>
+    <string name="translate_to_brazilian_portuguese">Перевод на португальский: Edison Bucchianico Gil</string>
     <!-- Exit -->
     <string name="exit_question_title">Выход</string>
     <string name="exit_question">Вы действительно хотите выйти?</string>
     <!-- Language -->
     <string name="english">English</string>
+    <string name="portuguese">Portuguese</string>
     <string name="russian">Русский</string>
     <string name="ukrainian">Українська</string>
     <!-- Compare list -->

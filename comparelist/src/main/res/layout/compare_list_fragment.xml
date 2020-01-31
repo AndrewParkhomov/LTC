@@ -35,8 +35,8 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_view_clear_list"
         android:layout_width="200dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="12dp"
         android:gravity="center"
         android:text="@string/compare_list_clear"
         android:textColor="@color/main_text_color"

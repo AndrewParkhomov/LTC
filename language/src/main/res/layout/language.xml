@@ -30,6 +30,19 @@
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_button_portuguese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@android:color/transparent"
+            android:button="@null"
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/radiobutton_basic"
+            android:text="@string/portuguese"
+            style="@style/SimpleText"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/radio_button_rus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
