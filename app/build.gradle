@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.gms.google-services'
 
 android {
 
@@ -19,32 +20,32 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
-        debug {
-
-        }
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     lintOptions {
         abortOnError false
     }
+
     androidExtensions {
         experimental = true
     }
-}
 
-allprojects {
-    repositories {
-        maven { url "https://jitpack.io" }
-    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
     testImplementation "androidx.test.ext:junit:$junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     androidTestImplementation "androidx.test:rules:$rules_version"
@@ -52,15 +53,12 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$junit_version"
 
     implementation "com.google.android.material:material:$material"
-    implementation "org.koin:koin-android:$koin_version"
     implementation "androidx.multidex:multidex:$multidex_version"
     implementation "ru.terrakok.cicerone:cicerone:$navigation_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
-    implementation "org.koin:koin-androidx-viewmodel:$view_model_version"
     implementation "com.ashokvarma.android:bottom-navigation-bar:$bottom_bar_version"
     implementation "com.google.firebase:firebase-analytics:$firebase_analytic"
-    implementation "com.crashlytics.sdk.android:crashlytics:$fabric_version"
-    implementation "androidx.preference:preference:$preference_version"
+    implementation "androidx.preference:preference-ktx:$preference_version"
 
     implementation project(':activity')
     implementation project(':base')

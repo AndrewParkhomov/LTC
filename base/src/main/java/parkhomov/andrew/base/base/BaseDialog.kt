@@ -53,13 +53,13 @@ abstract class BaseDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // the content
-        val root = ConstraintLayout(activity)
+        val root = ConstraintLayout(requireContext())
         root.layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT)
 
         // creating the fullscreen dialog
-        val dialog = Dialog(activity!!)
+        val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(root)
 
