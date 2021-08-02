@@ -13,20 +13,24 @@ import parkhomov.andrew.language.di.moduleLanguage
 import parkhomov.andrew.result.di.moduleResult
 import parkhomov.andrew.thickness.di.moduleThickness
 import parkhomov.andrew.transposition.di.moduleTransposition
+import ru.terrakok.cicerone.Cicerone
+import ru.terrakok.cicerone.Router
 
+private val cicerone: Cicerone<Router> = Cicerone.create()
 
 val appModule = module {
 
     single { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
     single<PreferencesHelper> { AppPreferencesHelper(get()) }
     single { Interactor(get()) }
+    single { cicerone.router }
+    single { cicerone.navigatorHolder }
 }
 
 // Gather all app modules
 val modulesList = listOf(
         appModule,
         moduleActivity,
-        navigationModule,
         moduleLanguage,
         moduleThickness,
         moduleDiameter,

@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.transition.TransitionManager
-import com.transitionseverywhere.ChangeText
 import kotlinx.android.synthetic.main.dialog_result.*
 import parkhomov.andrew.base.base.BaseDialog
 import parkhomov.andrew.base.data.result.CalculatedData
@@ -74,11 +73,13 @@ class Result : BaseDialog() {
     }
 
 
-    private fun stateChanged(isAdd: Boolean, add: String, remove: String, addImage: Drawable, removeImage: Drawable) {
-        TransitionManager.beginDelayedTransition(
-                container_constraint,
-                ChangeText().setChangeBehavior(ChangeText.CHANGE_BEHAVIOR_OUT_IN)
-        )
+    private fun stateChanged(
+            isAdd: Boolean,
+            add: String,
+            remove: String,
+            addImage: Drawable,
+            removeImage: Drawable,
+    ) {
         val text = if (isAdd) remove else add
         val image = if (isAdd) removeImage else addImage
         text_view_add_to_compare_list.text = text
