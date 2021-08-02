@@ -3,7 +3,6 @@ package parkhomov.andrew.result.view
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Handler
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +11,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.transition.TransitionManager
 import com.transitionseverywhere.ChangeText
 import kotlinx.android.synthetic.main.dialog_result.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.base.base.BaseDialog
 import parkhomov.andrew.base.data.result.CalculatedData
 import parkhomov.andrew.base.extension.observe
 import parkhomov.andrew.base.utils.argument
 import parkhomov.andrew.base.utils.getDrawableFromId
 import parkhomov.andrew.result.R
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.result.viewmodel.ViewModelResult
 
 class Result : BaseDialog() {

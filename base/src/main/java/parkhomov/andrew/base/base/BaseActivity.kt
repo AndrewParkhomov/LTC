@@ -40,6 +40,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected fun createListWithData() {
         val jsonId = when (language) {
+            "po" -> R.raw.glossary_pt
             "uk" -> R.raw.glossary_ukr
             "ru" -> R.raw.glossary_rus
             else -> R.raw.glossary_eng

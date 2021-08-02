@@ -10,8 +10,6 @@ android {
     defaultConfig {
         minSdkVersion globalConfiguration["min_version"]
         targetSdkVersion globalConfiguration["compile_version"]
-        versionCode globalConfiguration["version_code"]
-        versionName globalConfiguration["version_name"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -33,10 +31,9 @@ android {
 dependencies {
 
     implementation "com.google.android.material:material:$material"
-    implementation "org.koin:koin-android:$koin_version"
+
     implementation "ru.terrakok.cicerone:cicerone:$navigation_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
-    implementation "org.koin:koin-androidx-viewmodel:$view_model_version"
 
     implementation project(':base')
 }

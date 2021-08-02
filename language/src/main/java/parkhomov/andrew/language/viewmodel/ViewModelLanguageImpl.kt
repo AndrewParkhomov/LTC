@@ -16,7 +16,8 @@ class ViewModelLanguageImpl(
     }
 
     override fun setRadioButtons() {
-        val id = when (preferencesHelper.getStringValue(appLanguage, "en")) {
+        val id = when (preferencesHelper.getStringValue(appLanguage, "")) {
+            "po" -> R.id.radio_button_portuguese
             "ru" -> R.id.radio_button_rus
             "uk" -> R.id.radio_button_ukr
             else -> R.id.radio_button_eng

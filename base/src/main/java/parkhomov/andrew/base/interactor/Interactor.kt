@@ -5,11 +5,9 @@ import parkhomov.andrew.base.helper.PreferencesHelper
 import parkhomov.andrew.base.utils.thickness
 import javax.inject.Inject
 
-class Interactor
-@Inject constructor(
+class Interactor(
         private val preferencesHelper: PreferencesHelper
 ) {
     var calculatedData: CalculatedData? = null
     var compareList: MutableSet<CalculatedData> = mutableSetOf()
-
 }

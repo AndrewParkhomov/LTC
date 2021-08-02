@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <!-- App name -->
-    <string name="app_name">Розрахунок товщини лінзи</string>
+    <string name="app_name">LTC</string>
     <string name="app_google_play_link">"https://play.google.com/store/apps/details?id="</string>
     <string name="error_unknown">Невідома помилка</string>
     <!-- Tab headers -->
@@ -62,11 +62,13 @@
     <string name="rate_app_body">Якщо Вам подобається цей додаток, чи не могли б Ви знайти час, щоб оцінити його? Це займе не більше хвилини. Дякую за Вашу підтримку!</string>
     <!-- About program -->
     <string name="version">Версія %1$s\nРозробка: Пархомов Андрій\nE-mail:\nparkhomov.andrew@gmail.com</string>
+    <string name="translate_to_brazilian_portuguese">Переклад на португальский: Edison Bucchianico Gil</string>
     <!-- Exit -->
     <string name="exit_question_title">Вихід</string>
     <string name="exit_question">Ви дійсно бажаєте вийти?</string>
     <!-- Language -->
     <string name="english">English</string>
+    <string name="portuguese">Portuguese</string>
     <string name="russian">Русский</string>
     <string name="ukrainian">Українська</string>
     <!-- Compare list -->
