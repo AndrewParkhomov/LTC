@@ -31,7 +31,6 @@ android {
 dependencies {
 
     implementation "com.google.android.material:material:$material"
-
     implementation "ru.terrakok.cicerone:cicerone:$navigation_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
 
