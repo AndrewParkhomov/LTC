@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- App name -->
+    <string name="app_name">LTC</string>
+    <string name="app_google_play_link">"https://play.google.com/store/apps/details?id="</string>
+    <string name="error_unknown">Неизвестная ошибка</string>
+    <!-- Tab headers -->
+    <string name="fragment_thickness">Толщина</string>
+    <string name="fragment_compare">Сравнить линзы</string>
+    <string name="fragment_diameter">Диаметр</string>
+    <string name="fragment_transposition">Транспозиция</string>
+    <string name="fragment_glossary">Глоссарий</string>
+    <!-- Thickness hints -->
+    <string name="tab_thkns_material_index">Индекс преломления</string>
+    <string name="tab_thkns_sphere_power">Сфера</string>
+    <string name="tab_thkns_cylinder_power">Цилиндр</string>
+    <string name="tab_thkns_axis">Угол</string>
+    <string name="tab_thkns_base_curve">Реальная кривизна базы линзы</string>
+    <string name="tab_thkns_center_thickness">Толщина по центру</string>
+    <string name="tab_thkns_edge_thickness">Толщина по краю</string>
+    <string name="tab_thkns_lens_diameter">Диаметр линзы</string>
+    <string name="tab_thkns_wrong_axis">Недопустимое значение угла цилиндра</string>
+    <string name="tab_thkns_provide_sphere">Пожалуйста, введите значение сферы</string>
+    <string name="tab_thkns_provide_center_thickness">Пожалуйста, введите толщину по центру</string>
+    <string name="tab_thkns_provide_diameter">Пожалуйста, введите диаметр линзы</string>
+    <!-- Diameter hints -->
+    <string name="tab_diameter_hint_ed">Эффективный диаметр %1$.0f.00</string>
+    <string name="tab_diameter_hint_dbl">Расстояние между линзами %1$.0f.00</string>
+    <string name="tab_diameter_hint_pd">Расстояние между зрачками %1$.0f.00</string>
+    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f.0 mm</string>
+    <!-- Result -->
+    <string name="result_index_of_refraction">Индекс преломления: %1$s</string>
+    <string name="result_sphere_power">Сфера: %1$s</string>
+    <string name="result_cylinder_power">Цилиндр: %1$s</string>
+    <string name="result_axis">Угол: %1$s&#176;</string>
+    <string name="result_on_axis_thickness">Толщина под углом %1$s&#176;: %2$s мм</string>
+    <string name="result_center_thickness">Толщина по центру: %1$s мм</string>
+    <string name="result_min_edge_thickness">Минимальная толщина: %1$s мм</string>
+    <string name="result_max_edge_thickness">Максимальная толщина: %1$s мм</string>
+    <string name="result_base_curve">Кривизна базы линзы: %1$s</string>
+    <string name="result_diameter">Диаметр: %1$s мм</string>
+    <string name="result_add_to_list">Добавить в список сравнения</string>
+    <string name="result_remove_from_list">Удалить из списка сравнения</string>
+    <!-- Transposition -->
+    <string name="transposition_power_sphere">Сфера %1$s</string>
+    <string name="transposition_power_cylinder">Цилиндр %1$s</string>
+    <string name="transposition_axis">Угол %1$d&#176;</string>
+    <string name="transposition_result">Сфера %1$s\nЦилиндр %2$s\nУгол %3$d&#176;</string>
+    <!-- Settings list item -->
+    <string name="header_language">Язык</string>
+    <string name="header_share">Поделится</string>
+    <string name="header_rate_this_app">Оцените приложение</string>
+    <string name="header_about">О программе</string>
+    <!-- Share result -->
+    <string name="share_result_subject">Данные об линзе</string>
+    <string name="share_with">Поделиться с помощью…</string>
+    <string name="share_result_is_empty">Сначала просчитайте параметры линзы</string>
+    <string name="share_text_only_sphere">Посчитано с помощью приложения %1$s\n%2$s\nИндекс преломления = %3$s\nСфера = %4$s\nТолщина по центру = %5$s мм\nТолщина по краю = %6$s мм\nРеальная кривизна базы линзы = %7$s\nДиаметр линзы = %8$s мм</string>
+    <string name="share_text_full">Посчитано с помощью приложения %1$s\n%2$s\nИндекс преломления = %3$s\nСфера = %4$s\nЦилиндр = %5$s\nУгол = %6$s&#176;\nТолщина под углом %7$s&#176; = %8$s мм\nТолщина по центру = %9$s мм\nТолщина по краю = %10$s мм\nМаксимальная толщина = %11$s мм\nРеальная кривизна базы линзы = %12$s\nДиаметр линзы = %13$s мм</string>
+    <!-- Rate this app -->
+    <string name="rate_app_header">Оценить приложение</string>
+    <string name="rate_app_body">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
+    <!-- About program -->
+    <string name="version">Версия %1$s\nРазработка: Пархомов Андрей\nE-mail:\nparkhomov.andrew@gmail.com</string>
+    <string name="translate_to_brazilian_portuguese">Перевод на португальский: Edison Bucchianico Gil</string>
+    <!-- Language -->
+    <string name="english">English</string>
+    <string name="portuguese">Portuguese</string>
+    <string name="russian">Русский</string>
+    <string name="ukrainian">Українська</string>
+    <!-- Compare list -->
+    <string name="compare_list_index_of_refraction">Индекс</string>
+    <string name="compare_list_sphere_power">Сфера</string>
+    <string name="compare_list_cylinder_power">Цилиндр</string>
+    <string name="compare_list_axis">Угол</string>
+    <string name="compare_list_on_axis_thickness">Тол. угол</string>
+    <string name="compare_list_center_thickness">Тол. центр</string>
+    <string name="compare_list_min_edge_thickness">Тол. мин</string>
+    <string name="compare_list_max_edge_thickness">Тол. макс</string>
+    <string name="compare_list_base_curve">Кривизна</string>
+    <string name="compare_list_diameter">Диаметр</string>
+    <string name="compare_list_is_empty">Список пуст</string>
+    <string name="compare_list_clear">Очистить список</string>
+    <!--  Material item list -->
+    <string-array name="index_of_refraction">
+        <item>1.498 CR-39</item>
+        <item>1.560</item>
+        <item>1.530 Trivex</item>
+        <item>1.590 Poly</item>
+        <item>1.610</item>
+        <item>1.670</item>
+        <item>1.740</item>
+    </string-array>
+
+</resources>
