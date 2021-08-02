@@ -102,9 +102,4 @@ class Transposition : BaseFragment() {
     private fun setHintAxis(value: Double) {
         wrapper_axis.hint = getString(R.string.transposition_axis, value.toInt())
     }
-
-    companion object {
-        val TAG: String = Transposition::class.java.name
-        val instance = Transposition()
-    }
 }

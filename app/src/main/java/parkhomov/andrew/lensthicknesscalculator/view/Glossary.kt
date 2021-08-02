@@ -24,9 +24,4 @@ class Glossary : BaseFragment() {
         recycler_view_expandable.layoutManager = LinearLayoutManager(requireContext())
         recycler_view_expandable.adapter = AdapterGlossary(baseActivity!!.glossaryItem!!.data)
     }
-
-    companion object {
-        val TAG: String = Glossary::class.java.name
-        val instance = Glossary()
-    }
 }

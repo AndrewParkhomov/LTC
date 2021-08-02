@@ -54,7 +54,7 @@ dependencies {
 
     implementation "androidx.multidex:multidex:$multidex_version"
 
-    implementation "ru.terrakok.cicerone:cicerone:$navigation_version"
+    implementation "com.github.terrakok:cicerone:$navigation_version"
     implementation "io.insert-koin:koin-android:$koin_version"
 
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"

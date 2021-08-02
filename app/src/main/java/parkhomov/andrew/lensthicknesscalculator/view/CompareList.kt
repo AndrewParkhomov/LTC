@@ -150,9 +150,4 @@ class CompareList : BaseFragment() {
             setBackgroundColor(color)
         }
     }
-
-    companion object {
-        val TAG: String = CompareList::class.java.name
-        val instance = CompareList()
-    }
 }

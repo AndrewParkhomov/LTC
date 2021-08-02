@@ -212,9 +212,4 @@ class Thickness : BaseFragment() {
     }
 
     fun Context.getColorFromId(resId: Int): Int = ContextCompat.getColor(this, resId)
-
-    companion object {
-        val TAG: String = Thickness::class.java.name
-        val instance = Thickness()
-    }
 }

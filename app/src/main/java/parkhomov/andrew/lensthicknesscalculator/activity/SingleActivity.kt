@@ -11,6 +11,9 @@ import androidx.core.view.MenuCompat
 import androidx.fragment.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.single_activity.*
 import org.koin.android.ext.android.inject
@@ -21,16 +24,13 @@ import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActi
 import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
 import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
-import parkhomov.andrew.lensthicknesscalculator.navigation.Screens
 import parkhomov.andrew.lensthicknesscalculator.utils.compare
 import parkhomov.andrew.lensthicknesscalculator.utils.diameter
 import parkhomov.andrew.lensthicknesscalculator.utils.navigation.BackButtonListener
 import parkhomov.andrew.lensthicknesscalculator.utils.thickness
 import parkhomov.andrew.lensthicknesscalculator.utils.transposition
-import parkhomov.andrew.lensthicknesscalculator.view.Language
-import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import ru.terrakok.cicerone.commands.Command
+import parkhomov.andrew.lensthicknesscalculator.navigation.*
+import parkhomov.andrew.lensthicknesscalculator.view.*
 
 
 class SingleActivity : BaseActivity() {
@@ -38,10 +38,13 @@ class SingleActivity : BaseActivity() {
     private val navigatorHolder: NavigatorHolder by inject()
     private val viewModel: ViewModelActivity by viewModel()
 
+    private var navigator: Navigator? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_activity)
         supportActionBar?.title = getString(R.string.app_name)
+        navigator = AppNavigator(this, container_parent.id)
 
         observe(viewModel.state) { onStateChanged(it) }
         createListWithData()
@@ -56,7 +59,7 @@ class SingleActivity : BaseActivity() {
     }
 
     override fun onResumeFragments() {
-        navigatorHolder.setNavigator(navigator)
+        navigator?.let(navigatorHolder::setNavigator)
         super.onResumeFragments()
     }
 
@@ -91,11 +94,11 @@ class SingleActivity : BaseActivity() {
                 .setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
                     override fun onTabSelected(position: Int) {
                         val tabId = when (position) {
-                            thickness -> Screens.ScreenThickness.fragment
-                            compare -> Screens.ScreenCompareList.fragment
-                            diameter -> Screens.ScreenDiameter.fragment
-                            transposition -> Screens.ScreenTransposition.fragment
-                            else -> Screens.ScreenGlossary.fragment
+                            thickness -> Thickness()
+                            compare -> CompareList()
+                            diameter -> Diameter()
+                            transposition -> Transposition()
+                            else -> Glossary()
                         }
                         bottom_navigation_bar.selectTab(position, false)
                         openNewTab(tabId)
@@ -132,17 +135,6 @@ class SingleActivity : BaseActivity() {
         }
         transaction.show(newFragment)
         transaction.commitNow()
-    }
-
-    private val navigator = object : SupportAppNavigator(
-            this,
-            R.id.container_parent
-    ) {
-
-        override fun applyCommands(commands: Array<Command>) {
-            super.applyCommands(commands)
-            supportFragmentManager.executePendingTransactions()
-        }
     }
 
     private fun showRateThisAppDialog() {

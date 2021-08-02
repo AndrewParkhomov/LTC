@@ -3,6 +3,8 @@ package parkhomov.andrew.lensthicknesscalculator
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import androidx.preference.PreferenceManager
+import com.github.terrakok.cicerone.Cicerone
+import com.github.terrakok.cicerone.Router
 import com.google.firebase.analytics.FirebaseAnalytics
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -25,21 +27,19 @@ import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelThickness
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelThicknessImpl
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelTransposition
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelTranspositionImpl
-import ru.terrakok.cicerone.Cicerone
-import ru.terrakok.cicerone.Router
 
 
 class MyApp : MultiDexApplication() {
 
     private val cicerone: Cicerone<Router> = Cicerone.create()
 
-    val appModule = module {
+    private val appModule = module {
 
         single { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
         single<PreferencesHelper> { AppPreferencesHelper(get()) }
         single { Interactor(get()) }
         single { cicerone.router }
-        single { cicerone.navigatorHolder }
+        single { cicerone.getNavigatorHolder() }
 
         viewModel<ViewModelActivity> { ViewModelActivityImpl(get()) }
         viewModel<ViewModelLanguage> { ViewModelLanguageImpl(get()) }

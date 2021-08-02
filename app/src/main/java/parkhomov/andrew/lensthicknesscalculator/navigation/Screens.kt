@@ -1,30 +1,24 @@
 package parkhomov.andrew.lensthicknesscalculator.navigation
 
-import androidx.fragment.app.Fragment
-import parkhomov.andrew.lensthicknesscalculator.view.Glossary
-import parkhomov.andrew.lensthicknesscalculator.view.Diameter
-import parkhomov.andrew.lensthicknesscalculator.view.Thickness
-import parkhomov.andrew.lensthicknesscalculator.view.Transposition
-import ru.terrakok.cicerone.android.support.SupportAppScreen
+import com.github.terrakok.cicerone.androidx.FragmentScreen
+import parkhomov.andrew.lensthicknesscalculator.view.*
 
-class Screens {
+fun compareList() = FragmentScreen("CompareList") {
+    CompareList()
+}
 
-    object ScreenCompareList : SupportAppScreen() {
-        override fun getFragment(): Fragment = parkhomov.andrew.lensthicknesscalculator.view.CompareList.instance
-    }
+fun diameter() = FragmentScreen("Diameter") {
+    Diameter()
+}
 
-    object ScreenDiameter : SupportAppScreen() {
-        override fun getFragment(): Fragment = Diameter.instance
-    }
-    object ScreenGlossary : SupportAppScreen() {
-        override fun getFragment(): Fragment = Glossary.instance
-    }
-    object ScreenThickness : SupportAppScreen() {
-        override fun getFragment(): Fragment = Thickness.instance
-    }
+fun glossary() = FragmentScreen("Glossary") {
+    Glossary()
+}
 
-    object ScreenTransposition : SupportAppScreen() {
-        override fun getFragment(): Fragment = Transposition.instance
-    }
+fun thickness() = FragmentScreen("Thickness") {
+    Thickness()
+}
 
+fun transposition() = FragmentScreen("Transposition") {
+    Transposition()
 }

@@ -94,9 +94,4 @@ class Diameter : BaseFragment() {
     private fun setHintPd(value: Double) {
         wrapper_pd.hint = getString(R.string.tab_diameter_hint_pd, value)
     }
-
-    companion object {
-        val TAG: String = Diameter::class.java.name
-        val instance = Diameter()
-    }
 }
