@@ -2,20 +2,17 @@ package parkhomov.andrew.lensthicknesscalculator.utils.prefs
 
 import android.content.SharedPreferences
 import parkhomov.andrew.lensthicknesscalculator.helper.PreferencesHelper
-import javax.inject.Inject
 
-class AppPreferencesHelper
-@Inject
-constructor(private val preferences: SharedPreferences) : PreferencesHelper {
+class AppPreferencesHelper(private val preferences: SharedPreferences) : PreferencesHelper {
 
     override fun putStringValue(key: String, value: String) =
-            preferences.edit().putString(key, value).apply()
+        preferences.edit().putString(key, value).apply()
 
     override fun putIntValue(key: String, value: Int) =
-            preferences.edit().putInt(key, value).apply()
+        preferences.edit().putInt(key, value).apply()
 
     override fun putFloatValue(key: String, value: Float) =
-            preferences.edit().putFloat(key, value).apply()
+        preferences.edit().putFloat(key, value).apply()
 
     override fun putBooleanValue(key: String, value: Boolean) =
             preferences.edit().putBoolean(key, value).apply()

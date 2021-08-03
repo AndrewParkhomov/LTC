@@ -9,7 +9,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.compare_list_fragment.*
 import org.jetbrains.anko.*
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
+import androidx.fragment.app.Fragment
 import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.utils.getColorFromId
@@ -17,13 +17,9 @@ import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelCompareList
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class CompareList : BaseFragment() {
+class CompareList : Fragment(R.layout.compare_list_fragment) {
 
     private val viewModel: ViewModelCompareList by viewModel()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.compare_list_fragment, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observe(viewModel.state) { onStateChanged(it) }

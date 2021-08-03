@@ -3,24 +3,19 @@ package parkhomov.andrew.lensthicknesscalculator.view
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.transposition.*
-import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
-import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import parkhomov.andrew.lensthicknesscalculator.R
+import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelTransposition
+import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelTransposition.*
 
 
-class Transposition : BaseFragment() {
+class Transposition : Fragment(R.layout.transposition) {
 
     private val viewModel: ViewModelTransposition by viewModel()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.transposition, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observe(viewModel.state) { onStateChanged(it) }
@@ -28,17 +23,17 @@ class Transposition : BaseFragment() {
         setDefaultValues()
     }
 
-    private fun onStateChanged(event: ViewModelTransposition.State) {
+    private fun onStateChanged(event: State) {
         when (event) {
-            is ViewModelTransposition.State.SetValue -> {
+            is State.SetValue -> {
                 when (event.viewId) {
                     R.id.input_edit_text_sphere -> setHintSphere(event.value)
                     R.id.input_edit_text_cylinder -> setHintCylinder(event.value)
                     R.id.input_edit_text_axis -> setHintAxis(event.value)
                 }
             }
-            is ViewModelTransposition.State.CalculatedTransposition -> calculate(event.sphere, event.cylinder, event.axis)
-            is ViewModelTransposition.State.ClearEditText -> input_edit_text_axis.text?.clear()
+            is State.CalculatedTransposition -> calculate(event.sphere, event.cylinder, event.axis)
+            is State.ClearEditText -> input_edit_text_axis.text?.clear()
         }
     }
 
@@ -77,9 +72,18 @@ class Transposition : BaseFragment() {
     }
 
     private fun setDefaultValues() {
-        input_edit_text_sphere?.post { viewModel.convertToValue(input_edit_text_sphere?.text.toString(), R.id.input_edit_text_sphere) }
-        input_edit_text_cylinder?.post { viewModel.convertToValue(input_edit_text_cylinder?.text.toString(), R.id.input_edit_text_cylinder) }
-        input_edit_text_axis?.post { viewModel.convertToValue(input_edit_text_axis.text?.toString(), R.id.input_edit_text_axis) }
+        input_edit_text_sphere?.post { viewModel.convertToValue(
+            input_edit_text_sphere?.text.toString(),
+            R.id.input_edit_text_sphere
+        ) }
+        input_edit_text_cylinder?.post { viewModel.convertToValue(
+            input_edit_text_cylinder?.text.toString(),
+            R.id.input_edit_text_cylinder
+        ) }
+        input_edit_text_axis?.post { viewModel.convertToValue(
+            input_edit_text_axis.text?.toString(),
+            R.id.input_edit_text_axis
+        ) }
     }
 
     private fun calculate(sphere: Double, cylinder: Double, axis: Double) {

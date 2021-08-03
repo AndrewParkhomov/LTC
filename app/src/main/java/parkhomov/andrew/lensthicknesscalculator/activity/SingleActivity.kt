@@ -1,76 +1,66 @@
 package parkhomov.andrew.lensthicknesscalculator.activity
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuCompat
 import androidx.fragment.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
-import com.github.terrakok.cicerone.Navigator
-import com.github.terrakok.cicerone.NavigatorHolder
-import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.single_activity.*
+import kotlinx.android.synthetic.main.activity.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivity
-import parkhomov.andrew.lensthicknesscalculator.base.BaseActivity
+import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivity.*
 import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
-import parkhomov.andrew.lensthicknesscalculator.utils.compare
-import parkhomov.andrew.lensthicknesscalculator.utils.diameter
+import parkhomov.andrew.lensthicknesscalculator.helper.PreferencesHelper
+import parkhomov.andrew.lensthicknesscalculator.utils.*
 import parkhomov.andrew.lensthicknesscalculator.utils.navigation.BackButtonListener
-import parkhomov.andrew.lensthicknesscalculator.utils.thickness
-import parkhomov.andrew.lensthicknesscalculator.utils.transposition
-import parkhomov.andrew.lensthicknesscalculator.navigation.*
 import parkhomov.andrew.lensthicknesscalculator.view.*
+import java.util.*
 
 
-class SingleActivity : BaseActivity() {
+class SingleActivity : AppCompatActivity(R.layout.activity) {
 
-    private val navigatorHolder: NavigatorHolder by inject()
+    private val preferencesHelper: PreferencesHelper by inject()
     private val viewModel: ViewModelActivity by viewModel()
 
-    private var navigator: Navigator? = null
+    override fun attachBaseContext(context: Context) {
+        var language = preferencesHelper.getStringValue(appLanguage, "")
+        if (language.isEmpty()) {
+            language = Locale.getDefault().isO3Language.substring(0, 2)
+            preferencesHelper.putStringValue(appLanguage, language)
+        }
+        super.attachBaseContext(MyContextWrapper.wrap(context, language))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.single_activity)
         supportActionBar?.title = getString(R.string.app_name)
-        navigator = AppNavigator(this, container_parent.id)
 
-        observe(viewModel.state) { onStateChanged(it) }
-        createListWithData()
+        observe(viewModel.state, ::onStateChanged)
         initViews()
     }
 
-    private fun onStateChanged(event: ViewModelActivity.State) {
+    private fun onStateChanged(event: State) {
         when (event) {
-            is ViewModelActivity.State.ShowSnackbar -> showSnackbar(event.id)
-            is ViewModelActivity.State.CreateStringForSharing -> createStringForSharing(event.data)
+            is State.ShowSnackbar -> showSnackbar(event.id)
+            is State.CreateStringForSharing -> createStringForSharing(event.data)
         }
-    }
-
-    override fun onResumeFragments() {
-        navigator?.let(navigatorHolder::setNavigator)
-        super.onResumeFragments()
-    }
-
-    override fun onPause() {
-        navigatorHolder.removeNavigator()
-        super.onPause()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_action, menu)
-        MenuCompat.setGroupDividerEnabled(menu, true)
         return true
     }
 
@@ -141,8 +131,8 @@ class SingleActivity : BaseActivity() {
         AlertDialog.Builder(this, R.style.AlertDialogCustom)
                 .setTitle(R.string.rate_app_header)
                 .setMessage(R.string.rate_app_body)
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes) { _, _ ->
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
                     openGooglePlay()
                 }
                 .create()

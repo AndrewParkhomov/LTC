@@ -11,8 +11,8 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.thickness_fragment.*
-import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
+import kotlinx.android.synthetic.main.thickness.*
+import androidx.fragment.app.Fragment
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.utils.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,14 +20,9 @@ import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelThickness
 
 
-class Thickness : BaseFragment() {
+class Thickness : Fragment(R.layout.thickness) {
 
     private val viewModel: ViewModelThickness by viewModel()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        return inflater.inflate(R.layout.thickness_fragment, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observe(viewModel.state) { onStateChanged(it) }
@@ -100,7 +95,7 @@ class Thickness : BaseFragment() {
                 setCurrentBaseCurve(event.curveValue)
             }
             is ViewModelThickness.State.ShowResultDialog -> {
-                parkhomov.andrew.lensthicknesscalculator.view.Result.getInstance(event.calculatedData).show(childFragmentManager)
+                Result.getInstance(event.calculatedData).show(childFragmentManager)
             }
         }
     }

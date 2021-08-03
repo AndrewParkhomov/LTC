@@ -54,17 +54,17 @@ dependencies {
 
     implementation "androidx.multidex:multidex:$multidex_version"
 
-    implementation "com.github.terrakok:cicerone:$navigation_version"
     implementation "io.insert-koin:koin-android:$koin_version"
 
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
-    implementation "com.ashokvarma.android:bottom-navigation-bar:$bottom_bar_version"
     implementation "androidx.recyclerview:recyclerview:$recycler_view"
+
+    implementation "com.ashokvarma.android:bottom-navigation-bar:$bottom_bar_version"
     implementation "org.jetbrains.anko:anko:$anko_version"
+    implementation "com.google.code.gson:gson:$gson_version"
 
     implementation "com.google.android.material:material:$material"
     implementation "androidx.preference:preference-ktx:$preference_version"
-    implementation "com.google.code.gson:gson:$gson_version"
 
     implementation "com.google.firebase:firebase-crashlytics:$crashlytics"
     implementation "com.google.firebase:firebase-analytics:$firebase_analytic"

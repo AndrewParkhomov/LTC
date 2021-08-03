@@ -1,26 +1,19 @@
 package parkhomov.andrew.lensthicknesscalculator.view
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.diameter_fragment.*
-import parkhomov.andrew.lensthicknesscalculator.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import parkhomov.andrew.lensthicknesscalculator.base.BaseFragment
+import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelDiameter
 
 
-class Diameter : BaseFragment() {
+class Diameter : Fragment(R.layout.diameter_fragment) {
 
     private val viewModel: ViewModelDiameter by viewModel()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.diameter_fragment, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observe(viewModel.state) { onStateChanged(it) }
@@ -42,9 +35,24 @@ class Diameter : BaseFragment() {
     }
 
     private fun setDefaultValues() {
-        input_edit_text_ed?.post { viewModel.setSize(input_edit_text_ed?.text.toString(), R.id.input_edit_text_ed) }
-        input_edit_text_dbl?.post { viewModel.setSize(input_edit_text_dbl?.text.toString(), R.id.input_edit_text_dbl) }
-        input_edit_text_pd?.post { viewModel.setSize(input_edit_text_pd?.text.toString(), R.id.input_edit_text_pd) }
+        input_edit_text_ed?.post {
+            viewModel.setSize(
+                input_edit_text_ed?.text.toString(),
+                R.id.input_edit_text_ed
+            )
+        }
+        input_edit_text_dbl?.post {
+            viewModel.setSize(
+                input_edit_text_dbl?.text.toString(),
+                R.id.input_edit_text_dbl
+            )
+        }
+        input_edit_text_pd?.post {
+            viewModel.setSize(
+                input_edit_text_pd?.text.toString(),
+                R.id.input_edit_text_pd
+            )
+        }
     }
 
     override fun onDestroyView() {
@@ -53,30 +61,15 @@ class Diameter : BaseFragment() {
     }
 
     private fun setTextWatcherListeners() {
-        input_edit_text_ed.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.setSize(s?.toString(), R.id.input_edit_text_ed)
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
-        input_edit_text_dbl.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.setSize(s?.toString(), R.id.input_edit_text_dbl)
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
-        input_edit_text_pd.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.setSize(s?.toString(), R.id.input_edit_text_pd)
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
+        input_edit_text_ed.doAfterTextChanged {
+            viewModel.setSize(it?.toString(), R.id.input_edit_text_ed)
+        }
+        input_edit_text_dbl.doAfterTextChanged {
+            viewModel.setSize(it?.toString(), R.id.input_edit_text_dbl)
+        }
+        input_edit_text_pd.doAfterTextChanged {
+            viewModel.setSize(it?.toString(), R.id.input_edit_text_pd)
+        }
     }
 
     private fun calculate(diameter: Double) {

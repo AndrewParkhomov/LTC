@@ -287,57 +287,19 @@ class ViewModelThicknessImpl(
     }
 
     private fun handleNoBaseCurveBehaviour(value: Double): Double {
-        var tempCurveString = ""
-        val tempCurveDouble = when {
-            value <= -8.0 -> {
-                tempCurveString = base0.toString()
-                base0
-            }
-            value in -7.99..-6.0 -> {
-                tempCurveString = base1.toString()
-                base1
-            }
-            value in -5.99..-4.0 -> {
-                tempCurveString = base2.toString()
-                base2
-            }
-            value in -3.99..-2.0 -> {
-                tempCurveString = base3.toString()
-                base3
-            }
-            value in -1.99..2.0 -> {
-                tempCurveString = base4.toString()
-                base4
-            }
-            value in 2.01..2.99 -> {
-                tempCurveString = base5.toString()
-                base5
-            }
-            value in 3.0..4.99 -> {
-                tempCurveString = base6.toString()
-                base6
-            }
-            value in 5.0..5.99 -> {
-                tempCurveString = base7.toString()
-                base7
-            }
-            value in 6.0..6.99 -> {
-                tempCurveString = base8.toString()
-                base8
-            }
-            value in 7.0..7.99 -> {
-                tempCurveString = base9.toString()
-                base9
-            }
-            value in 8.0..9.99 -> {
-                tempCurveString = base10.toString()
-                base10
-            }
-            value >= 10.0 -> {
-                tempCurveString = base10_5.toString()
-                base10_5
-            }
-            else -> throw NoSuchElementException("There is no curve parameter for given sphere power")
+        val (tempCurveDouble, tempCurveString) = when {
+            value <= -8.0 -> Pair(base0, base0.toString())
+            value in -7.99..-6.0 -> Pair(base1, base1.toString())
+            value in -5.99..-4.0 -> Pair(base2, base2.toString())
+            value in -3.99..-2.0 -> Pair(base3, base3.toString())
+            value in -1.99..2.0 -> Pair(base4, base4.toString())
+            value in 2.01..2.99 -> Pair(base5, base5.toString())
+            value in 3.0..4.99 -> Pair(base6, base6.toString())
+            value in 5.0..5.99 -> Pair(base7, base7.toString())
+            value in 6.0..6.99 -> Pair(base8, base8.toString())
+            value in 7.0..7.99 -> Pair(base9, base9.toString())
+            value in 8.0..9.99 -> Pair(base10, base10.toString())
+            else -> Pair(base10_5, base10_5.toString())  // value >= 10.0
         }
         state.value = State.SetCurrentBaseCurve(tempCurveString)
         return tempCurveDouble

@@ -1,27 +1,22 @@
 package parkhomov.andrew.lensthicknesscalculator.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.language.*
-import parkhomov.andrew.lensthicknesscalculator.base.BaseDialog
-import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
+import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelLanguage
 
-class Language : BaseDialog() {
+class Language : DialogFragment(R.layout.language) {
 
     private val viewModel: ViewModelLanguage by viewModel()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.language, container, false)
-    }
-
-    override fun setUp(view: View) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.background_rounded_corners_white)
         observe(viewModel.state) { onStateChanged(it) }
         viewModel.setRadioButtons()
     }
@@ -46,14 +41,13 @@ class Language : BaseDialog() {
 
     private fun setButtonClickListener() {
         radio_group.setOnCheckedChangeListener { radioGroup, _ ->
-            val radioButton = radioGroup.findViewById<RadioButton>(radioGroup.checkedRadioButtonId).id
-            when (radioButton) {
+            when (radioGroup.findViewById<RadioButton>(radioGroup.checkedRadioButtonId).id) {
                 R.id.radio_button_eng -> viewModel.setNewLanguage("en")
                 R.id.radio_button_portuguese -> viewModel.setNewLanguage("po")
                 R.id.radio_button_rus -> viewModel.setNewLanguage("ru")
                 R.id.radio_button_ukr -> viewModel.setNewLanguage("uk")
             }
-            baseActivity?.recreate()
+            activity?.recreate()
             dismiss()
         }
     }

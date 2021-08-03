@@ -1,37 +1,29 @@
 package parkhomov.andrew.lensthicknesscalculator.view
 
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.dialog_result.*
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.base.BaseDialog
 import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.utils.argument
 import parkhomov.andrew.lensthicknesscalculator.utils.getDrawableFromId
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import parkhomov.andrew.lensthicknesscalculator.utils.dpToPx
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelResult
 
-class Result : BaseDialog() {
+class Result : DialogFragment(R.layout.dialog_result) {
 
     private val viewModel: ViewModelResult by viewModel()
     private val result by argument<CalculatedData>(TAG)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.dialog_result, container, false)
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.background_rounded_corners_white)
 
-    private fun dpToPx(res: Resources, dp: Float): Float {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.displayMetrics)
-    }
-
-    override fun setUp(view: View) {
         observe(viewModel.state) { onStateChanged(it) }
         viewModel.checkState(result)
         showCylinderViews(result.cylinderPower != null)
@@ -64,7 +56,7 @@ class Result : BaseDialog() {
                 stateChanged(!event.isSuccess, add, remove, addImage, removeImage)
             }
             is ViewModelResult.State.CheckState -> {
-                text_view_add_to_compare_list.compoundDrawablePadding = dpToPx(resources, 10f).toInt()
+                text_view_add_to_compare_list.compoundDrawablePadding = requireContext().dpToPx(10)
                 text_view_add_to_compare_list.text = if (!event.isInList) add else remove
                 image_view_add.setImageDrawable(if (!event.isInList) addImage else removeImage)
             }
@@ -86,14 +78,14 @@ class Result : BaseDialog() {
     }
 
     private fun showCylinderViews(isShow: Boolean) {
-        view_cylinder.visibility = if (isShow) View.VISIBLE else View.GONE
-        text_view_cylinder_power.visibility = if (isShow) View.VISIBLE else View.GONE
-        view_axis.visibility = if (isShow) View.VISIBLE else View.GONE
-        text_view_axis.visibility = if (isShow) View.VISIBLE else View.GONE
-        view_thickness_on_axis.visibility = if (isShow) View.VISIBLE else View.GONE
-        text_view_thickness_on_axis.visibility = if (isShow) View.VISIBLE else View.GONE
-        view_max_thickness.visibility = if (isShow) View.VISIBLE else View.GONE
-        text_view_max_thickness.visibility = if (isShow) View.VISIBLE else View.GONE
+        view_cylinder.isVisible = isShow
+        text_view_cylinder_power.isVisible = isShow
+        view_axis.isVisible = isShow
+        text_view_axis.isVisible = isShow
+        view_thickness_on_axis.isVisible = isShow
+        text_view_thickness_on_axis.isVisible = isShow
+        view_max_thickness.isVisible = isShow
+        text_view_max_thickness.isVisible = isShow
     }
 
     private fun setCalculatedData(data: CalculatedData) {

@@ -3,43 +3,27 @@ package parkhomov.andrew.lensthicknesscalculator
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import androidx.preference.PreferenceManager
-import com.github.terrakok.cicerone.Cicerone
-import com.github.terrakok.cicerone.Router
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivity
+import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivityImpl
 import parkhomov.andrew.lensthicknesscalculator.helper.PreferencesHelper
 import parkhomov.andrew.lensthicknesscalculator.interactor.Interactor
 import parkhomov.andrew.lensthicknesscalculator.utils.prefs.AppPreferencesHelper
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelCompareList
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelCompareListImpl
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelDiameter
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelDiameterImpl
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelLanguage
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelLanguageImpl
-import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivity
-import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivityImpl
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelResult
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelResultImpl
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelThickness
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelThicknessImpl
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelTransposition
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelTranspositionImpl
+import parkhomov.andrew.lensthicknesscalculator.viewmodel.*
 
 
 class MyApp : MultiDexApplication() {
-
-    private val cicerone: Cicerone<Router> = Cicerone.create()
 
     private val appModule = module {
 
         single { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
         single<PreferencesHelper> { AppPreferencesHelper(get()) }
-        single { Interactor(get()) }
-        single { cicerone.router }
-        single { cicerone.getNavigatorHolder() }
+        single { Interactor() }
 
         viewModel<ViewModelActivity> { ViewModelActivityImpl(get()) }
         viewModel<ViewModelLanguage> { ViewModelLanguageImpl(get()) }
@@ -54,6 +38,7 @@ class MyApp : MultiDexApplication() {
         super.onCreate()
         if (!BuildConfig.DEBUG) {
             FirebaseAnalytics.getInstance(this)
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
         }
         startKoin {
             androidContext(this@MyApp)
