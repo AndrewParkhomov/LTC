@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.diameter_fragment.*
+import kotlinx.android.synthetic.main.diameter.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelDiameter
 
 
-class Diameter : Fragment(R.layout.diameter_fragment) {
+class Diameter : Fragment(R.layout.diameter) {
 
     private val viewModel: ViewModelDiameter by viewModel()
 

@@ -6,7 +6,7 @@
     <string name="error_unknown">Erro desconhecido</string>
     <!-- Tab headers-->
     <string name="fragment_thickness">Espessura</string>
-    <string name="fragment_compare">Compara lente</string>
+    <string name="fragment_compare">Compara</string>
     <string name="fragment_diameter">Diâmetro</string>
     <string name="fragment_transposition">Transposição</string>
     <string name="fragment_glossary">Glossário</string>

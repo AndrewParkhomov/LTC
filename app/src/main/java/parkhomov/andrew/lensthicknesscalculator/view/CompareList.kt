@@ -6,10 +6,10 @@ import android.text.TextUtils
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
-import kotlinx.android.synthetic.main.compare_list_fragment.*
 import org.jetbrains.anko.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.compare_list.*
 import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.utils.getColorFromId
@@ -17,7 +17,7 @@ import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelCompareList
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class CompareList : Fragment(R.layout.compare_list_fragment) {
+class CompareList : Fragment(R.layout.compare_list) {
 
     private val viewModel: ViewModelCompareList by viewModel()
 

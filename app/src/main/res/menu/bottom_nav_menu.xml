@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_thickness"
+        android:icon="@drawable/ic_thickness"
+        android:title="@string/fragment_thickness" />
+
+    <item
+        android:id="@+id/navigation_compare"
+        android:icon="@drawable/ic_compare_arrows"
+        android:title="@string/fragment_compare" />
+
+    <item
+        android:id="@+id/navigation_diameter"
+        android:icon="@drawable/ic_diameter"
+        android:title="@string/fragment_diameter" />
+
+    <item
+        android:id="@+id/navigation_transposition"
+        android:icon="@drawable/ic_transposition"
+        android:title="@string/fragment_transposition" />
+
+    <item
+        android:id="@+id/navigation_glossary"
+        android:icon="@drawable/ic_glossary"
+        android:title="@string/fragment_glossary" />
+
+</menu>

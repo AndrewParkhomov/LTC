@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_thickness">
+
+    <fragment
+        android:id="@+id/navigation_thickness"
+        android:name="parkhomov.andrew.lensthicknesscalculator.view.Thickness"
+        android:label="@string/fragment_thickness"
+        tools:layout="@layout/thickness" />
+
+    <fragment
+        android:id="@+id/navigation_compare"
+        android:name="parkhomov.andrew.lensthicknesscalculator.view.CompareList"
+        android:label="@string/fragment_compare"
+        tools:layout="@layout/compare_list" />
+
+    <fragment
+        android:id="@+id/navigation_diameter"
+        android:name="parkhomov.andrew.lensthicknesscalculator.view.Diameter"
+        android:label="@string/fragment_diameter"
+        tools:layout="@layout/diameter" />
+    
+    <fragment
+        android:id="@+id/navigation_transposition"
+        android:name="parkhomov.andrew.lensthicknesscalculator.view.Transposition"
+        android:label="@string/fragment_transposition"
+        tools:layout="@layout/transposition" />
+    
+    <fragment
+        android:id="@+id/navigation_glossary"
+        android:name="parkhomov.andrew.lensthicknesscalculator.view.Glossary"
+        android:label="@string/fragment_glossary"
+        tools:layout="@layout/glossary" />
+    
+</navigation>

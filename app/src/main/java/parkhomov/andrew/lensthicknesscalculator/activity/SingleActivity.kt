@@ -9,10 +9,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuCompat
 import androidx.fragment.app.Fragment
-import com.ashokvarma.bottomnavigation.BottomNavigationBar
-import com.ashokvarma.bottomnavigation.BottomNavigationItem
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity.*
 import org.koin.android.ext.android.inject
@@ -20,13 +21,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivity
-import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivity.*
+import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivity.State
 import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.helper.PreferencesHelper
-import parkhomov.andrew.lensthicknesscalculator.utils.*
+import parkhomov.andrew.lensthicknesscalculator.utils.MyContextWrapper
+import parkhomov.andrew.lensthicknesscalculator.utils.appLanguage
 import parkhomov.andrew.lensthicknesscalculator.utils.navigation.BackButtonListener
-import parkhomov.andrew.lensthicknesscalculator.view.*
+import parkhomov.andrew.lensthicknesscalculator.view.Language
 import java.util.*
 
 
@@ -75,56 +77,20 @@ class SingleActivity : AppCompatActivity(R.layout.activity) {
     }
 
     private fun initViews() {
-        bottom_navigation_bar
-                .addItem(BottomNavigationItem(R.drawable.ic_thickness, R.string.fragment_thickness))
-                .addItem(BottomNavigationItem(R.drawable.ic_compare_arrows, R.string.fragment_compare))
-                .addItem(BottomNavigationItem(R.drawable.ic_diameter, R.string.fragment_diameter))
-                .addItem(BottomNavigationItem(R.drawable.ic_transposition, R.string.fragment_transposition))
-                .addItem(BottomNavigationItem(R.drawable.ic_glossary, R.string.fragment_glossary))
-                .setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
-                    override fun onTabSelected(position: Int) {
-                        val tabId = when (position) {
-                            thickness -> Thickness()
-                            compare -> CompareList()
-                            diameter -> Diameter()
-                            transposition -> Transposition()
-                            else -> Glossary()
-                        }
-                        bottom_navigation_bar.selectTab(position, false)
-                        openNewTab(tabId)
-                    }
 
-                    override fun onTabUnselected(position: Int) {
 
-                    }
-
-                    override fun onTabReselected(position: Int) {
-                    }
-                }).initialise()
-        bottom_navigation_bar.selectTab(thickness, true)
-    }
-
-    private fun openNewTab(newFragment: Fragment?) {
-        if (newFragment == null) {
-            throw RuntimeException("Tab screen is null")
-        }
-        var currentFragment: Fragment? = null
-        val fragments = supportFragmentManager.fragments
-        for (f in fragments) {
-            if (f.isVisible) {
-                currentFragment = f
-                break
-            }
-        }
-
-        if (currentFragment != null && currentFragment === newFragment) return
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frame_layout_tab_container, newFragment)
-        if (currentFragment != null) {
-            transaction.hide(currentFragment)
-        }
-        transaction.show(newFragment)
-        transaction.commitNow()
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_thickness,
+                R.id.navigation_compare,
+                R.id.navigation_diameter,
+                R.id.navigation_transposition,
+                R.id.navigation_glossary,
+            )
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        nav_view.setupWithNavController(navController)
     }
 
     private fun showRateThisAppDialog() {
@@ -195,7 +161,7 @@ class SingleActivity : AppCompatActivity(R.layout.activity) {
     }
 
     private fun showSnackbar(resId: Int) {
-        Snackbar.make(frame_layout_tab_container, resId, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(container_parent, resId, Snackbar.LENGTH_LONG).show()
     }
 
     override fun onBackPressed() {
