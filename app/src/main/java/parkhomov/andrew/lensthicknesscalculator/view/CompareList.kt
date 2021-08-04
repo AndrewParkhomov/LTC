@@ -1,20 +1,24 @@
 package parkhomov.andrew.lensthicknesscalculator.view
 
+import android.content.Context
+import android.content.res.Resources
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
 import android.widget.LinearLayout
+import android.widget.LinearLayout.*
 import android.widget.TextView
-import org.jetbrains.anko.*
-import parkhomov.andrew.lensthicknesscalculator.R
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.compare_list.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
+import parkhomov.andrew.lensthicknesscalculator.utils.dip
 import parkhomov.andrew.lensthicknesscalculator.utils.getColorFromId
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelCompareList
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class CompareList : Fragment(R.layout.compare_list) {
@@ -24,20 +28,31 @@ class CompareList : Fragment(R.layout.compare_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observe(viewModel.state) { onStateChanged(it) }
         viewModel.getListForCompare()
+        setClickListener()
+    }
+
+    private fun setClickListener() {
         text_view_clear_list.setOnClickListener {
             viewModel.clearCompareList()
             container_description.removeAllViews()
-            container_scroll_view.removeAllViews()
-            text_view_clear_list.visibility = View.GONE
+            linear_scroll_container.removeAllViews()
+            setEmptyContainerVisibility(true)
+            setClearButtonVisibility(false)
             createEmptyListView()
         }
     }
 
+    private fun setClearButtonVisibility(isVisible: Boolean){
+        text_view_clear_list.isVisible = isVisible
+    }
+
+    private fun setEmptyContainerVisibility(isVisible: Boolean){
+        container_list_empty.isVisible = isVisible
+    }
+
     private fun onStateChanged(event: ViewModelCompareList.State) {
         when (event) {
-            is ViewModelCompareList.State.ListToCompare -> {
-                setUpAdapter(event.compareList)
-            }
+            is ViewModelCompareList.State.ListToCompare -> setUpAdapter(event.compareList)
         }
     }
 
@@ -47,19 +62,15 @@ class CompareList : Fragment(R.layout.compare_list) {
     }
 
     private fun setUpAdapter(compareSet: MutableSet<CalculatedData>) {
-        val compareList: MutableList<CalculatedData> = compareSet.toMutableList()
-
-        val textColorBlack = requireContext().getColorFromId(R.color.black)
-        val dividerColor = requireContext().getColorFromId(R.color.gray_500)
-
-        text_view_clear_list.visibility = if (compareList.isEmpty()) View.GONE else View.VISIBLE
-        container_description.visibility = if (compareList.isEmpty()) View.GONE else View.VISIBLE
-        if (compareList.isEmpty()) {
+        setEmptyContainerVisibility(compareSet.isEmpty())
+        setClearButtonVisibility(compareSet.isNotEmpty())
+        if (compareSet.isEmpty()) {
             createEmptyListView()
-            return
-        }
+        }else {
+            val textColorBlack = requireContext().getColorFromId(R.color.black)
+            val dividerColor = requireContext().getColorFromId(R.color.gray_500)
 
-        val item = CalculatedData(
+            val item = CalculatedData(
                 refractionIndex = getString(R.string.compare_list_index_of_refraction),
                 spherePower = getString(R.string.compare_list_sphere_power),
                 cylinderPower = getString(R.string.compare_list_cylinder_power),
@@ -70,88 +81,106 @@ class CompareList : Fragment(R.layout.compare_list) {
                 thicknessMax = getString(R.string.compare_list_max_edge_thickness),
                 realBaseCurve = getString(R.string.compare_list_base_curve),
                 diameter = getString(R.string.compare_list_diameter)
-        )
+            )
+            val descriptionLayout = requireContext()
+                .createVerticalLayout(item, textColorBlack, dividerColor, 20f)
 
-        container_description.createVerticalLayout(item, textColorBlack, dividerColor, 20f)
-        container_scroll_view.linearLayout {
-            compareList.forEach { item ->
-                createVerticalLayout(item, textColorBlack, dividerColor)
-                view {
-                    setBackgroundColor(dividerColor)
-                }.lparams(dip(0.5f), matchParent)
+            container_description.addView(descriptionLayout)
+            compareSet.forEach { calculatedData ->
+                val divider = requireContext().getDividerVertical(dividerColor)
+                val verticalLayout = requireContext()
+                    .createVerticalLayout(calculatedData, textColorBlack, dividerColor)
+
+                linear_scroll_container.addView(verticalLayout)
+                linear_scroll_container.addView(divider)
             }
         }
     }
 
     private fun createEmptyListView() {
-        container_main_compare.verticalLayout {
-            lparams(matchParent, matchParent)
-            textView(R.string.compare_list_is_empty_title) {
-                textSize = 26f
-                setTypeface(typeface, Typeface.BOLD)
-                textColor = context.getColorFromId(R.color.main_text_color)
-                gravity = Gravity.CENTER_HORIZONTAL
-            }.lparams(wrapContent, wrapContent) {
-                setMargins(0, dip(60), 0, 0)
-                gravity = Gravity.CENTER_HORIZONTAL
-            }
-            textView(R.string.compare_list_is_empty_description) {
-                textSize = 20f
-                setTypeface(typeface, Typeface.NORMAL)
-                textColor = context.getColorFromId(R.color.main_text_color)
-                gravity = Gravity.CENTER_HORIZONTAL
-            }.lparams(wrapContent, wrapContent) {
-                setMargins(dip(20), dip(14), dip(20), 0)
-                gravity = Gravity.CENTER_HORIZONTAL
-            }
+        val title = TextView(requireContext()).apply {
+            layoutParams =
+                LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
+                    setMargins(0, dip(60), 0, 0)
+                    gravity = Gravity.CENTER_HORIZONTAL
+                }
+            setText(R.string.compare_list_is_empty_title)
+            textSize = 26f
+            setTypeface(typeface, Typeface.BOLD)
+            setTextColor(getColorFromId(R.color.main_text_color))
+            gravity = Gravity.CENTER_HORIZONTAL
         }
+        val description = TextView(requireContext()).apply {
+            layoutParams =
+                LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
+                    setMargins(dip(20), dip(14), dip(20), 0)
+                    gravity = Gravity.CENTER_HORIZONTAL
+                }
+            setText(R.string.compare_list_is_empty_description)
+            textSize = 20f
+            setTypeface(typeface, Typeface.NORMAL)
+            setTextColor(getColorFromId(R.color.main_text_color))
+            gravity = Gravity.CENTER_HORIZONTAL
+        }
+
+        container_list_empty.addView(title)
+        container_list_empty.addView(description)
     }
 
-    private fun ViewManager.createVerticalLayout(
+    private fun Context.createVerticalLayout(
         item: CalculatedData,
         textColorBlack: Int,
         dividerColor: Int,
         mTextSize: Float = 24f
     ): LinearLayout {
-        return verticalLayout {
-            getTextView(item.refractionIndex, textColorBlack, mTextSize)
-            getDivider(dividerColor)
-            getTextView(item.spherePower, textColorBlack, mTextSize)
-            getDivider(dividerColor)
-            getTextView(item.cylinderPower, textColorBlack, mTextSize)
-            getDivider(dividerColor)
-            getTextView(item.axis, textColorBlack, mTextSize)
-            getDivider(dividerColor)
-            getTextView(item.thicknessOnAxis, textColorBlack, mTextSize)
-            getDivider(dividerColor)
-            getTextView(item.thicknessCenter, textColorBlack, mTextSize)
-            getDivider(dividerColor)
-            getTextView(item.thicknessEdge, textColorBlack, mTextSize)
-            getDivider(dividerColor)
-            getTextView(item.thicknessMax, textColorBlack, mTextSize)
-            getDivider(dividerColor)
-            getTextView(item.realBaseCurve, textColorBlack, mTextSize)
-            getDivider(dividerColor)
-            getTextView(item.diameter, textColorBlack, mTextSize)
-            getDivider(dividerColor)
+        return LinearLayout(this).apply {
+            orientation = VERTICAL
+            addView(getTextView(item.refractionIndex, textColorBlack, mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(item.spherePower, textColorBlack, mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(item.cylinderPower, textColorBlack, mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(item.axis, textColorBlack, mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(item.thicknessOnAxis, textColorBlack, mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(item.thicknessCenter, textColorBlack, mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(item.thicknessEdge, textColorBlack, mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(item.thicknessMax, textColorBlack, mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(item.realBaseCurve, textColorBlack, mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(item.diameter, textColorBlack, mTextSize))
+            addView(getDividerHorizontal(dividerColor))
         }
     }
 
-    private fun ViewManager.getTextView(text: String?, color: Int, mTextSize: Float = 24f): TextView {
-        return textView(text) {
-            layoutParams = ViewGroup.LayoutParams(wrapContent, dip(44))
+    private fun Context.getTextView(text: String?, color: Int, mTextSize: Float = 24f): TextView {
+        return TextView(this).apply {
+            layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, dip(44))
             textSize = mTextSize
-            textColor = color
-            lines = 1
+            setTextColor(color)
+            setLines(1)
+            setText(text)
             ellipsize = TextUtils.TruncateAt.END
             gravity = Gravity.START or Gravity.CENTER
             setPadding(dip(4), 0, dip(4), 0)
         }
     }
 
-    private fun ViewManager.getDivider(color: Int): View {
-        return view {
-            layoutParams = ViewGroup.LayoutParams(matchParent, dip(0.5f))
+    private fun Context.getDividerHorizontal(color: Int): View {
+        return View(this).apply {
+            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dip(1) / 2)
+            setBackgroundColor(color)
+        }
+    }
+
+    private fun Context.getDividerVertical(color: Int): View {
+        return View(this).apply {
+            layoutParams = LayoutParams(dip(1) / 2, LayoutParams.MATCH_PARENT)
             setBackgroundColor(color)
         }
     }

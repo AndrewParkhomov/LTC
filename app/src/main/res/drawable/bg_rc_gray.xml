@@ -2,21 +2,21 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/gray_100" />
+            <solid android:color="@color/gray_200" />
             <corners android:radius="4dp" />
         </shape>
     </item>
 
     <item android:state_active="true">
         <shape>
-            <solid android:color="@color/gray_50" />
+            <solid android:color="@color/gray_100" />
             <corners android:radius="4dp" />
         </shape>
     </item>
 
     <item android:state_enabled="true">
         <shape>
-            <solid android:color="@color/gray_50" />
+            <solid android:color="@color/gray_100" />
             <corners android:radius="4dp" />
         </shape>
     </item>

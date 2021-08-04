@@ -13,7 +13,7 @@ import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.utils.argument
 import parkhomov.andrew.lensthicknesscalculator.utils.getDrawableFromId
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import parkhomov.andrew.lensthicknesscalculator.utils.dpToPx
+import parkhomov.andrew.lensthicknesscalculator.utils.dip
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelResult
 
 class Result : DialogFragment(R.layout.dialog_result) {
@@ -56,7 +56,7 @@ class Result : DialogFragment(R.layout.dialog_result) {
                 stateChanged(!event.isSuccess, add, remove, addImage, removeImage)
             }
             is ViewModelResult.State.CheckState -> {
-                text_view_add_to_compare_list.compoundDrawablePadding = requireContext().dpToPx(10)
+                text_view_add_to_compare_list.compoundDrawablePadding = requireContext().dip(10)
                 text_view_add_to_compare_list.text = if (!event.isInList) add else remove
                 image_view_add.setImageDrawable(if (!event.isInList) addImage else removeImage)
             }
