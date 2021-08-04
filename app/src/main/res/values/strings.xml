@@ -83,7 +83,7 @@
     <string name="compare_list_is_empty_description">You can add lens in compare list after calculation</string>
     <string name="compare_list_clear">Clear List</string>
     <!--  Material item list -->
-    <string-array name="index_of_refraction">
+    <string-array name="index_of_refraction" >
         <item>1.498 CR-39</item>
         <item>1.560</item>
         <item>1.530 Trivex</item>
@@ -91,6 +91,34 @@
         <item>1.610</item>
         <item>1.670</item>
         <item>1.740</item>
+    </string-array>
+    <string-array name="titles" >
+        <item>Index of refraction</item>
+        <item>Sphere power</item>
+        <item>Cylinder power</item>
+        <item>Axis</item>
+        <item>Real base curve</item>
+        <item>Center thickness</item>
+        <item>Edge thickness</item>
+        <item>Diameter</item>
+        <item>Effective diameter</item>
+        <item>Distance between lenses</item>
+        <item>Pupil distance</item>
+        <item>Transposition</item>
+    </string-array>
+    <string-array name="descriptions" >
+        <item>In optics, the refractive index or index of refraction of a material is a dimensionless number that describes how light propagates through that medium. It is defined as n = c / v, where c is the speed of light in vacuum and v is the phase velocity of light in the medium.\n\tFor example, the refractive index of water is 1.333, meaning that light travels 1.333 times faster in a vacuum than it does in water ©Wikipedia</item>
+        <item>Spherical correction corrects refractive error of the eye with a single convergent or divergent refractive power in all meridians</item>
+        <item>Cylindrical correction corrects astigmatic refractive error of the eye by adding or subtracting power cylindrically in a meridian specified by the prescribed axis</item>
+        <item>Axis is present only if there is a value for cylinder. This indicates the angle in degrees of one of two major meridians the prescribed cylindrical power is in. Which major meridian is referenced is indicated by the cylindrical correction being in plus or minus notation</item>
+        <item>The base curve (usually determined from the profile of the front surface of an ophthalmic lens) can be changed to result in the best optic and cosmetic characteristics across the entire surface of the lens. Optometrists may choose to specify a particular base curve when prescribing a corrective lens for either of these reasons. A multitude of mathematical formulas and professional clinical experience has allowed optometrists and lens designers to determine standard base curves that are ideal for most people. As a result, the front surface curve is more standardized and the characteristics that generate a person"s unique prescription are typically derived from the geometry of the back surface of the lens</item>
+        <item>Thickness in optical center of the lens in millimeters</item>
+        <item>Thickness of the lens in edge expressed in millimeters</item>
+        <item>Diameter of the lens in millimeters</item>
+        <item>Effective diameter is the longest diagonal across the lens</item>
+        <item>The shortest distance in millimeters between the nasal edges of each lens. DBL is also commonly referred to as bridge size</item>
+        <item>Pupil Distance is the distance (expressed in millimeters) between the centers of the pupils</item>
+        <item>Ophthalmologists and a few older optometrists (different types of eye doctors), write astigmatism prescriptions with positive «+» cylinders. This is because many years ago the instruments used to measure and cut lenses were only able to do so in positive increments. Nowadays the majority of labs cut lenses in the negative «-», and require that any positive «+» cylinder prescriptions be converted into the negative «-» equivalent. \n\tExamples:\n\tsph -7.0 cyl -3.0 axis 22° can be written like:\n\tsph -10.0 cyl +3.0 axis 112°\n\tsph +5.75 cyl -1.25 axis 165° can be written like:\n\tsph +4.5 cyl +1.25 axis 75°</item>
     </string-array>
 
 </resources>

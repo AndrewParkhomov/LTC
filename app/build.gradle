@@ -60,7 +60,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
     implementation "org.jetbrains.anko:anko:0.10.8"
-    implementation "com.google.code.gson:gson:2.8.5"
 
     implementation "com.google.android.material:material:1.4.0"
     implementation "androidx.preference:preference-ktx:1.1.1"

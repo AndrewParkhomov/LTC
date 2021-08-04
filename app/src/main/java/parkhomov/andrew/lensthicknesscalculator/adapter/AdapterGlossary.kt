@@ -13,7 +13,7 @@ import parkhomov.andrew.lensthicknesscalculator.data.GlossaryItem
 import parkhomov.andrew.lensthicknesscalculator.utils.getDrawableFromId
 
 class AdapterGlossary(
-    private var list: List<GlossaryItem.Data>
+    private var list: List<GlossaryItem>
 ) : RecyclerView.Adapter<AdapterGlossary.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -44,7 +44,7 @@ class AdapterGlossary(
 
             val context = itemView.context
             textViewTitle.text = item.title
-            textViewDescription.text = item.body
+            textViewDescription.text = item.description
             imageViewPicture.setImageDrawable(context.getDrawableFromId(item.imageId))
             setViewState()
             textViewTitle.setOnClickListener {
