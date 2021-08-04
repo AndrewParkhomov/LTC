@@ -1,6 +1,5 @@
 package parkhomov.andrew.lensthicknesscalculator.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.interactor.Interactor
@@ -103,7 +102,6 @@ class ViewModelThicknessImpl(
         if (isContinueCalculation) {
             curve = curve ?: handleNoBaseCurveBehaviour(spherePower!!)
             val realRadiusMm = getReaRadiusInMM(curve)
-            Log.i("realRadiusMm", realRadiusMm.toString())
 
             centerThickness = when {
                 spherePower!! <= 0 && cylinderPower == 0.0 -> centerThickness
@@ -120,7 +118,6 @@ class ViewModelThicknessImpl(
                 }
                 else -> centerThickness
             }
-            Log.i("tempCenterThickness", centerThickness.toString())
 
             axis = recalculateAxisInMinusCylinder(
                     cylinderPower,
@@ -138,7 +135,6 @@ class ViewModelThicknessImpl(
                     lensIndex.first,
                     realRadiusMm
             )
-            Log.i("recalculatedFrontCurve", recalculatedFrontCurve.toString())
 
             val recalculatedCylinderCurve = getRecalculatedCylinderCurve(
                     recalculatedFrontCurve,
@@ -147,16 +143,13 @@ class ViewModelThicknessImpl(
                     lensIndex,
                     spherePower
             )
-            Log.i("recalculatedCylinderCu", recalculatedCylinderCurve.toString())
 
             val realCylinderBackRadiusInMM = getRealCylinderBackRadiusInMM(recalculatedCylinderCurve)
-            Log.i("realCylinderBackRadMM", realCylinderBackRadiusInMM.toString())
 
             val sag2Sphere = getSag2Sphere(
                     realRadiusMm,
                     diameter!!
             )
-            Log.i("sag2Sphere", sag2Sphere.toString())
 
             // Corrected back curve
             val recalculatedSphereCurve = getRecalculatedSphereCurve(
@@ -165,17 +158,13 @@ class ViewModelThicknessImpl(
                     centerThickness,
                     lensIndex
             )
-            Log.i("recalculatedSphereCurve", recalculatedSphereCurve.toString())
 
             val realBackRadiusInMM = getRealBackRadiusInMM(recalculatedSphereCurve)
-            Log.i("realBackRadiusInMM", realBackRadiusInMM.toString())
             val sag2Cylinder = getSag2Cylinder(
                     realCylinderBackRadiusInMM,
                     diameter
             )
-            Log.i("sag2Cylinder", sag2Cylinder.toString())
             val sag1Sphere = getSag1Sphere(realBackRadiusInMM, diameter)
-            Log.i("sag1Sphere", sag1Sphere.toString())
 
             var centerString = centerThickness.toString()
             var edgeString = edgeThickness.toString()
@@ -193,26 +182,18 @@ class ViewModelThicknessImpl(
                 centerString = ((centerThickness * 1e2).toLong() / 1e2).toString()
             }
 
-            Log.d("check parameter", spherePower.toString())
-            Log.d("check parameter", cylinderPower.toString())
-            Log.d("check parameter", axisView)
-            Log.d("check parameter", curve.toString())
-            Log.d("check parameter", centerThickness.toString())
-            Log.d("check parameter", edgeThickness.toString())
-
-
-            if (cylinderPower == 0.0) {
-                showResultDialog(
-                        lensIndex.third,
-                        spherePowerString,
-                        null,
-                        null,
-                        null,
-                        centerString,
-                        edgeString,
-                        null,
-                        curve.toString(),
-                        diameter.toString()
+            val calculatedData = if (cylinderPower == 0.0) {
+                CalculatedData(
+                    refractionIndex = lensIndex.third,
+                    spherePower = spherePowerString,
+                    cylinderPower = null,
+                    axis = null,
+                    thicknessOnAxis = null,
+                    thicknessCenter = centerString,
+                    thicknessEdge = edgeString,
+                    thicknessMax = null,
+                    realBaseCurve = curve.toString(),
+                    diameter = diameter.toString()
                 )
             } else {
 
@@ -228,61 +209,24 @@ class ViewModelThicknessImpl(
                 } else if (spherePower >= curve && realCylinderBackRadiusInMM < 0) {
                     maxEdgeThickness = sag1Sphere + sag2Cylinder + edgeThickness
                 }
-                Log.i("maxEdgeThickness", maxEdgeThickness.toString())
                 val etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness
 
-                Log.i("etOnCertainAxis", etOnCertainAxis.toString())
-                Log.i("spherePower", spherePower.toString())
-                Log.i("cylinderPower", cylinderPower.toString())
-                Log.i("axisView", axisView)
-                Log.i("(1)", ((etOnCertainAxis * 1e2).toLong() / 1e2).toString())
-                Log.i("(2)", ((centerThickness * 1e2).toLong() / 1e2).toString())
-                Log.i("(3)", ((edgeThickness * 1e2).toLong() / 1e2).toString())
-                Log.i("(4)", ((maxEdgeThickness * 1e2).toLong() / 1e2).toString())
-                Log.i("realFrontBaseCurveDptr", curve.toString())
-
-                showResultDialog(
-                        lensIndex.third,
-                        spherePowerString,
-                        cylinderPowerString,
-                        axisView,
-                        ((etOnCertainAxis * 1e2).toLong() / 1e2).toString(),
-                        centerString,
-                        edgeString,
-                        ((maxEdgeThickness * 1e2).toLong() / 1e2).toString(),
-                        curve.toString(),
-                        diameter.toString()
+                CalculatedData(
+                    refractionIndex = lensIndex.third,
+                    spherePower = spherePowerString,
+                    cylinderPower = cylinderPowerString,
+                    axis = axisView,
+                    thicknessOnAxis = ((etOnCertainAxis * 1e2).toLong() / 1e2).toString(),
+                    thicknessCenter = centerString,
+                    thicknessEdge = edgeString,
+                    thicknessMax = ((maxEdgeThickness * 1e2).toLong() / 1e2).toString(),
+                    realBaseCurve = curve.toString(),
+                    diameter = diameter.toString()
                 )
             }
+            interactor.calculatedData = calculatedData
+            state.value = State.ShowResultDialog(calculatedData)
         }
-    }
-
-    private fun showResultDialog(
-            refractionIndex: String,
-            spherePower: String,
-            cylinderPower: String?,
-            axis: String?,
-            thicknessOnAxis: String?,
-            thicknessCenter: String,
-            thicknessEdge: String,
-            thicknessMax: String?,
-            realBaseCurve: String,
-            diameter: String
-    ) {
-        val calculatedData = CalculatedData(
-                refractionIndex = refractionIndex,
-                spherePower = spherePower,
-                cylinderPower = cylinderPower,
-                axis = axis,
-                thicknessCenter = thicknessCenter,
-                thicknessEdge = thicknessEdge,
-                thicknessMax = thicknessMax,
-                thicknessOnAxis = thicknessOnAxis,
-                realBaseCurve = realBaseCurve,
-                diameter = diameter
-        )
-        interactor.calculatedData = calculatedData
-        state.value = State.ShowResultDialog(calculatedData)
     }
 
     private fun handleNoBaseCurveBehaviour(value: Double): Double {
