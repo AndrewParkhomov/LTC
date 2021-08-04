@@ -9,9 +9,9 @@ import kotlinx.android.synthetic.main.glossary.*
 import org.koin.android.ext.android.inject
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.adapter.AdapterGlossary
-import parkhomov.andrew.lensthicknesscalculator.data.glossary.GlossaryList
+import parkhomov.andrew.lensthicknesscalculator.data.GlossaryItem
 import parkhomov.andrew.lensthicknesscalculator.helper.PreferencesHelper
-import parkhomov.andrew.lensthicknesscalculator.utils.appLanguage
+import parkhomov.andrew.lensthicknesscalculator.utils.prefs.AppPreferencesHelper.Companion.APP_LANGUAGE
 
 /**
  * Class glossary list display lists with parameters titles, witch present in program.
@@ -26,8 +26,8 @@ class Glossary : Fragment(R.layout.glossary) {
         recycler_view_expandable.adapter = AdapterGlossary(createListWithData().data)
     }
 
-    private fun createListWithData(): GlossaryList {
-        val jsonId = when (preferencesHelper.getStringValue(appLanguage, "en")) {
+    private fun createListWithData(): GlossaryItem {
+        val jsonId = when (preferencesHelper.getStringValue(APP_LANGUAGE, "en")) {
             "po" -> R.raw.glossary_pt
             "uk" -> R.raw.glossary_ukr
             "ru" -> R.raw.glossary_rus
@@ -35,7 +35,7 @@ class Glossary : Fragment(R.layout.glossary) {
         }
         val text = resources.openRawResource(jsonId).bufferedReader().use { it.readText() }
 
-        val glossaryItem = Gson().fromJson(text, GlossaryList::class.java)
+        val glossaryItem = Gson().fromJson(text, GlossaryItem::class.java)
         for (item in glossaryItem.data) {
             val imageId = when (item.id) {
                 0 -> R.drawable.index_of_refraction_img

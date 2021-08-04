@@ -1,7 +1,7 @@
 package parkhomov.andrew.lensthicknesscalculator.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
+import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.interactor.Interactor
 
 class ViewModelResultImpl(

@@ -30,4 +30,8 @@ class AppPreferencesHelper(private val preferences: SharedPreferences) : Prefere
                 Float::class -> preferences.getFloat(key, default as Float) as T
                 else -> default
             }
+
+    companion object {
+        const val APP_LANGUAGE = "SAVE_LANGUAGE_ISO2"
+    }
 }

@@ -1,6 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.interactor
 
-import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
+import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 
 class Interactor {
     var calculatedData: CalculatedData? = null

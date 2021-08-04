@@ -2,9 +2,8 @@ package parkhomov.andrew.lensthicknesscalculator.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
+import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.interactor.Interactor
-import parkhomov.andrew.lensthicknesscalculator.utils.*
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -288,18 +287,18 @@ class ViewModelThicknessImpl(
 
     private fun handleNoBaseCurveBehaviour(value: Double): Double {
         val (tempCurveDouble, tempCurveString) = when {
-            value <= -8.0 -> Pair(base0, base0.toString())
-            value in -7.99..-6.0 -> Pair(base1, base1.toString())
-            value in -5.99..-4.0 -> Pair(base2, base2.toString())
-            value in -3.99..-2.0 -> Pair(base3, base3.toString())
-            value in -1.99..2.0 -> Pair(base4, base4.toString())
-            value in 2.01..2.99 -> Pair(base5, base5.toString())
-            value in 3.0..4.99 -> Pair(base6, base6.toString())
-            value in 5.0..5.99 -> Pair(base7, base7.toString())
-            value in 6.0..6.99 -> Pair(base8, base8.toString())
-            value in 7.0..7.99 -> Pair(base9, base9.toString())
-            value in 8.0..9.99 -> Pair(base10, base10.toString())
-            else -> Pair(base10_5, base10_5.toString())  // value >= 10.0
+            value <= -8.0 -> Pair(BASE_0, BASE_0.toString())
+            value in -7.99..-6.0 -> Pair(BASE_1, BASE_1.toString())
+            value in -5.99..-4.0 -> Pair(BASE_2, BASE_2.toString())
+            value in -3.99..-2.0 -> Pair(BASE_3, BASE_3.toString())
+            value in -1.99..2.0 -> Pair(BASE_4, BASE_4.toString())
+            value in 2.01..2.99 -> Pair(BASE_5, BASE_5.toString())
+            value in 3.0..4.99 -> Pair(BASE_6, BASE_6.toString())
+            value in 5.0..5.99 -> Pair(BASE_7, BASE_7.toString())
+            value in 6.0..6.99 -> Pair(BASE_8, BASE_8.toString())
+            value in 7.0..7.99 -> Pair(BASE_9, BASE_9.toString())
+            value in 8.0..9.99 -> Pair(BASE_10, BASE_10.toString())
+            else -> Pair(BASE_10_5, BASE_10_5.toString())  // value >= 10.0
         }
         state.value = State.SetCurrentBaseCurve(tempCurveString)
         return tempCurveDouble
@@ -361,10 +360,31 @@ class ViewModelThicknessImpl(
     }
 
     private fun getRealBackRadiusInMM(recalculatedSphereCurve: Double): Double =
-            (LAB_INDEX - 1) / (recalculatedSphereCurve / 1000)
+        (LAB_INDEX - 1) / (recalculatedSphereCurve / 1000)
 
     private fun getSag1Sphere(realBackRadiusInMM: Double, diameter: Double): Double {
-        return abs(realBackRadiusInMM) - sqrt(abs(realBackRadiusInMM).pow(2.0) - (diameter / 2).pow(2.0))    // sag of concave surface
+        return abs(realBackRadiusInMM) - sqrt(
+            abs(realBackRadiusInMM).pow(2.0) - (diameter / 2).pow(
+                2.0
+            )
+        )    // sag of concave surface
+    }
+
+    companion object {
+        const val LAB_INDEX = 1.53  // Constant index 1.53
+
+        const val BASE_0 = 0.001
+        const val BASE_1 = 1.0
+        const val BASE_2 = 2.0
+        const val BASE_3 = 3.0
+        const val BASE_4 = 4.0
+        const val BASE_5 = 5.0
+        const val BASE_6 = 6.0
+        const val BASE_7 = 7.0
+        const val BASE_8 = 8.0
+        const val BASE_9 = 9.0
+        const val BASE_10 = 10.0
+        const val BASE_10_5 = 10.5
     }
 
 }

@@ -2,7 +2,7 @@ package parkhomov.andrew.lensthicknesscalculator.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
+import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 
 abstract class ViewModelThickness : ViewModel() {
 

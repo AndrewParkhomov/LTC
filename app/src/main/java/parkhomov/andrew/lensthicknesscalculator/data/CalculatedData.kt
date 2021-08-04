@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.data.result
+package parkhomov.andrew.lensthicknesscalculator.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

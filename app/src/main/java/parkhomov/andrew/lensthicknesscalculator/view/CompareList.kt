@@ -10,7 +10,7 @@ import org.jetbrains.anko.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.compare_list.*
-import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
+import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.utils.getColorFromId
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelCompareList
@@ -84,25 +84,34 @@ class CompareList : Fragment(R.layout.compare_list) {
     }
 
     private fun createEmptyListView() {
-        container_main_compare.linearLayout {
+        container_main_compare.verticalLayout {
             lparams(matchParent, matchParent)
-            textView(R.string.compare_list_is_empty) {
+            textView(R.string.compare_list_is_empty_title) {
                 textSize = 26f
                 setTypeface(typeface, Typeface.BOLD)
                 textColor = context.getColorFromId(R.color.main_text_color)
                 gravity = Gravity.CENTER_HORIZONTAL
-                setPadding(0, dip(60), 0, 0)
-            }.lparams(matchParent, matchParent) {
+            }.lparams(wrapContent, wrapContent) {
+                setMargins(0, dip(60), 0, 0)
+                gravity = Gravity.CENTER_HORIZONTAL
+            }
+            textView(R.string.compare_list_is_empty_description) {
+                textSize = 20f
+                setTypeface(typeface, Typeface.NORMAL)
+                textColor = context.getColorFromId(R.color.main_text_color)
+                gravity = Gravity.CENTER_HORIZONTAL
+            }.lparams(wrapContent, wrapContent) {
+                setMargins(dip(20), dip(14), dip(20), 0)
                 gravity = Gravity.CENTER_HORIZONTAL
             }
         }
     }
 
     private fun ViewManager.createVerticalLayout(
-            item: CalculatedData,
-            textColorBlack: Int,
-            dividerColor: Int,
-            mTextSize: Float = 24f
+        item: CalculatedData,
+        textColorBlack: Int,
+        dividerColor: Int,
+        mTextSize: Float = 24f
     ): LinearLayout {
         return verticalLayout {
             getTextView(item.refractionIndex, textColorBlack, mTextSize)

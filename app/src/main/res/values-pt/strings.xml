@@ -79,7 +79,8 @@
     <string name="compare_list_max_edge_thickness">Esp max</string>
     <string name="compare_list_base_curve">Curva</string>
     <string name="compare_list_diameter">Diâmetro</string>
-    <string name="compare_list_is_empty">A lista está vazia</string>
+    <string name="compare_list_is_empty_title">A lista está vazia</string>
+    <string name="compare_list_is_empty_description">Você pode adicionar lentes na lista de comparação após o cálculo</string>
     <string name="compare_list_clear">Limpar lista</string>
     <!--  Material item list -->
     <string-array name="index_of_refraction">

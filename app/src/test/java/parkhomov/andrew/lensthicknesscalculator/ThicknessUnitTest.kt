@@ -3,6 +3,20 @@ package parkhomov.andrew.lensthicknesscalculator
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import parkhomov.andrew.lensthicknesscalculator.utils.*
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_1498
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_1530
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_1560
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_1610
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_1670
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_1740
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_X_1498
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_X_1530
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_X_1560
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_X_1610
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_X_1670
+import parkhomov.andrew.lensthicknesscalculator.view.Thickness.Companion.INDEX_X_1740
+import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelThicknessImpl
+import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelThicknessImpl.Companion.LAB_INDEX
 import java.util.*
 
 
@@ -442,21 +456,21 @@ class ThicknessUnitTest {
     }
 
     private fun handleNoBaseCurveBehaviour(value: Double): Double {
-        return when {
-            value <= -8.0 -> base0
-            value in -7.99..-6.0 -> base1
-            value in -5.99..-4.0 -> base2
-            value in -3.99..-2.0 -> base3
-            value in -1.99..2.0 -> base4
-            value in 2.01..2.99 -> base5
-            value in 3.0..4.99 -> base6
-            value in 5.0..5.99 -> base7
-            value in 6.0..6.99 -> base8
-            value in 7.0..7.99 -> base9
-            value in 8.0..9.99 -> base10
-            value >= 10.0 -> base10_5
-            else -> throw NoSuchElementException("There is no curve parameter for given sphere power")
+        val (tempCurveDouble, tempCurveString) = when {
+            value <= -8.0 -> Pair(ViewModelThicknessImpl.BASE_0, ViewModelThicknessImpl.BASE_0.toString())
+            value in -7.99..-6.0 -> Pair(ViewModelThicknessImpl.BASE_1, ViewModelThicknessImpl.BASE_1.toString())
+            value in -5.99..-4.0 -> Pair(ViewModelThicknessImpl.BASE_2, ViewModelThicknessImpl.BASE_2.toString())
+            value in -3.99..-2.0 -> Pair(ViewModelThicknessImpl.BASE_3, ViewModelThicknessImpl.BASE_3.toString())
+            value in -1.99..2.0 -> Pair(ViewModelThicknessImpl.BASE_4, ViewModelThicknessImpl.BASE_4.toString())
+            value in 2.01..2.99 -> Pair(ViewModelThicknessImpl.BASE_5, ViewModelThicknessImpl.BASE_5.toString())
+            value in 3.0..4.99 -> Pair(ViewModelThicknessImpl.BASE_6, ViewModelThicknessImpl.BASE_6.toString())
+            value in 5.0..5.99 -> Pair(ViewModelThicknessImpl.BASE_7, ViewModelThicknessImpl.BASE_7.toString())
+            value in 6.0..6.99 -> Pair(ViewModelThicknessImpl.BASE_8, ViewModelThicknessImpl.BASE_8.toString())
+            value in 7.0..7.99 -> Pair(ViewModelThicknessImpl.BASE_9, ViewModelThicknessImpl.BASE_9.toString())
+            value in 8.0..9.99 -> Pair(ViewModelThicknessImpl.BASE_10, ViewModelThicknessImpl.BASE_10.toString())
+            else -> Pair(ViewModelThicknessImpl.BASE_10_5, ViewModelThicknessImpl.BASE_10_5.toString())  // value >= 10.0
         }
+        return tempCurveDouble
     }
 
     private fun getReaRadiusInMM(curveInDptr: Double): Double =

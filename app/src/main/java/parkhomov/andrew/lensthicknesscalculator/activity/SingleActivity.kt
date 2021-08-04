@@ -9,7 +9,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -22,12 +21,11 @@ import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivity
 import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivity.State
-import parkhomov.andrew.lensthicknesscalculator.data.result.CalculatedData
+import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.helper.PreferencesHelper
 import parkhomov.andrew.lensthicknesscalculator.utils.MyContextWrapper
-import parkhomov.andrew.lensthicknesscalculator.utils.appLanguage
-import parkhomov.andrew.lensthicknesscalculator.utils.navigation.BackButtonListener
+import parkhomov.andrew.lensthicknesscalculator.utils.prefs.AppPreferencesHelper.Companion.APP_LANGUAGE
 import parkhomov.andrew.lensthicknesscalculator.view.Language
 import java.util.*
 
@@ -38,10 +36,10 @@ class SingleActivity : AppCompatActivity(R.layout.activity) {
     private val viewModel: ViewModelActivity by viewModel()
 
     override fun attachBaseContext(context: Context) {
-        var language = preferencesHelper.getStringValue(appLanguage, "")
+        var language = preferencesHelper.getStringValue(APP_LANGUAGE, "")
         if (language.isEmpty()) {
             language = Locale.getDefault().isO3Language.substring(0, 2)
-            preferencesHelper.putStringValue(appLanguage, language)
+            preferencesHelper.putStringValue(APP_LANGUAGE, language)
         }
         super.attachBaseContext(MyContextWrapper.wrap(context, language))
     }
@@ -162,24 +160,6 @@ class SingleActivity : AppCompatActivity(R.layout.activity) {
 
     private fun showSnackbar(resId: Int) {
         Snackbar.make(container_parent, resId, Snackbar.LENGTH_LONG).show()
-    }
-
-    override fun onBackPressed() {
-        var fragment: Fragment? = null
-        val fragments = supportFragmentManager.fragments
-        for (f in fragments) {
-            if (f.isVisible) {
-                fragment = f
-                break
-            }
-        }
-        if (fragment != null
-                && fragment is BackButtonListener
-                && (fragment as BackButtonListener).onBackPressed()) {
-            return
-        } else {
-            super.onBackPressed()
-        }
     }
 
     private fun showAboutDialog() {
