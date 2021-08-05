@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/navigation_thickness"
@@ -21,9 +22,8 @@
         android:icon="@drawable/ic_transposition"
         android:title="@string/fragment_transposition" />
 
-    <item
-        android:id="@+id/navigation_glossary"
-        android:icon="@drawable/ic_glossary"
-        android:title="@string/fragment_glossary" />
+
+    <item android:id="@+id/placeholder"
+        android:title="" />
 
 </menu>

@@ -1,9 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recycler_view_expandable"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_glossary_item"
+    android:layout_gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:focusable="true"
-    android:scrollbars="vertical" />
+    android:layout_height="wrap_content">
+
+    <HorizontalScrollView
+        android:id="@+id/scroll_view_for_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:fillViewport="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars" />
+
+    </HorizontalScrollView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_title"
+        style="@style/SimpleText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_view_for_image"
+        tools:text="@tools:sample/lorem" />
+
+    <ScrollView
+        android:id="@+id/scroll_view_for_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:fadeScrollbars="false"
+        android:paddingEnd="2dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarSize="2dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_title"
+        tools:ignore="RtlSymmetry">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_description"
+            style="@style/SimpleText"
+            android:paddingEnd="4dp"
+            android:paddingBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            tools:text="@tools:sample/lorem" />
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

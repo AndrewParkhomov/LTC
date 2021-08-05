@@ -7,8 +7,7 @@ import org.junit.Test
 import org.junit.rules.TestRule
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.interactor.Interactor
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelThickness
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelThicknessImpl
+import parkhomov.andrew.lensthicknesscalculator.view.thickness.ThicknessViewModel
 
 class ThicknessUnitTest {
 
@@ -16,7 +15,7 @@ class ThicknessUnitTest {
     var rule: TestRule = InstantTaskExecutorRule()
 
     private val interactor: Interactor = Interactor()
-    private val viewModel: ViewModelThickness = ViewModelThicknessImpl(interactor)
+    private val viewModel: ThicknessViewModel = ThicknessViewModel(interactor)
 
     @Test
     fun `calculation 1`() {

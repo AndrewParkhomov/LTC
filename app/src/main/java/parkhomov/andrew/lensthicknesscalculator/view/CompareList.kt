@@ -1,23 +1,28 @@
 package parkhomov.andrew.lensthicknesscalculator.view
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.*
+import android.view.Gravity
+import android.view.View
 import android.widget.LinearLayout
-import android.widget.LinearLayout.*
+import android.widget.LinearLayout.LayoutParams
+import android.widget.LinearLayout.VERTICAL
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.compare_list.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.utils.dip
 import parkhomov.andrew.lensthicknesscalculator.utils.getColorFromId
+import parkhomov.andrew.lensthicknesscalculator.utils.shortCollect
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelCompareList
 
 
@@ -27,26 +32,25 @@ class CompareList : Fragment(R.layout.compare_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observe(viewModel.state) { onStateChanged(it) }
+        setFlowListeners()
         viewModel.getListForCompare()
-        setClickListener()
+        viewModel.setMainFabIcon(R.drawable.ic_outline_delete_24)
     }
 
-    private fun setClickListener() {
-        text_view_clear_list.setOnClickListener {
-            viewModel.clearCompareList()
-            container_description.removeAllViews()
-            linear_scroll_container.removeAllViews()
-            setEmptyContainerVisibility(true)
-            setClearButtonVisibility(false)
-            createEmptyListView()
-        }
+    private fun setFlowListeners() {
+        viewModel.onFabClicked.onEach { onClearButtonClicked() }.shortCollect(lifecycleScope)
     }
 
-    private fun setClearButtonVisibility(isVisible: Boolean){
-        text_view_clear_list.isVisible = isVisible
+    private fun onClearButtonClicked() {
+        viewModel.clearCompareList()
+        container_description.removeAllViews()
+        container_list_empty.removeAllViews()
+        linear_scroll_container.removeAllViews()
+        setEmptyContainerVisibility(true)
+        createEmptyListView()
     }
 
-    private fun setEmptyContainerVisibility(isVisible: Boolean){
+    private fun setEmptyContainerVisibility(isVisible: Boolean) {
         container_list_empty.isVisible = isVisible
     }
 
@@ -63,7 +67,6 @@ class CompareList : Fragment(R.layout.compare_list) {
 
     private fun setUpAdapter(compareSet: MutableSet<CalculatedData>) {
         setEmptyContainerVisibility(compareSet.isEmpty())
-        setClearButtonVisibility(compareSet.isNotEmpty())
         if (compareSet.isEmpty()) {
             createEmptyListView()
         }else {

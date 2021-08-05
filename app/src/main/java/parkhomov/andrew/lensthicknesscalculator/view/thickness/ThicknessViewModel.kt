@@ -1,31 +1,46 @@
-package parkhomov.andrew.lensthicknesscalculator.viewmodel
+package parkhomov.andrew.lensthicknesscalculator.view.thickness
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.interactor.Interactor
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-class ViewModelThicknessImpl(
-        private val interactor: Interactor
-) : ViewModelThickness() {
+class ThicknessViewModel(
+    private val interactor: Interactor
+) : ViewModel() {
 
-    override val state: MutableLiveData<State> = MutableLiveData()
 
-    override fun clearEvents() {
-        state.value = null
-    }
+    private val _errorSphere = MutableStateFlow(false)
+    val errorSphere: StateFlow<Boolean> = _errorSphere.asStateFlow()
+    private val _errorDiameter = MutableStateFlow(false)
+    val errorDiameter: StateFlow<Boolean> = _errorDiameter.asStateFlow()
+    private val _errorCenter = MutableStateFlow(false)
+    val errorCenter: StateFlow<Boolean> = _errorCenter.asStateFlow()
+    private val _setCurve = MutableStateFlow("")
+    val setCurve: StateFlow<String> = _setCurve.asStateFlow()
+    private val _showResult = MutableStateFlow<CalculatedData?>(null)
+    val showResult: StateFlow<CalculatedData?> = _showResult.asStateFlow()
 
-    override fun onCalculateBtnClicked(
-            lensIndex: Triple<Double, Double, String>,
-            spherePowerString: String,
-            cylinderPowerString: String,
-            axisString: String,
-            curveString: String,
-            centerThicknessString: String,
-            edgeThicknessString: String,
-            diameterString: String
+    val onFabClicked: Flow<Unit> = interactor.onFabClicked
+
+    fun setMainFabIcon(imageId: Int) = interactor.setMainFabIcon(imageId)
+    fun onGlossaryItemClicked(imageId: Int)= interactor.setGlossaryItemClicked(imageId)
+
+    fun onCalculateBtnClicked(
+        lensIndex: Triple<Double, Double, String>,
+        spherePowerString: String,
+        cylinderPowerString: String,
+        axisString: String,
+        curveString: String,
+        centerThicknessString: String,
+        edgeThicknessString: String,
+        diameterString: String
     ) {
         val axisView: String
 
@@ -76,27 +91,26 @@ class ViewModelThicknessImpl(
         var isContinueCalculation = true
 
         if (spherePower == null) {
-            state.value = State.HighlightSpherePower(true)
+            _errorSphere.tryEmit(true)
             isContinueCalculation = false
         } else {
-            state.value = State.HighlightSpherePower(false)
-
+            _errorSphere.tryEmit(false)
             if (spherePower <= 0.0) {
                 isContinueCalculation = if (centerThickness == null) {
-                    state.value = State.HighlightCenterThickness(true)
+                    _errorCenter.tryEmit(true)
                     false
                 } else {
-                    state.value = State.HighlightCenterThickness(false)
+                    _errorCenter.tryEmit(false)
                     true
                 }
             }
         }
 
         if (diameter == null) {
-            state.value = State.HighlightDiameter(true)
+            _errorDiameter.tryEmit(true)
             isContinueCalculation = false
         } else {
-            state.value = State.HighlightDiameter(false)
+            _errorDiameter.tryEmit(false)
         }
 
         if (isContinueCalculation) {
@@ -225,7 +239,7 @@ class ViewModelThicknessImpl(
                 )
             }
             interactor.calculatedData = calculatedData
-            state.value = State.ShowResultDialog(calculatedData)
+            _showResult.tryEmit(calculatedData)
         }
     }
 
@@ -244,7 +258,7 @@ class ViewModelThicknessImpl(
             value in 8.0..9.99 -> Pair(BASE_10, BASE_10.toString())
             else -> Pair(BASE_10_5, BASE_10_5.toString())  // value >= 10.0
         }
-        state.value = State.SetCurrentBaseCurve(tempCurveString)
+        _setCurve.tryEmit(tempCurveString)
         return tempCurveDouble
     }
 

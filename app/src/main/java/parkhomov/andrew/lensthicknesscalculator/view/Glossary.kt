@@ -1,51 +1,49 @@
 package parkhomov.andrew.lensthicknesscalculator.view
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
+import androidx.core.view.doOnPreDraw
+import androidx.core.view.updateLayoutParams
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.glossary.*
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.adapter.AdapterGlossary
 import parkhomov.andrew.lensthicknesscalculator.data.GlossaryItem
+import parkhomov.andrew.lensthicknesscalculator.utils.argument
+import parkhomov.andrew.lensthicknesscalculator.utils.getDrawableFromId
 
-/**
- * Class glossary list display lists with parameters titles, witch present in program.
- */
 
-class Glossary : Fragment(R.layout.glossary) {
+class Glossary : DialogFragment(R.layout.glossary) {
+
+    private val glossary by argument<GlossaryItem>(GLOSSARY)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recycler_view_expandable.layoutManager = LinearLayoutManager(requireContext())
-        recycler_view_expandable.adapter = AdapterGlossary(createListWithData())
-    }
+        dialog?.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
 
-    private fun createListWithData(): List<GlossaryItem> {
-        val titles = resources.getStringArray(R.array.titles)
-        val descriptions = resources.getStringArray(R.array.descriptions)
-        return titles.zip(descriptions).mapIndexed { index, pair ->
-            GlossaryItem(
-                title = pair.first,
-                description = pair.second,
-                imageId = getImageId(index)
-            )
+        text_view_title.text = glossary.title
+        text_view_description.text = glossary.description
+        image_view_picture.setImageDrawable(getDrawableFromId(glossary.imageId))
+
+        val screenWidth = Resources.getSystem().displayMetrics.heightPixels
+        scroll_view_for_text.doOnPreDraw {
+            if (it.measuredHeight > screenWidth / 2) {
+                scroll_view_for_text.updateLayoutParams<LayoutParams> {
+                    height = (screenWidth / 2.6).toInt()
+                }
+            }
         }
     }
 
-    private fun getImageId(position: Int): Int {
-        return when (position) {
-            1 -> R.drawable.sphere_img
-            2 -> R.drawable.cylinder_img
-            3 -> R.drawable.axis_img
-            4 -> R.drawable.front_curve_img
-            5 -> R.drawable.thickness_gauge_img
-            6 -> R.drawable.edge_thickness_img
-            7 -> R.drawable.diam_img
-            8 -> R.drawable.ed_img
-            9 -> R.drawable.dbl_img
-            10 -> R.drawable.pd_img
-            11 -> R.drawable.transposition_img
-            else -> R.drawable.index_of_refraction_img
+    fun show(fragmentManager: FragmentManager) = super.show(fragmentManager, GLOSSARY)
+
+    companion object {
+        private const val GLOSSARY = "GLOSSARY"
+        fun getInstance(item: GlossaryItem) = Glossary().apply {
+            arguments = Bundle(1).apply {
+                putParcelable(GLOSSARY, item)
+            }
         }
     }
 }

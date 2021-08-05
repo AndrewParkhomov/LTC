@@ -10,6 +10,9 @@
         style="@style/TextInputWrapper"
         android:layout_marginTop="14dp"
         android:hint="@string/transposition_power_sphere"
+        android:layout_width="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,6 +30,9 @@
         style="@style/TextInputWrapper"
         android:layout_marginTop="8dp"
         android:hint="@string/transposition_power_cylinder"
+        android:layout_width="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wrapper_sphere">
@@ -44,6 +50,9 @@
         style="@style/TextInputWrapper"
         android:layout_marginTop="8dp"
         android:hint="@string/transposition_axis"
+        android:layout_width="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wrapper_cylinder">
@@ -60,18 +69,28 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_view_result"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="14dp"
         android:lineSpacingExtra="8dp"
         style="@style/SimpleText"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/image_view_info_transposition"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wrapper_axis"
         tools:text="sphere +5 cylinder -1 axis 93" />
 
+    <ImageView
+        android:id="@+id/image_view_info_transposition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_view_result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_view_result"
+        app:srcCompat="@drawable/ic_outline_info_24"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

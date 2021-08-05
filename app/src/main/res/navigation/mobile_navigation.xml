@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_thickness"
-        android:name="parkhomov.andrew.lensthicknesscalculator.view.Thickness"
+        android:name="parkhomov.andrew.lensthicknesscalculator.view.thickness.Thickness"
         android:label="@string/fragment_thickness"
         tools:layout="@layout/thickness" />
 
@@ -19,20 +19,14 @@
 
     <fragment
         android:id="@+id/navigation_diameter"
-        android:name="parkhomov.andrew.lensthicknesscalculator.view.Diameter"
+        android:name="parkhomov.andrew.lensthicknesscalculator.view.diameter.Diameter"
         android:label="@string/fragment_diameter"
         tools:layout="@layout/diameter" />
     
     <fragment
         android:id="@+id/navigation_transposition"
-        android:name="parkhomov.andrew.lensthicknesscalculator.view.Transposition"
+        android:name="parkhomov.andrew.lensthicknesscalculator.view.transposition.Transposition"
         android:label="@string/fragment_transposition"
         tools:layout="@layout/transposition" />
-    
-    <fragment
-        android:id="@+id/navigation_glossary"
-        android:name="parkhomov.andrew.lensthicknesscalculator.view.Glossary"
-        android:label="@string/fragment_glossary"
-        tools:layout="@layout/glossary" />
     
 </navigation>

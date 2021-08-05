@@ -19,10 +19,9 @@ import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelResult
 class Result : DialogFragment(R.layout.dialog_result) {
 
     private val viewModel: ViewModelResult by viewModel()
-    private val result by argument<CalculatedData>(TAG)
+    private val result by argument<CalculatedData>(RESULT)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        dialog?.window?.setBackgroundDrawableResource(R.drawable.background_rounded_corners_white)
 
         observe(viewModel.state) { onStateChanged(it) }
         viewModel.checkState(result)
@@ -45,8 +44,8 @@ class Result : DialogFragment(R.layout.dialog_result) {
     private fun onStateChanged(event: ViewModelResult.State) {
         val add = getString(R.string.result_add_to_list)
         val remove = getString(R.string.result_remove_from_list)
-        val addImage = context?.getDrawableFromId(R.drawable.ic_add_black)!!
-        val removeImage = context?.getDrawableFromId(R.drawable.ic_remove_black)!!
+        val addImage = getDrawableFromId(R.drawable.ic_add_black)
+        val removeImage = getDrawableFromId(R.drawable.ic_remove_black)
 
         when (event) {
             is ViewModelResult.State.AddToList -> {
@@ -105,13 +104,13 @@ class Result : DialogFragment(R.layout.dialog_result) {
         text_view_diameter.text = getString(R.string.result_diameter, data.diameter)
     }
 
-    fun show(fragmentManager: FragmentManager) = super.show(fragmentManager, TAG)
+    fun show(fragmentManager: FragmentManager) = super.show(fragmentManager, RESULT)
 
     companion object {
-        val TAG: String = Result::class.java.name
+        private const val RESULT = "RESULT"
         fun getInstance(calculatedData: CalculatedData) = Result().apply {
             arguments = Bundle(1).apply {
-                putParcelable(TAG, calculatedData)
+                putParcelable(RESULT, calculatedData)
             }
         }
     }

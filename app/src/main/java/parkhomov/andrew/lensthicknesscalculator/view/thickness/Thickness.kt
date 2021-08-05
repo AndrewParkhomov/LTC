@@ -1,4 +1,4 @@
-package parkhomov.andrew.lensthicknesscalculator.view
+package parkhomov.andrew.lensthicknesscalculator.view.thickness
 
 import android.content.Context
 import android.os.Bundle
@@ -9,50 +9,42 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.android.synthetic.main.activity.*
 import kotlinx.android.synthetic.main.thickness.*
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.extension.observe
 import parkhomov.andrew.lensthicknesscalculator.utils.*
-import parkhomov.andrew.lensthicknesscalculator.viewmodel.ViewModelThickness
+import parkhomov.andrew.lensthicknesscalculator.view.Result
 
 
 class Thickness : Fragment(R.layout.thickness) {
 
-    private val viewModel: ViewModelThickness by viewModel()
+    private val viewModel: ThicknessViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observe(viewModel.state) { onStateChanged(it) }
+        viewModel.setMainFabIcon(R.drawable.calculate)
+        setFlowListeners()
+        setClickListeners()
 
         sphere_.addTextChangedListener(GenericTextWatcher())
         cylinder_.addTextChangedListener(GenericTextWatcher())
-
-        button_calculate.setOnClickListener {
-            viewModel.onCalculateBtnClicked(
-                    getLensIndex(),
-                    sphere_.text.toString(),
-                    cylinder_.text.toString(),
-                    axis_.text.toString(),
-                    curve_.text.toString(),
-                    center_thickness.text.toString(),
-                    edge_thickness.text.toString(),
-                    diameter_.text.toString()
-            )
-        }
         text_view_spinner.setOnClickListener { spinner.performClick() }
 
         curve_.setOnEditorActionListener(
-                TextView.OnEditorActionListener { _, actionId, _ ->
-                    if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                        if (wrapper_center_thickness.isEnabled) {
-                            wrapper_center_thickness.requestFocus()
-                        } else if (wrapper_edge_thickness.isEnabled) {
-                            wrapper_edge_thickness.requestFocus()
-                        }
-                        return@OnEditorActionListener true
+            TextView.OnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    if (wrapper_center_thickness.isEnabled) {
+                        wrapper_center_thickness.requestFocus()
+                    } else if (wrapper_edge_thickness.isEnabled) {
+                        wrapper_edge_thickness.requestFocus()
                     }
-                    false
-                })
+                    return@OnEditorActionListener true
+                }
+                false
+            })
 
         center_thickness.setOnEditorActionListener(
                 TextView.OnEditorActionListener { _, actionId, _ ->
@@ -68,34 +60,63 @@ class Thickness : Fragment(R.layout.thickness) {
                 })
 
         diameter_.setOnEditorActionListener(
-                TextView.OnEditorActionListener { _, actionId, _ ->
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        button_calculate.performClick()
-                        return@OnEditorActionListener true
-                    }
-                    false
-                })
+            TextView.OnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    onCalculateButtonClicked()
+                    return@OnEditorActionListener true
+                }
+                false
+            })
     }
 
-    private fun onStateChanged(event: ViewModelThickness.State) {
-        when (event) {
-            is ViewModelThickness.State.HighlightSpherePower -> {
-                highlightSpherePower(event.isShowError)
+    private fun setClickListeners() {
+        val glossaryClickListener = View.OnClickListener {
+            val imageId = when(it.id){
+                image_view_info_sphere.id -> R.drawable.sphere_img
+                image_view_info_cylinder.id -> R.drawable.cylinder_img
+                image_view_info_axis.id -> R.drawable.axis_img
+                image_view_info_base_curve.id -> R.drawable.front_curve_img
+                image_view_info_center_thickness.id -> R.drawable.thickness_gauge_img
+                image_view_info_edge_thickness.id -> R.drawable.edge_thickness_img
+                image_view_info_diameter.id -> R.drawable.diam_img
+                else -> R.drawable.index_of_refraction_img
             }
-            is ViewModelThickness.State.HighlightDiameter -> {
-                highlightDiameter(event.isShowError)
-            }
-            is ViewModelThickness.State.HighlightCenterThickness -> {
-                highlightCenterThickness(event.isShowError)
-            }
-            is ViewModelThickness.State.SetCurrentBaseCurve -> {
-                setCurrentBaseCurve(event.curveValue)
-            }
-            is ViewModelThickness.State.ShowResultDialog -> {
-                Result.getInstance(event.calculatedData).show(childFragmentManager)
-            }
+            viewModel.onGlossaryItemClicked(imageId)
         }
+        image_view_info_refraction.setOnClickListener(glossaryClickListener)
+        image_view_info_sphere.setOnClickListener(glossaryClickListener)
+        image_view_info_cylinder.setOnClickListener(glossaryClickListener)
+        image_view_info_axis.setOnClickListener(glossaryClickListener)
+        image_view_info_base_curve.setOnClickListener(glossaryClickListener)
+        image_view_info_center_thickness.setOnClickListener(glossaryClickListener)
+        image_view_info_edge_thickness.setOnClickListener(glossaryClickListener)
+        image_view_info_diameter.setOnClickListener(glossaryClickListener)
     }
+
+    private fun setFlowListeners() {
+        viewModel.showResult.filterNotNull().onEach { calculatedData ->
+            Result.getInstance(calculatedData).show(childFragmentManager)
+        }.shortCollect(lifecycleScope)
+        viewModel.onFabClicked.onEach { onCalculateButtonClicked() }.shortCollect(lifecycleScope)
+        viewModel.errorSphere.onEach(::highlightSpherePower).shortCollect(lifecycleScope)
+        viewModel.errorCenter.onEach(::highlightCenterThickness).shortCollect(lifecycleScope)
+        viewModel.errorDiameter.onEach(::highlightDiameter).shortCollect(lifecycleScope)
+        viewModel.setCurve.onEach(::setCurrentBaseCurve).shortCollect(lifecycleScope)
+    }
+
+    private fun onCalculateButtonClicked() {
+        viewModel.onCalculateBtnClicked(
+            getLensIndex(),
+            sphere_.text.toString(),
+            cylinder_.text.toString(),
+            axis_.text.toString(),
+            curve_.text.toString(),
+            center_thickness.text.toString(),
+            edge_thickness.text.toString(),
+            diameter_.text.toString()
+        )
+    }
+
 
     private fun getLensIndex(): Triple<Double, Double, String> {
         val spinnerText = spinner.selectedItem.toString()
@@ -109,11 +130,6 @@ class Thickness : Fragment(R.layout.thickness) {
             6 -> Triple(INDEX_1740, INDEX_X_1740, spinnerText)
             else -> throw NoSuchElementException("No valid lens index of refraction provided")
         }
-    }
-
-    override fun onDestroyView() {
-        viewModel.clearEvents()
-        super.onDestroyView()
     }
 
     private fun highlightSpherePower(isShowError: Boolean) {
@@ -154,9 +170,9 @@ class Thickness : Fragment(R.layout.thickness) {
 
         val enabled = R.style.HintTextAppearanceEnable
         val disabled = R.style.HintTextAppearanceDisable
-        val colorTextEnable = activity!!.getColorFromId(R.color.main_text_color)
-        val colorEnable = activity!!.getColorFromId(R.color.accent)
-        val colorDisable = activity!!.getColorFromId(R.color.gray_400)
+        val colorTextEnable = getColorFromId(R.color.main_text_color)
+        val colorEnable = getColorFromId(R.color.accent)
+        val colorDisable = getColorFromId(R.color.gray_400)
 
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 

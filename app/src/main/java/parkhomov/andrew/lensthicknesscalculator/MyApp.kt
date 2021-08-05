@@ -9,11 +9,13 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
-import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivity
-import parkhomov.andrew.lensthicknesscalculator.activity.viewmodel.ViewModelActivityImpl
+import parkhomov.andrew.lensthicknesscalculator.activity.MainActivityViewModel
 import parkhomov.andrew.lensthicknesscalculator.helper.PreferencesHelper
 import parkhomov.andrew.lensthicknesscalculator.interactor.Interactor
 import parkhomov.andrew.lensthicknesscalculator.utils.prefs.AppPreferencesHelper
+import parkhomov.andrew.lensthicknesscalculator.view.diameter.DiameterViewModel
+import parkhomov.andrew.lensthicknesscalculator.view.thickness.ThicknessViewModel
+import parkhomov.andrew.lensthicknesscalculator.view.transposition.TranspositionViewModel
 import parkhomov.andrew.lensthicknesscalculator.viewmodel.*
 
 
@@ -25,13 +27,13 @@ class MyApp : MultiDexApplication() {
         single<PreferencesHelper> { AppPreferencesHelper(get()) }
         single { Interactor() }
 
-        viewModel<ViewModelActivity> { ViewModelActivityImpl(get()) }
+        viewModel{ MainActivityViewModel(get()) }
         viewModel<ViewModelLanguage> { ViewModelLanguageImpl(get()) }
-        viewModel<ViewModelThickness> { ViewModelThicknessImpl(get()) }
+        viewModel { ThicknessViewModel(get()) }
+        viewModel { DiameterViewModel(get()) }
         viewModel<ViewModelResult> { ViewModelResultImpl(get()) }
-        viewModel<ViewModelDiameter> { ViewModelDiameterImpl() }
         viewModel<ViewModelCompareList> { ViewModelCompareListImpl(get()) }
-        viewModel<ViewModelTransposition> { ViewModelTranspositionImpl() }
+        viewModel { TranspositionViewModel(get()) }
     }
 
     override fun onCreate() {

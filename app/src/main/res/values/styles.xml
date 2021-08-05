@@ -25,8 +25,6 @@
         <item name="hintTextAppearance">@style/HintTextAppearanceEnable</item>
         <item name="boxStrokeColor">@color/accent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
         <item name="android:textColorHint">@color/main_text_color</item>
     </style>
 

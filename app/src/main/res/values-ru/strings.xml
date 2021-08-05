@@ -24,10 +24,10 @@
     <string name="tab_thkns_provide_center_thickness">Пожалуйста, введите толщину по центру</string>
     <string name="tab_thkns_provide_diameter">Пожалуйста, введите диаметр линзы</string>
     <!-- Diameter hints -->
-    <string name="tab_diameter_hint_ed">Эффективный диаметр %1$.0f.00</string>
-    <string name="tab_diameter_hint_dbl">Расстояние между линзами %1$.0f.00</string>
-    <string name="tab_diameter_hint_pd">Расстояние между зрачками %1$.0f.00</string>
-    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f.0 mm</string>
+    <string name="tab_diameter_hint_ed">Эффективный диаметр %1$.0f мм</string>
+    <string name="tab_diameter_hint_dbl">Расстояние между линзами %1$.0f мм</string>
+    <string name="tab_diameter_hint_pd">Расстояние между зрачками %1$.0f мм</string>
+    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f мм</string>
     <!-- Result -->
     <string name="result_index_of_refraction">Индекс преломления: %1$s</string>
     <string name="result_sphere_power">Сфера: %1$s</string>

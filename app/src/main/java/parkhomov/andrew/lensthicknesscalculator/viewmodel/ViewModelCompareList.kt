@@ -2,6 +2,7 @@ package parkhomov.andrew.lensthicknesscalculator.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.Flow
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 
 abstract class ViewModelCompareList : ViewModel() {
@@ -15,5 +16,7 @@ abstract class ViewModelCompareList : ViewModel() {
 
     abstract fun getListForCompare()
     abstract fun clearCompareList()
+    abstract fun setMainFabIcon(imageId: Int)
 
+    abstract val onFabClicked: Flow<Unit>
 }

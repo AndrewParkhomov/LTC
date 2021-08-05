@@ -24,10 +24,10 @@
     <string name="tab_thkns_provide_center_thickness">Forneça a espessura do centro</string>
     <string name="tab_thkns_provide_diameter">Forneça o diâmetro da lente</string>
     <!-- Diameter hints -->
-    <string name="tab_diameter_hint_ed">Diâmetro efetivo %1$.0f.00</string>
-    <string name="tab_diameter_hint_dbl">Distância entre as lentes %1$.0f.00</string>
-    <string name="tab_diameter_hint_pd">Distância Pupilar %1$.0f.00</string>
-    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f.0 mm</string>
+    <string name="tab_diameter_hint_ed">Diâmetro efetivo %1$.0f mm</string>
+    <string name="tab_diameter_hint_dbl">Distância entre as lentes %1$.0f mm</string>
+    <string name="tab_diameter_hint_pd">Distância Pupilar %1$.0f mm</string>
+    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f mm</string>
     <!-- Result -->
     <string name="result_index_of_refraction">Índice de refração: %1$s</string>
     <string name="result_sphere_power">Grau Esfėrico: %1$s</string>
