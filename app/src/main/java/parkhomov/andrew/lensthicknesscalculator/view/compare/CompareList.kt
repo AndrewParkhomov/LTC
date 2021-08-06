@@ -86,7 +86,7 @@ class CompareList : Fragment(R.layout.compare_list) {
     }
 
     private fun createEmptyListView() {
-        val title = TextView(requireContext()).apply {
+        val title = TextView(requireContext(), null, R.style.SimpleText).apply {
             layoutParams =
                 LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
                     setMargins(0, dip(60), 0, 0)
@@ -98,7 +98,7 @@ class CompareList : Fragment(R.layout.compare_list) {
             setTextColor(getColorFromId(R.color.FF85121212))
             gravity = Gravity.CENTER_HORIZONTAL
         }
-        val description = TextView(requireContext()).apply {
+        val description = TextView(requireContext(),null, R.style.SimpleText).apply {
             layoutParams =
                 LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
                     setMargins(dip(20), dip(14), dip(20), 0)
@@ -147,7 +147,7 @@ class CompareList : Fragment(R.layout.compare_list) {
     }
 
     private fun Context.getTextView(text: String?, color: Int, mTextSize: Float = 24f): TextView {
-        return TextView(this).apply {
+        return TextView(this,null, R.style.SimpleText).apply {
             layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, dip(44))
             textSize = mTextSize
             setTextColor(color)

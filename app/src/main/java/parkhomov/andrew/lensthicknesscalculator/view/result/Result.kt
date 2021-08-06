@@ -41,7 +41,8 @@ class Result : DialogFragment(R.layout.result) {
 
         text_view_add_to_compare_list.compoundDrawablePadding = requireContext().dip(10)
         text_view_add_to_compare_list.text = if (!isInList) add else remove
-        image_view_add.setImageDrawable(if (!isInList) addImage else removeImage)
+        val image = if (!isInList) addImage else removeImage
+        text_view_add_to_compare_list.setCompoundDrawables(image, null ,null, null)
     }
 
     private fun stateChanged(
@@ -54,7 +55,7 @@ class Result : DialogFragment(R.layout.result) {
         val text = if (isAdd) remove else add
         val image = if (isAdd) removeImage else addImage
         text_view_add_to_compare_list.text = text
-        image_view_add.setImageDrawable(image)
+        text_view_add_to_compare_list.setCompoundDrawables(image, null ,null, null)
     }
 
     private fun showCylinderViews(isShow: Boolean) {

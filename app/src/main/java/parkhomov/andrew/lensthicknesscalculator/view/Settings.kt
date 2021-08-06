@@ -1,12 +1,15 @@
 package parkhomov.andrew.lensthicknesscalculator.view
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
@@ -69,13 +72,11 @@ class Settings : DialogFragment(R.layout.settings) {
         languageFullName: String,
         languageCode: String
     ): RadioButton {
-        return RadioButton(this).apply {
+        val mContext = ContextThemeWrapper(this, R.style.RadioButtonStyle)
+        return RadioButton(mContext).apply {
             id = View.generateViewId()
-            background = null
             text = languageFullName
-            textSize = 24f
             isChecked = languageCode == currentLanguage
-            setPadding(dip(10), dip(12), dip(10), dip(12))
             layoutParams = LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT

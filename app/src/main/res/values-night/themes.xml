@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/FF0288D1</item>
         <item name="colorPrimaryDark">@color/FF005b9f</item>
         <item name="colorAccent">@color/FF5eb8ff</item>
+        <item name="android:fontFamily">@font/raleway</item>
         <item name="android:windowBackground">@color/FF838383</item>
     </style>
 

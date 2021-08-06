@@ -7,11 +7,11 @@ apply plugin: 'com.google.gms.google-services'
 android {
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
-    compileSdkVersion globalConfiguration["build_version"]
+    compileSdkVersion globalConfiguration["compile_version"]
 
     defaultConfig {
         minSdkVersion globalConfiguration["min_version"]
-        targetSdkVersion globalConfiguration["compile_version"]
+        targetSdkVersion globalConfiguration["target_version"]
         versionCode globalConfiguration["version_code"]
         versionName globalConfiguration["version_name"]
         applicationId globalConfiguration["application_id"]

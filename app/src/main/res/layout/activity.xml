@@ -19,7 +19,7 @@
         android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/FF0288D1"
+        app:backgroundTint="@color/navigation_bar_color"
         app:fabCradleMargin="14dp"
         app:fabAlignmentMode="end"
         app:fabCradleVerticalOffset="8dp"
@@ -32,8 +32,8 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="50dp"
             android:layout_alignParentBottom="true"
-            app:itemTextColor="@color/FFFFFFFF"
-            app:itemIconTint="@color/FFFFFFFF"
+            app:itemTextColor="@color/button_tint"
+            app:itemIconTint="@color/button_tint"
             app:itemRippleColor="@android:color/transparent"
             android:background="@android:color/transparent"
             app:menu="@menu/bottom_nav_menu" />
@@ -45,8 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/calculate"
-        app:backgroundTint="@color/FF0288D1"
-        app:tint="@color/FFFFFFFF"
+        app:backgroundTint="@color/navigation_bar_color"
+        app:tint="@color/button_tint"
         app:layout_anchor="@id/bottom_app_bar"
         tools:ignore="ContentDescription" />
 

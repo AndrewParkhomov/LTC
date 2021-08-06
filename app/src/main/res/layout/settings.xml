@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
     android:layout_gravity="center">
 
     <TextView
         android:id="@+id/text_view_language"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/language_title"
         style="@style/SimpleText"
         android:layout_marginTop="20dp"
@@ -18,15 +18,10 @@
 
     <View
         android:id="@+id/view_language"
-        android:layout_width="match_parent"
+        style="@style/DividerSettings"
         app:layout_constraintTop_toBottomOf="@+id/text_view_language"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="6dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/FF838383"
-        android:layout_height="0.5dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <RadioGroup
         android:id="@+id/radio_group_language"
@@ -39,8 +34,6 @@
 
     <TextView
         android:id="@+id/text_view_theme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/theme_title"
         style="@style/SimpleText"
         android:layout_marginTop="20dp"
@@ -50,15 +43,10 @@
 
     <View
         android:id="@+id/view_theme"
-        android:layout_width="match_parent"
+        style="@style/DividerSettings"
         app:layout_constraintTop_toBottomOf="@+id/text_view_theme"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="6dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/FF838383"
-        android:layout_height="0.5dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <RadioGroup
         android:id="@+id/radio_group_theme"
@@ -75,37 +63,22 @@
             android:id="@+id/button_auto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:background="@null"
-            android:text="@string/theme_auto"
-            android:textSize="24sp" />
+            android:theme="@style/RadioButtonStyle"
+            android:text="@string/theme_auto" />
 
         <RadioButton
             android:id="@+id/button_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text="@string/theme_day"
-            android:background="@null"
-            android:textSize="24sp" />
+            android:theme="@style/RadioButtonStyle"
+            android:text="@string/theme_day" />
 
         <RadioButton
             android:id="@+id/button_night"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text="@string/theme_night"
-            android:background="@null"
-            android:textSize="24sp" />
+            android:theme="@style/RadioButtonStyle"
+            android:text="@string/theme_night" />
 
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

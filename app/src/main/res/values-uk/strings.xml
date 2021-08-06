@@ -59,7 +59,7 @@
     <string name="rate_app_body">Якщо Вам подобається цей додаток, чи не могли б Ви знайти час, щоб оцінити його? Це займе не більше хвилини. Дякую за Вашу підтримку!</string>
     <!-- About program -->
     <string name="version">Версія %1$s\nРозробка: Пархомов Андрій\nE-mail:\nparkhomov.andrew@gmail.com</string>
-    <string name="translate_to_brazilian_portuguese">Переклад на португальский: Edison Bucchianico Gil</string>
+    <string name="translate_to_brazilian_portuguese">Переклад на португальський: Edison Bucchianico Gil</string>
     <!-- Language and Theme -->
     <string name="language_title">Мова</string>
     <string name="theme_title">Тема</string>

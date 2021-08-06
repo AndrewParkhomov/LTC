@@ -13,31 +13,27 @@
         android:id="@+id/container_constraint"
         android:layout_gravity="center">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image_view_add"
-            tools:srcCompat="@drawable/ic_add_black"
-            android:layout_marginStart="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_view_add_to_compare_list"
-            app:layout_constraintBottom_toBottomOf="@+id/text_view_add_to_compare_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_add_to_compare_list"
-            android:layout_height="50dp"
             android:layout_width="0dp"
-            android:padding="10dp"
-            android:lines="1"
+            android:layout_height="50dp"
+            style="@style/SimpleText"
+            android:drawableStart="@drawable/ic_add_black"
+            android:drawablePadding="10dp"
             android:gravity="start|center_vertical"
+            android:lines="1"
+            android:layout_marginStart="10dp"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image_view_add"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Add to compare list" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_index_of_refraction"
             style="@style/SimpleText"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:layout_marginTop="8dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,12 +43,7 @@
 
         <View
             android:id="@+id/view_index_of_refraction"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/FF838383"
+            style="@style/DividerResult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_index_of_refraction" />
@@ -60,6 +51,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_sphere_power"
             style="@style/SimpleText"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,12 +62,7 @@
 
         <View
             android:id="@+id/view_cylinder"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/FF838383"
+            style="@style/DividerResult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_sphere_power" />
@@ -81,6 +70,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_cylinder_power"
             style="@style/SimpleText"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,12 +81,7 @@
 
         <View
             android:id="@+id/view_axis"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/FF838383"
+            style="@style/DividerResult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_cylinder_power" />
@@ -102,6 +89,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_axis"
             style="@style/SimpleText"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -110,12 +100,7 @@
 
         <View
             android:id="@+id/view_thickness_on_axis"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/FF838383"
+            style="@style/DividerResult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_axis" />
@@ -123,6 +108,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_thickness_on_axis"
             style="@style/SimpleText"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -131,12 +119,7 @@
 
         <View
             android:id="@+id/view_center_thickness"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/FF838383"
+            style="@style/DividerResult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_thickness_on_axis" />
@@ -144,6 +127,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_center_thickness"
             style="@style/SimpleText"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -152,12 +138,7 @@
 
         <View
             android:id="@+id/view_min_thickness"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/FF838383"
+            style="@style/DividerResult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_center_thickness" />
@@ -165,6 +146,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_min_thickness"
             style="@style/SimpleText"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -173,12 +157,7 @@
 
         <View
             android:id="@+id/view_max_thickness"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/FF838383"
+            style="@style/DividerResult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_min_thickness" />
@@ -186,6 +165,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_max_thickness"
             style="@style/SimpleText"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -194,12 +176,7 @@
 
         <View
             android:id="@+id/view_real_base_curve"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/FF838383"
+            style="@style/DividerResult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_max_thickness" />
@@ -210,18 +187,16 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_real_base_curve"
             tools:text="Real base curve: 6" />
 
         <View
             android:id="@+id/view_diameter"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/FF838383"
+            style="@style/DividerResult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_real_base_curve" />
@@ -229,6 +204,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_diameter"
             style="@style/SimpleText"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="16dp"

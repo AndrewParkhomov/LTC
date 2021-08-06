@@ -15,5 +15,8 @@
     <color name="FF37474f">#FF37474f</color>
     <color name="FF102027">#FF102027</color>
 
-    <color name="screen_background">@color/FFFBFCFE</color>
+    <color name="navigation_bar_color">@color/FF0288D1</color>
+    <color name="button_tint">@color/FFFFFFFF</color>
+    <color name="compare_column">@color/FF838383</color>
+
 </resources>
