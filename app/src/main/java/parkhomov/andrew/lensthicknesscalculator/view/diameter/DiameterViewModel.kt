@@ -2,7 +2,7 @@ package parkhomov.andrew.lensthicknesscalculator.view.diameter
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.Flow
-import parkhomov.andrew.lensthicknesscalculator.interactor.Interactor
+import parkhomov.andrew.lensthicknesscalculator.domain.Interactor
 
 class DiameterViewModel(
     private val interactor: Interactor

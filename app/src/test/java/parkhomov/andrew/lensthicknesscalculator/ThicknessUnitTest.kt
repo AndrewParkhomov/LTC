@@ -6,7 +6,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
-import parkhomov.andrew.lensthicknesscalculator.interactor.Interactor
+import parkhomov.andrew.lensthicknesscalculator.domain.Interactor
 import parkhomov.andrew.lensthicknesscalculator.view.thickness.ThicknessViewModel
 
 class ThicknessUnitTest {

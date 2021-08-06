@@ -5,16 +5,10 @@ import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.diameter.*
-import kotlinx.android.synthetic.main.diameter.image_view_info_diameter
-import kotlinx.android.synthetic.main.thickness.*
-import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.utils.shortCollect
 import kotlin.math.ceil
-import kotlin.random.Random
 
 
 class Diameter : Fragment(R.layout.diameter) {
@@ -28,8 +22,8 @@ class Diameter : Fragment(R.layout.diameter) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setTextWatcherListeners()
         setClickListeners()
-        setFlowListeners()
         calculate()
+        viewModel.setMainFabIcon(-1)
     }
 
     private fun setClickListeners() {
@@ -52,24 +46,6 @@ class Diameter : Fragment(R.layout.diameter) {
         input_edit_text_ed.setTextChangeListener()
         input_edit_text_dbl.setTextChangeListener()
         input_edit_text_pd.setTextChangeListener()
-    }
-
-    private fun setFlowListeners() {
-        viewModel.setMainFabIcon(R.drawable.calculate)
-        viewModel.onFabClicked.onEach { generateRandomExample() }.shortCollect(lifecycleScope)
-    }
-
-    private fun generateRandomExample() {
-        ed = Random.nextInt(44, 60).toDouble()
-        dbl = Random.nextInt(18, 24).toDouble()
-        pd = Random.nextInt(64, 70).toDouble()
-        updateEtValues()
-    }
-
-    private fun updateEtValues() {
-        input_edit_text_ed.setText(getString(R.string.tab_diameter_random, ed))
-        input_edit_text_dbl.setText(getString(R.string.tab_diameter_random, dbl))
-        input_edit_text_pd.setText(getString(R.string.tab_diameter_random, pd))
     }
 
     private fun EditText.setTextChangeListener() {

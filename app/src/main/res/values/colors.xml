@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="primary">#0288D1</color>
-    <color name="primary_dark">#0277BD</color>
-    <color name="accent">#03A9F4</color>
-    <!-- new -->
-    <color name="black">#FF121212</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="color_error">#EF5350</color>
-    <color name="gray_50">#FAFAFA</color>
-    <color name="gray_100">#F5F5F5</color>
-    <color name="gray_200">#EEEEEE</color>
-    <color name="gray_300">#E0E0E0</color>
-    <color name="gray_400">#BDBDBD</color>
-    <color name="gray_500">#9E9E9E</color>
-    <color name="gray_900">#212121</color>
-    <!-- gray 700 -->
-    <color name="main_text_color">#616161</color>
+<resources>
 
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#616161</color>
+    <color name="FFFFFFFF">#FFFFFFFF</color>
+    <color name="FFFBFCFE">#FFFBFCFE</color>
+    <color name="FFA0A0A0">#FFA0A0A0</color>
+    <color name="FF838383">#FF838383</color>
+    <color name="FF121212">#FF121212</color>
+    <color name="FF85121212">#B3121212</color>
+    <color name="FF5eb8ff">#FF5eb8ff</color>
+    <color name="FF0288D1">#FF0288D1</color>
+    <color name="FF005b9f">#FF005b9f</color>
+    <color name="FFE53935">#FFE53935</color>
+    <color name="FF62727b">#FF62727b</color>
+    <color name="FF37474f">#FF37474f</color>
+    <color name="FF102027">#FF102027</color>
 
+    <color name="screen_background">@color/FFFBFCFE</color>
 </resources>

@@ -5,12 +5,9 @@ import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.transposition.*
-import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.utils.shortCollect
 
 
 class Transposition : Fragment(R.layout.transposition) {
@@ -22,10 +19,9 @@ class Transposition : Fragment(R.layout.transposition) {
     private var axis: Double = 0.0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.setMainFabIcon(R.drawable.calculate)
+        viewModel.setMainFabIcon(-1)
         setTextWatcherListeners()
         setClickListeners()
-        setFlowListeners()
 
         convertToValue(spherePower, R.id.input_edit_text_sphere)
         convertToValue(cylinderPower, R.id.input_edit_text_cylinder)
@@ -36,14 +32,6 @@ class Transposition : Fragment(R.layout.transposition) {
         image_view_info_transposition.setOnClickListener {
             viewModel.onGlossaryItemClicked(R.drawable.transposition_img)
         }
-    }
-
-    private fun setFlowListeners() {
-        viewModel.onFabClicked.onEach { generateRandomExample() }.shortCollect(lifecycleScope)
-    }
-
-    private fun generateRandomExample() {
-
     }
 
     private fun setTextWatcherListeners() {

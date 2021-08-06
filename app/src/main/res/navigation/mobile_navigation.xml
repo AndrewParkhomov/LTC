@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_compare"
-        android:name="parkhomov.andrew.lensthicknesscalculator.view.CompareList"
+        android:name="parkhomov.andrew.lensthicknesscalculator.view.compare.CompareList"
         android:label="@string/fragment_compare"
         tools:layout="@layout/compare_list" />
 

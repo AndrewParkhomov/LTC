@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
-import parkhomov.andrew.lensthicknesscalculator.interactor.Interactor
+import parkhomov.andrew.lensthicknesscalculator.domain.Interactor
 
 class MainActivityViewModel(
     private val interactor: Interactor

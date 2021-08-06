@@ -11,8 +11,8 @@ import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.glossary.*
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.GlossaryItem
-import parkhomov.andrew.lensthicknesscalculator.utils.argument
-import parkhomov.andrew.lensthicknesscalculator.utils.getDrawableFromId
+import parkhomov.andrew.lensthicknesscalculator.extencions.argument
+import parkhomov.andrew.lensthicknesscalculator.extencions.getDrawableFromId
 
 
 class Glossary : DialogFragment(R.layout.glossary) {

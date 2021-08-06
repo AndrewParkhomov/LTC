@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
-import parkhomov.andrew.lensthicknesscalculator.interactor.Interactor
+import parkhomov.andrew.lensthicknesscalculator.domain.Interactor
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt

@@ -24,18 +24,18 @@ import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.data.GlossaryItem
-import parkhomov.andrew.lensthicknesscalculator.helper.PreferencesHelper
-import parkhomov.andrew.lensthicknesscalculator.utils.MyContextWrapper
-import parkhomov.andrew.lensthicknesscalculator.utils.prefs.AppPreferencesHelper.Companion.APP_LANGUAGE
-import parkhomov.andrew.lensthicknesscalculator.utils.shortCollect
+import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
+import parkhomov.andrew.lensthicknesscalculator.extencions.MyContextWrapper
+import parkhomov.andrew.lensthicknesscalculator.preferences.APP_LANGUAGE
+import parkhomov.andrew.lensthicknesscalculator.extencions.shortCollect
 import parkhomov.andrew.lensthicknesscalculator.view.Glossary
-import parkhomov.andrew.lensthicknesscalculator.view.Language
+import parkhomov.andrew.lensthicknesscalculator.view.Settings
 import java.util.*
 
 
 class MainActivity : AppCompatActivity(R.layout.activity) {
 
-    private val preferencesHelper: PreferencesHelper by inject()
+    private val appPreferences: AppPreferences by inject()
     private val viewModel: MainActivityViewModel by viewModel()
 
     private val glossary: List<GlossaryItem> by lazy(LazyThreadSafetyMode.NONE){
@@ -68,10 +68,10 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
     }
 
     override fun attachBaseContext(context: Context) {
-        var language = preferencesHelper.getStringValue(APP_LANGUAGE, "")
+        var language = appPreferences.getStringValue(APP_LANGUAGE, "en")
         if (language.isEmpty()) {
             language = Locale.getDefault().isO3Language.substring(0, 2)
-            preferencesHelper.putStringValue(APP_LANGUAGE, language)
+            appPreferences.putStringValue(APP_LANGUAGE, language)
         }
         super.attachBaseContext(MyContextWrapper.wrap(context, language))
     }
@@ -87,7 +87,14 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
         }
     }
 
-    private fun updateFabIcon(imageId: Int)= fab.setImageResource(imageId)
+    private fun updateFabIcon(imageId: Int){
+        if(imageId == -1){
+            fab.hide()
+        }else{
+            fab.show()
+            fab.setImageResource(imageId)
+        }
+    }
 
     private fun setFlowListeners() {
         viewModel.imageFab.onEach(::updateFabIcon).shortCollect(lifecycleScope)
@@ -109,7 +116,7 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_item_language -> Language.instance.show(supportFragmentManager)
+            R.id.menu_item_language -> Settings.instance.show(supportFragmentManager)
             R.id.menu_item_rate -> showRateThisAppDialog()
             R.id.menu_item_share -> viewModel.onShareResultClicked()
             R.id.menu_item_about -> showAboutDialog()
@@ -135,7 +142,7 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
     }
 
     private fun showRateThisAppDialog() {
-        AlertDialog.Builder(this, R.style.AlertDialogCustom)
+        AlertDialog.Builder(this)
                 .setTitle(R.string.rate_app_header)
                 .setMessage(R.string.rate_app_body)
                 .setNegativeButton(android.R.string.cancel, null)
@@ -206,7 +213,7 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
         val version = StringBuilder(getString(R.string.version, BuildConfig.VERSION_NAME))
         version.append("\n\n")
         version.append(getString(R.string.translate_to_brazilian_portuguese))
-        AlertDialog.Builder(this, R.style.AlertDialogCustom)
+        AlertDialog.Builder(this)
                 .setMessage(version)
                 .setPositiveButton(android.R.string.ok) { _, _ -> }
                 .create()

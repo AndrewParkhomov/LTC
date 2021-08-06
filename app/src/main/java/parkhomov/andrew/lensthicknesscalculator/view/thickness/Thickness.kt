@@ -1,13 +1,11 @@
 package parkhomov.andrew.lensthicknesscalculator.view.thickness
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity.*
@@ -16,8 +14,8 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.utils.*
-import parkhomov.andrew.lensthicknesscalculator.view.Result
+import parkhomov.andrew.lensthicknesscalculator.extencions.*
+import parkhomov.andrew.lensthicknesscalculator.view.result.Result
 
 
 class Thickness : Fragment(R.layout.thickness) {
@@ -170,9 +168,9 @@ class Thickness : Fragment(R.layout.thickness) {
 
         val enabled = R.style.HintTextAppearanceEnable
         val disabled = R.style.HintTextAppearanceDisable
-        val colorTextEnable = getColorFromId(R.color.main_text_color)
-        val colorEnable = getColorFromId(R.color.accent)
-        val colorDisable = getColorFromId(R.color.gray_400)
+        val colorTextEnable = getColorFromId(R.color.FF85121212)
+        val colorEnable = getColorFromId(R.color.FF0288D1)
+        val colorDisable = getColorFromId(R.color.FFA0A0A0)
 
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
@@ -218,8 +216,6 @@ class Thickness : Fragment(R.layout.thickness) {
 
         }
     }
-
-    fun Context.getColorFromId(resId: Int): Int = ContextCompat.getColor(this, resId)
 
     companion object {
         // index of material

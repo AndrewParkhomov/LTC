@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/text_view_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/language_title"
+        style="@style/SimpleText"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_language"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_language"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/FF838383"
+        android:layout_height="0.5dp"/>
+
+    <RadioGroup
+        android:id="@+id/radio_group_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_language" />
+
+    <TextView
+        android:id="@+id/text_view_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/theme_title"
+        style="@style/SimpleText"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio_group_language" />
+
+    <View
+        android:id="@+id/view_theme"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_theme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/FF838383"
+        android:layout_height="0.5dp"/>
+
+    <RadioGroup
+        android:id="@+id/radio_group_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_theme">
+
+        <RadioButton
+            android:id="@+id/button_auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:background="@null"
+            android:text="@string/theme_auto"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/button_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="@string/theme_day"
+            android:background="@null"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/button_night"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="@string/theme_night"
+            android:background="@null"
+            android:textSize="24sp" />
+
+    </RadioGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>

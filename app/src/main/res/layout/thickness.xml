@@ -57,7 +57,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/spinner"
                 app:layout_constraintEnd_toEndOf="@+id/spinner"
                 app:layout_constraintTop_toTopOf="@+id/spinner"
-                app:srcCompat="@drawable/arrow_gray_down"
+                app:srcCompat="@drawable/ic_arrow_down_24"
                 tools:ignore="ContentDescription" />
 
             <ImageView
@@ -76,7 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="60dp"
-                android:background="@color/gray_500"
+                android:background="@color/FFA0A0A0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/menu_item_language"
-        android:title="@string/header_language"
+        android:title="@string/header_settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_item_share"
