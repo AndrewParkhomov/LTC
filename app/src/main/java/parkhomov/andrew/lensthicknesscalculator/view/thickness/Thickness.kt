@@ -5,25 +5,24 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity.*
 import kotlinx.android.synthetic.main.thickness.*
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.extencions.*
+import parkhomov.andrew.lensthicknesscalculator.view.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.view.result.Result
 
 
-class Thickness : Fragment(R.layout.thickness) {
+class Thickness : BaseFragment(R.layout.thickness) {
 
     private val viewModel: ThicknessViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.setMainFabIcon(R.drawable.calculate)
         setFlowListeners()
         setClickListeners()
 
@@ -79,7 +78,7 @@ class Thickness : Fragment(R.layout.thickness) {
                 image_view_info_diameter.id -> R.drawable.diam_img
                 else -> R.drawable.index_of_refraction_img
             }
-            viewModel.onGlossaryItemClicked(imageId)
+            showGlossaryModal(imageId)
         }
         image_view_info_refraction.setOnClickListener(glossaryClickListener)
         image_view_info_sphere.setOnClickListener(glossaryClickListener)
@@ -89,13 +88,24 @@ class Thickness : Fragment(R.layout.thickness) {
         image_view_info_center_thickness.setOnClickListener(glossaryClickListener)
         image_view_info_edge_thickness.setOnClickListener(glossaryClickListener)
         image_view_info_diameter.setOnClickListener(glossaryClickListener)
+
+        val adapter: ArrayAdapter<*> =
+            ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.index_of_refraction,
+                R.layout.spinner_item
+            )
+        adapter.setDropDownViewResource(R.layout.spinner_item)
+        spinner.adapter = adapter
     }
 
     private fun setFlowListeners() {
-        viewModel.showResult.filterNotNull().onEach { calculatedData ->
+        viewModel.showResult.onEach { calculatedData ->
             Result.getInstance(calculatedData).show(childFragmentManager)
         }.shortCollect(lifecycleScope)
-        viewModel.onFabClicked.onEach { onCalculateButtonClicked() }.shortCollect(lifecycleScope)
+        viewModel.onCalculateClicked.onEach {
+            onCalculateButtonClicked()
+        }.shortCollect(lifecycleScope)
         viewModel.errorSphere.onEach(::highlightSpherePower).shortCollect(lifecycleScope)
         viewModel.errorCenter.onEach(::highlightCenterThickness).shortCollect(lifecycleScope)
         viewModel.errorDiameter.onEach(::highlightDiameter).shortCollect(lifecycleScope)
@@ -115,7 +125,6 @@ class Thickness : Fragment(R.layout.thickness) {
         )
     }
 
-
     private fun getLensIndex(): Triple<Double, Double, String> {
         val spinnerText = spinner.selectedItem.toString()
         return when (spinner.selectedItemPosition) {
@@ -132,31 +141,25 @@ class Thickness : Fragment(R.layout.thickness) {
 
     private fun highlightSpherePower(isShowError: Boolean) {
         if (isShowError) {
-            wrapper_sphere.isErrorEnabled = true
             wrapper_sphere.error = getString(R.string.tab_thkns_provide_sphere)
         } else {
             wrapper_sphere.error = null
-            wrapper_sphere.isErrorEnabled = false
         }
     }
 
     private fun highlightCenterThickness(isShowError: Boolean) {
         if (isShowError) {
-            wrapper_center_thickness.isErrorEnabled = true
             wrapper_center_thickness.error = getString(R.string.tab_thkns_provide_center_thickness)
         } else {
             wrapper_center_thickness.error = null
-            wrapper_center_thickness.isErrorEnabled = false
         }
     }
 
     private fun highlightDiameter(isShowError: Boolean) {
         if (isShowError) {
-            wrapper_diameter.isErrorEnabled = true
             wrapper_diameter.error = getString(R.string.tab_thkns_provide_diameter)
         } else {
             wrapper_diameter.error = null
-            wrapper_diameter.isErrorEnabled = false
         }
     }
 
@@ -165,12 +168,6 @@ class Thickness : Fragment(R.layout.thickness) {
     }
 
     private inner class GenericTextWatcher : TextWatcher {
-
-        val enabled = R.style.HintTextAppearanceEnable
-        val disabled = R.style.HintTextAppearanceDisable
-        val colorTextEnable = getColorFromId(R.color.FF85121212)
-        val colorEnable = getColorFromId(R.color.FF0288D1)
-        val colorDisable = getColorFromId(R.color.FFA0A0A0)
 
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
@@ -195,20 +192,10 @@ class Thickness : Fragment(R.layout.thickness) {
                 wrapper_center_thickness.isEnabled = value <= 0
                 wrapper_edge_thickness.isEnabled = value > 0
                 highlightCenterThickness(false)
-                center_thickness.setTextColor(if (value <= 0) colorTextEnable else colorDisable)
-                edge_thickness.setTextColor(if (value > 0) colorTextEnable else colorDisable)
-                wrapper_center_thickness.boxStrokeColor = if (value <= 0) colorEnable else colorDisable
-                wrapper_edge_thickness.boxStrokeColor = if (value > 0) colorEnable else colorDisable
-                wrapper_center_thickness.setHintTextAppearance(if (value <= 0) enabled else disabled)
-                wrapper_edge_thickness.setHintTextAppearance(if (value > 0) enabled else disabled)
             } else {
                 wrapper_center_thickness.isEnabled = true
                 wrapper_edge_thickness.isEnabled = true
                 highlightCenterThickness(false)
-                wrapper_center_thickness.boxStrokeColor = colorEnable
-                wrapper_edge_thickness.boxStrokeColor = colorEnable
-                wrapper_center_thickness.setHintTextAppearance(enabled)
-                wrapper_edge_thickness.setHintTextAppearance(enabled)
             }
         }
 

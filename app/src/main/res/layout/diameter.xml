@@ -39,7 +39,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/wrapper_dbl"
         style="@style/TextInputWrapper"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_width="0dp"
         android:layout_marginStart="16dp"
         android:hint="@string/tab_diameter_hint_dbl"
@@ -70,7 +70,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/wrapper_pd"
         style="@style/TextInputWrapper"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_width="0dp"
         android:layout_marginStart="16dp"
         android:hint="@string/tab_diameter_hint_pd"

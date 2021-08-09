@@ -1,50 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/FF0288D1</item>
-        <item name="colorPrimaryDark">@color/FF005b9f</item>
-        <item name="colorAccent">@color/FF5eb8ff</item>
-        <item name="android:fontFamily">@font/raleway</item>
+    <style name="AppTheme.NoActionBar" parent="BaseTheme">
+        <item name="colorPrimary">@color/FF37474f</item>
+        <item name="colorPrimaryDark">@color/FF102027</item>
+        <item name="colorAccent">@color/FF62727b</item>
         <item name="android:windowBackground">@color/FF838383</item>
     </style>
 
-    <style name="TextInputWrapper" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_width">match_parent</item>
-        <item name="errorEnabled">false</item>
-        <item name="errorTextAppearance">@style/ErrorTextAppearance</item>
-        <item name="hintTextAppearance">@style/HintTextAppearanceEnable</item>
-        <item name="boxStrokeColor">@color/FF0288D1</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColorHint">@color/FF85121212</item>
-    </style>
-
-    <style name="TextInputEditText" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:ems">3</item>
-        <item name="android:inputType">numberDecimal|numberSigned</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/FF85121212</item>
-    </style>
-
     <style name="SimpleText">
-        <item name="android:textColor">@color/FF85121212</item>
+        <item name="android:textColor">@color/FFFBFCFE</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="HintTextAppearanceEnable" parent="TextAppearance.Design.Hint">
-        <item name="android:textColor">@color/FF0288D1</item>
-    </style>
-
-    <style name="HintTextAppearanceDisable" parent="TextAppearance.Design.Hint">
-        <item name="android:textColor">@color/FFA0A0A0</item>
-    </style>
-
-    <style name="ErrorTextAppearance" parent="TextAppearance.Design.Error">
-        <item name="android:textColor">@color/FFE53935</item>
     </style>
 
 </resources>

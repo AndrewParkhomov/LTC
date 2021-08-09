@@ -15,10 +15,8 @@ import parkhomov.andrew.lensthicknesscalculator.domain.Interactor
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_THEME
 import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
 import parkhomov.andrew.lensthicknesscalculator.view.compare.CompareListViewModel
-import parkhomov.andrew.lensthicknesscalculator.view.diameter.DiameterViewModel
 import parkhomov.andrew.lensthicknesscalculator.view.result.ResultViewModel
 import parkhomov.andrew.lensthicknesscalculator.view.thickness.ThicknessViewModel
-import parkhomov.andrew.lensthicknesscalculator.view.transposition.TranspositionViewModel
 
 
 class MyApp : MultiDexApplication() {
@@ -31,10 +29,8 @@ class MyApp : MultiDexApplication() {
         single { Interactor() }
         viewModel { MainActivityViewModel(get()) }
         viewModel { ThicknessViewModel(get()) }
-        viewModel { DiameterViewModel(get()) }
-        viewModel { ResultViewModel(get()) }
         viewModel { CompareListViewModel(get()) }
-        viewModel { TranspositionViewModel(get()) }
+        viewModel { ResultViewModel(get()) }
     }
 
     override fun onCreate() {

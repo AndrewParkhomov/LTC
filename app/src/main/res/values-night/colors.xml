@@ -2,7 +2,7 @@
 <resources>
 
     <color name="navigation_bar_color">@color/FF37474f</color>
-    <color name="button_tint">@color/FF838383</color>
+    <color name="button_tint">@color/FFFBFCFE</color>
     <color name="compare_column">@color/FF838383</color>
 
 </resources>

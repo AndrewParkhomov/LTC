@@ -1,25 +1,20 @@
-package parkhomov.andrew.lensthicknesscalculator.view.transposition
+package parkhomov.andrew.lensthicknesscalculator.view
 
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.transposition.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
 
 
-class Transposition : Fragment(R.layout.transposition) {
-
-    private val viewModel: TranspositionViewModel by viewModel()
+class Transposition : BaseFragment(R.layout.transposition) {
 
     private var spherePower: Double = 0.0
     private var cylinderPower: Double = 0.0
     private var axis: Double = 0.0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.setMainFabIcon(-1)
         setTextWatcherListeners()
         setClickListeners()
 
@@ -30,7 +25,7 @@ class Transposition : Fragment(R.layout.transposition) {
 
     private fun setClickListeners() {
         image_view_info_transposition.setOnClickListener {
-            viewModel.onGlossaryItemClicked(R.drawable.transposition_img)
+            showGlossaryModal(R.drawable.transposition_img)
         }
     }
 

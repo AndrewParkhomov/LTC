@@ -12,25 +12,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity.*
-import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
-import parkhomov.andrew.lensthicknesscalculator.data.GlossaryItem
-import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
 import parkhomov.andrew.lensthicknesscalculator.extencions.MyContextWrapper
-import parkhomov.andrew.lensthicknesscalculator.preferences.APP_LANGUAGE
 import parkhomov.andrew.lensthicknesscalculator.extencions.shortCollect
-import parkhomov.andrew.lensthicknesscalculator.view.Glossary
+import parkhomov.andrew.lensthicknesscalculator.preferences.APP_LANGUAGE
+import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
 import parkhomov.andrew.lensthicknesscalculator.view.Settings
 import java.util.*
 
@@ -39,35 +35,6 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
 
     private val appPreferences: AppPreferences by inject()
     private val viewModel: MainActivityViewModel by viewModel()
-
-    private val glossary: List<GlossaryItem> by lazy(LazyThreadSafetyMode.NONE){
-        val titles = resources.getStringArray(R.array.titles)
-        val descriptions = resources.getStringArray(R.array.descriptions)
-        titles.zip(descriptions).mapIndexed { index, pair ->
-            GlossaryItem(
-                title = pair.first,
-                description = pair.second,
-                imageId = getImageId(index)
-            )
-        }
-    }
-
-    private fun getImageId(position: Int): Int {
-        return when (position) {
-            1 -> R.drawable.sphere_img
-            2 -> R.drawable.cylinder_img
-            3 -> R.drawable.axis_img
-            4 -> R.drawable.front_curve_img
-            5 -> R.drawable.thickness_gauge_img
-            6 -> R.drawable.edge_thickness_img
-            7 -> R.drawable.diam_img
-            8 -> R.drawable.ed_img
-            9 -> R.drawable.dbl_img
-            10 -> R.drawable.pd_img
-            11 -> R.drawable.transposition_img
-            else -> R.drawable.index_of_refraction_img
-        }
-    }
 
     override fun attachBaseContext(context: Context) {
         var language = appPreferences.getStringValue(APP_LANGUAGE, "en")
@@ -80,40 +47,34 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.title = getString(R.string.app_name)
-
         initViews()
         setFlowListeners()
-        fab.setOnClickListener {
-            viewModel.onFabClicked()
-        }
+        updateFabIcon(R.drawable.calculate)
     }
 
-    private fun updateFabIcon(imageId: Int){
-        if(imageId == -1){
+    private fun updateFabIcon(imageId: Int?) {
+        if (imageId == null) {
             fab.hide()
-        }else{
+        } else {
             fab.show()
             fab.setImageResource(imageId)
+        }
+        fab.setOnClickListener {
+            when (imageId) {
+                R.drawable.calculate -> viewModel.onCalculateClicked()
+                R.drawable.ic_outline_delete_24 -> viewModel.onClearClicked()
+            }
         }
     }
 
     private fun setFlowListeners() {
-        viewModel.imageFab.onEach(::updateFabIcon).shortCollect(lifecycleScope)
-        viewModel.showGlossary.onEach(::showGlossaryModal).shortCollect(lifecycleScope)
         viewModel.showMessage.filterNotNull().onEach(::showSnackbar).shortCollect(lifecycleScope)
-        viewModel.shareResult.filterNotNull().onEach(::shareResult).shortCollect(lifecycleScope)
         viewModel.shareResult.filterNotNull().onEach(::shareResult).shortCollect(lifecycleScope)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_action, menu)
         return true
-    }
-
-    private fun showGlossaryModal(imageId: Int){
-        val targetGlossaryItem = glossary.first { it.imageId == imageId }
-        Glossary.getInstance(targetGlossaryItem).show(supportFragmentManager)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -140,7 +101,18 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        nav_view.setupWithNavController(navController)
+        nav_view.setOnItemSelectedListener { menuItem ->
+            val imageId = when (menuItem.itemId) {
+                R.id.navigation_thickness -> R.drawable.calculate
+                R.id.navigation_compare -> R.drawable.ic_outline_delete_24
+                else -> null
+            }
+            updateFabIcon(imageId)
+            NavigationUI.onNavDestinationSelected(
+                menuItem,
+                navController
+            )
+        }
     }
 
     private fun showRateThisAppDialog() {

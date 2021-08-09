@@ -1,19 +1,15 @@
-package parkhomov.andrew.lensthicknesscalculator.view.diameter
+package parkhomov.andrew.lensthicknesscalculator.view
 
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.diameter.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
 import kotlin.math.ceil
 
 
-class Diameter : Fragment(R.layout.diameter) {
-
-    private val viewModel: DiameterViewModel by viewModel()
+class Diameter : BaseFragment(R.layout.diameter) {
 
     private var ed = 0.0 // effective diameter
     private var dbl = 0.0 // distance between lenses
@@ -23,7 +19,6 @@ class Diameter : Fragment(R.layout.diameter) {
         setTextWatcherListeners()
         setClickListeners()
         calculate()
-        viewModel.setMainFabIcon(-1)
     }
 
     private fun setClickListeners() {
@@ -34,7 +29,7 @@ class Diameter : Fragment(R.layout.diameter) {
                 image_view_info_pd.id -> R.drawable.pd_img
                 else -> R.drawable.diam_img
             }
-            viewModel.onGlossaryItemClicked(imageId)
+            showGlossaryModal(imageId)
         }
         image_view_info_ed.setOnClickListener(glossaryClickListener)
         image_view_info_dbl.setOnClickListener(glossaryClickListener)

@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import kotlinx.android.synthetic.main.compare_list.*
+import kotlinx.android.synthetic.main.compare.*
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
@@ -23,7 +23,7 @@ import parkhomov.andrew.lensthicknesscalculator.extencions.getColorFromId
 import parkhomov.andrew.lensthicknesscalculator.extencions.shortCollect
 
 
-class CompareList : Fragment(R.layout.compare_list) {
+class CompareList : Fragment(R.layout.compare) {
 
     private val viewModel: CompareListViewModel by viewModel()
 
@@ -32,8 +32,7 @@ class CompareList : Fragment(R.layout.compare_list) {
     }
 
     private fun setFlowListeners() {
-        viewModel.setMainFabIcon(R.drawable.ic_outline_delete_24)
-        viewModel.onFabClicked.onEach { onClearButtonClicked() }.shortCollect(lifecycleScope)
+        viewModel.onClearClicked.onEach { onClearButtonClicked() }.shortCollect(lifecycleScope)
         viewModel.getCompareList.onEach(::setUpAdapter).shortCollect(lifecycleScope)
     }
 
@@ -55,8 +54,8 @@ class CompareList : Fragment(R.layout.compare_list) {
         if (compareSet.isEmpty()) {
             createEmptyListView()
         } else {
-            val textColorBlack = requireContext().getColorFromId(R.color.FF121212)
-            val dividerColor = requireContext().getColorFromId(R.color.FFA0A0A0)
+            val textColorBlack = getColorFromId(R.color.FF121212)
+            val dividerColor = getColorFromId(R.color.FFA0A0A0)
 
             val item = CalculatedData(
                 refractionIndex = getString(R.string.compare_list_index_of_refraction),

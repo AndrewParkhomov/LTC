@@ -1,18 +1,19 @@
 package parkhomov.andrew.lensthicknesscalculator.view.result
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.result.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extencions.argument
 import parkhomov.andrew.lensthicknesscalculator.extencions.getDrawableFromId
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import parkhomov.andrew.lensthicknesscalculator.extencions.dip
 
 class Result : DialogFragment(R.layout.result) {
 
@@ -24,38 +25,37 @@ class Result : DialogFragment(R.layout.result) {
         showCylinderViews(result.cylinderPower != null)
         setCalculatedData(result)
 
-        val add = getString(R.string.result_add_to_list)
-        val remove = getString(R.string.result_remove_from_list)
-        val addImage = getDrawableFromId(R.drawable.ic_add_black)
-        val removeImage = getDrawableFromId(R.drawable.ic_remove_black)
         text_view_add_to_compare_list.setOnClickListener {
-            if (text_view_add_to_compare_list.text != getString(R.string.result_add_to_list)) {
-                val isSuccess= viewModel.removeFromList(result)
-                stateChanged(isSuccess, add, remove, addImage, removeImage)
+            if (viewModel.checkIsContains(result)) {
+                setButtonState(!viewModel.removeFromList(result))
             } else {
-                val isSuccess= viewModel.addToList(result)
-                stateChanged(!isSuccess, add, remove, addImage, removeImage)
+                setButtonState(viewModel.addToList(result))
             }
         }
-        val isInList = viewModel.checkIsContains(result)
+        setButtonState(viewModel.checkIsContains(result))
+    }
 
-        text_view_add_to_compare_list.compoundDrawablePadding = requireContext().dip(10)
-        text_view_add_to_compare_list.text = if (!isInList) add else remove
-        val image = if (!isInList) addImage else removeImage
-        text_view_add_to_compare_list.setCompoundDrawables(image, null ,null, null)
+    private fun setButtonState(inList: Boolean) {
+        val textId = if (inList) R.string.result_remove_from_list else R.string.result_add_to_list
+        val imageId = if (inList) R.drawable.ic_remove_black else R.drawable.ic_add_black
+        stateChanged(textId, imageId)
     }
 
     private fun stateChanged(
-            isAdd: Boolean,
-            add: String,
-            remove: String,
-            addImage: Drawable,
-            removeImage: Drawable,
+        @StringRes textId: Int,
+        @DrawableRes imageId: Int
     ) {
-        val text = if (isAdd) remove else add
-        val image = if (isAdd) removeImage else addImage
-        text_view_add_to_compare_list.text = text
-        text_view_add_to_compare_list.setCompoundDrawables(image, null ,null, null)
+        text_view_add_to_compare_list.setText(textId)
+        text_view_add_to_compare_list.setImageStart(imageId)
+    }
+
+    private fun TextView.setImageStart(@DrawableRes imageId: Int) {
+        setCompoundDrawablesWithIntrinsicBounds(
+            getDrawableFromId(imageId),
+            null,
+            null,
+            null
+        )
     }
 
     private fun showCylinderViews(isShow: Boolean) {

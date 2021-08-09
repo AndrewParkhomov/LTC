@@ -3,6 +3,7 @@
 
     <color name="FFFFFFFF">#FFFFFFFF</color>
     <color name="FFFBFCFE">#FFFBFCFE</color>
+    <color name="FFcfcfcf">#FFcfcfcf</color>
     <color name="FFA0A0A0">#FFA0A0A0</color>
     <color name="FF838383">#FF838383</color>
     <color name="FF121212">#FF121212</color>
@@ -10,7 +11,8 @@
     <color name="FF5eb8ff">#FF5eb8ff</color>
     <color name="FF0288D1">#FF0288D1</color>
     <color name="FF005b9f">#FF005b9f</color>
-    <color name="FFE53935">#FFE53935</color>
+    <color name="FFd32f2f">#FFd32f2f</color>
+    <color name="FF9a0007">#FF9a0007</color>
     <color name="FF62727b">#FF62727b</color>
     <color name="FF37474f">#FF37474f</color>
     <color name="FF102027">#FF102027</color>

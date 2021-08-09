@@ -1,10 +1,8 @@
 package parkhomov.andrew.lensthicknesscalculator.view.thickness
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.domain.Interactor
 import kotlin.math.abs
@@ -15,7 +13,6 @@ class ThicknessViewModel(
     private val interactor: Interactor
 ) : ViewModel() {
 
-
     private val _errorSphere = MutableStateFlow(false)
     val errorSphere: StateFlow<Boolean> = _errorSphere.asStateFlow()
     private val _errorDiameter = MutableStateFlow(false)
@@ -24,13 +21,10 @@ class ThicknessViewModel(
     val errorCenter: StateFlow<Boolean> = _errorCenter.asStateFlow()
     private val _setCurve = MutableStateFlow("")
     val setCurve: StateFlow<String> = _setCurve.asStateFlow()
-    private val _showResult = MutableStateFlow<CalculatedData?>(null)
-    val showResult: StateFlow<CalculatedData?> = _showResult.asStateFlow()
+    private val _showResult: Channel<CalculatedData> = Channel()
+    val showResult: Flow<CalculatedData> = _showResult.receiveAsFlow()
 
-    val onFabClicked: Flow<Unit> = interactor.onFabClicked
-
-    fun setMainFabIcon(imageId: Int) = interactor.setMainFabIcon(imageId)
-    fun onGlossaryItemClicked(imageId: Int)= interactor.setGlossaryItemClicked(imageId)
+    val onCalculateClicked: Flow<Unit> = interactor.calculate
 
     fun onCalculateBtnClicked(
         lensIndex: Triple<Double, Double, String>,
@@ -239,7 +233,7 @@ class ThicknessViewModel(
                 )
             }
             interactor.calculatedData = calculatedData
-            _showResult.tryEmit(calculatedData)
+            _showResult.trySend(calculatedData)
         }
     }
 

@@ -28,7 +28,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/wrapper_cylinder"
         style="@style/TextInputWrapper"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:hint="@string/transposition_power_cylinder"
         android:layout_width="0dp"
         android:layout_marginEnd="16dp"
@@ -48,7 +48,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/wrapper_axis"
         style="@style/TextInputWrapper"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:hint="@string/transposition_axis"
         android:layout_width="0dp"
         android:layout_marginEnd="16dp"
