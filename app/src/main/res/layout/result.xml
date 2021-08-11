@@ -1,230 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/container_scroll_view"
     android:layout_gravity="center">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_index_of_refraction"
+        style="@style/SimpleText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Index of refraction: 1.499 CR" />
+
+    <View
+        android:id="@+id/view_index_of_refraction"
+        style="@style/DividerResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_index_of_refraction" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_sphere_power"
+        style="@style/SimpleText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_index_of_refraction"
+        tools:text="Sphere power: 5.25" />
+
+    <View
+        android:id="@+id/view_cylinder"
+        style="@style/DividerResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_sphere_power" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_cylinder_power"
+        style="@style/SimpleText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_cylinder"
+        tools:text="Cylinder power: -3.50" />
+
+    <View
+        android:id="@+id/view_axis"
+        style="@style/DividerResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_cylinder_power" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_axis"
+        style="@style/SimpleText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_axis"
+        tools:text="Axis: 22" />
+
+    <View
+        android:id="@+id/view_thickness_on_axis"
+        style="@style/DividerResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_axis" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_thickness_on_axis"
+        style="@style/SimpleText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_thickness_on_axis"
+        tools:text="Thickness on axis 45: 2.55 mm" />
+
+    <View
+        android:id="@+id/view_center_thickness"
+        style="@style/DividerResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_thickness_on_axis" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_center_thickness"
+        style="@style/SimpleText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_center_thickness"
+        tools:text="Center thickness: 5.2 mm" />
+
+    <View
+        android:id="@+id/view_min_thickness"
+        style="@style/DividerResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_center_thickness" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_min_thickness"
+        style="@style/SimpleText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_min_thickness"
+        tools:text="Min thickness: 0.5 mm" />
+
+    <View
+        android:id="@+id/view_max_thickness"
+        style="@style/DividerResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_min_thickness" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_max_thickness"
+        style="@style/SimpleText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_max_thickness"
+        tools:text="Max thickness: 4.22 mm" />
+
+    <View
+        android:id="@+id/view_real_base_curve"
+        style="@style/DividerResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_max_thickness" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_real_base_curve"
+        style="@style/SimpleText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_real_base_curve"
+        tools:text="Real base curve: 6" />
+
+    <View
+        android:id="@+id/view_diameter"
+        style="@style/DividerResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_real_base_curve" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_diameter"
+        style="@style/SimpleText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_diameter"
+        tools:text="Diameter: 70 mm" />
+
+    <View
+        android:id="@+id/view_buttons"
+        style="@style/DividerResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_diameter" />
+
+    <Button
+        android:id="@+id/button_share"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/container_constraint"
-        android:layout_gravity="center">
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/result_share"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_buttons" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_add_to_compare_list"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            style="@style/SimpleText"
-            tools:drawableStart="@drawable/ic_add_black"
-            android:drawablePadding="10dp"
-            android:gravity="start|center_vertical"
-            android:lines="1"
-            android:layout_marginStart="10dp"
-            android:padding="10dp"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Add to compare list" />
+    <Button
+        android:id="@+id/button_add_to_list"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/text_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_share"
+        tools:text="@string/result_add_to_list" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_index_of_refraction"
-            style="@style/SimpleText"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_add_to_compare_list"
-            tools:text="Index of refraction: 1.499 CR" />
-
-        <View
-            android:id="@+id/view_index_of_refraction"
-            style="@style/DividerResult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_index_of_refraction" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_sphere_power"
-            style="@style/SimpleText"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_index_of_refraction"
-            tools:text="Sphere power: 5.25" />
-
-        <View
-            android:id="@+id/view_cylinder"
-            style="@style/DividerResult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_sphere_power" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_cylinder_power"
-            style="@style/SimpleText"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_cylinder"
-            tools:text="Cylinder power: -3.50" />
-
-        <View
-            android:id="@+id/view_axis"
-            style="@style/DividerResult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_cylinder_power" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_axis"
-            style="@style/SimpleText"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_axis"
-            tools:text="Axis: 22" />
-
-        <View
-            android:id="@+id/view_thickness_on_axis"
-            style="@style/DividerResult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_axis" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_thickness_on_axis"
-            style="@style/SimpleText"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_thickness_on_axis"
-            tools:text="Thickness on axis 45: 2.55 mm" />
-
-        <View
-            android:id="@+id/view_center_thickness"
-            style="@style/DividerResult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_thickness_on_axis" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_center_thickness"
-            style="@style/SimpleText"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_center_thickness"
-            tools:text="Center thickness: 5.2 mm" />
-
-        <View
-            android:id="@+id/view_min_thickness"
-            style="@style/DividerResult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_center_thickness" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_min_thickness"
-            style="@style/SimpleText"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_min_thickness"
-            tools:text="Min thickness: 0.5 mm" />
-
-        <View
-            android:id="@+id/view_max_thickness"
-            style="@style/DividerResult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_min_thickness" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_max_thickness"
-            style="@style/SimpleText"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_max_thickness"
-            tools:text="Max thickness: 4.22 mm" />
-
-        <View
-            android:id="@+id/view_real_base_curve"
-            style="@style/DividerResult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_max_thickness" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_real_base_curve"
-            style="@style/SimpleText"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_real_base_curve"
-            tools:text="Real base curve: 6" />
-
-        <View
-            android:id="@+id/view_diameter"
-            style="@style/DividerResult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_real_base_curve" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_diameter"
-            style="@style/SimpleText"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_diameter"
-            tools:text="Diameter: 70 mm" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

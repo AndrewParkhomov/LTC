@@ -11,7 +11,7 @@ class CompareListViewModel(
 
     val onClearClicked: Flow<Unit> = interactor.clear
 
-    val getCompareList: Flow<Set<CalculatedData>> = flow {
+    val getCompareList: Flow<MutableSet<CalculatedData>> = flow {
         emit(interactor.compareList)
     }
 

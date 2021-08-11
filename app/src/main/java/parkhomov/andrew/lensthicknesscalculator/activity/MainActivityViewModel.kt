@@ -13,22 +13,7 @@ class MainActivityViewModel(
     private val interactor: Interactor
 ) : ViewModel() {
 
-    private val _showMessage: MutableStateFlow<Int?> = MutableStateFlow(null)
-    val showMessage: StateFlow<Int?> = _showMessage.asStateFlow()
-
-    private val _shareResult: MutableStateFlow<CalculatedData?> = MutableStateFlow(null)
-    val shareResult: StateFlow<CalculatedData?> = _shareResult.asStateFlow()
-
     fun onCalculateClicked() = interactor.onCalculateClicked()
     fun onClearClicked() = interactor.onClearClicked()
-
-    fun onShareResultClicked() {
-        val lastCalculatedLens = interactor.calculatedData
-        if (lastCalculatedLens != null) {
-            _shareResult.tryEmit(lastCalculatedLens)
-        } else {
-            _showMessage.tryEmit(R.string.share_result_is_empty)
-        }
-    }
 
 }

@@ -1,26 +1,19 @@
 package parkhomov.andrew.lensthicknesscalculator.activity
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity.*
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.onEach
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extencions.MyContextWrapper
-import parkhomov.andrew.lensthicknesscalculator.extencions.shortCollect
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_LANGUAGE
 import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
 import parkhomov.andrew.lensthicknesscalculator.view.About
@@ -45,7 +38,6 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViews()
-        setFlowListeners()
         updateFabIcon(R.drawable.calculate)
     }
 
@@ -64,11 +56,6 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
         }
     }
 
-    private fun setFlowListeners() {
-        viewModel.showMessage.filterNotNull().onEach(::showSnackbar).shortCollect(lifecycleScope)
-        viewModel.shareResult.filterNotNull().onEach(::shareResult).shortCollect(lifecycleScope)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_action, menu)
         return true
@@ -76,8 +63,7 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_item_language -> Settings.instance.show(supportFragmentManager)
-            R.id.menu_item_share -> viewModel.onShareResultClicked()
+            R.id.menu_item_settings -> Settings.instance.show(supportFragmentManager)
             R.id.menu_item_about -> About.instance.show(supportFragmentManager)
         }
         return super.onOptionsItemSelected(item)
@@ -109,54 +95,6 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
                 navController
             )
         }
-    }
-
-    private fun shareResult(calculatedData: CalculatedData) {
-        val intent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
-            putExtra(Intent.EXTRA_EMAIL, "")
-            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_result_subject))
-            putExtra(Intent.EXTRA_TEXT, createTextForSharing(calculatedData))
-        }
-        startActivity(Intent.createChooser(intent, getString(R.string.share_with)))
-    }
-
-    private fun createTextForSharing(calculatedData: CalculatedData): String {
-        val linkInPlayStore = "https://play.google.com/store/apps/details?id=$packageName"
-        return if (calculatedData.cylinderPower == null) {
-            getString(
-                R.string.share_text_only_sphere,
-                getString(R.string.app_name),
-                linkInPlayStore,
-                calculatedData.refractionIndex,
-                calculatedData.spherePower,
-                calculatedData.thicknessCenter,
-                calculatedData.thicknessEdge,
-                calculatedData.realBaseCurve,
-                calculatedData.diameter
-            )
-        } else {
-            getString(
-                R.string.share_text_full,
-                getString(R.string.app_name),
-                linkInPlayStore,
-                calculatedData.refractionIndex,
-                calculatedData.spherePower,
-                calculatedData.cylinderPower,
-                calculatedData.axis,
-                calculatedData.axis,
-                calculatedData.thicknessOnAxis,
-                calculatedData.thicknessCenter,
-                calculatedData.thicknessEdge,
-                calculatedData.thicknessMax,
-                calculatedData.realBaseCurve,
-                calculatedData.diameter
-            )
-        }
-    }
-
-    private fun showSnackbar(resId: Int) {
-        Snackbar.make(container_parent, resId, Snackbar.LENGTH_LONG).show()
     }
 
     override fun onBackPressed() {

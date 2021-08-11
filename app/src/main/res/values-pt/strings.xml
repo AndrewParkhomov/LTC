@@ -37,6 +37,7 @@
     <string name="result_diameter">Diâmetro: %1$s mm</string>
     <string name="result_add_to_list">Add à lista de comparação</string>
     <string name="result_remove_from_list">Remover da lista</string>
+    <string name="result_share">Compartilhar</string>
     <!-- Transposition -->
     <string name="transposition_power_sphere">Esférico %1$s</string>
     <string name="transposition_power_cylinder">Cilíndrico %1$s</string>
@@ -44,7 +45,6 @@
     <string name="transposition_result">Grau Esférico %1$s\nGrau Cilíndrico %2$s\nEixo %3$d&#176;</string>
     <!-- Settings list item-->
     <string name="header_settings">Definições</string>
-    <string name="header_share">Compartilhar</string>
     <string name="header_about">Sobre</string>
     <!-- Share result -->
     <string name="share_result_subject">Dados da lente</string>

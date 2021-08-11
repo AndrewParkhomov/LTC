@@ -5,16 +5,14 @@
     tools:context="com.example.MainActivity">
 
     <item
-        android:id="@+id/menu_item_language"
+        android:id="@+id/menu_item_settings"
         android:title="@string/header_settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_item_share"
-        android:title="@string/header_share"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_settings_24"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_item_about"
         android:title="@string/header_about"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_device_info_24"
+        app:showAsAction="ifRoom" />
 
 </menu>

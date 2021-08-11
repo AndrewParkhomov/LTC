@@ -19,6 +19,7 @@
 
     <color name="navigation_bar_color">@color/FF0288D1</color>
     <color name="button_tint">@color/FFFFFFFF</color>
+    <color name="text_color">@color/FF0288D1</color>
     <color name="compare_column">@color/FF838383</color>
 
 </resources>
