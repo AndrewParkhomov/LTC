@@ -9,10 +9,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
-import kotlinx.android.synthetic.main.activity.*
+import by.kirich1409.viewbindingdelegate.viewBinding
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
+import parkhomov.andrew.lensthicknesscalculator.databinding.ActivityBinding
 import parkhomov.andrew.lensthicknesscalculator.extencions.MyContextWrapper
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_LANGUAGE
 import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
 
     private val appPreferences: AppPreferences by inject()
     private val viewModel: MainActivityViewModel by viewModel()
+    private val binding by viewBinding(ActivityBinding::bind)
 
     override fun attachBaseContext(context: Context) {
         var language = appPreferences.getStringValue(APP_LANGUAGE, "")
@@ -43,12 +45,12 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
 
     private fun updateFabIcon(imageId: Int?) {
         if (imageId == null) {
-            fab.hide()
+            binding.fab.hide()
         } else {
-            fab.show()
-            fab.setImageResource(imageId)
+            binding.fab.show()
+            binding.fab.setImageResource(imageId)
         }
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
             when (imageId) {
                 R.drawable.calculate -> viewModel.onCalculateClicked()
                 R.drawable.ic_outline_delete_24 -> viewModel.onClearClicked()
@@ -70,8 +72,8 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
     }
 
     private fun initViews() {
-        nav_view.background = null
-        nav_view.menu.getItem(4).isEnabled = false
+        binding.navView.background = null
+        binding.navView.menu.getItem(4).isEnabled = false
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
@@ -83,7 +85,7 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        nav_view.setOnItemSelectedListener { menuItem ->
+        binding.navView.setOnItemSelectedListener { menuItem ->
             val imageId = when (menuItem.itemId) {
                 R.id.navigation_thickness -> R.drawable.calculate
                 R.id.navigation_compare -> R.drawable.ic_outline_delete_24

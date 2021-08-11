@@ -1,7 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator.view
 
 import android.content.Context
-import android.content.ContextWrapper
 import android.os.Bundle
 import android.view.ContextThemeWrapper
 import android.view.View
@@ -9,15 +8,14 @@ import android.view.ViewGroup.LayoutParams
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
-import kotlinx.android.synthetic.main.settings.*
+import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.delay
 import org.koin.android.ext.android.inject
 import parkhomov.andrew.lensthicknesscalculator.R
-import parkhomov.andrew.lensthicknesscalculator.extencions.dip
+import parkhomov.andrew.lensthicknesscalculator.databinding.SettingsBinding
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_LANGUAGE
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_THEME
 import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
@@ -25,6 +23,7 @@ import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
 class Settings : DialogFragment(R.layout.settings) {
 
     private val sp: AppPreferences by inject()
+    private val binding by viewBinding(SettingsBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setRadioButtonLanguage()
@@ -42,25 +41,25 @@ class Settings : DialogFragment(R.layout.settings) {
                 pair.first,
                 pair.second
             )
-            radio_group_language.addView(radioButton)
+            binding.radioGroupLanguage.addView(radioButton)
         }
     }
 
     private fun setRadioButtonTheme() {
         val theme = sp.getIntValue(APP_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         val checkButtonId = when (theme) {
-            AppCompatDelegate.MODE_NIGHT_NO -> button_day.id
-            AppCompatDelegate.MODE_NIGHT_YES -> button_night.id
-            else -> button_auto.id
+            AppCompatDelegate.MODE_NIGHT_NO -> binding.buttonDay.id
+            AppCompatDelegate.MODE_NIGHT_YES -> binding.buttonNight.id
+            else -> binding.buttonAuto.id
         }
-        radio_group_theme.findViewById<RadioButton>(checkButtonId)?.isChecked = true
+        binding.radioGroupTheme.findViewById<RadioButton>(checkButtonId)?.isChecked = true
 
-        radio_group_theme.setOnCheckedChangeListener { group, checkedId ->
+        binding.radioGroupTheme.setOnCheckedChangeListener { group, checkedId ->
             val checkedButton = group.findViewById<RadioButton>(checkedId)
             if (!checkedButton.isChecked) return@setOnCheckedChangeListener
             val newTheme = when (checkedButton.id) {
-                button_day.id -> AppCompatDelegate.MODE_NIGHT_NO
-                button_night.id -> AppCompatDelegate.MODE_NIGHT_YES
+                binding.buttonDay.id -> AppCompatDelegate.MODE_NIGHT_NO
+                binding.buttonNight.id -> AppCompatDelegate.MODE_NIGHT_YES
                 else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             }
             saveTheme(newTheme)

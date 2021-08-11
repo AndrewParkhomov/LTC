@@ -13,11 +13,12 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import kotlinx.android.synthetic.main.compare.*
+import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
+import parkhomov.andrew.lensthicknesscalculator.databinding.CompareBinding
 import parkhomov.andrew.lensthicknesscalculator.extencions.dip
 import parkhomov.andrew.lensthicknesscalculator.extencions.getColorFromId
 import parkhomov.andrew.lensthicknesscalculator.extencions.shortCollect
@@ -26,6 +27,7 @@ import parkhomov.andrew.lensthicknesscalculator.extencions.shortCollect
 class CompareList : Fragment(R.layout.compare) {
 
     private val viewModel: CompareListViewModel by viewModel()
+    private val binding by viewBinding(CompareBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setFlowListeners()
@@ -38,15 +40,15 @@ class CompareList : Fragment(R.layout.compare) {
 
     private fun onClearButtonClicked() {
         viewModel.clearCompareList()
-        container_description.removeAllViews()
-        container_list_empty.removeAllViews()
-        linear_scroll_container.removeAllViews()
+        binding.containerDescription.removeAllViews()
+        binding.containerListEmpty.removeAllViews()
+        binding.linearScrollContainer.removeAllViews()
         setEmptyContainerVisibility(true)
         createEmptyListView()
     }
 
     private fun setEmptyContainerVisibility(isVisible: Boolean) {
-        container_list_empty.isVisible = isVisible
+        binding.containerListEmpty.isVisible = isVisible
     }
 
     private fun setUpAdapter(compareSet: Set<CalculatedData>) {
@@ -72,14 +74,14 @@ class CompareList : Fragment(R.layout.compare) {
             val descriptionLayout = requireContext()
                 .createVerticalLayout(item, textColorBlack, dividerColor, 20f)
 
-            container_description.addView(descriptionLayout)
+            binding.containerDescription.addView(descriptionLayout)
             compareSet.forEach { calculatedData ->
                 val divider = requireContext().getDividerVertical(dividerColor)
                 val verticalLayout = requireContext()
                     .createVerticalLayout(calculatedData, textColorBlack, dividerColor)
 
-                linear_scroll_container.addView(verticalLayout)
-                linear_scroll_container.addView(divider)
+                binding.linearScrollContainer.addView(verticalLayout)
+                binding.linearScrollContainer.addView(divider)
             }
         }
     }
@@ -97,7 +99,7 @@ class CompareList : Fragment(R.layout.compare) {
             setTextColor(getColorFromId(R.color.FF85121212))
             gravity = Gravity.CENTER_HORIZONTAL
         }
-        val description = TextView(requireContext(),null, R.style.SimpleText).apply {
+        val description = TextView(requireContext(), null, R.style.SimpleText).apply {
             layoutParams =
                 LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
                     setMargins(dip(20), dip(14), dip(20), 0)
@@ -110,8 +112,8 @@ class CompareList : Fragment(R.layout.compare) {
             gravity = Gravity.CENTER_HORIZONTAL
         }
 
-        container_list_empty.addView(title)
-        container_list_empty.addView(description)
+        binding.containerListEmpty.addView(title)
+        binding.containerListEmpty.addView(description)
     }
 
     private fun Context.createVerticalLayout(
@@ -146,7 +148,7 @@ class CompareList : Fragment(R.layout.compare) {
     }
 
     private fun Context.getTextView(text: String?, color: Int, mTextSize: Float = 24f): TextView {
-        return TextView(this,null, R.style.SimpleText).apply {
+        return TextView(this, null, R.style.SimpleText).apply {
             layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, dip(44))
             textSize = mTextSize
             setTextColor(color)

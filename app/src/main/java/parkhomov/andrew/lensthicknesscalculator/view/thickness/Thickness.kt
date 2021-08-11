@@ -8,11 +8,11 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
-import kotlinx.android.synthetic.main.activity.*
-import kotlinx.android.synthetic.main.thickness.*
+import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
+import parkhomov.andrew.lensthicknesscalculator.databinding.ThicknessBinding
 import parkhomov.andrew.lensthicknesscalculator.extencions.*
 import parkhomov.andrew.lensthicknesscalculator.view.BaseFragment
 import parkhomov.andrew.lensthicknesscalculator.view.result.Result
@@ -21,42 +21,43 @@ import parkhomov.andrew.lensthicknesscalculator.view.result.Result
 class Thickness : BaseFragment(R.layout.thickness) {
 
     private val viewModel: ThicknessViewModel by viewModel()
+    private val binding by viewBinding(ThicknessBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setFlowListeners()
         setClickListeners()
 
-        sphere_.addTextChangedListener(GenericTextWatcher())
-        cylinder_.addTextChangedListener(GenericTextWatcher())
-        text_view_spinner.setOnClickListener { spinner.performClick() }
+        binding.sphere.addTextChangedListener(GenericTextWatcher())
+        binding.cylinder.addTextChangedListener(GenericTextWatcher())
+        binding.textViewSpinner.setOnClickListener { binding.spinner.performClick() }
 
-        curve_.setOnEditorActionListener(
+        binding.curve.setOnEditorActionListener(
             TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (wrapper_center_thickness.isEnabled) {
-                        wrapper_center_thickness.requestFocus()
-                    } else if (wrapper_edge_thickness.isEnabled) {
-                        wrapper_edge_thickness.requestFocus()
+                    if (binding.wrapperCenterThickness.isEnabled) {
+                        binding.wrapperCenterThickness.requestFocus()
+                    } else if (binding.wrapperEdgeThickness.isEnabled) {
+                        binding.wrapperEdgeThickness.requestFocus()
                     }
                     return@OnEditorActionListener true
                 }
                 false
             })
 
-        center_thickness.setOnEditorActionListener(
-                TextView.OnEditorActionListener { _, actionId, _ ->
-                    if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                        if (wrapper_edge_thickness.isEnabled) {
-                            wrapper_edge_thickness.requestFocus()
-                        } else {
-                            wrapper_diameter.requestFocus()
-                        }
-                        return@OnEditorActionListener true
+        binding.centerThickness.setOnEditorActionListener(
+            TextView.OnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    if (binding.wrapperEdgeThickness.isEnabled) {
+                        binding.wrapperEdgeThickness.requestFocus()
+                    } else {
+                        binding.wrapperDiameter.requestFocus()
                     }
-                    false
-                })
+                    return@OnEditorActionListener true
+                }
+                false
+            })
 
-        diameter_.setOnEditorActionListener(
+        binding.diameter.setOnEditorActionListener(
             TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     onCalculateButtonClicked()
@@ -68,26 +69,26 @@ class Thickness : BaseFragment(R.layout.thickness) {
 
     private fun setClickListeners() {
         val glossaryClickListener = View.OnClickListener {
-            val imageId = when(it.id){
-                image_view_info_sphere.id -> R.drawable.sphere_img
-                image_view_info_cylinder.id -> R.drawable.cylinder_img
-                image_view_info_axis.id -> R.drawable.axis_img
-                image_view_info_base_curve.id -> R.drawable.front_curve_img
-                image_view_info_center_thickness.id -> R.drawable.thickness_gauge_img
-                image_view_info_edge_thickness.id -> R.drawable.edge_thickness_img
-                image_view_info_diameter.id -> R.drawable.diam_img
+            val imageId = when (it.id) {
+                binding.imageViewInfoSphere.id -> R.drawable.sphere_img
+                binding.imageViewInfoCylinder.id -> R.drawable.cylinder_img
+                binding.imageViewInfoAxis.id -> R.drawable.axis_img
+                binding.imageViewInfoBaseCurve.id -> R.drawable.front_curve_img
+                binding.imageViewInfoCenterThickness.id -> R.drawable.thickness_gauge_img
+                binding.imageViewInfoEdgeThickness.id -> R.drawable.edge_thickness_img
+                binding.imageViewInfoDiameter.id -> R.drawable.diam_img
                 else -> R.drawable.index_of_refraction_img
             }
             showGlossaryModal(imageId)
         }
-        image_view_info_refraction.setOnClickListener(glossaryClickListener)
-        image_view_info_sphere.setOnClickListener(glossaryClickListener)
-        image_view_info_cylinder.setOnClickListener(glossaryClickListener)
-        image_view_info_axis.setOnClickListener(glossaryClickListener)
-        image_view_info_base_curve.setOnClickListener(glossaryClickListener)
-        image_view_info_center_thickness.setOnClickListener(glossaryClickListener)
-        image_view_info_edge_thickness.setOnClickListener(glossaryClickListener)
-        image_view_info_diameter.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoRefraction.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoSphere.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoCylinder.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoAxis.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoBaseCurve.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoCenterThickness.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoEdgeThickness.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoDiameter.setOnClickListener(glossaryClickListener)
 
         val adapter: ArrayAdapter<*> =
             ArrayAdapter.createFromResource(
@@ -96,7 +97,7 @@ class Thickness : BaseFragment(R.layout.thickness) {
                 R.layout.spinner_item
             )
         adapter.setDropDownViewResource(R.layout.spinner_item)
-        spinner.adapter = adapter
+        binding.spinner.adapter = adapter
     }
 
     private fun setFlowListeners() {
@@ -115,19 +116,19 @@ class Thickness : BaseFragment(R.layout.thickness) {
     private fun onCalculateButtonClicked() {
         viewModel.onCalculateBtnClicked(
             getLensIndex(),
-            sphere_.text.toString(),
-            cylinder_.text.toString(),
-            axis_.text.toString(),
-            curve_.text.toString(),
-            center_thickness.text.toString(),
-            edge_thickness.text.toString(),
-            diameter_.text.toString()
+            binding.sphere.text.toString(),
+            binding.cylinder.text.toString(),
+            binding.axis.text.toString(),
+            binding.curve.text.toString(),
+            binding.centerThickness.text.toString(),
+            binding.edgeThickness.text.toString(),
+            binding.diameter.text.toString()
         )
     }
 
     private fun getLensIndex(): Triple<Double, Double, String> {
-        val spinnerText = spinner.selectedItem.toString()
-        return when (spinner.selectedItemPosition) {
+        val spinnerText = binding.spinner.selectedItem.toString()
+        return when (binding.spinner.selectedItemPosition) {
             0 -> Triple(INDEX_1498, INDEX_X_1498, spinnerText)
             1 -> Triple(INDEX_1560, INDEX_X_1560, spinnerText)
             2 -> Triple(INDEX_1530, INDEX_X_1530, spinnerText)
@@ -141,30 +142,31 @@ class Thickness : BaseFragment(R.layout.thickness) {
 
     private fun highlightSpherePower(isShowError: Boolean) {
         if (isShowError) {
-            wrapper_sphere.error = getString(R.string.tab_thkns_provide_sphere)
+            binding.wrapperSphere.error = getString(R.string.tab_thkns_provide_sphere)
         } else {
-            wrapper_sphere.error = null
+            binding.wrapperSphere.error = null
         }
     }
 
     private fun highlightCenterThickness(isShowError: Boolean) {
         if (isShowError) {
-            wrapper_center_thickness.error = getString(R.string.tab_thkns_provide_center_thickness)
+            binding.wrapperCenterThickness.error =
+                getString(R.string.tab_thkns_provide_center_thickness)
         } else {
-            wrapper_center_thickness.error = null
+            binding.wrapperCenterThickness.error = null
         }
     }
 
     private fun highlightDiameter(isShowError: Boolean) {
         if (isShowError) {
-            wrapper_diameter.error = getString(R.string.tab_thkns_provide_diameter)
+            binding.wrapperDiameter.error = getString(R.string.tab_thkns_provide_diameter)
         } else {
-            wrapper_diameter.error = null
+            binding.wrapperDiameter.error = null
         }
     }
 
     private fun setCurrentBaseCurve(curveValue: String) {
-        curve_.setText(curveValue)
+        binding.curve.setText(curveValue)
     }
 
     private inner class GenericTextWatcher : TextWatcher {
@@ -173,13 +175,13 @@ class Thickness : BaseFragment(R.layout.thickness) {
 
         override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
             val spherePower = try {
-                sphere_.text.toString().toDouble()
+                binding.sphere.text.toString().toDouble()
             } catch (e: NumberFormatException) {
                 null
             }
 
             val cylinderPower = try {
-                cylinder_.text.toString().toDouble()
+                binding.cylinder.text.toString().toDouble()
             } catch (e: NumberFormatException) {
                 null
             }
@@ -189,12 +191,12 @@ class Thickness : BaseFragment(R.layout.thickness) {
                     spherePower + cylinderPower
                 else
                     spherePower
-                wrapper_center_thickness.isEnabled = value <= 0
-                wrapper_edge_thickness.isEnabled = value > 0
+                binding.wrapperCenterThickness.isEnabled = value <= 0
+                binding.wrapperEdgeThickness.isEnabled = value > 0
                 highlightCenterThickness(false)
             } else {
-                wrapper_center_thickness.isEnabled = true
-                wrapper_edge_thickness.isEnabled = true
+                binding.wrapperCenterThickness.isEnabled = true
+                binding.wrapperEdgeThickness.isEnabled = true
                 highlightCenterThickness(false)
             }
         }

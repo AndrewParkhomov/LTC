@@ -7,18 +7,20 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
-import kotlinx.android.synthetic.main.result.*
+import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
+import parkhomov.andrew.lensthicknesscalculator.databinding.ResultBinding
 import parkhomov.andrew.lensthicknesscalculator.extencions.argument
 import parkhomov.andrew.lensthicknesscalculator.extencions.shortCollect
 
 class Result : DialogFragment(R.layout.result) {
 
-    private val viewModel: ResultViewModel by viewModel()
     private val result by argument<CalculatedData>(RESULT)
+    private val viewModel: ResultViewModel by viewModel()
+    private val binding by viewBinding(ResultBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         showCylinderViews(result.cylinderPower != null)
@@ -32,7 +34,7 @@ class Result : DialogFragment(R.layout.result) {
     }
 
     private fun setClickListeners(set: MutableSet<CalculatedData>) {
-        button_add_to_list.setOnClickListener {
+        binding.buttonAddToList.setOnClickListener {
             if (set.contains(result)) {
                 val isRemovedSuccessfully = set.remove(result)
                 setButtonState(!isRemovedSuccessfully) // already not in list
@@ -40,7 +42,7 @@ class Result : DialogFragment(R.layout.result) {
                 setButtonState(set.add(result))
             }
         }
-        button_share.setOnClickListener {
+        binding.buttonShare.setOnClickListener {
             shareResult(result)
         }
     }
@@ -94,40 +96,41 @@ class Result : DialogFragment(R.layout.result) {
             R.string.result_remove_from_list
         else
             R.string.result_add_to_list
-        button_add_to_list.setText(textId)
+        binding.buttonAddToList.setText(textId)
     }
 
     private fun showCylinderViews(isShow: Boolean) {
-        view_cylinder.isVisible = isShow
-        text_view_cylinder_power.isVisible = isShow
-        view_axis.isVisible = isShow
-        text_view_axis.isVisible = isShow
-        view_thickness_on_axis.isVisible = isShow
-        text_view_thickness_on_axis.isVisible = isShow
-        view_max_thickness.isVisible = isShow
-        text_view_max_thickness.isVisible = isShow
+        binding.viewCylinder.isVisible = isShow
+        binding.textViewCylinderPower.isVisible = isShow
+        binding.viewAxis.isVisible = isShow
+        binding.textViewAxis.isVisible = isShow
+        binding.viewThicknessOnAxis.isVisible = isShow
+        binding.textViewThicknessOnAxis.isVisible = isShow
+        binding.viewMaxThickness.isVisible = isShow
+        binding.textViewMaxThickness.isVisible = isShow
     }
 
     private fun setCalculatedData(data: CalculatedData) {
-        text_view_index_of_refraction.text =
+        binding.textViewIndexOfRefraction.text =
             getString(R.string.result_index_of_refraction, data.refractionIndex)
-        text_view_sphere_power.text = getString(R.string.result_sphere_power, data.spherePower)
-        text_view_cylinder_power.text =
+        binding.textViewSpherePower.text = getString(R.string.result_sphere_power, data.spherePower)
+        binding.textViewCylinderPower.text =
             getString(R.string.result_cylinder_power, data.cylinderPower)
-        text_view_axis.text = getString(R.string.result_axis, data.axis)
-        text_view_thickness_on_axis.text = getString(
+        binding.textViewAxis.text = getString(R.string.result_axis, data.axis)
+        binding.textViewThicknessOnAxis.text = getString(
             R.string.result_on_axis_thickness,
             data.axis,
             data.thicknessOnAxis
         )
-        text_view_center_thickness.text =
+        binding.textViewCenterThickness.text =
             getString(R.string.result_center_thickness, data.thicknessCenter)
-        text_view_min_thickness.text =
+        binding.textViewMinThickness.text =
             getString(R.string.result_min_edge_thickness, data.thicknessEdge)
-        text_view_max_thickness.text =
+        binding.textViewMaxThickness.text =
             getString(R.string.result_max_edge_thickness, data.thicknessMax)
-        text_view_real_base_curve.text = getString(R.string.result_base_curve, data.realBaseCurve)
-        text_view_diameter.text = getString(R.string.result_diameter, data.diameter)
+        binding.textViewRealBaseCurve.text =
+            getString(R.string.result_base_curve, data.realBaseCurve)
+        binding.textViewDiameter.text = getString(R.string.result_diameter, data.diameter)
     }
 
     fun show(fragmentManager: FragmentManager) = super.show(fragmentManager, RESULT)

@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
-import kotlinx.android.synthetic.main.transposition.*
+import by.kirich1409.viewbindingdelegate.viewBinding
 import parkhomov.andrew.lensthicknesscalculator.R
+import parkhomov.andrew.lensthicknesscalculator.databinding.TranspositionBinding
 
 
 class Transposition : BaseFragment(R.layout.transposition) {
+
+    private val binding by viewBinding(TranspositionBinding::bind)
 
     private var spherePower: Double = 0.0
     private var cylinderPower: Double = 0.0
@@ -24,15 +27,15 @@ class Transposition : BaseFragment(R.layout.transposition) {
     }
 
     private fun setClickListeners() {
-        image_view_info_transposition.setOnClickListener {
+        binding.imageViewInfoTransposition.setOnClickListener {
             showGlossaryModal(R.drawable.transposition_img)
         }
     }
 
     private fun setTextWatcherListeners() {
-        input_edit_text_sphere.setTextChangeListener()
-        input_edit_text_cylinder.setTextChangeListener()
-        input_edit_text_axis.setTextChangeListener()
+        binding.inputEditTextSphere.setTextChangeListener()
+        binding.inputEditTextCylinder.setTextChangeListener()
+        binding.inputEditTextAxis.setTextChangeListener()
     }
 
     private fun EditText.setTextChangeListener() {
@@ -52,7 +55,7 @@ class Transposition : BaseFragment(R.layout.transposition) {
         var value = originalValue
 
         if (viewId == R.id.input_edit_text_axis && value > 180) {
-            input_edit_text_axis.text?.clear()
+            binding.inputEditTextAxis.text?.clear()
             value = 0.0
             isAxisCorrect = false
         }
@@ -100,7 +103,7 @@ class Transposition : BaseFragment(R.layout.transposition) {
             R.id.input_edit_text_axis -> setHintAxis(if (isAxisCorrect) value else 0.0)
         }
 
-        text_view_result.text = getString(
+        binding.textViewResult.text = getString(
             R.string.transposition_result,
             sphere.toString(),
             cylinder.toString(),
@@ -110,14 +113,16 @@ class Transposition : BaseFragment(R.layout.transposition) {
 
 
     private fun setHintSphere(value: Double) {
-        wrapper_sphere.hint = getString(R.string.transposition_power_sphere, value.toString())
+        binding.wrapperSphere.hint =
+            getString(R.string.transposition_power_sphere, value.toString())
     }
 
     private fun setHintCylinder(value: Double) {
-        wrapper_cylinder.hint = getString(R.string.transposition_power_cylinder, value.toString())
+        binding.wrapperCylinder.hint =
+            getString(R.string.transposition_power_cylinder, value.toString())
     }
 
     private fun setHintAxis(value: Double) {
-        wrapper_axis.hint = getString(R.string.transposition_axis, value.toInt())
+        binding.wrapperAxis.hint = getString(R.string.transposition_axis, value.toInt())
     }
 }

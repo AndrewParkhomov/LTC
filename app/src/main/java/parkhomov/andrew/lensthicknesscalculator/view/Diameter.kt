@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
-import kotlinx.android.synthetic.main.diameter.*
+import by.kirich1409.viewbindingdelegate.viewBinding
 import parkhomov.andrew.lensthicknesscalculator.R
+import parkhomov.andrew.lensthicknesscalculator.databinding.DiameterBinding
 import kotlin.math.ceil
 
 
 class Diameter : BaseFragment(R.layout.diameter) {
+
+    private val binding by viewBinding(DiameterBinding::bind)
 
     private var ed = 0.0 // effective diameter
     private var dbl = 0.0 // distance between lenses
@@ -24,23 +27,23 @@ class Diameter : BaseFragment(R.layout.diameter) {
     private fun setClickListeners() {
         val glossaryClickListener = View.OnClickListener {
             val imageId = when (it.id) {
-                image_view_info_ed.id -> R.drawable.ed_img
-                image_view_info_dbl.id -> R.drawable.dbl_img
-                image_view_info_pd.id -> R.drawable.pd_img
+                binding.imageViewInfoEd.id -> R.drawable.ed_img
+                binding.imageViewInfoDbl.id -> R.drawable.dbl_img
+                binding.imageViewInfoPd.id -> R.drawable.pd_img
                 else -> R.drawable.diam_img
             }
             showGlossaryModal(imageId)
         }
-        image_view_info_ed.setOnClickListener(glossaryClickListener)
-        image_view_info_dbl.setOnClickListener(glossaryClickListener)
-        image_view_info_pd.setOnClickListener(glossaryClickListener)
-        image_view_info_diameter.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoEd.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoDbl.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoPd.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoDiameter.setOnClickListener(glossaryClickListener)
     }
 
     private fun setTextWatcherListeners() {
-        input_edit_text_ed.setTextChangeListener()
-        input_edit_text_dbl.setTextChangeListener()
-        input_edit_text_pd.setTextChangeListener()
+        binding.inputEditTextEd.setTextChangeListener()
+        binding.inputEditTextDbl.setTextChangeListener()
+        binding.inputEditTextPd.setTextChangeListener()
     }
 
     private fun EditText.setTextChangeListener() {
@@ -56,14 +59,14 @@ class Diameter : BaseFragment(R.layout.diameter) {
     }
 
     private fun updateHints() {
-        wrapper_ed.hint = getString(R.string.tab_diameter_hint_ed, ed)
-        wrapper_dbl.hint = getString(R.string.tab_diameter_hint_dbl, dbl)
-        wrapper_pd.hint = getString(R.string.tab_diameter_hint_pd, pd)
+        binding.wrapperEd.hint = getString(R.string.tab_diameter_hint_ed, ed)
+        binding.wrapperDbl.hint = getString(R.string.tab_diameter_hint_dbl, dbl)
+        binding.wrapperPd.hint = getString(R.string.tab_diameter_hint_pd, pd)
     }
 
     private fun calculate() {
         val diameter = ceil(ed * 2 + dbl - pd)
-        text_view_diameter_result.text = getString(R.string.lens_diameter_result, diameter)
+        binding.textViewDiameterResult.text = getString(R.string.lens_diameter_result, diameter)
         updateHints()
     }
 }

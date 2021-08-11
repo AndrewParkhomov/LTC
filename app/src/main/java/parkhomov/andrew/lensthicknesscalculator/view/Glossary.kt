@@ -8,9 +8,10 @@ import androidx.core.view.doOnPreDraw
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import kotlinx.android.synthetic.main.glossary.*
+import by.kirich1409.viewbindingdelegate.viewBinding
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.GlossaryItem
+import parkhomov.andrew.lensthicknesscalculator.databinding.GlossaryBinding
 import parkhomov.andrew.lensthicknesscalculator.extencions.argument
 import parkhomov.andrew.lensthicknesscalculator.extencions.getDrawableFromId
 
@@ -18,18 +19,19 @@ import parkhomov.andrew.lensthicknesscalculator.extencions.getDrawableFromId
 class Glossary : DialogFragment(R.layout.glossary) {
 
     private val glossary by argument<GlossaryItem>(GLOSSARY)
+    private val binding by viewBinding(GlossaryBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
 
-        text_view_title.text = glossary.title
-        text_view_description.text = glossary.description
-        image_view_picture.setImageDrawable(getDrawableFromId(glossary.imageId))
+        binding.textViewTitle.text = glossary.title
+        binding.textViewDescription.text = glossary.description
+        binding.imageViewPicture.setImageDrawable(getDrawableFromId(glossary.imageId))
 
         val screenWidth = Resources.getSystem().displayMetrics.heightPixels
-        scroll_view_for_text.doOnPreDraw {
+        binding.scrollViewForText.doOnPreDraw {
             if (it.measuredHeight > screenWidth / 2) {
-                scroll_view_for_text.updateLayoutParams<LayoutParams> {
+                binding.scrollViewForText.updateLayoutParams<LayoutParams> {
                     height = (screenWidth / 2.6).toInt()
                 }
             }
