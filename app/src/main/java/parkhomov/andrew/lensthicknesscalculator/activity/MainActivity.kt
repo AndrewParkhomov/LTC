@@ -1,13 +1,10 @@
 package parkhomov.andrew.lensthicknesscalculator.activity
 
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -20,13 +17,13 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.onEach
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.extencions.MyContextWrapper
 import parkhomov.andrew.lensthicknesscalculator.extencions.shortCollect
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_LANGUAGE
 import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
+import parkhomov.andrew.lensthicknesscalculator.view.About
 import parkhomov.andrew.lensthicknesscalculator.view.Settings
 import java.util.*
 
@@ -37,7 +34,7 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
     private val viewModel: MainActivityViewModel by viewModel()
 
     override fun attachBaseContext(context: Context) {
-        var language = appPreferences.getStringValue(APP_LANGUAGE, "en")
+        var language = appPreferences.getStringValue(APP_LANGUAGE, "")
         if (language.isEmpty()) {
             language = Locale.getDefault().isO3Language.substring(0, 2)
             appPreferences.putStringValue(APP_LANGUAGE, language)
@@ -80,9 +77,8 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_item_language -> Settings.instance.show(supportFragmentManager)
-            R.id.menu_item_rate -> showRateThisAppDialog()
             R.id.menu_item_share -> viewModel.onShareResultClicked()
-            R.id.menu_item_about -> showAboutDialog()
+            R.id.menu_item_about -> About.instance.show(supportFragmentManager)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -115,28 +111,6 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
         }
     }
 
-    private fun showRateThisAppDialog() {
-        AlertDialog.Builder(this)
-                .setTitle(R.string.rate_app_header)
-                .setMessage(R.string.rate_app_body)
-                .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    openGooglePlay()
-                }
-                .create()
-                .show()
-    }
-
-    private fun openGooglePlay() {
-        try {
-            startActivity(Intent(Intent.ACTION_VIEW,
-                    Uri.parse(getString(R.string.app_google_play_link) + packageName)))
-        } catch (e: ActivityNotFoundException) {
-            startActivity(Intent(Intent.ACTION_VIEW,
-                    Uri.parse(getString(R.string.app_google_play_link) + packageName)))
-        }
-    }
-
     private fun shareResult(calculatedData: CalculatedData) {
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
@@ -150,7 +124,8 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
     private fun createTextForSharing(calculatedData: CalculatedData): String {
         val linkInPlayStore = "https://play.google.com/store/apps/details?id=$packageName"
         return if (calculatedData.cylinderPower == null) {
-            getString(R.string.share_text_only_sphere,
+            getString(
+                R.string.share_text_only_sphere,
                 getString(R.string.app_name),
                 linkInPlayStore,
                 calculatedData.refractionIndex,
@@ -161,7 +136,8 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
                 calculatedData.diameter
             )
         } else {
-            getString(R.string.share_text_full,
+            getString(
+                R.string.share_text_full,
                 getString(R.string.app_name),
                 linkInPlayStore,
                 calculatedData.refractionIndex,
@@ -183,15 +159,8 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
         Snackbar.make(container_parent, resId, Snackbar.LENGTH_LONG).show()
     }
 
-    private fun showAboutDialog() {
-        val version = StringBuilder(getString(R.string.version, BuildConfig.VERSION_NAME))
-        version.append("\n\n")
-        version.append(getString(R.string.translate_to_brazilian_portuguese))
-        AlertDialog.Builder(this)
-                .setMessage(version)
-                .setPositiveButton(android.R.string.ok) { _, _ -> }
-                .create()
-                .show()
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
-
 }

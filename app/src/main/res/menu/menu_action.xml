@@ -13,10 +13,6 @@
         android:title="@string/header_share"
         app:showAsAction="never" />
     <item
-        android:id="@+id/menu_item_rate"
-        android:title="@string/header_rate_this_app"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/menu_item_about"
         android:title="@string/header_about"
         app:showAsAction="never" />

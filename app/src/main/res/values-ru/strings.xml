@@ -2,7 +2,6 @@
 <resources>
     <!-- App name -->
     <string name="app_name">LTC</string>
-    <string name="app_google_play_link">"https://play.google.com/store/apps/details?id="</string>
     <!-- Tab headers -->
     <string name="fragment_thickness">Толщина</string>
     <string name="fragment_compare">Сравнить</string>
@@ -46,7 +45,6 @@
     <!-- Settings list item -->
     <string name="header_settings">Настройки</string>
     <string name="header_share">Поделится</string>
-    <string name="header_rate_this_app">Оцените приложение</string>
     <string name="header_about">О программе</string>
     <!-- Share result -->
     <string name="share_result_subject">Данные об линзе</string>
@@ -54,12 +52,12 @@
     <string name="share_result_is_empty">Сначала просчитайте параметры линзы</string>
     <string name="share_text_only_sphere">Посчитано с помощью приложения %1$s\n%2$s\nИндекс преломления = %3$s\nСфера = %4$s\nТолщина по центру = %5$s мм\nТолщина по краю = %6$s мм\nРеальная кривизна базы линзы = %7$s\nДиаметр линзы = %8$s мм</string>
     <string name="share_text_full">Посчитано с помощью приложения %1$s\n%2$s\nИндекс преломления = %3$s\nСфера = %4$s\nЦилиндр = %5$s\nУгол = %6$s&#176;\nТолщина под углом %7$s&#176; = %8$s мм\nТолщина по центру = %9$s мм\nТолщина по краю = %10$s мм\nМаксимальная толщина = %11$s мм\nРеальная кривизна базы линзы = %12$s\nДиаметр линзы = %13$s мм</string>
-    <!-- Rate this app -->
-    <string name="rate_app_header">Оценить приложение</string>
-    <string name="rate_app_body">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
-    <!-- About program -->
-    <string name="version">Версия %1$s\nРазработка: Пархомов Андрей\nE-mail:\nparkhomov.andrew@gmail.com</string>
-    <string name="translate_to_brazilian_portuguese">Перевод на португальский: Edison Bucchianico Gil</string>
+   <!-- About program -->
+    <string name="about_version">Версия %1$s</string>
+    <string name="about_developed_by">Разработка: Пархомов Андрей</string>
+    <string name="about_button">Закрыть</string>
+    <string name="about_help_to_translate" /> <!-- Ignore, show only for English locale -->
+    <string name="translate_to_brazilian_portuguese" /> <!-- Ignore, show only for portuguese -->
     <!-- Language and Theme -->
     <string name="language_title">Язык</string>
     <string name="theme_title">Тема</string>

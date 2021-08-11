@@ -2,7 +2,6 @@
 <resources>
     <!-- App name -->
     <string name="app_name">LTC</string>
-    <string name="app_google_play_link">"https://play.google.com/store/apps/details?id="</string>
     <!-- Tab headers -->
     <string name="fragment_thickness">Товщина</string>
     <string name="fragment_compare">Порівняти</string>
@@ -46,7 +45,6 @@
     <!-- Settings list item -->
     <string name="header_settings">Налаштування</string>
     <string name="header_share">Поділитись</string>
-    <string name="header_rate_this_app">Оцінити додаток</string>
     <string name="header_about">Про програму</string>
     <!-- Share result -->
     <string name="share_result_subject">Дані про лінзу</string>
@@ -54,12 +52,12 @@
     <string name="share_result_is_empty">Спочатку прорахуйте параметри лінзи</string>
     <string name="share_text_only_sphere">Пораховано за допомогою додатку %1$s\n%2$s\nІндекс заломлення = %3$s\nСфера = %4$s\nТовщина по центру = %5$s мм\nТовщина по краю = %6$s мм\nРеальна кривизна бази лінзи = %7$s\nДіаметр лінзи = %8$s мм</string>
     <string name="share_text_full">Пораховано за допомогою додатку %1$s\n%2$s\nІндекс заломлення = %3$s\nСфера = %4$s\nЦиліндр = %5$s\nКут = %6$s&#176;\nТовщина під кутом %7$s&#176; = %8$s мм\nТовщина по центру = %9$s мм\nТовщина по краю = %10$s мм\nМаксимальна товщина = %11$s мм\nРеальна кривизна бази лінзи = %12$s\nДіаметр лінзи = %13$s мм</string>
-    <!-- Rate this app -->
-    <string name="rate_app_header">Оцінити додаток</string>
-    <string name="rate_app_body">Якщо Вам подобається цей додаток, чи не могли б Ви знайти час, щоб оцінити його? Це займе не більше хвилини. Дякую за Вашу підтримку!</string>
     <!-- About program -->
-    <string name="version">Версія %1$s\nРозробка: Пархомов Андрій\nE-mail:\nparkhomov.andrew@gmail.com</string>
-    <string name="translate_to_brazilian_portuguese">Переклад на португальський: Edison Bucchianico Gil</string>
+    <string name="about_version">Версія %1$s</string>
+    <string name="about_developed_by">Розробка: Пархомов Андрій</string>
+    <string name="about_button">Закрити</string>
+    <string name="about_help_to_translate" /> <!-- Ignore, show only for English locale -->
+    <string name="translate_to_brazilian_portuguese" /> <!-- Ignore, show only for portuguese -->
     <!-- Language and Theme -->
     <string name="language_title">Мова</string>
     <string name="theme_title">Тема</string>
