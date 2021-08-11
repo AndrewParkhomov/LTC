@@ -1,7 +1,7 @@
 package parkhomov.andrew.lensthicknesscalculator
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.multidex.MultiDexApplication
 import androidx.preference.PreferenceManager
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -19,7 +19,7 @@ import parkhomov.andrew.lensthicknesscalculator.view.result.ResultViewModel
 import parkhomov.andrew.lensthicknesscalculator.view.thickness.ThicknessViewModel
 
 
-class MyApp : MultiDexApplication() {
+class MyApp : Application() {
 
     private val sp: AppPreferences by inject()
 
@@ -46,11 +46,5 @@ class MyApp : MultiDexApplication() {
 
         val theme = sp.getIntValue(APP_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         AppCompatDelegate.setDefaultNightMode(theme)
-    }
-
-    companion object {
-        init {
-            AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-        }
     }
 }

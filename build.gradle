@@ -31,7 +31,7 @@ allprojects {
         version_code = 13
         version_name = "${major_version}.${minor_version}.${patch_version}"
         target_version = 31
-        min_version = 17
+        min_version = 21
     }
 }
 
