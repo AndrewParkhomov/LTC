@@ -14,7 +14,7 @@ import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.databinding.ResultBinding
 import parkhomov.andrew.lensthicknesscalculator.extencions.argument
-import parkhomov.andrew.lensthicknesscalculator.extencions.shortCollect
+import parkhomov.andrew.lensthicknesscalculator.extencions.collectData
 
 class Result : DialogFragment(R.layout.result) {
 
@@ -25,7 +25,7 @@ class Result : DialogFragment(R.layout.result) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         showCylinderViews(result.cylinderPower != null)
         setCalculatedData(result)
-        viewModel.getCompareList.onEach(::compareSetLoaded).shortCollect(lifecycleScope)
+        viewModel.getCompareList.onEach(::compareSetLoaded).collectData(lifecycleScope)
     }
 
     private fun compareSetLoaded(set: MutableSet<CalculatedData>) {

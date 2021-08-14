@@ -21,7 +21,7 @@ import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.databinding.CompareBinding
 import parkhomov.andrew.lensthicknesscalculator.extencions.dip
 import parkhomov.andrew.lensthicknesscalculator.extencions.getColorFromId
-import parkhomov.andrew.lensthicknesscalculator.extencions.shortCollect
+import parkhomov.andrew.lensthicknesscalculator.extencions.collectData
 
 
 class CompareList : Fragment(R.layout.compare) {
@@ -29,17 +29,17 @@ class CompareList : Fragment(R.layout.compare) {
     private val viewModel: CompareListViewModel by viewModel()
     private val binding by viewBinding(CompareBinding::bind)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setFlowListeners()
     }
 
     private fun setFlowListeners() {
-        viewModel.onClearClicked.onEach { onClearButtonClicked() }.shortCollect(lifecycleScope)
-        viewModel.getCompareList.onEach(::setUpAdapter).shortCollect(lifecycleScope)
+        viewModel.onClearClicked.onEach { onClearButtonClicked() }.collectData(lifecycleScope)
+        viewModel.getCompareList.onEach(::setUpAdapter).collectData(lifecycleScope)
     }
 
     private fun onClearButtonClicked() {
-        viewModel.clearCompareList()
         binding.containerDescription.removeAllViews()
         binding.containerListEmpty.removeAllViews()
         binding.linearScrollContainer.removeAllViews()

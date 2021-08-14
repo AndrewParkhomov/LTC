@@ -1,6 +1,7 @@
 package parkhomov.andrew.lensthicknesscalculator.view
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.ContextThemeWrapper
 import android.view.View
@@ -15,6 +16,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.delay
 import org.koin.android.ext.android.inject
 import parkhomov.andrew.lensthicknesscalculator.R
+import parkhomov.andrew.lensthicknesscalculator.activity.MainActivity
 import parkhomov.andrew.lensthicknesscalculator.databinding.SettingsBinding
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_LANGUAGE
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_THEME
@@ -101,8 +103,8 @@ class Settings : DialogFragment(R.layout.settings) {
     private fun applyNewLanguage() {
         lifecycleScope.launchWhenStarted {
             delay(500) // wait for radioubutton animation end
-            activity?.recreate()
-            dismiss()
+            activity?.finish()
+            activity?.startActivity(Intent(requireContext(), MainActivity::class.java))
         }
     }
 

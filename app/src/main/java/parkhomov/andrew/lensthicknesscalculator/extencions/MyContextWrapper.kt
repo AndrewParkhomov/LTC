@@ -9,8 +9,8 @@ import android.os.Build
 import java.util.*
 
 class MyContextWrapper(base: Context) : ContextWrapper(base) {
-    companion object {
 
+    companion object {
         fun wrap(context: Context, language: String): ContextWrapper {
             var tempContext = context
             val config = tempContext.resources.configuration

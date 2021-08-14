@@ -1,8 +1,9 @@
 package parkhomov.andrew.lensthicknesscalculator.view.thickness
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.channels.Channel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.domain.Interactor
 import kotlin.math.abs
@@ -10,7 +11,7 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 class ThicknessViewModel(
-    private val interactor: Interactor
+    interactor: Interactor
 ) : ViewModel() {
 
     private val _errorSphere = MutableStateFlow(false)
@@ -21,10 +22,10 @@ class ThicknessViewModel(
     val errorCenter: StateFlow<Boolean> = _errorCenter.asStateFlow()
     private val _setCurve = MutableStateFlow("")
     val setCurve: StateFlow<String> = _setCurve.asStateFlow()
-    private val _showResult: Channel<CalculatedData> = Channel()
-    val showResult: Flow<CalculatedData> = _showResult.receiveAsFlow()
+    private val _showResult: MutableSharedFlow<CalculatedData> = MutableSharedFlow()
+    val showResult: SharedFlow<CalculatedData> = _showResult.asSharedFlow()
 
-    val onCalculateClicked: Flow<Unit> = interactor.calculate
+    val onCalculateClicked: SharedFlow<Unit> = interactor.calculate
 
     fun onCalculateBtnClicked(
         lensIndex: Triple<Double, Double, String>,
@@ -35,7 +36,7 @@ class ThicknessViewModel(
         centerThicknessString: String,
         edgeThicknessString: String,
         diameterString: String
-    ) {
+    ) = viewModelScope.launch {
         val axisView: String
 
         var spherePower = try {
@@ -232,8 +233,7 @@ class ThicknessViewModel(
                     diameter = diameter.toString()
                 )
             }
-            interactor.calculatedData = calculatedData
-            _showResult.trySend(calculatedData)
+            _showResult.emit(calculatedData)
         }
     }
 

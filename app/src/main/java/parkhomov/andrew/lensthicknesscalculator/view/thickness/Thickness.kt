@@ -23,14 +23,50 @@ class Thickness : BaseFragment(R.layout.thickness) {
     private val viewModel: ThicknessViewModel by viewModel()
     private val binding by viewBinding(ThicknessBinding::bind)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setFlowListeners()
-        setClickListeners()
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setListeners()
+    }
+
+    private fun setListeners() {
         binding.sphere.addTextChangedListener(GenericTextWatcher())
         binding.cylinder.addTextChangedListener(GenericTextWatcher())
-        binding.textViewSpinner.setOnClickListener { binding.spinner.performClick() }
+        val glossaryClickListener = View.OnClickListener {
+            val imageId = when (it.id) {
+                binding.imageViewInfoSphere.id -> R.drawable.sphere_img
+                binding.imageViewInfoCylinder.id -> R.drawable.cylinder_img
+                binding.imageViewInfoAxis.id -> R.drawable.axis_img
+                binding.imageViewInfoBaseCurve.id -> R.drawable.front_curve_img
+                binding.imageViewInfoCenterThickness.id -> R.drawable.thickness_gauge_img
+                binding.imageViewInfoEdgeThickness.id -> R.drawable.edge_thickness_img
+                binding.imageViewInfoDiameter.id -> R.drawable.diam_img
+                else -> R.drawable.index_of_refraction_img
+            }
+            showGlossaryModal(imageId)
+        }
+        binding.imageViewInfoRefraction.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoSphere.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoCylinder.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoAxis.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoBaseCurve.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoCenterThickness.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoEdgeThickness.setOnClickListener(glossaryClickListener)
+        binding.imageViewInfoDiameter.setOnClickListener(glossaryClickListener)
 
+        val adapter: ArrayAdapter<*> =
+            ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.index_of_refraction,
+                R.layout.spinner_item
+            )
+        adapter.setDropDownViewResource(R.layout.spinner_item)
+        binding.spinner.adapter = adapter
+
+        binding.textViewSpinner.setOnClickListener { binding.spinner.performClick() }
         binding.curve.setOnEditorActionListener(
             TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
@@ -67,50 +103,17 @@ class Thickness : BaseFragment(R.layout.thickness) {
             })
     }
 
-    private fun setClickListeners() {
-        val glossaryClickListener = View.OnClickListener {
-            val imageId = when (it.id) {
-                binding.imageViewInfoSphere.id -> R.drawable.sphere_img
-                binding.imageViewInfoCylinder.id -> R.drawable.cylinder_img
-                binding.imageViewInfoAxis.id -> R.drawable.axis_img
-                binding.imageViewInfoBaseCurve.id -> R.drawable.front_curve_img
-                binding.imageViewInfoCenterThickness.id -> R.drawable.thickness_gauge_img
-                binding.imageViewInfoEdgeThickness.id -> R.drawable.edge_thickness_img
-                binding.imageViewInfoDiameter.id -> R.drawable.diam_img
-                else -> R.drawable.index_of_refraction_img
-            }
-            showGlossaryModal(imageId)
-        }
-        binding.imageViewInfoRefraction.setOnClickListener(glossaryClickListener)
-        binding.imageViewInfoSphere.setOnClickListener(glossaryClickListener)
-        binding.imageViewInfoCylinder.setOnClickListener(glossaryClickListener)
-        binding.imageViewInfoAxis.setOnClickListener(glossaryClickListener)
-        binding.imageViewInfoBaseCurve.setOnClickListener(glossaryClickListener)
-        binding.imageViewInfoCenterThickness.setOnClickListener(glossaryClickListener)
-        binding.imageViewInfoEdgeThickness.setOnClickListener(glossaryClickListener)
-        binding.imageViewInfoDiameter.setOnClickListener(glossaryClickListener)
-
-        val adapter: ArrayAdapter<*> =
-            ArrayAdapter.createFromResource(
-                requireContext(),
-                R.array.index_of_refraction,
-                R.layout.spinner_item
-            )
-        adapter.setDropDownViewResource(R.layout.spinner_item)
-        binding.spinner.adapter = adapter
-    }
-
     private fun setFlowListeners() {
         viewModel.showResult.onEach { calculatedData ->
             Result.getInstance(calculatedData).show(childFragmentManager)
-        }.shortCollect(lifecycleScope)
+        }.collectData(lifecycleScope)
         viewModel.onCalculateClicked.onEach {
             onCalculateButtonClicked()
-        }.shortCollect(lifecycleScope)
-        viewModel.errorSphere.onEach(::highlightSpherePower).shortCollect(lifecycleScope)
-        viewModel.errorCenter.onEach(::highlightCenterThickness).shortCollect(lifecycleScope)
-        viewModel.errorDiameter.onEach(::highlightDiameter).shortCollect(lifecycleScope)
-        viewModel.setCurve.onEach(::setCurrentBaseCurve).shortCollect(lifecycleScope)
+        }.collectData(lifecycleScope)
+        viewModel.errorSphere.onEach(::highlightSpherePower).collectData(lifecycleScope)
+        viewModel.errorCenter.onEach(::highlightCenterThickness).collectData(lifecycleScope)
+        viewModel.errorDiameter.onEach(::highlightDiameter).collectData(lifecycleScope)
+        viewModel.setCurve.onEach(::setCurrentBaseCurve).collectData(lifecycleScope)
     }
 
     private fun onCalculateButtonClicked() {
