@@ -16,7 +16,6 @@
     <string name="tab_thkns_center_thickness">Товщина по центру</string>
     <string name="tab_thkns_edge_thickness">Товщина по краю</string>
     <string name="tab_thkns_lens_diameter">Діаметр лінзи</string>
-    <string name="tab_thkns_provide_sphere">Будь ласка, введіть значення сфери</string>
     <string name="tab_thkns_provide_center_thickness">Будь ласка, введіть товщину по центру</string>
     <string name="tab_thkns_provide_diameter">Будь ласка, введіть діаметр лінзи</string>
     <!-- Diameter hints -->
@@ -26,8 +25,8 @@
     <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f мм</string>
     <!-- Result -->
     <string name="result_index_of_refraction">Індекс заломлення: %1$s</string>
-    <string name="result_sphere_power">Сфера: %1$s</string>
-    <string name="result_cylinder_power">Циліндр: %1$s</string>
+    <string name="result_sphere_power">Сфера: %1$.2f</string>
+    <string name="result_cylinder_power">Циліндр: %1$.2f</string>
     <string name="result_axis">Кут: %1$s&#176;</string>
     <string name="result_on_axis_thickness">Товщина під кутом %1$s&#176;: %2$s мм</string>
     <string name="result_center_thickness">Товщина по центру: %1$s мм</string>
@@ -35,8 +34,8 @@
     <string name="result_max_edge_thickness">Максимальна товщина: %1$s мм</string>
     <string name="result_base_curve">Кривизна бази лінзи: %1$s</string>
     <string name="result_diameter">Діаметр: %1$s мм</string>
-    <string name="result_add_to_list">Додати у порівняльний список</string>
-    <string name="result_remove_from_list">Видалити із списку</string>
+    <string name="result_add_to_list">Додати</string>
+    <string name="result_remove_from_list">Видалити</string>
     <string name="result_share">Поділитись</string>
     <!-- Transposition -->
     <string name="transposition_power_sphere">Сфера %1$s</string>

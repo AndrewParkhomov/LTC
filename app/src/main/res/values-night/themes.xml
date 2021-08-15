@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="AppTheme.NoActionBar" parent="BaseTheme">
         <item name="colorPrimary">@color/FF37474f</item>
@@ -9,9 +9,43 @@
     </style>
 
     <style name="SimpleText">
-        <item name="android:textColor">@color/FFFBFCFE</item>
+        <item name="android:textColor">@color/FFCFCFCF</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TextInputWrapper" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:layout_width">match_parent</item>
+        <item name="errorEnabled">true</item>
+        <item name="hintTextAppearance">@style/HintTextAppearance</item>
+        <item name="boxStrokeColor">@color/input_wrapper_color</item>
+        <item name="boxStrokeErrorColor">@color/FFC400</item>
+        <item name="errorTextColor">@color/FFC400</item>
+        <item name="errorIconTint">@color/FFC400</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/edit_text_hint</item>
+        <item name="hintTextColor">@color/edit_text_hint</item>
+    </style>
+
+    <style name="TextInputEditText" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ems">3</item>
+        <item name="android:inputType">numberDecimal|numberSigned</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/FFCFCFCF</item>
+    </style>
+
+    <style name="RadioButtonStyle" parent="@style/Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">24sp</item>
+        <item name="colorAccent">@color/FFC400</item>
+        <item name="android:colorAccent">@color/FFC400</item>
     </style>
 
 </resources>

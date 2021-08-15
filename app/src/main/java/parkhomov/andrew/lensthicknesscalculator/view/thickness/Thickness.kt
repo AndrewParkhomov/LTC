@@ -110,7 +110,6 @@ class Thickness : BaseFragment(R.layout.thickness) {
         viewModel.onCalculateClicked.onEach {
             onCalculateButtonClicked()
         }.collectData(lifecycleScope)
-        viewModel.errorSphere.onEach(::highlightSpherePower).collectData(lifecycleScope)
         viewModel.errorCenter.onEach(::highlightCenterThickness).collectData(lifecycleScope)
         viewModel.errorDiameter.onEach(::highlightDiameter).collectData(lifecycleScope)
         viewModel.setCurve.onEach(::setCurrentBaseCurve).collectData(lifecycleScope)
@@ -140,14 +139,6 @@ class Thickness : BaseFragment(R.layout.thickness) {
             5 -> Triple(INDEX_1670, INDEX_X_1670, spinnerText)
             6 -> Triple(INDEX_1740, INDEX_X_1740, spinnerText)
             else -> throw NoSuchElementException("No valid lens index of refraction provided")
-        }
-    }
-
-    private fun highlightSpherePower(isShowError: Boolean) {
-        if (isShowError) {
-            binding.wrapperSphere.error = getString(R.string.tab_thkns_provide_sphere)
-        } else {
-            binding.wrapperSphere.error = null
         }
     }
 
@@ -195,10 +186,12 @@ class Thickness : BaseFragment(R.layout.thickness) {
                 else
                     spherePower
                 binding.wrapperCenterThickness.isEnabled = value <= 0
+                binding.centerThickness.isEnabled = value <= 0
                 binding.wrapperEdgeThickness.isEnabled = value > 0
                 highlightCenterThickness(false)
             } else {
                 binding.wrapperCenterThickness.isEnabled = true
+                binding.centerThickness.isEnabled = true
                 binding.wrapperEdgeThickness.isEnabled = true
                 highlightCenterThickness(false)
             }

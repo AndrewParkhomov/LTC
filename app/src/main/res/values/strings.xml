@@ -16,7 +16,6 @@
     <string name="tab_thkns_center_thickness">Center thickness</string>
     <string name="tab_thkns_edge_thickness">Edge thickness</string>
     <string name="tab_thkns_lens_diameter">Lens diameter</string>
-    <string name="tab_thkns_provide_sphere">Please, provide sphere power</string>
     <string name="tab_thkns_provide_center_thickness">Please, provide center thickness</string>
     <string name="tab_thkns_provide_diameter">Please, provide lens diameter</string>
     <!-- Diameter hints -->
@@ -26,8 +25,8 @@
     <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f mm</string>
     <!-- Result -->
     <string name="result_index_of_refraction">Index of refraction: %1$s</string>
-    <string name="result_sphere_power">Sphere power: %1$s</string>
-    <string name="result_cylinder_power">Cylinder power: %1$s</string>
+    <string name="result_sphere_power">Sphere power: %1$.2f</string>
+    <string name="result_cylinder_power">Cylinder power: %1$.2f</string>
     <string name="result_axis">Axis: %1$s&#176;</string>
     <string name="result_on_axis_thickness">Thickness on axis %1$s&#176;: %2$s mm</string>
     <string name="result_center_thickness">Center thickness: %1$s mm</string>
@@ -35,8 +34,8 @@
     <string name="result_max_edge_thickness">Maximum thickness: %1$s mm</string>
     <string name="result_base_curve">Base curve: %1$s</string>
     <string name="result_diameter">Diameter: %1$s mm</string>
-    <string name="result_add_to_list">Add to compare list</string>
-    <string name="result_remove_from_list">Remove from list</string>
+    <string name="result_add_to_list">Add</string>
+    <string name="result_remove_from_list">Remove</string>
     <string name="result_share">Share</string>
     <!-- Transposition -->
     <string name="transposition_power_sphere">Sphere %1$s</string>

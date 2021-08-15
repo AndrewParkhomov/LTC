@@ -16,7 +16,6 @@
     <string name="tab_thkns_center_thickness">Espessura central</string>
     <string name="tab_thkns_edge_thickness">Espessura da borda</string>
     <string name="tab_thkns_lens_diameter">Diâmetro da lente</string>
-    <string name="tab_thkns_provide_sphere">Forneça o Grau Esférico</string>
     <string name="tab_thkns_provide_center_thickness">Forneça a espessura do centro</string>
     <string name="tab_thkns_provide_diameter">Forneça o diâmetro da lente</string>
     <!-- Diameter hints -->
@@ -26,8 +25,8 @@
     <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f mm</string>
     <!-- Result -->
     <string name="result_index_of_refraction">Índice de refração: %1$s</string>
-    <string name="result_sphere_power">Grau Esfėrico: %1$s</string>
-    <string name="result_cylinder_power">Grau Cilíndrico : %1$s</string>
+    <string name="result_sphere_power">Grau Esfėrico: %1$.2f</string>
+    <string name="result_cylinder_power">Grau Cilíndrico : %1$.2f</string>
     <string name="result_axis">Eixo: %1$s&#176;</string>
     <string name="result_on_axis_thickness">Espessura no eixo %1$s&#176;: %2$s mm</string>
     <string name="result_center_thickness">Espessura central: %1$s mm</string>
@@ -35,8 +34,8 @@
     <string name="result_max_edge_thickness">Espessura máxima: %1$s mm</string>
     <string name="result_base_curve">Curva base: %1$s</string>
     <string name="result_diameter">Diâmetro: %1$s mm</string>
-    <string name="result_add_to_list">Add à lista de comparação</string>
-    <string name="result_remove_from_list">Remover da lista</string>
+    <string name="result_add_to_list">Adicionar</string>
+    <string name="result_remove_from_list">Remover</string>
     <string name="result_share">Compartilhar</string>
     <!-- Transposition -->
     <string name="transposition_power_sphere">Esférico %1$s</string>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
@@ -56,29 +57,16 @@ class CompareList : Fragment(R.layout.compare) {
         if (compareSet.isEmpty()) {
             createEmptyListView()
         } else {
-            val textColorBlack = getColorFromId(R.color.FF121212)
-            val dividerColor = getColorFromId(R.color.FFA0A0A0)
+            val dividerColor = getColorFromId(R.color.vertical_divider)
 
-            val item = CalculatedData(
-                refractionIndex = getString(R.string.compare_list_index_of_refraction),
-                spherePower = getString(R.string.compare_list_sphere_power),
-                cylinderPower = getString(R.string.compare_list_cylinder_power),
-                axis = getString(R.string.compare_list_axis),
-                thicknessOnAxis = getString(R.string.compare_list_on_axis_thickness),
-                thicknessCenter = getString(R.string.compare_list_center_thickness),
-                thicknessEdge = getString(R.string.compare_list_min_edge_thickness),
-                thicknessMax = getString(R.string.compare_list_max_edge_thickness),
-                realBaseCurve = getString(R.string.compare_list_base_curve),
-                diameter = getString(R.string.compare_list_diameter)
-            )
             val descriptionLayout = requireContext()
-                .createVerticalLayout(item, textColorBlack, dividerColor, 20f)
+                .createNames(dividerColor, 20f)
 
             binding.containerDescription.addView(descriptionLayout)
             compareSet.forEach { calculatedData ->
                 val divider = requireContext().getDividerVertical(dividerColor)
                 val verticalLayout = requireContext()
-                    .createVerticalLayout(calculatedData, textColorBlack, dividerColor)
+                    .createLensDataLayout(calculatedData, dividerColor)
 
                 binding.linearScrollContainer.addView(verticalLayout)
                 binding.linearScrollContainer.addView(divider)
@@ -87,7 +75,8 @@ class CompareList : Fragment(R.layout.compare) {
     }
 
     private fun createEmptyListView() {
-        val title = TextView(requireContext(), null, R.style.SimpleText).apply {
+        val mContext = ContextThemeWrapper(requireContext(), R.style.SimpleText)
+        val title = TextView(mContext).apply {
             layoutParams =
                 LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
                     setMargins(0, dip(60), 0, 0)
@@ -96,10 +85,9 @@ class CompareList : Fragment(R.layout.compare) {
             setText(R.string.compare_list_is_empty_title)
             textSize = 26f
             setTypeface(typeface, Typeface.BOLD)
-            setTextColor(getColorFromId(R.color.FF85121212))
             gravity = Gravity.CENTER_HORIZONTAL
         }
-        val description = TextView(requireContext(), null, R.style.SimpleText).apply {
+        val description = TextView(mContext).apply {
             layoutParams =
                 LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
                     setMargins(dip(20), dip(14), dip(20), 0)
@@ -108,7 +96,6 @@ class CompareList : Fragment(R.layout.compare) {
             setText(R.string.compare_list_is_empty_description)
             textSize = 20f
             setTypeface(typeface, Typeface.NORMAL)
-            setTextColor(getColorFromId(R.color.FF85121212))
             gravity = Gravity.CENTER_HORIZONTAL
         }
 
@@ -116,42 +103,69 @@ class CompareList : Fragment(R.layout.compare) {
         binding.containerListEmpty.addView(description)
     }
 
-    private fun Context.createVerticalLayout(
-        item: CalculatedData,
-        textColorBlack: Int,
+    private fun Context.createLensDataLayout(
+        data: CalculatedData,
         dividerColor: Int,
         mTextSize: Float = 24f
     ): LinearLayout {
         return LinearLayout(this).apply {
             orientation = VERTICAL
-            addView(getTextView(item.refractionIndex, textColorBlack, mTextSize))
+            addView(getTextView(data.refractionIndex,  mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(item.spherePower, textColorBlack, mTextSize))
+            addView(getTextView(data.spherePower.toString(),  mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(item.cylinderPower, textColorBlack, mTextSize))
+            addView(getTextView((data.cylinderPower ?: 0.0).toString(),  mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(item.axis, textColorBlack, mTextSize))
+            addView(getTextView(data.axis,  mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(item.thicknessOnAxis, textColorBlack, mTextSize))
+            addView(getTextView(data.thicknessOnAxis,  mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(item.thicknessCenter, textColorBlack, mTextSize))
+            addView(getTextView(data.thicknessCenter,  mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(item.thicknessEdge, textColorBlack, mTextSize))
+            addView(getTextView(data.thicknessEdge,  mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(item.thicknessMax, textColorBlack, mTextSize))
+            addView(getTextView(data.thicknessMax,  mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(item.realBaseCurve, textColorBlack, mTextSize))
+            addView(getTextView(data.realBaseCurve,  mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(item.diameter, textColorBlack, mTextSize))
+            addView(getTextView(data.diameter,  mTextSize))
             addView(getDividerHorizontal(dividerColor))
         }
     }
 
-    private fun Context.getTextView(text: String?, color: Int, mTextSize: Float = 24f): TextView {
+    private fun Context.createNames(
+        dividerColor: Int,
+        mTextSize: Float = 24f
+    ): LinearLayout {
+        return LinearLayout(this).apply {
+            orientation = VERTICAL
+            addView(getTextView(getString(R.string.compare_list_index_of_refraction),  mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(getString(R.string.compare_list_sphere_power),  mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(getString(R.string.compare_list_cylinder_power),  mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(getString(R.string.compare_list_axis),  mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(getString(R.string.compare_list_on_axis_thickness),  mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(getString(R.string.compare_list_center_thickness),  mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(getString(R.string.compare_list_min_edge_thickness),  mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(getString(R.string.compare_list_max_edge_thickness),  mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(getString(R.string.compare_list_base_curve),  mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+            addView(getTextView(getString(R.string.compare_list_diameter),  mTextSize))
+            addView(getDividerHorizontal(dividerColor))
+        }
+    }
+
+    private fun Context.getTextView(text: String?, mTextSize: Float = 24f): TextView {
         return TextView(this, null, R.style.SimpleText).apply {
             layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, dip(44))
             textSize = mTextSize
-            setTextColor(color)
             setLines(1)
             setText(text)
             ellipsize = TextUtils.TruncateAt.END

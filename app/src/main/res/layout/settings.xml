@@ -27,9 +27,13 @@
         android:id="@+id/radio_group_language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="8dp"
+        app:layout_constrainedWidth="true"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_language" />
 
     <TextView
@@ -52,10 +56,14 @@
         android:id="@+id/radio_group_theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="20dp"
+        app:layout_constrainedWidth="true"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_theme">
 
@@ -63,22 +71,22 @@
             android:id="@+id/button_auto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/RadioButtonStyle"
-            android:text="@string/theme_auto" />
+            android:text="@string/theme_auto"
+            android:theme="@style/RadioButtonStyle" />
 
         <RadioButton
             android:id="@+id/button_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/RadioButtonStyle"
-            android:text="@string/theme_day" />
+            android:text="@string/theme_day"
+            android:theme="@style/RadioButtonStyle" />
 
         <RadioButton
             android:id="@+id/button_night"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/RadioButtonStyle"
-            android:text="@string/theme_night" />
+            android:text="@string/theme_night"
+            android:theme="@style/RadioButtonStyle" />
 
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

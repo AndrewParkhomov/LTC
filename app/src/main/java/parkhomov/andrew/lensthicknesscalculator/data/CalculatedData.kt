@@ -6,8 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class CalculatedData(
         val refractionIndex: String,
-        val spherePower: String,
-        val cylinderPower: String?,
+        val spherePower: Double,
+        val cylinderPower: Double?,
         val axis: String?,
         val thicknessOnAxis: String?,
         val thicknessCenter: String,

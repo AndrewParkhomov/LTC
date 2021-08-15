@@ -11,7 +11,7 @@
         <item name="colorPrimary">@color/FF0288D1</item>
         <item name="colorPrimaryDark">@color/FF005b9f</item>
         <item name="colorAccent">@color/FF5eb8ff</item>
-        <item name="android:windowBackground">@color/FFFBFCFE</item>
+        <item name="android:windowBackground">@color/FFFFFFFF</item>
     </style>
 
     <style name="TextInputWrapper" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
@@ -19,10 +19,12 @@
         <item name="errorEnabled">true</item>
         <item name="hintTextAppearance">@style/HintTextAppearance</item>
         <item name="boxStrokeColor">@color/input_wrapper_color</item>
-        <item name="boxStrokeErrorColor">@color/FFd32f2f</item>
-        <item name="errorTextColor">@color/FFd32f2f</item>
+        <item name="boxStrokeErrorColor">@color/FFE53935</item>
+        <item name="errorTextColor">@color/FFE53935</item>
+        <item name="errorIconTint">@color/FFE53935</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColorHint">@color/edit_text_hint</item>
+        <item name="hintTextColor">@color/edit_text_hint</item>
     </style>
 
     <style name="TextInputEditText" parent="TextAppearance.AppCompat">
@@ -48,6 +50,8 @@
         <item name="android:paddingEnd">10dp</item>
         <item name="android:button">@null</item>
         <item name="android:textSize">24sp</item>
+        <item name="colorAccent">@color/FF0288D1</item>
+        <item name="android:colorAccent">@color/FF0288D1</item>
     </style>
 
     <style name="DividerResult">
@@ -70,11 +74,11 @@
 
     <style name="HintTextAppearance" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">16sp</item>
-        <item name="android:color">@color/FF838383</item>
-        <item name="android:textColorHighlight">@color/FF838383</item>
-        <item name="android:textColor">@color/FF838383</item>
-        <item name="android:textColorHint">@color/FF838383</item>
-        <item name="android:textColorLink">@color/FF838383</item>
+        <item name="android:color">@color/edit_text_hint</item>
+        <item name="android:textColorHighlight">@color/edit_text_hint</item>
+        <item name="android:textColor">@color/edit_text_hint</item>
+        <item name="android:textColorHint">@color/edit_text_hint</item>
+        <item name="android:textColorLink">@color/edit_text_hint</item>
     </style>
 
 </resources>

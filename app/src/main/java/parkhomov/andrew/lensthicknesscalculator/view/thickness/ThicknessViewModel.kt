@@ -14,8 +14,6 @@ class ThicknessViewModel(
     interactor: Interactor
 ) : ViewModel() {
 
-    private val _errorSphere = MutableStateFlow(false)
-    val errorSphere: StateFlow<Boolean> = _errorSphere.asStateFlow()
     private val _errorDiameter = MutableStateFlow(false)
     val errorDiameter: StateFlow<Boolean> = _errorDiameter.asStateFlow()
     private val _errorCenter = MutableStateFlow(false)
@@ -39,10 +37,10 @@ class ThicknessViewModel(
     ) = viewModelScope.launch {
         val axisView: String
 
-        var spherePower = try {
+        var maybeRacalculatedSphere = try {
             spherePowerString.toDouble()
         } catch (e: NumberFormatException) {
-            null
+            0.0
         }
 
         var cylinderPower = try {
@@ -83,161 +81,149 @@ class ThicknessViewModel(
             null
         }
 
-        var isContinueCalculation = true
+        if (cylinderPower > 0) {
+            maybeRacalculatedSphere += cylinderPower
+            cylinderPower = -cylinderPower
+        }
 
-        if (spherePower == null) {
-            _errorSphere.tryEmit(true)
-            isContinueCalculation = false
-        } else {
-            _errorSphere.tryEmit(false)
-            if (spherePower <= 0.0) {
-                isContinueCalculation = if (centerThickness == null) {
-                    _errorCenter.tryEmit(true)
-                    false
-                } else {
-                    _errorCenter.tryEmit(false)
-                    true
-                }
+        if (maybeRacalculatedSphere <= 0.0) {
+            if (centerThickness == null) {
+                _errorCenter.emit(true)
+                return@launch
+            } else {
+                _errorCenter.emit(false)
             }
         }
 
         if (diameter == null) {
-            _errorDiameter.tryEmit(true)
-            isContinueCalculation = false
+            _errorDiameter.emit(true)
+            return@launch
         } else {
-            _errorDiameter.tryEmit(false)
+            _errorDiameter.emit(false)
         }
 
-        if (isContinueCalculation) {
-            curve = curve ?: handleNoBaseCurveBehaviour(spherePower!!)
-            val realRadiusMm = getReaRadiusInMM(curve)
+        curve = curve ?: handleNoBaseCurveBehaviour(maybeRacalculatedSphere)
+        val realRadiusMm = getReaRadiusInMM(curve)
 
-            centerThickness = when {
-                spherePower!! <= 0 && cylinderPower == 0.0 -> centerThickness
-                spherePower <= 0 && cylinderPower > 0 && spherePower == 0.0 ->
-                    (diameter!! / 2).pow(2.0) * cylinderPower / (2000 * (lensIndex.first - 1)) + edgeThickness
-                spherePower <= 0 && cylinderPower > 0 && spherePower + cylinderPower > 0 ->
-                    (diameter!! / 2).pow(2.0) * (spherePower + cylinderPower) / (2000 * (lensIndex.first - 1)) + edgeThickness
-                spherePower > 0 -> {
-                    val tempValue = if (cylinderPower > 0) {
-                        spherePower + cylinderPower
-                    } else
-                        spherePower
-                    (diameter!! / 2).pow(2.0) * tempValue / (2000 * (lensIndex.first - 1)) + edgeThickness
-                }
-                else -> centerThickness
+        centerThickness = when {
+            maybeRacalculatedSphere <= 0 && cylinderPower == 0.0 -> centerThickness
+            maybeRacalculatedSphere <= 0 && cylinderPower > 0 && maybeRacalculatedSphere == 0.0 ->
+                (diameter / 2).pow(2.0) * cylinderPower / (2000 * (lensIndex.first - 1)) + edgeThickness
+            maybeRacalculatedSphere <= 0 && cylinderPower > 0 && maybeRacalculatedSphere + cylinderPower > 0 ->
+                (diameter / 2).pow(2.0) * (maybeRacalculatedSphere + cylinderPower) / (2000 * (lensIndex.first - 1)) + edgeThickness
+            maybeRacalculatedSphere > 0 -> {
+                val tempValue = if (cylinderPower > 0) {
+                    maybeRacalculatedSphere + cylinderPower
+                } else
+                    maybeRacalculatedSphere
+                (diameter / 2).pow(2.0) * tempValue / (2000 * (lensIndex.first - 1)) + edgeThickness
             }
+            else -> centerThickness
+        }
 
-            axis = recalculateAxisInMinusCylinder(
-                    cylinderPower,
-                    axis
-            )
+        axis = recalculateAxisInMinusCylinder(
+            cylinderPower,
+            axis
+        )
 
-            if (cylinderPower > 0) {
-                spherePower += cylinderPower
-                cylinderPower = -cylinderPower
-            }
+        // Find D1
+        val recalculatedFrontCurve = getRecalculatedFrontCurve(
+            lensIndex.first,
+            realRadiusMm
+        )
 
+        val recalculatedCylinderCurve = getRecalculatedCylinderCurve(
+            recalculatedFrontCurve,
+            cylinderPower,
+            centerThickness!!,
+            lensIndex,
+            maybeRacalculatedSphere
+        )
 
-            // Find D1
-            val recalculatedFrontCurve = getRecalculatedFrontCurve(
-                    lensIndex.first,
-                    realRadiusMm
-            )
+        val realCylinderBackRadiusInMM = getRealCylinderBackRadiusInMM(recalculatedCylinderCurve)
 
-            val recalculatedCylinderCurve = getRecalculatedCylinderCurve(
-                    recalculatedFrontCurve,
-                    cylinderPower,
-                    centerThickness!!,
-                    lensIndex,
-                    spherePower
-            )
+        val sag2Sphere = getSag2Sphere(
+            realRadiusMm,
+            diameter
+        )
 
-            val realCylinderBackRadiusInMM = getRealCylinderBackRadiusInMM(recalculatedCylinderCurve)
+        // Corrected back curve
+        val recalculatedSphereCurve = getRecalculatedSphereCurve(
+            maybeRacalculatedSphere,
+            recalculatedFrontCurve,
+            centerThickness,
+            lensIndex
+        )
 
-            val sag2Sphere = getSag2Sphere(
-                    realRadiusMm,
-                    diameter!!
-            )
+        val realBackRadiusInMM = getRealBackRadiusInMM(recalculatedSphereCurve)
+        val sag2Cylinder = getSag2Cylinder(
+            realCylinderBackRadiusInMM,
+            diameter
+        )
+        val sag1Sphere = getSag1Sphere(realBackRadiusInMM, diameter)
 
-            // Corrected back curve
-            val recalculatedSphereCurve = getRecalculatedSphereCurve(
-                    spherePower,
-                    recalculatedFrontCurve,
-                    centerThickness,
-                    lensIndex
-            )
+        var centerString = centerThickness.toString()
+        var edgeString = edgeThickness.toString()
 
-            val realBackRadiusInMM = getRealBackRadiusInMM(recalculatedSphereCurve)
-            val sag2Cylinder = getSag2Cylinder(
-                    realCylinderBackRadiusInMM,
-                    diameter
-            )
-            val sag1Sphere = getSag1Sphere(realBackRadiusInMM, diameter)
-
-            var centerString = centerThickness.toString()
-            var edgeString = edgeThickness.toString()
-
-            if (realBackRadiusInMM <= 0) {
-                if (spherePower <= 0.0) {
-                    edgeThickness = sag1Sphere - sag2Sphere + centerThickness
-                    edgeString = ((edgeThickness * 1e2).toLong() / 1e2).toString()
-                } else {
-                    centerThickness = abs(sag1Sphere - sag2Sphere) + edgeThickness
-                    centerString = ((centerThickness * 1e2).toLong() / 1e2).toString()
-                }
+        if (realBackRadiusInMM <= 0) {
+            if (maybeRacalculatedSphere <= 0.0) {
+                edgeThickness = sag1Sphere - sag2Sphere + centerThickness
+                edgeString = ((edgeThickness * 1e2).toLong() / 1e2).toString()
             } else {
-                centerThickness = abs(sag1Sphere + sag2Sphere) + edgeThickness
+                centerThickness = abs(sag1Sphere - sag2Sphere) + edgeThickness
                 centerString = ((centerThickness * 1e2).toLong() / 1e2).toString()
             }
-
-            val calculatedData = if (cylinderPower == 0.0) {
-                CalculatedData(
-                    refractionIndex = lensIndex.third,
-                    spherePower = spherePowerString,
-                    cylinderPower = null,
-                    axis = null,
-                    thicknessOnAxis = null,
-                    thicknessCenter = centerString,
-                    thicknessEdge = edgeString,
-                    thicknessMax = null,
-                    realBaseCurve = curve.toString(),
-                    diameter = diameter.toString()
-                )
-            } else {
-
-                var maxEdgeThickness = 0.0
-                if (spherePower <= curve && realBackRadiusInMM < 0) {
-                    maxEdgeThickness = sag2Cylinder - sag1Sphere + edgeThickness
-                } else if (spherePower <= curve && realBackRadiusInMM > 0) {
-                    maxEdgeThickness = sag2Cylinder + sag1Sphere + edgeThickness
-                } else if (spherePower >= curve && realBackRadiusInMM < 0) {
-                    maxEdgeThickness = sag2Cylinder - sag1Sphere + edgeThickness
-                } else if (spherePower >= curve && realCylinderBackRadiusInMM > 0) {
-                    maxEdgeThickness = sag1Sphere - sag2Cylinder + edgeThickness
-                } else if (spherePower >= curve && realCylinderBackRadiusInMM < 0) {
-                    maxEdgeThickness = sag1Sphere + sag2Cylinder + edgeThickness
-                }
-                val etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness
-
-                CalculatedData(
-                    refractionIndex = lensIndex.third,
-                    spherePower = spherePowerString,
-                    cylinderPower = cylinderPowerString,
-                    axis = axisView,
-                    thicknessOnAxis = ((etOnCertainAxis * 1e2).toLong() / 1e2).toString(),
-                    thicknessCenter = centerString,
-                    thicknessEdge = edgeString,
-                    thicknessMax = ((maxEdgeThickness * 1e2).toLong() / 1e2).toString(),
-                    realBaseCurve = curve.toString(),
-                    diameter = diameter.toString()
-                )
-            }
-            _showResult.emit(calculatedData)
+        } else {
+            centerThickness = abs(sag1Sphere + sag2Sphere) + edgeThickness
+            centerString = ((centerThickness * 1e2).toLong() / 1e2).toString()
         }
+
+        val calculatedData = if (cylinderPower == 0.0) {
+            CalculatedData(
+                refractionIndex = lensIndex.third,
+                spherePower = spherePowerString.toDoubleOrNull() ?: 0.0,
+                cylinderPower = null,
+                axis = null,
+                thicknessOnAxis = null,
+                thicknessCenter = centerString,
+                thicknessEdge = edgeString,
+                thicknessMax = null,
+                realBaseCurve = curve.toString(),
+                diameter = diameter.toString()
+            )
+        } else {
+
+            var maxEdgeThickness = 0.0
+            if (maybeRacalculatedSphere <= curve && realBackRadiusInMM < 0) {
+                maxEdgeThickness = sag2Cylinder - sag1Sphere + edgeThickness
+            } else if (maybeRacalculatedSphere <= curve && realBackRadiusInMM > 0) {
+                maxEdgeThickness = sag2Cylinder + sag1Sphere + edgeThickness
+            } else if (maybeRacalculatedSphere >= curve && realBackRadiusInMM < 0) {
+                maxEdgeThickness = sag2Cylinder - sag1Sphere + edgeThickness
+            } else if (maybeRacalculatedSphere >= curve && realCylinderBackRadiusInMM > 0) {
+                maxEdgeThickness = sag1Sphere - sag2Cylinder + edgeThickness
+            } else if (maybeRacalculatedSphere >= curve && realCylinderBackRadiusInMM < 0) {
+                maxEdgeThickness = sag1Sphere + sag2Cylinder + edgeThickness
+            }
+            val etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness
+
+            CalculatedData(
+                refractionIndex = lensIndex.third,
+                spherePower = spherePowerString.toDoubleOrNull() ?: 0.0,
+                cylinderPower = cylinderPowerString.toDoubleOrNull(),
+                axis = axisView,
+                thicknessOnAxis = ((etOnCertainAxis * 1e2).toLong() / 1e2).toString(),
+                thicknessCenter = centerString,
+                thicknessEdge = edgeString,
+                thicknessMax = ((maxEdgeThickness * 1e2).toLong() / 1e2).toString(),
+                realBaseCurve = curve.toString(),
+                diameter = diameter.toString()
+            )
+        }
+        _showResult.emit(calculatedData)
     }
 
-    private fun handleNoBaseCurveBehaviour(value: Double): Double {
+    private suspend fun handleNoBaseCurveBehaviour(value: Double): Double {
         val (tempCurveDouble, tempCurveString) = when {
             value <= -8.0 -> Pair(BASE_0, BASE_0.toString())
             value in -7.99..-6.0 -> Pair(BASE_1, BASE_1.toString())
@@ -252,41 +238,43 @@ class ThicknessViewModel(
             value in 8.0..9.99 -> Pair(BASE_10, BASE_10.toString())
             else -> Pair(BASE_10_5, BASE_10_5.toString())  // value >= 10.0
         }
-        _setCurve.tryEmit(tempCurveString)
+        _setCurve.emit(tempCurveString)
         return tempCurveDouble
     }
 
     private fun getReaRadiusInMM(curveInDptr: Double): Double =
-            (LAB_INDEX - 1) / (curveInDptr / 1000)
+        (LAB_INDEX - 1) / (curveInDptr / 1000)
 
     private fun getRecalculatedFrontCurve(lensIndex: Double, realRadiusMm: Double): Double =
-            (lensIndex - 1) * 1000 / realRadiusMm
+        (lensIndex - 1) * 1000 / realRadiusMm
 
     private fun getRecalculatedCylinderCurve(
-            recalculatedFrontCurve: Double,
-            cylinderPower: Double,
-            centerThickness: Double,
-            lensIndex: Triple<Double, Double, String>,
-            spherePower: Double
+        recalculatedFrontCurve: Double,
+        cylinderPower: Double,
+        centerThickness: Double,
+        lensIndex: Triple<Double, Double, String>,
+        spherePower: Double
     ): Double {
         return (cylinderPower - (recalculatedFrontCurve / (1 - centerThickness / lensIndex.first /
                 1000.0 * recalculatedFrontCurve) - spherePower)) * lensIndex.second
     }
 
     private fun getRealCylinderBackRadiusInMM(recalculatedCylinderCurve: Double): Double =
-            (LAB_INDEX - 1) / (recalculatedCylinderCurve / 1000)
+        (LAB_INDEX - 1) / (recalculatedCylinderCurve / 1000)
 
     private fun getSag2Cylinder(realCylinderBackRadiusInMM: Double, diameter: Double): Double =
-            abs(realCylinderBackRadiusInMM) -
-                    sqrt(abs(realCylinderBackRadiusInMM).pow(2.0) -
-                            (diameter / 2).pow(2.0)) // sag of convex surface;
+        abs(realCylinderBackRadiusInMM) -
+                sqrt(
+                    abs(realCylinderBackRadiusInMM).pow(2.0) -
+                            (diameter / 2).pow(2.0)
+                ) // sag of convex surface;
 
     private fun getSag2Sphere(realRadiusMm: Double, diameter: Double): Double =
-            abs(realRadiusMm - sqrt(realRadiusMm.pow(2.0) - (diameter / 2).pow(2.0)))    // sag of convex surface;
+        abs(realRadiusMm - sqrt(realRadiusMm.pow(2.0) - (diameter / 2).pow(2.0)))    // sag of convex surface;
 
     private fun recalculateAxisInMinusCylinder(
-            cylinderPower: Double,
-            inputAxis: Int
+        cylinderPower: Double,
+        inputAxis: Int
     ): Int {
         var axis = inputAxis
         if (cylinderPower > 0) {
@@ -302,10 +290,10 @@ class ThicknessViewModel(
     }
 
     private fun getRecalculatedSphereCurve(
-            spherePower: Double,
-            recalculatedFrontCurve: Double,
-            centerThickness: Double,
-            lensIndex: Triple<Double, Double, String>
+        spherePower: Double,
+        recalculatedFrontCurve: Double,
+        centerThickness: Double,
+        lensIndex: Triple<Double, Double, String>
     ): Double {
         return (spherePower - recalculatedFrontCurve /
                 (1 - centerThickness / lensIndex.first / 1000.0 * recalculatedFrontCurve)) * lensIndex.second
