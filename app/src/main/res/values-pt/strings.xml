@@ -17,7 +17,6 @@
     <string name="tab_thkns_edge_thickness">Espessura da borda</string>
     <string name="tab_thkns_lens_diameter">Diâmetro da lente</string>
     <string name="tab_thkns_provide_center_thickness">Forneça a espessura do centro</string>
-    <string name="tab_thkns_provide_diameter">Forneça o diâmetro da lente</string>
     <!-- Diameter hints -->
     <string name="tab_diameter_hint_ed">Diâmetro efetivo %1$.0f mm</string>
     <string name="tab_diameter_hint_dbl">Distância entre as lentes %1$.0f mm</string>
@@ -48,7 +47,6 @@
     <!-- Share result -->
     <string name="share_result_subject">Dados da lente</string>
     <string name="share_with">Compartilhar com…</string>
-    <string name="share_result_is_empty">Calcule primeiro os dados da lente</string>
     <string name="share_text_only_sphere">Calculado pela %1$s\n%2$s\nÍndice de Refração = %3$s\nGrau Esférico = %4$s\nEspessura central = %5$s mm\nEspessura da borda = %6$s mm\nCurva base Real = %7$s\nDiãmetro = %8$s mm</string>
     <string name="share_text_full">Calculado pela %1$s\n%2$s\nÍndice de Refração = %3$s\nGrau Esférico = %4$s\nGrau Cilíndrico = %5$s\nEixo = %6$s&#176;\nEspessura no eixo %7$s&#176; = %8$s mm\nEspessura central = %9$s mm\nEspessura da borda = %10$s mm\nEspessura Max = %11$s mm\nCurva Base Real = %12$s\nDiãmetro = %13$s mm</string>
    <!-- About program -->

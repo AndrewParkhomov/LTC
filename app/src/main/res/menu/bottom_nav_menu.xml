@@ -22,7 +22,6 @@
         android:title="@string/fragment_transposition" />
 
 
-    <item android:id="@+id/placeholder"
-        android:title="" />
+    <item android:title="" />
 
 </menu>

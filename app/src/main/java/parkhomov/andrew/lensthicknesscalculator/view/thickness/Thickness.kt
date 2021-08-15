@@ -111,11 +111,15 @@ class Thickness : BaseFragment(R.layout.thickness) {
             onCalculateButtonClicked()
         }.collectData(lifecycleScope)
         viewModel.errorCenter.onEach(::highlightCenterThickness).collectData(lifecycleScope)
-        viewModel.errorDiameter.onEach(::highlightDiameter).collectData(lifecycleScope)
         viewModel.setCurve.onEach(::setCurrentBaseCurve).collectData(lifecycleScope)
     }
 
     private fun onCalculateButtonClicked() {
+        val diameterString = binding.diameter.text.toString()
+        val diameter = diameterString.toDoubleOrNull() ?: 70.0
+        if(diameterString.isEmpty()) {
+            updateEditTextDiameter(diameter)
+        }
         viewModel.onCalculateBtnClicked(
             getLensIndex(),
             binding.sphere.text.toString(),
@@ -124,8 +128,18 @@ class Thickness : BaseFragment(R.layout.thickness) {
             binding.curve.text.toString(),
             binding.centerThickness.text.toString(),
             binding.edgeThickness.text.toString(),
-            binding.diameter.text.toString()
+            diameter
         )
+    }
+
+    private fun updateEditTextDiameter(diameter: Double) {
+        binding.diameter.setText(diameter.toString())
+        binding.diameter.post {
+            try {
+                binding.diameter.setSelection(diameter.toString().length)
+            } catch (ignore: Exception) {
+            }
+        }
     }
 
     private fun getLensIndex(): Triple<Double, Double, String> {
@@ -148,14 +162,6 @@ class Thickness : BaseFragment(R.layout.thickness) {
                 getString(R.string.tab_thkns_provide_center_thickness)
         } else {
             binding.wrapperCenterThickness.error = null
-        }
-    }
-
-    private fun highlightDiameter(isShowError: Boolean) {
-        if (isShowError) {
-            binding.wrapperDiameter.error = getString(R.string.tab_thkns_provide_diameter)
-        } else {
-            binding.wrapperDiameter.error = null
         }
     }
 

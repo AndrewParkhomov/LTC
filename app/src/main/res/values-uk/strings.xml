@@ -17,7 +17,6 @@
     <string name="tab_thkns_edge_thickness">Товщина по краю</string>
     <string name="tab_thkns_lens_diameter">Діаметр лінзи</string>
     <string name="tab_thkns_provide_center_thickness">Будь ласка, введіть товщину по центру</string>
-    <string name="tab_thkns_provide_diameter">Будь ласка, введіть діаметр лінзи</string>
     <!-- Diameter hints -->
     <string name="tab_diameter_hint_ed">Ефективний діаметр %1$.0f мм</string>
     <string name="tab_diameter_hint_dbl">Відстань між лінзами %1$.0f мм</string>
@@ -48,7 +47,6 @@
     <!-- Share result -->
     <string name="share_result_subject">Дані про лінзу</string>
     <string name="share_with">Поділитись з допомогою…</string>
-    <string name="share_result_is_empty">Спочатку прорахуйте параметри лінзи</string>
     <string name="share_text_only_sphere">Пораховано за допомогою додатку %1$s\n%2$s\nІндекс заломлення = %3$s\nСфера = %4$s\nТовщина по центру = %5$s мм\nТовщина по краю = %6$s мм\nРеальна кривизна бази лінзи = %7$s\nДіаметр лінзи = %8$s мм</string>
     <string name="share_text_full">Пораховано за допомогою додатку %1$s\n%2$s\nІндекс заломлення = %3$s\nСфера = %4$s\nЦиліндр = %5$s\nКут = %6$s&#176;\nТовщина під кутом %7$s&#176; = %8$s мм\nТовщина по центру = %9$s мм\nТовщина по краю = %10$s мм\nМаксимальна товщина = %11$s мм\nРеальна кривизна бази лінзи = %12$s\nДіаметр лінзи = %13$s мм</string>
     <!-- About program -->

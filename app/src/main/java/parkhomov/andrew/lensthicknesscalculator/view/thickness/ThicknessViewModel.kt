@@ -14,8 +14,6 @@ class ThicknessViewModel(
     interactor: Interactor
 ) : ViewModel() {
 
-    private val _errorDiameter = MutableStateFlow(false)
-    val errorDiameter: StateFlow<Boolean> = _errorDiameter.asStateFlow()
     private val _errorCenter = MutableStateFlow(false)
     val errorCenter: StateFlow<Boolean> = _errorCenter.asStateFlow()
     private val _setCurve = MutableStateFlow("")
@@ -33,7 +31,7 @@ class ThicknessViewModel(
         curveString: String,
         centerThicknessString: String,
         edgeThicknessString: String,
-        diameterString: String
+        diameter: Double
     ) = viewModelScope.launch {
         val axisView: String
 
@@ -49,12 +47,10 @@ class ThicknessViewModel(
             0.0
         }
 
-        var axis = try {
-            val axis = axisString.toInt()
+        var axis = (axisString.toIntOrNull() ?: 0).let { axis ->
             if (axis in 0..180) axis else 0
-        } catch (e: NumberFormatException) {
-            0
         }
+
         axisView = axis.toString()
 
         var curve = try {
@@ -69,17 +65,10 @@ class ThicknessViewModel(
             null
         }
 
-        var edgeThickness = try {
-            edgeThicknessString.toDouble()
-        } catch (e: NumberFormatException) {
-            0.0
-        }
+        var edgeThickness = edgeThicknessString.toDoubleOrNull() ?: 0.0
 
-        val diameter = try {
-            diameterString.toDouble()
-        } catch (e: NumberFormatException) {
-            null
-        }
+        // must ba BEFORE cylinderPower possible recalculation
+        axis = recalculateAxisInMinusCylinder(cylinderPower, axis)
 
         if (cylinderPower > 0) {
             maybeRacalculatedSphere += cylinderPower
@@ -93,13 +82,6 @@ class ThicknessViewModel(
             } else {
                 _errorCenter.emit(false)
             }
-        }
-
-        if (diameter == null) {
-            _errorDiameter.emit(true)
-            return@launch
-        } else {
-            _errorDiameter.emit(false)
         }
 
         curve = curve ?: handleNoBaseCurveBehaviour(maybeRacalculatedSphere)
@@ -120,11 +102,6 @@ class ThicknessViewModel(
             }
             else -> centerThickness
         }
-
-        axis = recalculateAxisInMinusCylinder(
-            cylinderPower,
-            axis
-        )
 
         // Find D1
         val recalculatedFrontCurve = getRecalculatedFrontCurve(

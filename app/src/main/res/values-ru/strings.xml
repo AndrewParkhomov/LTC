@@ -17,7 +17,6 @@
     <string name="tab_thkns_edge_thickness">Толщина по краю</string>
     <string name="tab_thkns_lens_diameter">Диаметр линзы</string>
     <string name="tab_thkns_provide_center_thickness">Пожалуйста, введите толщину по центру</string>
-    <string name="tab_thkns_provide_diameter">Пожалуйста, введите диаметр линзы</string>
     <!-- Diameter hints -->
     <string name="tab_diameter_hint_ed">Эффективный диаметр %1$.0f мм</string>
     <string name="tab_diameter_hint_dbl">Расстояние между линзами %1$.0f мм</string>
@@ -48,7 +47,6 @@
     <!-- Share result -->
     <string name="share_result_subject">Данные об линзе</string>
     <string name="share_with">Поделиться с помощью…</string>
-    <string name="share_result_is_empty">Сначала просчитайте параметры линзы</string>
     <string name="share_text_only_sphere">Посчитано с помощью приложения %1$s\n%2$s\nИндекс преломления = %3$s\nСфера = %4$s\nТолщина по центру = %5$s мм\nТолщина по краю = %6$s мм\nРеальная кривизна базы линзы = %7$s\nДиаметр линзы = %8$s мм</string>
     <string name="share_text_full">Посчитано с помощью приложения %1$s\n%2$s\nИндекс преломления = %3$s\nСфера = %4$s\nЦилиндр = %5$s\nУгол = %6$s&#176;\nТолщина под углом %7$s&#176; = %8$s мм\nТолщина по центру = %9$s мм\nТолщина по краю = %10$s мм\nМаксимальная толщина = %11$s мм\nРеальная кривизна базы линзы = %12$s\nДиаметр линзы = %13$s мм</string>
    <!-- About program -->
