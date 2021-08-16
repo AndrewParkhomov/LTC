@@ -20,9 +20,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.databinding.CompareBinding
+import parkhomov.andrew.lensthicknesscalculator.extencions.collectData
 import parkhomov.andrew.lensthicknesscalculator.extencions.dip
 import parkhomov.andrew.lensthicknesscalculator.extencions.getColorFromId
-import parkhomov.andrew.lensthicknesscalculator.extencions.collectData
 
 
 class CompareList : Fragment(R.layout.compare) {
@@ -59,8 +59,7 @@ class CompareList : Fragment(R.layout.compare) {
         } else {
             val dividerColor = getColorFromId(R.color.vertical_divider)
 
-            val descriptionLayout = requireContext()
-                .createNames(dividerColor, 20f)
+            val descriptionLayout = requireContext().createNames(dividerColor)
 
             binding.containerDescription.addView(descriptionLayout)
             compareSet.forEach { calculatedData ->
@@ -106,70 +105,74 @@ class CompareList : Fragment(R.layout.compare) {
     private fun Context.createLensDataLayout(
         data: CalculatedData,
         dividerColor: Int,
-        mTextSize: Float = 24f
     ): LinearLayout {
         return LinearLayout(this).apply {
             orientation = VERTICAL
-            addView(getTextView(data.refractionIndex,  mTextSize))
+            addView(
+                getTextView(
+                    data.refractionIndex.replace(" ", "\n"),
+                    18f
+                )
+            )
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(data.spherePower.toString(),  mTextSize))
+            addView(getTextView(data.spherePower.toString()))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView((data.cylinderPower ?: 0.0).toString(),  mTextSize))
+            addView(getTextView((data.cylinderPower ?: 0.0).toString()))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(data.axis,  mTextSize))
+            addView(getTextView(data.axis))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(data.thicknessOnAxis,  mTextSize))
+            addView(getTextView(data.thicknessOnAxis))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(data.thicknessCenter,  mTextSize))
+            addView(getTextView(data.thicknessCenter))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(data.thicknessEdge,  mTextSize))
+            addView(getTextView(data.thicknessEdge))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(data.thicknessMax,  mTextSize))
+            addView(getTextView(data.thicknessMax))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(data.realBaseCurve,  mTextSize))
+            addView(getTextView(data.realBaseCurve))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(data.diameter,  mTextSize))
+            addView(getTextView(data.diameter))
             addView(getDividerHorizontal(dividerColor))
         }
     }
 
     private fun Context.createNames(
         dividerColor: Int,
-        mTextSize: Float = 24f
+        mTextSize: Float = 20f
     ): LinearLayout {
         return LinearLayout(this).apply {
             orientation = VERTICAL
-            addView(getTextView(getString(R.string.compare_list_index_of_refraction),  mTextSize))
+            addView(getTextView(getString(R.string.compare_list_index_of_refraction), mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(getString(R.string.compare_list_sphere_power),  mTextSize))
+            addView(getTextView(getString(R.string.compare_list_sphere_power), mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(getString(R.string.compare_list_cylinder_power),  mTextSize))
+            addView(getTextView(getString(R.string.compare_list_cylinder_power), mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(getString(R.string.compare_list_axis),  mTextSize))
+            addView(getTextView(getString(R.string.compare_list_axis), mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(getString(R.string.compare_list_on_axis_thickness),  mTextSize))
+            addView(getTextView(getString(R.string.compare_list_on_axis_thickness), mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(getString(R.string.compare_list_center_thickness),  mTextSize))
+            addView(getTextView(getString(R.string.compare_list_center_thickness), mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(getString(R.string.compare_list_min_edge_thickness),  mTextSize))
+            addView(getTextView(getString(R.string.compare_list_min_edge_thickness), mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(getString(R.string.compare_list_max_edge_thickness),  mTextSize))
+            addView(getTextView(getString(R.string.compare_list_max_edge_thickness), mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(getString(R.string.compare_list_base_curve),  mTextSize))
+            addView(getTextView(getString(R.string.compare_list_base_curve), mTextSize))
             addView(getDividerHorizontal(dividerColor))
-            addView(getTextView(getString(R.string.compare_list_diameter),  mTextSize))
+            addView(getTextView(getString(R.string.compare_list_diameter), mTextSize))
             addView(getDividerHorizontal(dividerColor))
         }
     }
 
     private fun Context.getTextView(text: String?, mTextSize: Float = 24f): TextView {
         return TextView(this, null, R.style.SimpleText).apply {
-            layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, dip(44))
+            layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, dip(44)).apply {
+                gravity = Gravity.CENTER
+            }
             textSize = mTextSize
-            setLines(1)
             setText(text)
-            ellipsize = TextUtils.TruncateAt.END
-            gravity = Gravity.START or Gravity.CENTER
+            gravity = Gravity.CENTER
             setPadding(dip(4), 0, dip(4), 0)
         }
     }

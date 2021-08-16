@@ -2,7 +2,10 @@ package parkhomov.andrew.lensthicknesscalculator.view.result
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import androidx.constraintlayout.widget.ConstraintLayout.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
@@ -22,6 +25,15 @@ class Result : DialogFragment(R.layout.result) {
     private val result by argument<CalculatedData>(RESULT)
     private val viewModel: ResultViewModel by viewModel()
     private val binding by viewBinding(ResultBinding::bind)
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)

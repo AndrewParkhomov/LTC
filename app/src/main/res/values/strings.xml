@@ -18,9 +18,9 @@
     <string name="tab_thkns_lens_diameter">Lens diameter</string>
     <string name="tab_thkns_provide_center_thickness">Please, provide center thickness</string>
     <!-- Diameter hints -->
-    <string name="tab_diameter_hint_ed">Effective diameter %1$.0f mm</string>
-    <string name="tab_diameter_hint_dbl">Distance between lenses %1$.0f mm</string>
-    <string name="tab_diameter_hint_pd">Pupil distance %1$.0f mm</string>
+    <string name="tab_diameter_hint_ed">Effective diameter</string>
+    <string name="tab_diameter_hint_dbl">Distance between lenses</string>
+    <string name="tab_diameter_hint_pd">Pupil distance</string>
     <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f mm</string>
     <!-- Result -->
     <string name="result_index_of_refraction">Index of refraction: %1$s</string>
@@ -37,9 +37,9 @@
     <string name="result_remove_from_list">Remove</string>
     <string name="result_share">Share</string>
     <!-- Transposition -->
-    <string name="transposition_power_sphere">Sphere %1$s</string>
-    <string name="transposition_power_cylinder">Cylinder %1$s</string>
-    <string name="transposition_axis">Axis %1$d&#176;</string>
+    <string name="transposition_power_sphere">Sphere</string>
+    <string name="transposition_power_cylinder">Cylinder</string>
+    <string name="transposition_axis">Axis</string>
     <string name="transposition_result">Sphere power %1$s\nCylinder power %2$s\nAxis %3$d&#176;</string>
     <!-- Settings list item-->
     <string name="header_settings">Settings</string>

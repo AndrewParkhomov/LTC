@@ -2,9 +2,9 @@
 <resources>
 
     <color name="navigation_bar_color">@color/FF37474f</color>
-    <color name="button_tint">@color/FFCFCFCF</color>
+    <color name="button_tint">@color/FFFFFFFF</color>
     <color name="text_color">@color/FFC400</color>
     <color name="compare_column">@color/FF37474f</color>
-    <color name="vertical_divider">@color/FFCFCFCF</color>
+    <color name="vertical_divider">@color/FFFFFFFF</color>
 
 </resources>

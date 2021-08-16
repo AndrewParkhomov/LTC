@@ -7,6 +7,7 @@ import androidx.core.widget.doAfterTextChanged
 import by.kirich1409.viewbindingdelegate.viewBinding
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.databinding.TranspositionBinding
+import kotlin.math.abs
 
 
 class Transposition : BaseFragment(R.layout.transposition) {
@@ -51,13 +52,11 @@ class Transposition : BaseFragment(R.layout.transposition) {
     }
 
     private fun convertToValue(originalValue: Double, viewId: Int) {
-        var isAxisCorrect = true
         var value = originalValue
 
         if (viewId == R.id.input_edit_text_axis && value > 180) {
             binding.inputEditTextAxis.text?.clear()
             value = 0.0
-            isAxisCorrect = false
         }
 
         when (viewId) {
@@ -89,18 +88,12 @@ class Transposition : BaseFragment(R.layout.transposition) {
         }
         val axis = try {
             if (axis > 90) {
-                kotlin.math.abs(180 - (axis + 90))
+                abs(180 - (axis + 90))
             } else {
                 axis + 90
             }
         } catch (e: NumberFormatException) {
             0.0
-        }
-
-        when (viewId) {
-            R.id.input_edit_text_sphere -> setHintSphere(sphere)
-            R.id.input_edit_text_cylinder -> setHintCylinder(cylinder)
-            R.id.input_edit_text_axis -> setHintAxis(if (isAxisCorrect) value else 0.0)
         }
 
         binding.textViewResult.text = getString(
@@ -109,20 +102,5 @@ class Transposition : BaseFragment(R.layout.transposition) {
             cylinder.toString(),
             axis.toInt()
         )
-    }
-
-
-    private fun setHintSphere(value: Double) {
-        binding.wrapperSphere.hint =
-            getString(R.string.transposition_power_sphere, value.toString())
-    }
-
-    private fun setHintCylinder(value: Double) {
-        binding.wrapperCylinder.hint =
-            getString(R.string.transposition_power_cylinder, value.toString())
-    }
-
-    private fun setHintAxis(value: Double) {
-        binding.wrapperAxis.hint = getString(R.string.transposition_axis, value.toInt())
     }
 }

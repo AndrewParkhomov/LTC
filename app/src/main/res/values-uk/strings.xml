@@ -18,9 +18,9 @@
     <string name="tab_thkns_lens_diameter">Діаметр лінзи</string>
     <string name="tab_thkns_provide_center_thickness">Будь ласка, введіть товщину по центру</string>
     <!-- Diameter hints -->
-    <string name="tab_diameter_hint_ed">Ефективний діаметр %1$.0f мм</string>
-    <string name="tab_diameter_hint_dbl">Відстань між лінзами %1$.0f мм</string>
-    <string name="tab_diameter_hint_pd">Відстань між зіницями %1$.0f мм</string>
+    <string name="tab_diameter_hint_ed">Ефективний діаметр</string>
+    <string name="tab_diameter_hint_dbl">Відстань між лінзами</string>
+    <string name="tab_diameter_hint_pd">Відстань між зіницями</string>
     <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f мм</string>
     <!-- Result -->
     <string name="result_index_of_refraction">Індекс заломлення: %1$s</string>
@@ -37,9 +37,9 @@
     <string name="result_remove_from_list">Видалити</string>
     <string name="result_share">Поділитись</string>
     <!-- Transposition -->
-    <string name="transposition_power_sphere">Сфера %1$s</string>
-    <string name="transposition_power_cylinder">Циліндр %1$s</string>
-    <string name="transposition_axis">Кут %1$d&#176;</string>
+    <string name="transposition_power_sphere">Сфера</string>
+    <string name="transposition_power_cylinder">Циліндр</string>
+    <string name="transposition_axis">Кут</string>
     <string name="transposition_result">Сфера %1$s\nЦиліндр %2$s\nКут %3$d&#176;</string>
     <!-- Settings list item -->
     <string name="header_settings">Налаштування</string>

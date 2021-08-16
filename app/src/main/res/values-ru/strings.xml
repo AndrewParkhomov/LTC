@@ -18,9 +18,9 @@
     <string name="tab_thkns_lens_diameter">Диаметр линзы</string>
     <string name="tab_thkns_provide_center_thickness">Пожалуйста, введите толщину по центру</string>
     <!-- Diameter hints -->
-    <string name="tab_diameter_hint_ed">Эффективный диаметр %1$.0f мм</string>
-    <string name="tab_diameter_hint_dbl">Расстояние между линзами %1$.0f мм</string>
-    <string name="tab_diameter_hint_pd">Расстояние между зрачками %1$.0f мм</string>
+    <string name="tab_diameter_hint_ed">Эффективный диаметр</string>
+    <string name="tab_diameter_hint_dbl">Расстояние между линзами</string>
+    <string name="tab_diameter_hint_pd">Расстояние между зрачками</string>
     <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f мм</string>
     <!-- Result -->
     <string name="result_index_of_refraction">Индекс преломления: %1$s</string>
@@ -37,9 +37,9 @@
     <string name="result_remove_from_list">Удалить</string>
     <string name="result_share">Поделится</string>
     <!-- Transposition -->
-    <string name="transposition_power_sphere">Сфера %1$s</string>
-    <string name="transposition_power_cylinder">Цилиндр %1$s</string>
-    <string name="transposition_axis">Угол %1$d&#176;</string>
+    <string name="transposition_power_sphere">Сфера</string>
+    <string name="transposition_power_cylinder">Цилиндр</string>
+    <string name="transposition_axis">Угол</string>
     <string name="transposition_result">Сфера %1$s\nЦилиндр %2$s\nУгол %3$d&#176;</string>
     <!-- Settings list item -->
     <string name="header_settings">Настройки</string>

@@ -58,15 +58,8 @@ class Diameter : BaseFragment(R.layout.diameter) {
         }
     }
 
-    private fun updateHints() {
-        binding.wrapperEd.hint = getString(R.string.tab_diameter_hint_ed, ed)
-        binding.wrapperDbl.hint = getString(R.string.tab_diameter_hint_dbl, dbl)
-        binding.wrapperPd.hint = getString(R.string.tab_diameter_hint_pd, pd)
-    }
-
     private fun calculate() {
         val diameter = ceil(ed * 2 + dbl - pd)
         binding.textViewDiameterResult.text = getString(R.string.lens_diameter_result, diameter)
-        updateHints()
     }
 }

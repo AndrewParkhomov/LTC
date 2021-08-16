@@ -3,8 +3,7 @@ package parkhomov.andrew.lensthicknesscalculator.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.ContextThemeWrapper
-import android.view.View
+import android.view.*
 import android.view.ViewGroup.LayoutParams
 import android.widget.LinearLayout
 import android.widget.RadioButton
@@ -27,13 +26,22 @@ class Settings : DialogFragment(R.layout.settings) {
     private val sp: AppPreferences by inject()
     private val binding by viewBinding(SettingsBinding::bind)
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setRadioButtonLanguage()
         setRadioButtonTheme()
     }
 
     private fun setRadioButtonLanguage() {
-        val currentLanguage = sp.getStringValue(APP_LANGUAGE, "en")
+        val currentLanguage = sp.getStringValue(APP_LANGUAGE, "")
         val fullNames = resources.getStringArray(R.array.languages_full_names)
         val codes = resources.getStringArray(R.array.languages_code)
 

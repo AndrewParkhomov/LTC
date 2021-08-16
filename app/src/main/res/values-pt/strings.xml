@@ -18,9 +18,9 @@
     <string name="tab_thkns_lens_diameter">Diâmetro da lente</string>
     <string name="tab_thkns_provide_center_thickness">Forneça a espessura do centro</string>
     <!-- Diameter hints -->
-    <string name="tab_diameter_hint_ed">Diâmetro efetivo %1$.0f mm</string>
-    <string name="tab_diameter_hint_dbl">Distância entre as lentes %1$.0f mm</string>
-    <string name="tab_diameter_hint_pd">Distância Pupilar %1$.0f mm</string>
+    <string name="tab_diameter_hint_ed">Diâmetro efetivo</string>
+    <string name="tab_diameter_hint_dbl">Distância entre as lentes</string>
+    <string name="tab_diameter_hint_pd">Distância Pupilar</string>
     <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f mm</string>
     <!-- Result -->
     <string name="result_index_of_refraction">Índice de refração: %1$s</string>
@@ -37,9 +37,9 @@
     <string name="result_remove_from_list">Remover</string>
     <string name="result_share">Compartilhar</string>
     <!-- Transposition -->
-    <string name="transposition_power_sphere">Esférico %1$s</string>
-    <string name="transposition_power_cylinder">Cilíndrico %1$s</string>
-    <string name="transposition_axis">Eixo %1$d&#176;</string>
+    <string name="transposition_power_sphere">Esférico</string>
+    <string name="transposition_power_cylinder">Cilíndrico</string>
+    <string name="transposition_axis">Eixo</string>
     <string name="transposition_result">Grau Esférico %1$s\nGrau Cilíndrico %2$s\nEixo %3$d&#176;</string>
     <!-- Settings list item-->
     <string name="header_settings">Definições</string>

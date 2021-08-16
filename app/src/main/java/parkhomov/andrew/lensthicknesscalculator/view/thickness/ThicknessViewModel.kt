@@ -14,8 +14,8 @@ class ThicknessViewModel(
     interactor: Interactor
 ) : ViewModel() {
 
-    private val _errorCenter = MutableStateFlow(false)
-    val errorCenter: StateFlow<Boolean> = _errorCenter.asStateFlow()
+    private val _errorCenter: MutableSharedFlow<Boolean> = MutableSharedFlow()
+    val errorCenter: SharedFlow<Boolean> = _errorCenter.asSharedFlow()
     private val _setCurve = MutableStateFlow("")
     val setCurve: StateFlow<String> = _setCurve.asStateFlow()
     private val _showResult: MutableSharedFlow<CalculatedData> = MutableSharedFlow()
@@ -33,6 +33,7 @@ class ThicknessViewModel(
         edgeThicknessString: String,
         diameter: Double
     ) = viewModelScope.launch {
+
         val axisView: String
 
         var maybeRacalculatedSphere = try {
