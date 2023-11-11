@@ -96,25 +96,26 @@ class Thickness : BaseFragment(R.layout.thickness) {
         binding.diameter.setOnEditorActionListener(
             TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    onCalculateButtonClicked()
+                    onCalculateClicked()
                     return@OnEditorActionListener true
                 }
                 false
             })
+        binding.buttonCalculate.setOnClickListener {
+            onCalculateClicked()
+        }
     }
 
     private fun setFlowListeners() {
         viewModel.showResult.onEach { calculatedData ->
             Result.getInstance(calculatedData).show(childFragmentManager)
         }.collectData(lifecycleScope)
-        viewModel.onCalculateClicked.onEach {
-            onCalculateButtonClicked()
-        }.collectData(lifecycleScope)
+
         viewModel.errorCenter.onEach(::highlightCenterThickness).collectData(lifecycleScope)
         viewModel.setCurve.onEach(::setCurrentBaseCurve).collectData(lifecycleScope)
     }
 
-    private fun onCalculateButtonClicked() {
+    private fun onCalculateClicked() {
         val diameterString = binding.diameter.text.toString()
         val diameter = diameterString.toDoubleOrNull() ?: 70.0
         if(diameterString.isEmpty()) {

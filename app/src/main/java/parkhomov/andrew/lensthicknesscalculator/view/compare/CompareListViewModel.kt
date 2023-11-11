@@ -9,11 +9,12 @@ class CompareListViewModel(
     private val interactor: Interactor
 ) : ViewModel() {
 
-    val onClearClicked: Flow<Unit> = interactor.clear
-        .onEach { interactor.compareList.clear() }
-
     val getCompareList: Flow<MutableSet<CalculatedData>> = flow {
         emit(interactor.compareList)
+    }
+
+    fun onClearClicked(){
+        interactor.compareList.clear()
     }
 
 }

@@ -10,7 +10,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
-import parkhomov.andrew.lensthicknesscalculator.activity.MainActivityViewModel
 import parkhomov.andrew.lensthicknesscalculator.domain.Interactor
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_THEME
 import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
@@ -27,7 +26,6 @@ class MyApp : Application() {
         single { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
         single { AppPreferences(get()) }
         single { Interactor() }
-        viewModel { MainActivityViewModel(get()) }
         viewModel { ThicknessViewModel(get()) }
         viewModel { CompareListViewModel(get()) }
         viewModel { ResultViewModel(get()) }

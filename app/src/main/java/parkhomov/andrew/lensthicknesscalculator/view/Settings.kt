@@ -1,25 +1,36 @@
 package parkhomov.andrew.lensthicknesscalculator.view
 
+import android.R.attr.label
+import android.R.attr.text
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.ContextThemeWrapper
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
+import android.view.Window
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.delay
 import org.koin.android.ext.android.inject
+import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.activity.MainActivity
 import parkhomov.andrew.lensthicknesscalculator.databinding.SettingsBinding
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_LANGUAGE
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_THEME
 import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
+
 
 class Settings : DialogFragment(R.layout.settings) {
 
@@ -36,8 +47,16 @@ class Settings : DialogFragment(R.layout.settings) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        dialog?.window?.setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
         setRadioButtonLanguage()
         setRadioButtonTheme()
+        setAppVersion()
+
+        binding.textViewEmail.setOnClickListener {
+            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+            val clip = ClipData.newPlainText("developer email", binding.textViewEmail.text)
+            clipboard?.setPrimaryClip(clip)
+        }
     }
 
     private fun setRadioButtonLanguage() {
@@ -87,7 +106,7 @@ class Settings : DialogFragment(R.layout.settings) {
             text = languageFullName
             isChecked = languageCode == currentLanguage
             layoutParams = LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT,
+                LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT
             )
             setOnCheckedChangeListener { _, isChecked ->
@@ -114,6 +133,11 @@ class Settings : DialogFragment(R.layout.settings) {
             activity?.finish()
             activity?.startActivity(Intent(requireContext(), MainActivity::class.java))
         }
+    }
+
+    private fun setAppVersion() {
+        val appVersion = getString(R.string.about_version, BuildConfig.VERSION_NAME)
+        binding.textViewVersion.text = appVersion
     }
 
     fun show(fragmentManager: FragmentManager) = super.show(fragmentManager, LANGUAGE)

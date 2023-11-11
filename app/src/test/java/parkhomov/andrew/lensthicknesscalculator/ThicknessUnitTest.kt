@@ -3,8 +3,9 @@ package parkhomov.andrew.lensthicknesscalculator
 import app.cash.turbine.test
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Rule
 import org.junit.Test
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.view.thickness.Thickness
@@ -15,10 +16,13 @@ import kotlin.time.ExperimentalTime
 @ExperimentalCoroutinesApi
 class ThicknessUnitTest {
 
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
+
     private val viewModel = ThicknessViewModel(mockk(relaxed = true))
 
     @Test
-    fun `calculation 1`() = runBlockingTest {
+    fun `calculation 1`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.498 CR-39",
             spherePower = 2.0,
@@ -51,7 +55,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 2`() = runBlockingTest {
+    fun `calculation 2`() = runTest {
 
         val expected = CalculatedData(
             refractionIndex = "1.498 CR-39",
@@ -85,7 +89,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 3`() = runBlockingTest {
+    fun `calculation 3`() = runTest {
 
         val expected = CalculatedData(
             refractionIndex = "1.498 CR-39",
@@ -118,7 +122,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 4`() = runBlockingTest {
+    fun `calculation 4`() = runTest {
 
         val expected = CalculatedData(
             refractionIndex = "1.670",
@@ -152,7 +156,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 5`() = runBlockingTest {
+    fun `calculation 5`() = runTest {
 
         val expected = CalculatedData(
             refractionIndex = "1.670",
@@ -185,7 +189,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 6`() = runBlockingTest {
+    fun `calculation 6`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.498 CR-39",
             spherePower = 1.0,
@@ -218,7 +222,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 7`() = runBlockingTest {
+    fun `calculation 7`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.498 CR-39",
             spherePower = 6.0,
@@ -251,7 +255,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 8`() = runBlockingTest {
+    fun `calculation 8`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.560",
             spherePower = -3.0,
@@ -284,7 +288,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 9`() = runBlockingTest {
+    fun `calculation 9`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.560",
             spherePower = 1.5,
@@ -317,7 +321,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 10`() = runBlockingTest {
+    fun `calculation 10`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.560",
             spherePower = 1.5,
@@ -350,7 +354,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 11`() = runBlockingTest {
+    fun `calculation 11`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.560",
             spherePower = -1.75,
@@ -383,7 +387,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 12`() = runBlockingTest {
+    fun `calculation 12`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.560",
             spherePower = -14.0,
@@ -416,7 +420,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 13`() = runBlockingTest {
+    fun `calculation 13`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.560",
             spherePower = -4.0,
@@ -449,7 +453,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 14`() = runBlockingTest {
+    fun `calculation 14`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.610",
             spherePower = 10.0,
@@ -482,7 +486,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 15`() = runBlockingTest {
+    fun `calculation 15`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.610",
             spherePower = -10.0,
@@ -515,7 +519,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 16`() = runBlockingTest {
+    fun `calculation 16`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.610",
             spherePower = 5.0,
@@ -548,7 +552,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 17`() = runBlockingTest {
+    fun `calculation 17`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.610",
             spherePower = 0.0,
@@ -581,7 +585,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 18`() = runBlockingTest {
+    fun `calculation 18`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.610",
             spherePower = 0.0,
@@ -614,7 +618,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 19`() = runBlockingTest {
+    fun `calculation 19`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.610",
             spherePower = 0.0,
@@ -647,7 +651,7 @@ class ThicknessUnitTest {
     }
 
     @Test
-    fun `calculation 20`() = runBlockingTest {
+    fun `calculation 20`() = runTest {
         val expected = CalculatedData(
             refractionIndex = "1.610",
             spherePower = 5.0,

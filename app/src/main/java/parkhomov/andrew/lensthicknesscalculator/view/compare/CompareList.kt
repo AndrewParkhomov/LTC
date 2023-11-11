@@ -3,7 +3,6 @@ package parkhomov.andrew.lensthicknesscalculator.view.compare
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.View
@@ -36,11 +35,18 @@ class CompareList : Fragment(R.layout.compare) {
     }
 
     private fun setFlowListeners() {
-        viewModel.onClearClicked.onEach { onClearButtonClicked() }.collectData(lifecycleScope)
         viewModel.getCompareList.onEach(::setUpAdapter).collectData(lifecycleScope)
     }
 
-    private fun onClearButtonClicked() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.buttonClearList.setOnClickListener {
+            viewModel.onClearClicked()
+            clearList()
+        }
+    }
+
+    private fun clearList() {
         binding.containerDescription.removeAllViews()
         binding.containerListEmpty.removeAllViews()
         binding.linearScrollContainer.removeAllViews()
@@ -50,6 +56,7 @@ class CompareList : Fragment(R.layout.compare) {
 
     private fun setEmptyContainerVisibility(isVisible: Boolean) {
         binding.containerListEmpty.isVisible = isVisible
+        binding.buttonClearList.isVisible = !isVisible
     }
 
     private fun setUpAdapter(compareSet: Set<CalculatedData>) {

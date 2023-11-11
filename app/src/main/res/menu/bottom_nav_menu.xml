@@ -21,7 +21,4 @@
         android:icon="@drawable/ic_transposition"
         android:title="@string/fragment_transposition" />
 
-
-    <item android:title="" />
-
 </menu>

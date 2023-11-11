@@ -17,6 +17,7 @@
     <string name="tab_thkns_edge_thickness">Товщина по краю</string>
     <string name="tab_thkns_lens_diameter">Діаметр лінзи</string>
     <string name="tab_thkns_provide_center_thickness">Будь ласка, введіть товщину по центру</string>
+    <string name="tab_thkns_button">Розрахувати</string>
     <!-- Diameter hints -->
     <string name="tab_diameter_hint_ed">Ефективний діаметр</string>
     <string name="tab_diameter_hint_dbl">Відстань між лінзами</string>
@@ -33,28 +34,19 @@
     <string name="result_max_edge_thickness">Максимальна товщина: %1$s мм</string>
     <string name="result_base_curve">Кривизна бази лінзи: %1$s</string>
     <string name="result_diameter">Діаметр: %1$s мм</string>
-    <string name="result_add_to_list">Додати</string>
-    <string name="result_remove_from_list">Видалити</string>
+    <string name="result_add_to_list">Додати в список порівняння</string>
+    <string name="result_remove_from_list">Видалити із список порівняння</string>
     <string name="result_share">Поділитись</string>
     <!-- Transposition -->
     <string name="transposition_power_sphere">Сфера</string>
     <string name="transposition_power_cylinder">Циліндр</string>
     <string name="transposition_axis">Кут</string>
     <string name="transposition_result">Сфера %1$s\nЦиліндр %2$s\nКут %3$d&#176;</string>
-    <!-- Settings list item -->
-    <string name="header_settings">Налаштування</string>
-    <string name="header_about">Про програму</string>
     <!-- Share result -->
     <string name="share_result_subject">Дані про лінзу</string>
     <string name="share_with">Поділитись з допомогою…</string>
     <string name="share_text_only_sphere">Пораховано за допомогою додатку %1$s\n%2$s\nІндекс заломлення = %3$s\nСфера = %4$s\nТовщина по центру = %5$s мм\nТовщина по краю = %6$s мм\nРеальна кривизна бази лінзи = %7$s\nДіаметр лінзи = %8$s мм</string>
     <string name="share_text_full">Пораховано за допомогою додатку %1$s\n%2$s\nІндекс заломлення = %3$s\nСфера = %4$s\nЦиліндр = %5$s\nКут = %6$s&#176;\nТовщина під кутом %7$s&#176; = %8$s мм\nТовщина по центру = %9$s мм\nТовщина по краю = %10$s мм\nМаксимальна товщина = %11$s мм\nРеальна кривизна бази лінзи = %12$s\nДіаметр лінзи = %13$s мм</string>
-    <!-- About program -->
-    <string name="about_version">Версія %1$s</string>
-    <string name="about_developed_by">Розробка: Пархомов Андрій</string>
-    <string name="about_button">Закрити</string>
-    <string name="about_help_to_translate" /> <!-- Ignore, show only for English locale -->
-    <string name="translate_to_brazilian_portuguese" /> <!-- Ignore, show only for portuguese -->
     <!-- Language and Theme -->
     <string name="language_title">Мова</string>
     <string name="theme_title">Тема</string>
@@ -74,6 +66,7 @@
     <string name="compare_list_diameter">Діаметр</string>
     <string name="compare_list_is_empty_title">Список порожній</string>
     <string name="compare_list_is_empty_description">Ви можете додати лінзи у список порівняння після розрахунку</string>
+    <string name="compare_clear_list">Очистити список</string>
     <string-array name="titles" >
         <item>Показник заломлення</item>
         <item>Сфера</item>

@@ -7,25 +7,25 @@
     <fragment
         android:id="@+id/navigation_thickness"
         android:name="parkhomov.andrew.lensthicknesscalculator.view.thickness.Thickness"
-        android:label="@string/fragment_thickness"
+        android:label=""
         tools:layout="@layout/thickness" />
 
     <fragment
         android:id="@+id/navigation_compare"
         android:name="parkhomov.andrew.lensthicknesscalculator.view.compare.CompareList"
-        android:label="@string/fragment_compare"
+        android:label=""
         tools:layout="@layout/compare" />
 
     <fragment
         android:id="@+id/navigation_diameter"
         android:name="parkhomov.andrew.lensthicknesscalculator.view.Diameter"
-        android:label="@string/fragment_diameter"
+        android:label=""
         tools:layout="@layout/diameter" />
     
     <fragment
         android:id="@+id/navigation_transposition"
         android:name="parkhomov.andrew.lensthicknesscalculator.view.Transposition"
-        android:label="@string/fragment_transposition"
+        android:label=""
         tools:layout="@layout/transposition" />
     
 </navigation>

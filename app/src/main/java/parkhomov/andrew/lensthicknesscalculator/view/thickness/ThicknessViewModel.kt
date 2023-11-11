@@ -21,8 +21,6 @@ class ThicknessViewModel(
     private val _showResult: MutableSharedFlow<CalculatedData> = MutableSharedFlow()
     val showResult: SharedFlow<CalculatedData> = _showResult.asSharedFlow()
 
-    val onCalculateClicked: SharedFlow<Unit> = interactor.calculate
-
     fun onCalculateBtnClicked(
         lensIndex: Triple<Double, Double, String>,
         spherePowerString: String,

@@ -17,6 +17,7 @@
     <string name="tab_thkns_edge_thickness">Edge thickness</string>
     <string name="tab_thkns_lens_diameter">Lens diameter</string>
     <string name="tab_thkns_provide_center_thickness">Please, provide center thickness</string>
+    <string name="tab_thkns_button">Calculate</string>
     <!-- Diameter hints -->
     <string name="tab_diameter_hint_ed">Effective diameter</string>
     <string name="tab_diameter_hint_dbl">Distance between lenses</string>
@@ -33,29 +34,27 @@
     <string name="result_max_edge_thickness">Maximum thickness: %1$s mm</string>
     <string name="result_base_curve">Base curve: %1$s</string>
     <string name="result_diameter">Diameter: %1$s mm</string>
-    <string name="result_add_to_list">Add</string>
-    <string name="result_remove_from_list">Remove</string>
+    <string name="result_add_to_list">Add to compare list</string>
+    <string name="result_remove_from_list">Remove from compare list</string>
     <string name="result_share">Share</string>
     <!-- Transposition -->
     <string name="transposition_power_sphere">Sphere</string>
     <string name="transposition_power_cylinder">Cylinder</string>
     <string name="transposition_axis">Axis</string>
     <string name="transposition_result">Sphere power %1$s\nCylinder power %2$s\nAxis %3$d&#176;</string>
-    <!-- Settings list item-->
-    <string name="header_settings">Settings</string>
-    <string name="header_about">About</string>
     <!-- Share result -->
     <string name="share_result_subject">Lens data</string>
     <string name="share_with">Share with…</string>
     <string name="share_text_only_sphere">Calculated via %1$s\n%2$s\nIndex of refraction = %3$s\nSphere power = %4$s\nCenter thickness = %5$s mm\nEdge thickness = %6$s mm\nReal base curve = %7$s\nDiameter = %8$s mm</string>
     <string name="share_text_full">Calculated via %1$s\n%2$s\nIndex of refraction = %3$s\nSphere power = %4$s\nCylinder Power = %5$s\nAxis = %6$s&#176;\nThickness on axis %7$s&#176; = %8$s mm\nCenter thickness = %9$s mm\nEdge thickness = %10$s mm\nMax thickness = %11$s mm\nReal base curve = %12$s\nDiameter = %13$s mm</string>
     <!-- About program -->
-    <string name="about_version">Version %1$s</string>
-    <string name="about_developed_by">Developed by Parkhomov Andrew</string>
-    <string name="about_button">Close</string>
+    <string name="about_version" translatable="false">Version %1$s</string>
+    <string name="about_developed_by" translatable="false">Developed by Andriy Parkhomov</string>
+    <string name="about_button" translatable="false">Close</string>
     <string name="about_email" translatable="false">parkhomov.andrew@gmail.com</string>
-    <string name="about_help_to_translate">If you want to help me translate app on your local language, please contact me on email</string>
-    <string name="translate_to_brazilian_portuguese" /> <!-- Ignore, show only for portuguese -->
+    <string name="about_help_to_translate" translatable="false">If you want to use your language in app, you can add it for free. Translate ~100 sentence and I\'ll add your translation into app.</string>
+    <string name="translate_to_brazilian_portuguese" translatable="false">Traduzido para o português: Edison Bucchianico Gil</string>
+    <string name="support_link" translatable="false">Support  🇺🇦  savelife.in.ua</string>
     <!-- Language and Theme -->
     <string name="language_title">Language</string>
     <string name="theme_title">Theme</string>
@@ -75,6 +74,7 @@
     <string name="compare_list_diameter">Diameter</string>
     <string name="compare_list_is_empty_title">List is empty</string>
     <string name="compare_list_is_empty_description">You can add lens in compare list after calculation</string>
+    <string name="compare_clear_list">Clear list</string>
     <string-array name="titles" >
         <item>Index of refraction</item>
         <item>Sphere power</item>
@@ -117,13 +117,11 @@
     <string-array name="languages_full_names">
         <item>English</item>
         <item>Portuguese</item>
-        <item>Русский</item>
         <item>Українська</item>
     </string-array>
     <string-array name="languages_code">
         <item>en</item>
         <item>po</item>
-        <item>ru</item>
         <item>uk</item>
     </string-array>
 
