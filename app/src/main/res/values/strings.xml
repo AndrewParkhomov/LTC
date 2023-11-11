@@ -41,7 +41,7 @@
     <string name="transposition_power_sphere">Sphere</string>
     <string name="transposition_power_cylinder">Cylinder</string>
     <string name="transposition_axis">Axis</string>
-    <string name="transposition_result">Sphere power %1$s\nCylinder power %2$s\nAxis %3$d&#176;</string>
+    <string name="transposition_result">Sphere power: %1$s\nCylinder power: %2$s\nAxis: %3$d&#176;</string>
     <!-- Share result -->
     <string name="share_result_subject">Lens data</string>
     <string name="share_with">Share with…</string>

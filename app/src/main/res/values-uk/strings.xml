@@ -35,13 +35,13 @@
     <string name="result_base_curve">Кривизна бази лінзи: %1$s</string>
     <string name="result_diameter">Діаметр: %1$s мм</string>
     <string name="result_add_to_list">Додати в список порівняння</string>
-    <string name="result_remove_from_list">Видалити із список порівняння</string>
+    <string name="result_remove_from_list">Видалити із списку порівняння</string>
     <string name="result_share">Поділитись</string>
     <!-- Transposition -->
     <string name="transposition_power_sphere">Сфера</string>
     <string name="transposition_power_cylinder">Циліндр</string>
     <string name="transposition_axis">Кут</string>
-    <string name="transposition_result">Сфера %1$s\nЦиліндр %2$s\nКут %3$d&#176;</string>
+    <string name="transposition_result">Сфера: %1$s\nЦиліндр: %2$s\nКут: %3$d&#176;</string>
     <!-- Share result -->
     <string name="share_result_subject">Дані про лінзу</string>
     <string name="share_with">Поділитись з допомогою…</string>

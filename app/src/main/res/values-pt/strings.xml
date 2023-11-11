@@ -41,7 +41,7 @@
     <string name="transposition_power_sphere">Esférico</string>
     <string name="transposition_power_cylinder">Cilíndrico</string>
     <string name="transposition_axis">Eixo</string>
-    <string name="transposition_result">Grau Esférico %1$s\nGrau Cilíndrico %2$s\nEixo %3$d&#176;</string>
+    <string name="transposition_result">Grau Esférico: %1$s\nGrau Cilíndrico: %2$s\nEixo: %3$d&#176;</string>
     <!-- Share result -->
     <string name="share_result_subject">Dados da lente</string>
     <string name="share_with">Compartilhar com…</string>

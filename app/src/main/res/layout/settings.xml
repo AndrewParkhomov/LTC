@@ -1,172 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerSV"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
     android:layout_gravity="center">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_view_version"
-        style="@style/SimpleText"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/about_version" />
-
-    <TextView
-        android:id="@+id/text_view_language"
-        android:text="@string/language_title"
-        style="@style/SimpleText"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_version" />
-
-    <View
-        android:id="@+id/view_language"
-        style="@style/DividerSettings"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_language"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <RadioGroup
-        android:id="@+id/radio_group_language"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="8dp"
-        app:layout_constrainedWidth="true"
-        android:layout_marginEnd="14dp"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_language" />
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
-    <TextView
-        android:id="@+id/text_view_theme"
-        android:text="@string/theme_title"
-        style="@style/SimpleText"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radio_group_language" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_version"
+            style="@style/SimpleText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/about_version" />
 
-    <View
-        android:id="@+id/view_theme"
-        style="@style/DividerSettings"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_theme"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/text_view_language"
+            style="@style/SimpleText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/language_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_version" />
 
-    <RadioGroup
-        android:id="@+id/radio_group_theme"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="8dp"
-        app:layout_constrainedWidth="true"
-        android:layout_marginEnd="14dp"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_theme">
+        <View
+            android:id="@+id/view_language"
+            style="@style/DividerSettings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_language" />
 
-        <RadioButton
-            android:id="@+id/button_auto"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/radio_group_language"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/theme_auto"
-            android:theme="@style/RadioButtonStyle" />
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="14dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_language" />
 
-        <RadioButton
-            android:id="@+id/button_day"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/text_view_theme"
+            style="@style/SimpleText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/theme_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radio_group_language" />
+
+        <View
+            android:id="@+id/view_theme"
+            style="@style/DividerSettings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_theme" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_theme"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/theme_day"
-            android:theme="@style/RadioButtonStyle" />
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="14dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_theme">
 
-        <RadioButton
-            android:id="@+id/button_night"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/theme_night"
-            android:theme="@style/RadioButtonStyle" />
+            <RadioButton
+                android:id="@+id/button_auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_auto"
+                android:theme="@style/RadioButtonStyle" />
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/button_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_day"
+                android:theme="@style/RadioButtonStyle" />
 
-    <View
-        android:id="@+id/view_last"
-        style="@style/DividerSettings"
-        app:layout_constraintTop_toBottomOf="@+id/radio_group_theme"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <RadioButton
+                android:id="@+id/button_night"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_night"
+                android:theme="@style/RadioButtonStyle" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_view_developed_by"
-        style="@style/SimpleText"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/about_developed_by"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_last"/>
+        </RadioGroup>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_view_help_to_translate"
-        style="@style/SimpleText"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/about_help_to_translate"
-        android:textSize="18sp"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_developed_by" />
+        <View
+            android:id="@+id/view_last"
+            style="@style/DividerSettings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radio_group_theme" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_view_email"
-        style="@style/SimpleText"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/about_email"
-        android:textSize="18sp"
-        android:drawableEnd="@drawable/baseline_content_copy_24"
-        android:drawablePadding="8dp"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_help_to_translate" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_developed_by"
+            style="@style/SimpleText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/about_developed_by"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_last" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_view_portuguese"
-        style="@style/SimpleText"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/translate_to_brazilian_portuguese"
-        android:textSize="18sp"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_email" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_help_to_translate"
+            style="@style/SimpleText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/about_help_to_translate"
+            android:textSize="18sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_developed_by" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_email"
+            style="@style/SimpleText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:drawableEnd="@drawable/baseline_content_copy_24"
+            android:drawablePadding="8dp"
+            android:text="@string/about_email"
+            android:textSize="18sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_help_to_translate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_portuguese"
+            style="@style/SimpleText"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/translate_to_brazilian_portuguese"
+            android:textSize="18sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_email" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
