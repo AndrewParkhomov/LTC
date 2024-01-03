@@ -2,12 +2,18 @@ package parkhomov.andrew.lensthicknesscalculator.activity
 
 import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import org.koin.android.ext.android.inject
+import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.databinding.ActivityBinding
 import parkhomov.andrew.lensthicknesscalculator.extencions.MyContextWrapper
@@ -38,17 +44,25 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
     }
 
     private fun initViews() {
+        val adsView = AdView(this).apply {
+            layoutParams = CoordinatorLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            ).apply {
+                gravity = Gravity.TOP
+            }
+        }
+        binding.containerParent.addView(adsView)
+        adsView.setAdSize(AdSize.BANNER)
+        adsView.adUnitId = if (BuildConfig.DEBUG) {
+            "ca-app-pub-3940256099942544/6300978111"
+        } else {
+            "ca-app-pub-1114161483134089/5582467309"
+        }
+        adsView.loadAd(AdRequest.Builder().build())
+
         binding.navView.background = null
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_thickness,
-                R.id.navigation_compare,
-                R.id.navigation_diameter,
-                R.id.navigation_transposition
-            )
-        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setOnItemSelectedListener { menuItem ->
             NavigationUI.onNavDestinationSelected(
                 menuItem,

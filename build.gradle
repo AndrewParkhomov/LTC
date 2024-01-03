@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.9.20'
+    ext.kotlin_version = '1.9.21'
 
     repositories {
         google()
@@ -7,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.2'
+        classpath 'com.android.tools.build:gradle:8.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.4.0'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
@@ -17,7 +17,7 @@ buildscript {
 ext {
     major_version = "4"
     minor_version = "1"
-    patch_version = "0"
+    patch_version = "1"
 }
 
 allprojects {
@@ -28,7 +28,7 @@ allprojects {
     ext {
         application_id = 'parkhomov.andrew.lensthicknesscalculator'
         compile_version = 34
-        version_code = 17
+        version_code = 19
         version_name = "${major_version}.${minor_version}.${patch_version}"
         target_version = 34
         min_version = 21

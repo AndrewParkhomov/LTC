@@ -3,6 +3,7 @@ package parkhomov.andrew.lensthicknesscalculator
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -45,5 +46,6 @@ class MyApp : Application() {
 
         val theme = sp.getIntValue(APP_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         AppCompatDelegate.setDefaultNightMode(theme)
+        MobileAds.initialize(this)
     }
 }
