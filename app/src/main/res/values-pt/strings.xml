@@ -7,6 +7,20 @@
     <string name="fragment_compare">Compara</string>
     <string name="fragment_diameter">Diâmetro</string>
     <string name="fragment_transposition">Transposição</string>
+    <string name="menu_item_settings">Configurações</string>
+    <!-- New app block -->
+    <string name="new_app_name">Spectra</string>
+    <string name="new_app_try_it">Experimente o novo app</string>
+    <string name="new_app_button">LEIA MAIS</string>
+    <string name="new_app_download">Baixar</string>
+    <string name="new_app_our_new_app">Nosso Novo Aplicativo</string>
+    <string name="new_app_b2b_platform">Plataforma B2B para óticas e oficinas no campo da oftalmologia</string>
+    <string name="new_app_step_1">Registre-se</string>
+    <string name="new_app_step_2">Criar um pedido</string>
+    <string name="new_app_step_3">Acompanhe o progresso</string>
+    <string name="new_app_get_it_on_google_play">Obtenha na Google Play</string>
+    <string name="new_app_for_optic">Para Óticas</string>
+    <string name="new_app_for_workshop">Para Oficinas</string>
     <!-- Thickness hints -->
     <string name="tab_thkns_material_index">Índice de refração</string>
     <string name="tab_thkns_sphere_power">Grau Esférico</string>

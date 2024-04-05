@@ -25,6 +25,19 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/about_version" />
 
+        <ImageView
+            android:id="@+id/closeIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:srcCompat="@drawable/ic_close"
+            tools:ignore="ContentDescription" />
+
         <TextView
             android:id="@+id/text_view_language"
             style="@style/SimpleText"
@@ -129,20 +142,6 @@
             app:layout_constraintTop_toBottomOf="@+id/view_last" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_help_to_translate"
-            style="@style/SimpleText"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/about_help_to_translate"
-            android:textSize="18sp"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_developed_by" />
-
-        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_email"
             style="@style/SimpleText"
             android:layout_marginStart="16dp"
@@ -156,7 +155,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_help_to_translate" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_developed_by" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_portuguese"

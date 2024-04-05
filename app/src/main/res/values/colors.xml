@@ -2,6 +2,7 @@
 <resources>
 
     <color name="FFFFFFFF">#FFFFFFFF</color>
+    <color name="EFEFEF">#EFEFEF</color>
     <color name="FFCFCFCF">#FFcfcfcf</color>
     <color name="FFA0A0A0">#FFA0A0A0</color>
     <color name="FF838383">#FF838383</color>
@@ -10,6 +11,7 @@
     <color name="FF0288D1">#FF0288D1</color>
     <color name="FF005b9f">#FF005b9f</color>
     <color name="FFC400">#FFC400</color>
+    <color name="FFD90A">#FFD90A</color>
     <color name="FFE53935">#FFE53935</color>
     <color name="FF62727b">#FF62727b</color>
     <color name="FF37474f">#FF37474f</color>
@@ -20,5 +22,7 @@
     <color name="text_color">@color/FF0288D1</color>
     <color name="compare_column">@color/FFCFCFCF</color>
     <color name="vertical_divider">@color/FFA0A0A0</color>
+    <color name="button_text_color">@color/FF0288D1</color>
+    <color name="app_bar_color">@color/FFFFFFFF</color>
 
 </resources>

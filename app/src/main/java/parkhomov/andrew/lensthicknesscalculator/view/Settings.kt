@@ -1,7 +1,5 @@
 package parkhomov.andrew.lensthicknesscalculator.view
 
-import android.R.attr.label
-import android.R.attr.text
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -47,13 +45,20 @@ class Settings : DialogFragment(R.layout.settings) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        dialog?.window?.setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setLayout(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        )
         setRadioButtonLanguage()
         setRadioButtonTheme()
         setAppVersion()
 
+        binding.closeIV.setOnClickListener {
+            dismiss()
+        }
         binding.textViewEmail.setOnClickListener {
-            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+            val clipboard =
+                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
             val clip = ClipData.newPlainText("developer email", binding.textViewEmail.text)
             clipboard?.setPrimaryClip(clip)
         }
@@ -125,6 +130,7 @@ class Settings : DialogFragment(R.layout.settings) {
     private fun saveTheme(newTheme: Int) {
         sp.putIntValue(APP_THEME, newTheme)
         AppCompatDelegate.setDefaultNightMode(newTheme)
+        dismiss()
     }
 
     private fun applyNewLanguage() {
@@ -140,10 +146,10 @@ class Settings : DialogFragment(R.layout.settings) {
         binding.textViewVersion.text = appVersion
     }
 
-    fun show(fragmentManager: FragmentManager) = super.show(fragmentManager, LANGUAGE)
+    fun show(fragmentManager: FragmentManager) = super.show(fragmentManager, SETTINGS)
 
     companion object {
-        private const val LANGUAGE = "LANGUAGE"
+        private const val SETTINGS = "SETTINGS"
         val instance = Settings()
     }
 }

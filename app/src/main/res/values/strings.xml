@@ -7,6 +7,20 @@
     <string name="fragment_compare">Compare</string>
     <string name="fragment_diameter">Diameter</string>
     <string name="fragment_transposition">Transposition</string>
+    <string name="menu_item_settings">Settings</string>
+    <!-- New app block -->
+    <string name="new_app_name">Spectra</string>
+    <string name="new_app_try_it">Try our new app</string>
+    <string name="new_app_button">READ MORE</string>
+    <string name="new_app_download">Download</string>
+    <string name="new_app_our_new_app">Our New App</string>
+    <string name="new_app_b2b_platform">B2B platform for opticians and workshops in the ophthalmology industry</string>
+    <string name="new_app_step_1">Register</string>
+    <string name="new_app_step_2">Create an order</string>
+    <string name="new_app_step_3">Track progress</string>
+    <string name="new_app_get_it_on_google_play">Get it on Google Play</string>
+    <string name="new_app_for_optic">For Opticians</string>
+    <string name="new_app_for_workshop">For Workshops</string>
     <!-- Thickness hints -->
     <string name="tab_thkns_material_index">Index of refraction</string>
     <string name="tab_thkns_sphere_power">Sphere power</string>
@@ -52,9 +66,7 @@
     <string name="about_developed_by" translatable="false">Developed by Andriy Parkhomov</string>
     <string name="about_button" translatable="false">Close</string>
     <string name="about_email" translatable="false">parkhomov.andrew@gmail.com</string>
-    <string name="about_help_to_translate" translatable="false">If you want to use your language in app, you can add it for free. Translate ~100 sentence and I\'ll add your translation into app.</string>
     <string name="translate_to_brazilian_portuguese" translatable="false">Traduzido para o português: Edison Bucchianico Gil</string>
-    <string name="support_link" translatable="false">Support  🇺🇦  savelife.in.ua</string>
     <!-- Language and Theme -->
     <string name="language_title">Language</string>
     <string name="theme_title">Theme</string>
