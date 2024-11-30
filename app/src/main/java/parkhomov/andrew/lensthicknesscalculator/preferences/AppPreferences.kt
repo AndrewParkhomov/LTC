@@ -2,7 +2,9 @@ package parkhomov.andrew.lensthicknesscalculator.preferences
 
 import android.content.SharedPreferences
 
-private class AppAppPreferencesImpl(private val preferences: SharedPreferences) : AppPreferences {
+class AppPreferencesImpl(
+    private val preferences: SharedPreferences
+) : AppPreferences {
 
     override fun putStringValue(key: String, value: String) =
         preferences.edit().putString(key, value).apply()
@@ -42,11 +44,6 @@ interface AppPreferences {
     fun putIntValue(key: String, value: Int)
     fun putFloatValue(key: String, value: Float)
     fun putBooleanValue(key: String, value: Boolean = false)
-
-    companion object {
-        operator fun invoke(preferences: SharedPreferences): AppPreferences =
-            AppAppPreferencesImpl(preferences)
-    }
 }
 
 const val APP_LANGUAGE = "SAVE_LANGUAGE_ISO2"

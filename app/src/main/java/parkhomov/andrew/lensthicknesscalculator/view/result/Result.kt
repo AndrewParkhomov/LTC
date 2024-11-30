@@ -12,19 +12,24 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.databinding.ResultBinding
 import parkhomov.andrew.lensthicknesscalculator.extencions.argument
-import parkhomov.andrew.lensthicknesscalculator.extencions.collectData
 
 class Result : DialogFragment(R.layout.result) {
 
     private val result by argument<CalculatedData>(RESULT)
     private val viewModel: ResultViewModel by viewModel()
     private val binding by viewBinding(ResultBinding::bind)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycleScope.launchWhenStarted {
+            viewModel.compareList.collect(::compareSetLoaded)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,21 +44,19 @@ class Result : DialogFragment(R.layout.result) {
         dialog?.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
         showCylinderViews(result.cylinderPower != null)
         setCalculatedData(result)
-        viewModel.getCompareList.onEach(::compareSetLoaded).collectData(lifecycleScope)
     }
 
-    private fun compareSetLoaded(set: MutableSet<CalculatedData>) {
+    private fun compareSetLoaded(set: Set<CalculatedData>) {
         setButtonState(set.contains(result))
         setClickListeners(set)
     }
 
-    private fun setClickListeners(set: MutableSet<CalculatedData>) {
+    private fun setClickListeners(set: Set<CalculatedData>) {
         binding.buttonAddToList.setOnClickListener {
             if (set.contains(result)) {
-                val isRemovedSuccessfully = set.remove(result)
-                setButtonState(!isRemovedSuccessfully) // already not in list
+                viewModel.removeCompareItem(result)
             } else {
-                setButtonState(set.add(result))
+                viewModel.addCompareItem(result)
             }
         }
         binding.buttonShare.setOnClickListener {

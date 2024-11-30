@@ -1,22 +1,15 @@
 package parkhomov.andrew.lensthicknesscalculator.view.compare
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.StateFlow
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
-import parkhomov.andrew.lensthicknesscalculator.domain.Interactor
+import parkhomov.andrew.lensthicknesscalculator.domain.CompareLensStorageImpl
 
 class CompareListViewModel(
-    private val interactor: Interactor
+    private val compareLensStorage: CompareLensStorageImpl
 ) : ViewModel() {
 
-    val getCompareList: Flow<MutableSet<CalculatedData>> = flow {
-        emit(interactor.compareList)
-    }
+    val compareList: StateFlow<Set<CalculatedData>> = compareLensStorage.compareList
 
-    fun onClearClicked(){
-        interactor.compareList.clear()
-    }
-
+    fun onClearClicked() = compareLensStorage.clearCompareList()
 }
-
-

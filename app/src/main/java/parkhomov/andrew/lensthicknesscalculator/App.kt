@@ -7,38 +7,42 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
-import parkhomov.andrew.lensthicknesscalculator.domain.Interactor
+import parkhomov.andrew.lensthicknesscalculator.domain.CompareLensStorage
+import parkhomov.andrew.lensthicknesscalculator.domain.CompareLensStorageImpl
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_THEME
 import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
+import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferencesImpl
 import parkhomov.andrew.lensthicknesscalculator.view.compare.CompareListViewModel
 import parkhomov.andrew.lensthicknesscalculator.view.result.ResultViewModel
 import parkhomov.andrew.lensthicknesscalculator.view.thickness.ThicknessViewModel
 
 
-class MyApp : Application() {
+class App : Application() {
 
     private val sp: AppPreferences by inject()
 
     private val appModule = module {
         single { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
-        single { AppPreferences(get()) }
-        single { Interactor() }
-        viewModel { ThicknessViewModel() }
-        viewModel { CompareListViewModel(get()) }
-        viewModel { ResultViewModel(get()) }
+        singleOf(::AppPreferencesImpl) bind AppPreferences::class
+        singleOf(::CompareLensStorageImpl) bind CompareLensStorage::class
+        viewModelOf(::ThicknessViewModel)
+        viewModelOf(::CompareListViewModel)
+        viewModelOf(::ResultViewModel)
     }
 
     override fun onCreate() {
         super.onCreate()
         if (!BuildConfig.DEBUG) {
-            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
+            FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = true
         }
         startKoin {
-            androidContext(this@MyApp)
+            androidContext(this@App)
             androidLogger(Level.ERROR)
             modules(appModule)
         }

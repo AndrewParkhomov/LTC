@@ -19,7 +19,7 @@ class ThicknessUnitTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    private val viewModel = ThicknessViewModel(mockk(relaxed = true))
+    private val viewModel = ThicknessViewModel()
 
     @Test
     fun `calculation 1`() = runTest {

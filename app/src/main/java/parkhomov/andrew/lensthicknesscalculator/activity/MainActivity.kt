@@ -66,9 +66,4 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
         }
         popupMenu.show()
     }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
-    }
 }

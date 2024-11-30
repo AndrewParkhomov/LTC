@@ -14,12 +14,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
 import parkhomov.andrew.lensthicknesscalculator.databinding.CompareBinding
-import parkhomov.andrew.lensthicknesscalculator.extencions.collectData
 import parkhomov.andrew.lensthicknesscalculator.extencions.dip
 import parkhomov.andrew.lensthicknesscalculator.extencions.getColorFromId
 
@@ -31,11 +29,9 @@ class CompareList : Fragment(R.layout.compare) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setFlowListeners()
-    }
-
-    private fun setFlowListeners() {
-        viewModel.getCompareList.onEach(::setUpAdapter).collectData(lifecycleScope)
+        lifecycleScope.launchWhenStarted {
+            viewModel.compareList.collect(::setUpAdapter)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
