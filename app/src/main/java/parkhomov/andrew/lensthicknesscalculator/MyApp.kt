@@ -27,7 +27,7 @@ class MyApp : Application() {
         single { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
         single { AppPreferences(get()) }
         single { Interactor() }
-        viewModel { ThicknessViewModel(get()) }
+        viewModel { ThicknessViewModel() }
         viewModel { CompareListViewModel(get()) }
         viewModel { ResultViewModel(get()) }
     }

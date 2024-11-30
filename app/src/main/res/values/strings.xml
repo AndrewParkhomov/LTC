@@ -2,25 +2,13 @@
 <resources>
     <!-- App name -->
     <string name="app_name">LTC</string>
+    <string name="app_name_full">Lens thickness calculator</string>
     <!-- Tab headers-->
     <string name="fragment_thickness">Thickness</string>
     <string name="fragment_compare">Compare</string>
     <string name="fragment_diameter">Diameter</string>
     <string name="fragment_transposition">Transposition</string>
     <string name="menu_item_settings">Settings</string>
-    <!-- New app block -->
-    <string name="new_app_name">Spectra</string>
-    <string name="new_app_try_it">Try our new app</string>
-    <string name="new_app_button">READ MORE</string>
-    <string name="new_app_download">Download</string>
-    <string name="new_app_our_new_app">Our New App</string>
-    <string name="new_app_b2b_platform">B2B platform for opticians and workshops in the ophthalmology industry</string>
-    <string name="new_app_step_1">Register</string>
-    <string name="new_app_step_2">Create an order</string>
-    <string name="new_app_step_3">Track progress</string>
-    <string name="new_app_get_it_on_google_play">Get it on Google Play</string>
-    <string name="new_app_for_optic">For Opticians</string>
-    <string name="new_app_for_workshop">For Workshops</string>
     <!-- Thickness hints -->
     <string name="tab_thkns_material_index">Index of refraction</string>
     <string name="tab_thkns_sphere_power">Sphere power</string>

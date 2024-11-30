@@ -2,17 +2,19 @@ package parkhomov.andrew.lensthicknesscalculator.view.thickness
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import parkhomov.andrew.lensthicknesscalculator.data.CalculatedData
-import parkhomov.andrew.lensthicknesscalculator.domain.Interactor
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-class ThicknessViewModel(
-    interactor: Interactor
-) : ViewModel() {
+class ThicknessViewModel : ViewModel() {
 
     private val _errorCenter: MutableSharedFlow<Boolean> = MutableSharedFlow()
     val errorCenter: SharedFlow<Boolean> = _errorCenter.asSharedFlow()
@@ -90,8 +92,10 @@ class ThicknessViewModel(
             maybeRacalculatedSphere <= 0 && cylinderPower == 0.0 -> centerThickness
             maybeRacalculatedSphere <= 0 && cylinderPower > 0 && maybeRacalculatedSphere == 0.0 ->
                 (diameter / 2).pow(2.0) * cylinderPower / (2000 * (lensIndex.first - 1)) + edgeThickness
+
             maybeRacalculatedSphere <= 0 && cylinderPower > 0 && maybeRacalculatedSphere + cylinderPower > 0 ->
                 (diameter / 2).pow(2.0) * (maybeRacalculatedSphere + cylinderPower) / (2000 * (lensIndex.first - 1)) + edgeThickness
+
             maybeRacalculatedSphere > 0 -> {
                 val tempValue = if (cylinderPower > 0) {
                     maybeRacalculatedSphere + cylinderPower
@@ -99,6 +103,7 @@ class ThicknessViewModel(
                     maybeRacalculatedSphere
                 (diameter / 2).pow(2.0) * tempValue / (2000 * (lensIndex.first - 1)) + edgeThickness
             }
+
             else -> centerThickness
         }
 

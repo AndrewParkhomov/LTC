@@ -51,4 +51,3 @@ interface AppPreferences {
 
 const val APP_LANGUAGE = "SAVE_LANGUAGE_ISO2"
 const val APP_THEME = "APP_THEME"
-const val SHOW_NEW_APP = "SHOW_NEW_APP"
