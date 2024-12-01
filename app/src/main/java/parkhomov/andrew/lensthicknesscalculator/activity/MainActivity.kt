@@ -61,15 +61,21 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
             }
             WindowInsetsCompat.CONSUMED
         }
+        val isIconsLight: Boolean = isIconsLight()
+        WindowInsetsControllerCompat(window, window.decorView).apply {
+            isAppearanceLightStatusBars = isIconsLight
+            isAppearanceLightNavigationBars = isIconsLight
+        }
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+    }
+
+    private fun isIconsLight(): Boolean {
         val theme: Int = appPreferences.getIntValue(
             key = APP_THEME,
             default = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         )
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowInsetsControllerCompat(window, window.decorView).apply {
-            isAppearanceLightStatusBars = theme != AppCompatDelegate.MODE_NIGHT_YES
-            isAppearanceLightNavigationBars = theme != AppCompatDelegate.MODE_NIGHT_YES
-        }
+        return theme != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM &&
+                theme != AppCompatDelegate.MODE_NIGHT_YES
     }
 
     private fun initViews() {
