@@ -4,8 +4,17 @@ import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.PopupMenu
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.updateLayoutParams
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -14,6 +23,7 @@ import parkhomov.andrew.lensthicknesscalculator.R
 import parkhomov.andrew.lensthicknesscalculator.databinding.ActivityBinding
 import parkhomov.andrew.lensthicknesscalculator.extencions.MyContextWrapper
 import parkhomov.andrew.lensthicknesscalculator.preferences.APP_LANGUAGE
+import parkhomov.andrew.lensthicknesscalculator.preferences.APP_THEME
 import parkhomov.andrew.lensthicknesscalculator.preferences.AppPreferences
 import parkhomov.andrew.lensthicknesscalculator.view.Settings
 import java.util.Locale
@@ -35,7 +45,31 @@ class MainActivity : AppCompatActivity(R.layout.activity) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        addInsetPaddings()
         initViews()
+    }
+
+    private fun addInsetPaddings() {
+        val rootView: CoordinatorLayout = findViewById(R.id.container_parent)
+        ViewCompat.setOnApplyWindowInsetsListener(rootView) { v, windowInsets ->
+            val insets: Insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                leftMargin = insets.left
+                topMargin = insets.top
+                bottomMargin = insets.bottom
+                rightMargin = insets.right
+            }
+            WindowInsetsCompat.CONSUMED
+        }
+        val theme: Int = appPreferences.getIntValue(
+            key = APP_THEME,
+            default = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        )
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, window.decorView).apply {
+            isAppearanceLightStatusBars = theme != AppCompatDelegate.MODE_NIGHT_YES
+            isAppearanceLightNavigationBars = theme != AppCompatDelegate.MODE_NIGHT_YES
+        }
     }
 
     private fun initViews() {

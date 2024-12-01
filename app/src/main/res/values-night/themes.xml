@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="BaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="textInputStyle">@style/TextInputWrapper</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
     <style name="AppTheme.NoActionBar" parent="BaseTheme">
         <item name="colorPrimary">@color/FF37474f</item>
         <item name="colorPrimaryDark">@color/FF102027</item>

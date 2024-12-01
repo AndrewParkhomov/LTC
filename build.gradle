@@ -27,10 +27,10 @@ allprojects {
     }
     ext {
         application_id = 'parkhomov.andrew.lensthicknesscalculator'
-        compile_version = 34
+        compile_version = 35
         version_code = 20
         version_name = "${major_version}.${minor_version}.${patch_version}"
-        target_version = 34
+        target_version = 35
         min_version = 21
     }
 }
