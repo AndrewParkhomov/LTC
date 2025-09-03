@@ -1,7 +1,6 @@
 package parkhomov.andrew.lensthicknesscalculator
 
 import app.cash.turbine.test
-import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

@@ -6,7 +6,5 @@
     <color name="text_color">@color/FFC400</color>
     <color name="compare_column">@color/FF37474f</color>
     <color name="vertical_divider">@color/FFFFFFFF</color>
-    <color name="button_text_color">@color/FFFFFFFF</color>
-    <color name="app_bar_color">@color/FF37474f</color>
 
 </resources>

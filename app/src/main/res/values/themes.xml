@@ -77,12 +77,4 @@
         <item name="android:textColorLink">@color/edit_text_hint</item>
     </style>
 
-    <style name="CustomShapeOverlay">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">24dp</item>
-        <item name="cornerSizeTopRight">24dp</item>
-        <item name="cornerSizeBottomRight">24dp</item>
-        <item name="cornerSizeBottomLeft">24dp</item>
-    </style>
-
 </resources>

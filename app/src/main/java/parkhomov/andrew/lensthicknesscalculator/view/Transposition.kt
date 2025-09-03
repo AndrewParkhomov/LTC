@@ -73,7 +73,7 @@ class Transposition : BaseFragment(R.layout.transposition) {
             } else {
                 sphereOriginal
             }
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             0.0
         }
         val cylinder = try {
@@ -82,7 +82,7 @@ class Transposition : BaseFragment(R.layout.transposition) {
             } else {
                 -cylinderPower
             }
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             0.0
         }
         val axis = try {
@@ -91,7 +91,7 @@ class Transposition : BaseFragment(R.layout.transposition) {
             } else {
                 axis + 90
             }
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             0.0
         }
 

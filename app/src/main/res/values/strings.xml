@@ -52,7 +52,6 @@
     <!-- About program -->
     <string name="about_version" translatable="false">Version %1$s</string>
     <string name="about_developed_by" translatable="false">Developed by Andriy Parkhomov</string>
-    <string name="about_button" translatable="false">Close</string>
     <string name="about_email" translatable="false">parkhomov.andrew@gmail.com</string>
     <string name="translate_to_brazilian_portuguese" translatable="false">Traduzido para o português: Edison Bucchianico Gil</string>
     <!-- Language and Theme -->

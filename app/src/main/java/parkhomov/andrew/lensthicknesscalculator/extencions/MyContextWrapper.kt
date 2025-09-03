@@ -24,7 +24,6 @@ class MyContextWrapper(base: Context) : ContextWrapper(base) {
             val locale = when (language) {
                 "po" -> Locale("pt","rBR")
                 "uk" -> Locale("uk","uk_UA")
-                "ru" -> Locale("ru","RU")
                 else -> Locale.US
             }
 
