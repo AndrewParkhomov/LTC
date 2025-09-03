@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class GlossaryItem(
     val title: String,
     val description: String,
-    var imageId: Int,
+    val imageId: Int,
 ) : Parcelable

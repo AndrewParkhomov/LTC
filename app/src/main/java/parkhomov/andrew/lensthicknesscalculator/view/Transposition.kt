@@ -68,7 +68,6 @@ class Transposition : BaseFragment(R.layout.transposition) {
         val sphere = try {
             val sphereOriginal = (spherePower + cylinderPower)
             // prevent 0.000000000000002
-            // todo replace with string res cut
             if (sphereOriginal.toString().length >= 5) {
                 sphereOriginal.toString().substring(0, 5).toDouble()
             } else {

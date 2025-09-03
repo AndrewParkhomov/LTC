@@ -1,12 +1,12 @@
 package parkhomov.andrew.lensthicknesscalculator.extencions
 
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.os.Build
-import java.util.*
+import androidx.annotation.RequiresApi
+import java.util.Locale
 
 class MyContextWrapper(base: Context) : ContextWrapper(base) {
 
@@ -44,7 +44,7 @@ class MyContextWrapper(base: Context) : ContextWrapper(base) {
             return config.locale
         }
 
-        @TargetApi(Build.VERSION_CODES.N)
+        @RequiresApi(Build.VERSION_CODES.N)
         private fun getSystemLocale(config: Configuration): Locale {
             return config.locales.get(0)
         }
@@ -53,7 +53,7 @@ class MyContextWrapper(base: Context) : ContextWrapper(base) {
             config.locale = locale
         }
 
-        @TargetApi(Build.VERSION_CODES.N)
+        @RequiresApi(Build.VERSION_CODES.N)
         private fun setSystemLocale(config: Configuration, locale: Locale) {
             config.setLocale(locale)
         }

@@ -1,22 +1,23 @@
 package parkhomov.andrew.lensthicknesscalculator.preferences
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 class AppPreferencesImpl(
     private val preferences: SharedPreferences
 ) : AppPreferences {
 
     override fun putStringValue(key: String, value: String) =
-        preferences.edit().putString(key, value).apply()
+        preferences.edit { putString(key, value) }
 
     override fun putIntValue(key: String, value: Int) =
-        preferences.edit().putInt(key, value).apply()
+        preferences.edit { putInt(key, value) }
 
     override fun putFloatValue(key: String, value: Float) =
-        preferences.edit().putFloat(key, value).apply()
+        preferences.edit { putFloat(key, value) }
 
     override fun putBooleanValue(key: String, value: Boolean) =
-            preferences.edit().putBoolean(key, value).apply()
+            preferences.edit {putBoolean(key, value) }
 
     override fun getStringValue(key: String, default: String): String = getPrefsValue(key, default)
     override fun getIntValue(key: String, default: Int): Int = getPrefsValue(key, default)

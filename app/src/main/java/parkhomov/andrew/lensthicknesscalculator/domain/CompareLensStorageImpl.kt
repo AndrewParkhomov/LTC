@@ -11,10 +11,6 @@ class CompareLensStorageImpl : CompareLensStorage {
     private val _compareList = MutableStateFlow<Set<CalculatedData>>(mutableSetOf())
     override val compareList: StateFlow<Set<CalculatedData>> = _compareList.asStateFlow()
 
-//    override fun updateCompareList(){
-//
-//    }
-
     override fun addItem(itemToAdd: CalculatedData) {
         _compareList.update { it + itemToAdd }
     }
