@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -25,8 +26,6 @@ import parkhomov.andrew.lensthicknesscalculator.view.thickness.ThicknessViewMode
 
 class App : Application() {
 
-    private val sp: AppPreferences by inject()
-
     private val appModule = module {
         single { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
         singleOf(::AppPreferencesImpl) bind AppPreferences::class
@@ -38,16 +37,15 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (!BuildConfig.DEBUG) {
-            FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = true
-        }
         startKoin {
             androidContext(this@App)
             androidLogger(Level.ERROR)
             modules(appModule)
         }
+        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = !BuildConfig.DEBUG
 
-        val theme = sp.getIntValue(APP_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        AppCompatDelegate.setDefaultNightMode(theme)
+//        val sp: AppPreferences = get()
+//        val theme = sp.getIntValue(APP_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+//        AppCompatDelegate.setDefaultNightMode(theme)
     }
 }
