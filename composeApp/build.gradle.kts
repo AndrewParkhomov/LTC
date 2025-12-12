@@ -39,18 +39,13 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.constraintlayout)
             implementation(libs.androidx.navigation.fragment)
             implementation(libs.androidx.navigation.ui)
             implementation(libs.androidx.preference)
-            implementation(libs.material)
-            implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.koin.android)
-            implementation(libs.koin.compose)
-            implementation(project.dependencies.enforcedPlatform(libs.firebase.bom))
-            implementation(libs.firebase.crashlytics)
-            implementation(libs.firebase.analytics)
             implementation(libs.viewbinding.delegate)
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.bundles.firebase)
+            implementation(libs.koin.compose)
         }
 
         commonMain.dependencies {
@@ -60,28 +55,21 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.koin.core)
-            implementation(libs.koin.compose)
+            api(libs.koin.core)
         }
 
         androidUnitTest.dependencies {
-            implementation(libs.kotlin.test)
-            implementation(libs.kotlinx.coroutines.test)
-            implementation(libs.mockk)
-            implementation(libs.turbine)
-            implementation(libs.junit)
-            implementation(libs.androidx.test.runner)
+            implementation(libs.bundles.testing)
         }
     }
 }
 
 android {
-    namespace = "parkhomov.andrew.lensthicknesscalculator"
+    namespace = libs.versions.appId.get()
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "parkhomov.andrew.lensthicknesscalculator"
+        applicationId = libs.versions.appId.get()
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()

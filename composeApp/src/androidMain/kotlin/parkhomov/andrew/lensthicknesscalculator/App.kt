@@ -44,8 +44,8 @@ class App : Application() {
         }
         FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = !BuildConfig.DEBUG
 
-//        val sp: AppPreferences = get()
-//        val theme = sp.getIntValue(APP_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-//        AppCompatDelegate.setDefaultNightMode(theme)
+        val sp: AppPreferences = get()
+        val theme = sp.getIntValue(APP_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        AppCompatDelegate.setDefaultNightMode(theme)
     }
 }
