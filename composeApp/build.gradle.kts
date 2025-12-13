@@ -10,6 +10,7 @@ plugins {
     kotlin("plugin.parcelize")
     alias(libs.plugins.googleServices)
     alias(libs.plugins.firebaseCrashlytics)
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -56,6 +57,13 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             api(libs.koin.core)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.androidx.lifecycle.viewmodelCompose)
+            implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.jetbrains.navigation3.ui)
+            implementation(libs.jetbrains.lifecycle.viewmodel.nav3)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.material.icons.extended)
         }
 
         androidUnitTest.dependencies {
