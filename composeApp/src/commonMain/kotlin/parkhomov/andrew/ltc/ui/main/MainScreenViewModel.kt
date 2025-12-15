@@ -1,10 +1,12 @@
 package parkhomov.andrew.ltc.ui.main
 
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import parkhomov.andrew.ltc.base.AppViewModel
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
+import parkhomov.andrew.ltc.domain.CompareLensStorage
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import parkhomov.andrew.ltc.utils.BASE_0
@@ -25,16 +27,47 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 class MainScreenViewModel(
-
+    private val compareLensStorage: CompareLensStorage
 ) : AppViewModel<MainScreenUiState, MainScreenUiEvent>() {
     override val initialState: MainScreenUiState
         get() = MainScreenUiState()
+
+    init {
+        launch {
+            compareLensStorage.compareList
+                .collectLatest { compareList: Set<LensData> ->
+                    updateState { copy(lensInCompareList = compareList.count()) }
+                }
+        }
+    }
 
     override fun uiEvent(event: MainScreenUiEvent) {
         when (event) {
             is MainScreenUiEvent.OnCompareClick -> updateState { copy() }
             is MainScreenUiEvent.OnCalculateThickness -> handleCalculateButtonClick(event.lensData)
             is MainScreenUiEvent.HideResultDialog -> updateState { copy(showResultDialog = null) }
+            is MainScreenUiEvent.OnAddToCompareClicked -> onAddToCompareClicked()
+            is MainScreenUiEvent.OnRemoveFromCompareListClicked -> onRemoveFromCompareListClicked()
+        }
+    }
+
+    private fun onAddToCompareClicked() {
+        uiState.value.lensData?.let(compareLensStorage::addItem)
+        updateResultDialogCompareButton()
+    }
+
+    private fun onRemoveFromCompareListClicked() {
+        uiState.value.lensData?.let(compareLensStorage::removeItem)
+        updateResultDialogCompareButton()
+    }
+
+    private fun updateResultDialogCompareButton() {
+        updateState {
+            copy(
+                showResultDialog = uiState.value.showResultDialog?.copy(
+                    isLensInCompareList = compareLensStorage.isInStorage(uiState.value.lensData)
+                )
+            )
         }
     }
 
@@ -203,7 +236,8 @@ class MainScreenViewModel(
                 thicknessEdge = edgeString,
                 thicknessMax = null,
                 realBaseCurve = curve.toString(),
-                diameter = diameter.toString()
+                diameter = diameter.toString(),
+                isLensInCompareList = compareLensStorage.isInStorage(uiState.value.lensData)
             )
         } else {
 
@@ -231,29 +265,37 @@ class MainScreenViewModel(
                 thicknessEdge = edgeString,
                 thicknessMax = ((maxEdgeThickness * 1e2).toLong() / 1e2).toString(),
                 realBaseCurve = curve.toString(),
-                diameter = diameter.toString()
+                diameter = diameter.toString(),
+                isLensInCompareList = compareLensStorage.isInStorage(uiState.value.lensData)
             )
         }
-        updateState { copy(showResultDialog = calculatedData) }
+        updateState {
+            copy(
+                showCenterThicknessError = false,
+                showResultDialog = calculatedData,
+                lensData = lensData?.copy(
+                    baseCurve = curve,
+                    diameter = diameter
+                )
+            )
+        }
     }
 
     private fun handleNoBaseCurveBehaviour(value: Double): Double {
-        val (tempCurveDouble, tempCurveString) = when {
-            value <= -8.0 -> Pair(BASE_0, BASE_0.toString())
-            value in -7.99..-6.0 -> Pair(BASE_1, BASE_1.toString())
-            value in -5.99..-4.0 -> Pair(BASE_2, BASE_2.toString())
-            value in -3.99..-2.0 -> Pair(BASE_3, BASE_3.toString())
-            value in -1.99..2.0 -> Pair(BASE_4, BASE_4.toString())
-            value in 2.01..2.99 -> Pair(BASE_5, BASE_5.toString())
-            value in 3.0..4.99 -> Pair(BASE_6, BASE_6.toString())
-            value in 5.0..5.99 -> Pair(BASE_7, BASE_7.toString())
-            value in 6.0..6.99 -> Pair(BASE_8, BASE_8.toString())
-            value in 7.0..7.99 -> Pair(BASE_9, BASE_9.toString())
-            value in 8.0..9.99 -> Pair(BASE_10, BASE_10.toString())
-            else -> Pair(BASE_10_5, BASE_10_5.toString())  // value >= 10.0
+        return when {
+            value <= -8.0 -> BASE_0
+            value in -7.99..-6.0 -> BASE_1
+            value in -5.99..-4.0 -> BASE_2
+            value in -3.99..-2.0 -> BASE_3
+            value in -1.99..2.0 -> BASE_4
+            value in 2.01..2.99 -> BASE_5
+            value in 3.0..4.99 -> BASE_6
+            value in 5.0..5.99 -> BASE_7
+            value in 6.0..6.99 -> BASE_8
+            value in 7.0..7.99 -> BASE_9
+            value in 8.0..9.99 -> BASE_10
+            else -> BASE_10_5 // value >= 10.0
         }
-        updateState { copy(autocalculatedFrontCurve = tempCurveString) }
-        return tempCurveDouble
     }
 
     private fun getReaRadiusInMM(curveInDptr: Double): Double =

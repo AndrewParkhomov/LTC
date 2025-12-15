@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
+import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import parkhomov.andrew.ltc.ui.main.modal.ResultDialog
@@ -17,14 +18,11 @@ fun MainScreen(
 ) {
     val state: MainScreenUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    state.showResultDialog?.let { data ->
+    state.showResultDialog?.let { data: CalculatedData ->
         ResultDialog(
             data = data,
-            onDismiss = {
-                viewModel.uiEvent(MainScreenUiEvent.HideResultDialog)
-            },
             onShare = { /* TODO: Share */ },
-            onAddToCompare = { /* TODO: Add to compare */ }
+            uiEvent = viewModel::uiEvent
         )
     }
 

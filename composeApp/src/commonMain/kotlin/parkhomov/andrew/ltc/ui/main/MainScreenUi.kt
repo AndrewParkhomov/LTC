@@ -1,9 +1,12 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package parkhomov.andrew.ltc.ui.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Balance
 import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material.icons.filled.CompareArrows
 import androidx.compose.material.icons.filled.Refresh
@@ -14,6 +17,7 @@ import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -42,12 +46,11 @@ fun MainScreenUi(
     uiEvent: (MainScreenUiEvent) -> Unit = {},
 ) {
     var selectedTab by remember { mutableStateOf(0) }
-    var comparisonCount by remember { mutableStateOf(0) } // TODO: отримувати з ViewModel
 
     Scaffold(
         topBar = {
             MainTopBar(
-                comparisonCount = comparisonCount,
+                comparisonCount = uiData.lensInCompareList,
                 onCompareClick = { uiEvent(MainScreenUiEvent.OnCompareClick) },
                 onTransposeClick = { /* TODO vm change */ },
                 onSettingsClick = { /* todo open dialog */ }
@@ -77,7 +80,6 @@ fun MainScreenUi(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun MainTopBar(
     comparisonCount: Int,
@@ -97,14 +99,14 @@ private fun MainTopBar(
                         if (comparisonCount > 0) {
                             Badge(
                                 containerColor = if (comparisonCount >= 2)
-                                    MaterialTheme.colorScheme.primary
+                                    MaterialTheme.colorScheme.error
                                 else
                                     MaterialTheme.colorScheme.surfaceVariant
                             ) {
                                 Text(
                                     text = comparisonCount.toString(),
                                     color = if (comparisonCount >= 2)
-                                        MaterialTheme.colorScheme.onPrimary
+                                        MaterialTheme.colorScheme.onError
                                     else
                                         MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -113,10 +115,10 @@ private fun MainTopBar(
                     }
                 ) {
                     Icon(
-                        imageVector = Icons.Default.CompareArrows,
+                        imageVector = Icons.Default.Balance,
                         contentDescription = "Порівняти",
                         tint = if (comparisonCount >= 2)
-                            MaterialTheme.colorScheme.primary
+                            LocalContentColor.current
                         else
                             MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                     )
@@ -171,4 +173,15 @@ private fun MainBottomBar(
             label = { Text("Діаметр") }
         )
     }
+}
+
+@Preview
+@Composable
+private fun MainTopBarPreview(){
+    MainTopBar(
+        comparisonCount = 2,
+        onCompareClick = {},
+        onTransposeClick = {},
+        onSettingsClick = {}
+    )
 }

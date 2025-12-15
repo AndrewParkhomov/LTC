@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
@@ -27,6 +28,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
@@ -51,6 +53,9 @@ import parkhomov.andrew.ltc.data.LensParameter
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import parkhomov.andrew.ltc.ui.main.modal.FieldInfoDialog
+import androidx.compose.runtime.*
+import androidx.compose.ui.focus.onFocusChanged
+
 
 @Preview
 @Composable
@@ -68,17 +73,26 @@ fun ThicknessTab(
             LensParameter.Sphere to uiData.lensData?.sphere?.toString(),
             LensParameter.Cylinder to uiData.lensData?.cylinder?.toString(),
             LensParameter.Axis to uiData.lensData?.axis?.toString(),
-            LensParameter.BaseCurve to (uiData.autocalculatedFrontCurve
-                ?: uiData.lensData?.baseCurve?.toString()),
+            LensParameter.BaseCurve to uiData.lensData?.baseCurve?.toString(),
             LensParameter.CenterThickness to uiData.lensData?.centerThickness?.toString(),
             LensParameter.EdgeThickness to uiData.lensData?.edgeThickness?.toString(),
             LensParameter.LensDiameter to uiData.lensData?.diameter?.toString()
         )
     }
 
+    val fieldsEnabledState: Map<LensParameter, Boolean> by rememberFieldsEnabledStateFlow(inputValues)
+    LaunchedEffect(fieldsEnabledState) {
+        if (fieldsEnabledState[LensParameter.CenterThickness] == false) {
+            inputValues[LensParameter.CenterThickness] = null
+        }
+        if (fieldsEnabledState[LensParameter.EdgeThickness] == false) {
+            inputValues[LensParameter.EdgeThickness] = null
+        }
+    }
+
     var selectedFieldForInfo by remember { mutableStateOf<LensParameter?>(null) }
 
-    selectedFieldForInfo?.let { field ->
+    selectedFieldForInfo?.let { field: LensParameter ->
         FieldInfoDialog(
             field = field,
             onDismiss = { selectedFieldForInfo = null }
@@ -106,6 +120,7 @@ fun ThicknessTab(
                     value = inputValues[field] ?: "",
                     onValueChange = { inputValues[field] = it },
                     field = field,
+                    enabled = fieldsEnabledState[field] ?: true,
                     error = if (uiData.showCenterThicknessError && field is LensParameter.CenterThickness) {
                         Res.string.tab_thkns_provide_center_thickness
                     } else {
@@ -145,22 +160,27 @@ private fun LensInputField(
     value: String,
     onValueChange: (String) -> Unit,
     field: LensParameter,
+    enabled: Boolean = true,
     error: StringResource?,
     onInfoClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var isFocused by remember { mutableStateOf(false) }
+
     val textFieldValue = remember(value) {
         TextFieldValue(
             text = value,
             selection = TextRange(value.length)
         )
     }
+
     OutlinedTextField(
         value = textFieldValue,
         onValueChange = { newValue: TextFieldValue ->
             onValueChange(newValue.text)
         },
         label = { Text(stringResource(field.titleRes)) },
+        enabled = enabled,
         isError = error != null,
         supportingText = error?.let {
             {
@@ -171,18 +191,38 @@ private fun LensInputField(
             }
         },
         trailingIcon = {
-            IconButton(onClick = onInfoClick) {
-                Icon(
-                    imageVector = Icons.Default.Info,
-                    contentDescription = "Інформація"
-                )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (isFocused && enabled) {
+                    IconButton(
+                        onClick = { onValueChange("") }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Clear,
+                            contentDescription = "Очистити",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+
+                IconButton(onClick = onInfoClick) {
+                    Icon(
+                        imageVector = Icons.Default.Info,
+                        contentDescription = "Інформація"
+                    )
+                }
             }
         },
+        modifier = modifier
+            .fillMaxWidth()
+            .onFocusChanged { focusState ->
+                isFocused = focusState.isFocused
+            },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Decimal
         ),
-        singleLine = true,
-        modifier = modifier.fillMaxWidth()
+        singleLine = true
     )
 }
 
@@ -241,6 +281,37 @@ private fun RefractiveIndexDropdown(
                     }
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun rememberFieldsEnabledStateFlow(
+    inputValues: SnapshotStateMap<LensParameter, String?>
+): State<Map<LensParameter, Boolean>> {
+    return remember(inputValues) {
+        derivedStateOf {
+            val sphere = inputValues[LensParameter.Sphere]?.toDoubleOrNull()
+            val cylinder = inputValues[LensParameter.Cylinder]?.toDoubleOrNull()
+
+            val effectivePower = when {
+                sphere == null -> null
+                cylinder != null && cylinder > 0 -> sphere + cylinder
+                else -> sphere
+            }
+
+            val centerThicknessEnabled = effectivePower?.let { it <= 0 } ?: true
+            val edgeThicknessEnabled = effectivePower?.let { it > 0 } ?: true
+
+            mapOf(
+                LensParameter.Sphere to true,
+                LensParameter.Cylinder to true,
+                LensParameter.Axis to true,
+                LensParameter.BaseCurve to true,
+                LensParameter.CenterThickness to centerThicknessEnabled,
+                LensParameter.EdgeThickness to edgeThicknessEnabled,
+                LensParameter.LensDiameter to true
+            )
         }
     }
 }

@@ -10,7 +10,8 @@ data class CalculatedData(
     val thicknessEdge: String,
     val thicknessMax: String?,
     val realBaseCurve: String,
-    val diameter: String
+    val diameter: String,
+    val isLensInCompareList: Boolean
 ) {
     companion object Companion {
         fun mock(): CalculatedData {
@@ -24,7 +25,8 @@ data class CalculatedData(
                 thicknessEdge = "7.2",
                 thicknessMax = "10.3",
                 realBaseCurve = "2.2",
-                diameter = "70"
+                diameter = "70",
+                isLensInCompareList = false
             )
         }
     }

@@ -4,7 +4,7 @@ import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
 
 data class MainScreenUiState(
-    val autocalculatedFrontCurve: String? = null,
+    val lensInCompareList: Int = 0,
     val showCenterThicknessError: Boolean = false,
     val lensData: LensData? = null,
     val showResultDialog: CalculatedData? = null

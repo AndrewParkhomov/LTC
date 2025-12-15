@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import parkhomov.andrew.ltc.data.CalculatedDataOld
 
-class CompareLensStorageImpl : CompareLensStorage {
+class CompareLensStorageOldImpl : CompareLensStorageOld {
 
     private val _compareList = MutableStateFlow<Set<CalculatedDataOld>>(mutableSetOf())
     override val compareList: StateFlow<Set<CalculatedDataOld>> = _compareList.asStateFlow()

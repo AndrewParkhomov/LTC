@@ -1,30 +1,60 @@
 package parkhomov.andrew.ltc.ui.main.modal
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material3.*
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ltc.composeapp.generated.resources.*
+import ltc.composeapp.generated.resources.Res
+import ltc.composeapp.generated.resources.result_add_to_list
+import ltc.composeapp.generated.resources.result_axis
+import ltc.composeapp.generated.resources.result_base_curve
+import ltc.composeapp.generated.resources.result_center_thickness
+import ltc.composeapp.generated.resources.result_cylinder_power
+import ltc.composeapp.generated.resources.result_dialog_title
+import ltc.composeapp.generated.resources.result_diameter
+import ltc.composeapp.generated.resources.result_index_of_refraction
+import ltc.composeapp.generated.resources.result_max_edge_thickness
+import ltc.composeapp.generated.resources.result_min_edge_thickness
+import ltc.composeapp.generated.resources.result_on_axis_thickness
+import ltc.composeapp.generated.resources.result_remove_from_list
+import ltc.composeapp.generated.resources.result_share
+import ltc.composeapp.generated.resources.result_sphere_power
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.data.CalculatedData
+import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.utils.toFormattedString
 
 @Preview
 @Composable
 fun ResultDialog(
     data: CalculatedData = CalculatedData.mock(),
-    onDismiss: () -> Unit = {},
     onShare: () -> Unit = {},
-    onAddToCompare: () -> Unit = {}
+    uiEvent: (MainScreenUiEvent) -> Unit = {}
 ) {
+    val textId: StringResource = if (data.isLensInCompareList) {
+        Res.string.result_remove_from_list
+    } else {
+        Res.string.result_add_to_list
+    }
+    val onDismiss = { uiEvent(MainScreenUiEvent.HideResultDialog) }
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
@@ -54,7 +84,10 @@ fun ResultDialog(
                 verticalArrangement = Arrangement.spacedBy(0.dp)
             ) {
                 ResultItem(
-                    label = stringResource(Res.string.result_index_of_refraction, data.refractionIndex)
+                    label = stringResource(
+                        Res.string.result_index_of_refraction,
+                        data.refractionIndex
+                    )
                 )
                 HorizontalDivider()
                 ResultItem(
@@ -116,20 +149,23 @@ fun ResultDialog(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 TextButton(
+                    modifier = Modifier.fillMaxWidth(),
                     onClick = {
-                        onAddToCompare()
-                        onDismiss()
+                        if (data.isLensInCompareList) {
+                            uiEvent(MainScreenUiEvent.OnRemoveFromCompareListClicked)
+                        } else {
+                            uiEvent(MainScreenUiEvent.OnAddToCompareClicked)
+                        }
                     },
-                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = stringResource(Res.string.result_add_to_list).uppercase(),
+                        text = stringResource(textId).uppercase(),
                         style = MaterialTheme.typography.labelLarge
                     )
                 }
                 TextButton(
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onDismiss
                 ) {
                     Text("OK")
                 }

@@ -7,4 +7,6 @@ sealed interface MainScreenUiEvent {
     data object OnCompareClick : MainScreenUiEvent
     data object HideResultDialog : MainScreenUiEvent
     data class OnCalculateThickness(val lensData: LensData) : MainScreenUiEvent
+    data object OnAddToCompareClicked : MainScreenUiEvent
+    data object OnRemoveFromCompareListClicked : MainScreenUiEvent
 }

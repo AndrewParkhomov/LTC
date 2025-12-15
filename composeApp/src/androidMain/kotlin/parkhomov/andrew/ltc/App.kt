@@ -14,9 +14,10 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import parkhomov.andrew.lensthicknesscalculator.BuildConfig
+import parkhomov.andrew.ltc.di.otherModule
 import parkhomov.andrew.ltc.di.viewModelsModule
-import parkhomov.andrew.ltc.domain.CompareLensStorage
-import parkhomov.andrew.ltc.domain.CompareLensStorageImpl
+import parkhomov.andrew.ltc.domain.CompareLensStorageOld
+import parkhomov.andrew.ltc.domain.CompareLensStorageOldImpl
 import parkhomov.andrew.ltc.preferences.APP_THEME
 import parkhomov.andrew.ltc.preferences.AppPreferences
 import parkhomov.andrew.ltc.preferences.AppPreferencesImpl
@@ -30,7 +31,7 @@ class App : Application() {
     private val appModule = module {
         single { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
         singleOf(::AppPreferencesImpl) bind AppPreferences::class
-        singleOf(::CompareLensStorageImpl) bind CompareLensStorage::class
+        singleOf(::CompareLensStorageOldImpl) bind CompareLensStorageOld::class
         viewModelOf(::ThicknessViewModel)
         viewModelOf(::CompareListViewModel)
         viewModelOf(::ResultViewModel)
@@ -41,7 +42,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             androidLogger(Level.ERROR)
-            modules(appModule, viewModelsModule)
+            modules(appModule, viewModelsModule, otherModule)
         }
         FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = !BuildConfig.DEBUG
 
