@@ -10,8 +10,9 @@
     <string name="fragment_transposition">Транспозиція</string>
     <string name="menu_item_settings">Налаштування</string>
     <!-- Thickness hints -->
-    <string name="tab_thkns_provide_center_thickness">Будь ласка, введіть товщину по центру</string>
+    <string name="tab_thkns_provide_center_thickness">Введіть товщину по центру</string>
     <string name="tab_thkns_button">Розрахувати</string>
+    <string name="tab_thickness_add_cylinder_for_transposition">Додайте значення циліндру для траснпозиції</string>
     <!-- Diameter hints -->
     <string name="tab_diameter_hint_ed">Ефективний діаметр</string>
     <string name="tab_diameter_hint_dbl">Відстань між лінзами</string>

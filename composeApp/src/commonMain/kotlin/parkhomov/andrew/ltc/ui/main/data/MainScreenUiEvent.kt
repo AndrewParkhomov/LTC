@@ -9,4 +9,6 @@ sealed interface MainScreenUiEvent {
     data class OnCalculateThickness(val lensData: LensData) : MainScreenUiEvent
     data object OnAddToCompareClicked : MainScreenUiEvent
     data object OnRemoveFromCompareListClicked : MainScreenUiEvent
+    data object OnTranspositionIconClick : MainScreenUiEvent
+    data class DoTransposition(val lensData: LensData) : MainScreenUiEvent
 }

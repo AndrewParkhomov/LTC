@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 
 package parkhomov.andrew.ltc.ui.main.tabs
 
@@ -55,6 +55,7 @@ import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import parkhomov.andrew.ltc.ui.main.modal.FieldInfoDialog
 import androidx.compose.runtime.*
 import androidx.compose.ui.focus.onFocusChanged
+import kotlin.time.ExperimentalTime
 
 
 @Preview
@@ -80,13 +81,21 @@ fun ThicknessTab(
         )
     }
 
-    val fieldsEnabledState: Map<LensParameter, Boolean> by rememberFieldsEnabledStateFlow(inputValues)
+    val fieldsEnabledState: Map<LensParameter, Boolean> by rememberFieldsEnabledStateFlow(
+        inputValues
+    )
     LaunchedEffect(fieldsEnabledState) {
         if (fieldsEnabledState[LensParameter.CenterThickness] == false) {
             inputValues[LensParameter.CenterThickness] = null
         }
         if (fieldsEnabledState[LensParameter.EdgeThickness] == false) {
             inputValues[LensParameter.EdgeThickness] = null
+        }
+    }
+    LaunchedEffect(uiData.calculateTransposition) {
+        if (uiData.calculateTransposition != null) {
+            val lensData: LensData = getLensData(selectedIndex, inputValues)
+            uiEvent(MainScreenUiEvent.DoTransposition(lensData))
         }
     }
 
@@ -134,16 +143,7 @@ fun ThicknessTab(
 
         Button(
             onClick = {
-                val lensData = LensData(
-                    refractiveIndex = selectedIndex,
-                    sphere = inputValues[LensParameter.Sphere]?.toDoubleOrNull(),
-                    cylinder = inputValues[LensParameter.Cylinder]?.toDoubleOrNull(),
-                    axis = inputValues[LensParameter.Axis]?.toIntOrNull(),
-                    baseCurve = inputValues[LensParameter.BaseCurve]?.toDoubleOrNull(),
-                    centerThickness = inputValues[LensParameter.CenterThickness]?.toDoubleOrNull(),
-                    edgeThickness = inputValues[LensParameter.EdgeThickness]?.toDoubleOrNull(),
-                    diameter = inputValues[LensParameter.LensDiameter]?.toDoubleOrNull()
-                )
+                val lensData: LensData = getLensData(selectedIndex, inputValues)
                 uiEvent(MainScreenUiEvent.OnCalculateThickness(lensData))
             },
             modifier = Modifier.fillMaxWidth()
@@ -314,4 +314,20 @@ fun rememberFieldsEnabledStateFlow(
             )
         }
     }
+}
+
+private fun getLensData(
+    refractiveIndex: RefractiveIndex,
+    inputValues: Map<LensParameter, String?>
+): LensData {
+    return LensData(
+        refractiveIndex = refractiveIndex,
+        sphere = inputValues[LensParameter.Sphere]?.toDoubleOrNull(),
+        cylinder = inputValues[LensParameter.Cylinder]?.toDoubleOrNull(),
+        axis = inputValues[LensParameter.Axis]?.toIntOrNull(),
+        baseCurve = inputValues[LensParameter.BaseCurve]?.toDoubleOrNull(),
+        centerThickness = inputValues[LensParameter.CenterThickness]?.toDoubleOrNull(),
+        edgeThickness = inputValues[LensParameter.EdgeThickness]?.toDoubleOrNull(),
+        diameter = inputValues[LensParameter.LensDiameter]?.toDoubleOrNull()
+    )
 }

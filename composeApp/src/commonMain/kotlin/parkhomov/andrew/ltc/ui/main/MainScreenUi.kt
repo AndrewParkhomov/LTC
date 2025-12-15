@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Balance
 import androidx.compose.material.icons.filled.Circle
-import androidx.compose.material.icons.filled.CompareArrows
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Straighten
@@ -36,6 +35,7 @@ import org.jetbrains.compose.resources.stringResource
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import parkhomov.andrew.ltc.components.Transpose
 import parkhomov.andrew.ltc.ui.main.tabs.DiameterTab
 import parkhomov.andrew.ltc.ui.main.tabs.ThicknessTab
 
@@ -52,7 +52,7 @@ fun MainScreenUi(
             MainTopBar(
                 comparisonCount = uiData.lensInCompareList,
                 onCompareClick = { uiEvent(MainScreenUiEvent.OnCompareClick) },
-                onTransposeClick = { /* TODO vm change */ },
+                onTransposeClick = { uiEvent(MainScreenUiEvent.OnTranspositionIconClick) },
                 onSettingsClick = { /* todo open dialog */ }
             )
         },
@@ -128,7 +128,7 @@ private fun MainTopBar(
 
             IconButton(onClick = onTransposeClick) {
                 Icon(
-                    imageVector = Icons.Default.Refresh,
+                    imageVector = Icons.Transpose,
                     contentDescription = "Транспозиція"
                 )
             }

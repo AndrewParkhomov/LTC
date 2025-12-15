@@ -1,12 +1,17 @@
+@file:OptIn(ExperimentalTime::class)
+
 package parkhomov.andrew.ltc.ui.main
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ltc.composeapp.generated.resources.Res
+import ltc.composeapp.generated.resources.tab_thickness_add_cylinder_for_transposition
 import parkhomov.andrew.ltc.base.AppViewModel
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.domain.CompareLensStorage
+import parkhomov.andrew.ltc.toast.ToastProvider
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import parkhomov.andrew.ltc.utils.BASE_0
@@ -25,9 +30,12 @@ import parkhomov.andrew.ltc.utils.LAB_INDEX
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 class MainScreenViewModel(
-    private val compareLensStorage: CompareLensStorage
+    private val compareLensStorage: CompareLensStorage,
+    private val toastProvider: ToastProvider
 ) : AppViewModel<MainScreenUiState, MainScreenUiEvent>() {
     override val initialState: MainScreenUiState
         get() = MainScreenUiState()
@@ -48,7 +56,85 @@ class MainScreenViewModel(
             is MainScreenUiEvent.HideResultDialog -> updateState { copy(showResultDialog = null) }
             is MainScreenUiEvent.OnAddToCompareClicked -> onAddToCompareClicked()
             is MainScreenUiEvent.OnRemoveFromCompareListClicked -> onRemoveFromCompareListClicked()
+            is MainScreenUiEvent.OnTranspositionIconClick -> onTranspositionClick()
+            is MainScreenUiEvent.DoTransposition -> doTransposition(event.lensData)
         }
+    }
+
+    private fun doTransposition(lensData: LensData) = launch {
+        val spherePower: Double? = lensData.sphere
+        val cylinderPower: Double? = lensData.cylinder
+        val axisPower: Int? = lensData.axis
+        if (lensData.cylinder == null) {
+            toastProvider.showTopMessage(Res.string.tab_thickness_add_cylinder_for_transposition)
+            updateState {
+                copy(
+                    lensData = lensData.copy(
+                        sphere = spherePower,
+                        cylinder = null,
+                        axis = axisPower
+                    )
+                )
+            }
+        } else {
+            val (sphere: Double, cylinder: Double, axis: Int) = calculateTransposition(
+                spherePower = spherePower ?: 0.0,
+                cylinderPower = cylinderPower ?: 0.0,
+                axisPower = axisPower ?: 0
+            )
+            updateState {
+                copy(
+                    lensData = lensData.copy(
+                        sphere = sphere,
+                        cylinder = cylinder,
+                        axis = axis
+                    )
+                )
+            }
+        }
+    }
+
+    private fun onTranspositionClick() {
+        updateState {
+            copy(calculateTransposition = Clock.System.now())
+        }
+    }
+
+    private fun calculateTransposition(
+        spherePower: Double,
+        cylinderPower: Double,
+        axisPower: Int
+    ): Triple<Double, Double, Int> {
+        val sphere = try {
+            val sphereOriginal = (spherePower + cylinderPower)
+            // prevent 0.000000000000002
+            if (sphereOriginal.toString().length >= 5) {
+                sphereOriginal.toString().substring(0, 5).toDouble()
+            } else {
+                sphereOriginal
+            }
+        } catch (_: NumberFormatException) {
+            0.0
+        }
+        val cylinder = try {
+            if (cylinderPower == 0.0) {
+                0.0
+            } else {
+                -cylinderPower
+            }
+        } catch (_: NumberFormatException) {
+            0.0
+        }
+        val axis = try {
+            if (axisPower > 90) {
+                abs(180 - (axisPower + 90))
+            } else {
+                axisPower + 90
+            }
+        } catch (_: NumberFormatException) {
+            0
+        }
+        return Triple(sphere, cylinder, axis)
     }
 
     private fun onAddToCompareClicked() {
