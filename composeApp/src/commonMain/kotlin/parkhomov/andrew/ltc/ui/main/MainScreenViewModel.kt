@@ -4,9 +4,22 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import parkhomov.andrew.ltc.base.AppViewModel
 import parkhomov.andrew.ltc.data.CalculatedData
+import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
-import parkhomov.andrew.ltc.utils.*
+import parkhomov.andrew.ltc.utils.BASE_0
+import parkhomov.andrew.ltc.utils.BASE_1
+import parkhomov.andrew.ltc.utils.BASE_10
+import parkhomov.andrew.ltc.utils.BASE_10_5
+import parkhomov.andrew.ltc.utils.BASE_2
+import parkhomov.andrew.ltc.utils.BASE_3
+import parkhomov.andrew.ltc.utils.BASE_4
+import parkhomov.andrew.ltc.utils.BASE_5
+import parkhomov.andrew.ltc.utils.BASE_6
+import parkhomov.andrew.ltc.utils.BASE_7
+import parkhomov.andrew.ltc.utils.BASE_8
+import parkhomov.andrew.ltc.utils.BASE_9
+import parkhomov.andrew.ltc.utils.LAB_INDEX
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -20,24 +33,28 @@ class MainScreenViewModel(
     override fun uiEvent(event: MainScreenUiEvent) {
         when (event) {
             is MainScreenUiEvent.OnCompareClick -> updateState { copy() }
-            is MainScreenUiEvent.OnCalculateThickness -> onCalculateBtnClicked(
-                lensIndex = Triple(
-                    event.lensData.refractiveIndex.value,
-                    event.lensData.refractiveIndex.indexX,
-                    event.lensData.refractiveIndex.label
-                ),
-                spherePowerString = event.lensData.sphere?.toString().orEmpty(),
-                cylinderPowerString = event.lensData.cylinder?.toString().orEmpty(),
-                axisString = event.lensData.axis?.toString().orEmpty(),
-                curveString = event.lensData.baseCurve?.toString().orEmpty(),
-                centerThicknessString = event.lensData.centerThickness?.toString().orEmpty(),
-                edgeThicknessString = event.lensData.edgeThickness?.toString().orEmpty(),
-                diameter = event.lensData.diameter ?: 70.0
-            )
+            is MainScreenUiEvent.OnCalculateThickness -> handleCalculateButtonClick(event.lensData)
             is MainScreenUiEvent.HideResultDialog -> updateState { copy(showResultDialog = null) }
         }
     }
 
+    private fun handleCalculateButtonClick(lensData: LensData) {
+        updateState { copy(lensData = lensData) }
+        onCalculateBtnClicked(
+            lensIndex = Triple(
+                lensData.refractiveIndex.value,
+                lensData.refractiveIndex.indexX,
+                lensData.refractiveIndex.label
+            ),
+            spherePowerString = lensData.sphere?.toString().orEmpty(),
+            cylinderPowerString = lensData.cylinder?.toString().orEmpty(),
+            axisString = lensData.axis?.toString().orEmpty(),
+            curveString = lensData.baseCurve?.toString().orEmpty(),
+            centerThicknessString = lensData.centerThickness?.toString().orEmpty(),
+            edgeThicknessString = lensData.edgeThickness?.toString().orEmpty(),
+            diameter = lensData.diameter ?: 70.0
+        )
+    }
 
     fun onCalculateBtnClicked(
         lensIndex: Triple<Double, Double, String>,
@@ -235,7 +252,7 @@ class MainScreenViewModel(
             value in 8.0..9.99 -> Pair(BASE_10, BASE_10.toString())
             else -> Pair(BASE_10_5, BASE_10_5.toString())  // value >= 10.0
         }
-        updateState { copy(frontCurve = tempCurveString) }
+        updateState { copy(autocalculatedFrontCurve = tempCurveString) }
         return tempCurveDouble
     }
 

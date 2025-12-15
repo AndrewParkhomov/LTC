@@ -18,6 +18,7 @@
     <string name="tab_diameter_hint_pd">Pupil distance</string>
     <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f mm</string>
     <!-- Result -->
+    <string name="result_dialog_title">Result</string>
     <string name="result_index_of_refraction">Index of refraction: %1$s</string>
     <string name="result_sphere_power">Sphere power: %1$s</string>
     <string name="result_cylinder_power">Cylinder power: %1$s</string>

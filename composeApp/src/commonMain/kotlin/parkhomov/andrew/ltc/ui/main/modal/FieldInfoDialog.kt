@@ -2,12 +2,8 @@ package parkhomov.andrew.ltc.ui.main.modal
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -24,11 +20,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import parkhomov.andrew.ltc.data.ThicknessField
+import parkhomov.andrew.ltc.data.LensParameter
 
 @Composable
 fun FieldInfoDialog(
-    field: ThicknessField,
+    field: LensParameter,
     onDismiss: () -> Unit
 ) {
     AlertDialog(
