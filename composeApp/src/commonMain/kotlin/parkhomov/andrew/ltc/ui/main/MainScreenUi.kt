@@ -38,6 +38,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.components.Transpose
 import parkhomov.andrew.ltc.ui.main.tabs.DiameterTab
 import parkhomov.andrew.ltc.ui.main.tabs.ThicknessTab
+import parkhomov.andrew.ltc.components.modifiers.dismissKeyboardOnTap
 
 @Preview
 @Composable
@@ -48,6 +49,8 @@ fun MainScreenUi(
     var selectedTab by remember { mutableStateOf(0) }
 
     Scaffold(
+        modifier = Modifier
+            .dismissKeyboardOnTap(),
         topBar = {
             MainTopBar(
                 comparisonCount = uiData.lensInCompareList,

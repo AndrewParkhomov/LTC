@@ -1,5 +1,6 @@
 # Gradle
 .gradle/
+.kotlin/
 **/build/
 !gradle/wrapper/gradle-wrapper.jar
 gradlew.properties
@@ -63,6 +64,8 @@ xcuserdata/
 *.xcuserstate
 *.xcscmblueprint
 *.xccheckout
+*.xcuserdatad/
+*.xcuserdata/
 
 # Keep only project.pbxproj
 !iosApp/*.xcodeproj/project.pbxproj

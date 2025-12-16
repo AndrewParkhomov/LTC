@@ -55,6 +55,7 @@ import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import parkhomov.andrew.ltc.ui.main.modal.FieldInfoDialog
 import androidx.compose.runtime.*
 import androidx.compose.ui.focus.onFocusChanged
+import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
 import kotlin.time.ExperimentalTime
 
 
@@ -219,9 +220,7 @@ private fun LensInputField(
             .onFocusChanged { focusState ->
                 isFocused = focusState.isFocused
             },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Decimal
-        ),
+        keyboardOptions = getDecimalSignedKeyboard(),
         singleLine = true
     )
 }

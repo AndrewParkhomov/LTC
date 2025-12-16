@@ -12,6 +12,7 @@
     <!-- Thickness hints -->
     <string name="tab_thkns_provide_center_thickness">Please, provide center thickness</string>
     <string name="tab_thkns_button">Calculate</string>
+    <string name="tab_thickness_add_cylinder_for_transposition">Add cylinder value for transposition</string>
     <!-- Diameter hints -->
     <string name="tab_diameter_hint_ed">Effective diameter</string>
     <string name="tab_diameter_hint_dbl">Distance between lenses</string>
