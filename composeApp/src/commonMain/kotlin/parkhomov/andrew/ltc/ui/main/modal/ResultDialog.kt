@@ -17,9 +17,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.result_add_to_list
 import ltc.composeapp.generated.resources.result_axis
@@ -35,10 +38,15 @@ import ltc.composeapp.generated.resources.result_on_axis_thickness
 import ltc.composeapp.generated.resources.result_remove_from_list
 import ltc.composeapp.generated.resources.result_share
 import ltc.composeapp.generated.resources.result_sphere_power
+import ltc.composeapp.generated.resources.share_result_subject
+import ltc.composeapp.generated.resources.share_text_full
+import ltc.composeapp.generated.resources.share_text_only_sphere
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.data.CalculatedData
+import parkhomov.andrew.ltc.provider.ShareManager
+import parkhomov.andrew.ltc.provider.createShareText
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.utils.toFormattedString
 
@@ -46,7 +54,6 @@ import parkhomov.andrew.ltc.utils.toFormattedString
 @Composable
 fun ResultDialog(
     data: CalculatedData = CalculatedData.mock(),
-    onShare: () -> Unit = {},
     uiEvent: (MainScreenUiEvent) -> Unit = {}
 ) {
     val textId: StringResource = if (data.isLensInCompareList) {
@@ -55,6 +62,9 @@ fun ResultDialog(
         Res.string.result_add_to_list
     }
     val onDismiss = { uiEvent(MainScreenUiEvent.HideResultDialog) }
+    val title = stringResource(Res.string.share_result_subject)
+    val scope = rememberCoroutineScope()
+
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
@@ -67,7 +77,25 @@ fun ResultDialog(
                     text = stringResource(Res.string.result_dialog_title),
                     style = MaterialTheme.typography.headlineSmall
                 )
-                IconButton(onClick = onShare) {
+                IconButton(onClick = {
+                    scope.launch {
+                        val appName = "Lens Thickness Calculator" // або stringResource
+                        val appUrl =
+                            "https://play.google.com/store/apps/details?id=your.package.name"
+
+                        val shareText = data.createShareText(
+                            appName = appName,
+                            appUrl = appUrl,
+                            shareTextOnlySphere = Res.string.share_text_only_sphere,
+                            shareTextFull = Res.string.share_text_full
+                        )
+
+                        ShareManager().shareText(
+                            text = shareText,
+                            title = title
+                        )
+                    }
+                }) {
                     Icon(
                         imageVector = Icons.Default.Share,
                         contentDescription = stringResource(Res.string.result_share),

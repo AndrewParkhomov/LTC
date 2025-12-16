@@ -1,11 +1,151 @@
-# Gradle files
+# Gradle
 .gradle/
-build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+gradlew.properties
 
-#Android
+# Android
 *.iml
 .idea/
-.kotlin/
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+bin/
+gen/
+out/
+release/
+captures/
+.externalNativeBuild/
+.cxx/
+*.log
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# IntelliJ
+*.iws
+/out/
 
 # Local configuration file (sdk path, etc)
 local.properties
+
+# CRITICAL: Never commit signing keys or passwords!
+keystore.properties
+*.keystore
+*.jks
+key.properties
+release.keystore
+debug.keystore
+
+# Google Services (if contains sensitive API keys)
+# Uncomment if your google-services.json contains production keys
+# google-services.json
+
+# iOS / Xcode
+iosApp/Pods/
+iosApp/*.xcworkspace/
+iosApp/*.xcodeproj/xcuserdata/
+iosApp/*.xcodeproj/project.xcworkspace/xcuserdata/
+iosApp/DerivedData/
+iosApp/.build/
+iosApp/build/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.mobileprovision
+*.p12
+
+# Xcode generated files to ignore
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# Keep only project.pbxproj
+!iosApp/*.xcodeproj/project.pbxproj
+!iosApp/*.xcodeproj/xcshareddata/WorkspaceSettings.xcsettings
+
+# CocoaPods
+iosApp/Pods/
+iosApp/Podfile.lock
+
+# fastlane
+iosApp/fastlane/report.xml
+iosApp/fastlane/Preview.html
+iosApp/fastlane/screenshots
+iosApp/fastlane/test_output
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Node (if using)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Compose Resources (generated)
+composeApp/build/compose/
+**/compose-resources/generated/
+
+# Build outputs
+composeApp/build/
+androidApp/build/
+shared/build/
+build/
+*.hprof
+
+# External native build
+.externalNativeBuild/
+.cxx/
+
+# Version control
+*.orig
+*.rej
+
+# Backup files
+*~
+*.swp
+*.bak
+*.tmp
+*.temp
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# Crashlytics
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Firebase
+# Uncomment if needed
+# firebase-debug.log
+# firestore-debug.log

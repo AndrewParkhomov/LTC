@@ -21,7 +21,6 @@ fun MainScreen(
     state.showResultDialog?.let { data: CalculatedData ->
         ResultDialog(
             data = data,
-            onShare = { /* TODO: Share */ },
             uiEvent = viewModel::uiEvent
         )
     }
