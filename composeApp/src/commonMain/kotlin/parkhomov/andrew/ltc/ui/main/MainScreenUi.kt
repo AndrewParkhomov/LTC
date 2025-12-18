@@ -3,14 +3,15 @@
 package parkhomov.andrew.ltc.ui.main
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.ime
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Balance
 import androidx.compose.material.icons.filled.Circle
@@ -100,7 +101,9 @@ fun MainScreenUi(
         )
     }
 
-    val fieldsEnabledState: Map<TabThickness, Boolean> by rememberFieldsEnabledStateFlow(thicknessInputValues)
+    val fieldsEnabledState: Map<TabThickness, Boolean> by rememberFieldsEnabledStateFlow(
+        thicknessInputValues
+    )
     LaunchedEffect(fieldsEnabledState) {
         if (fieldsEnabledState[TabThickness.CenterThickness] == false) {
             thicknessInputValues[TabThickness.CenterThickness] = null
@@ -112,14 +115,15 @@ fun MainScreenUi(
 
     LaunchedEffect(uiData.calculateTransposition) {
         if (uiData.calculateTransposition != null) {
-            val lensData: LensData = LensData.getLensData(selectedRefractiveIndex, thicknessInputValues)
+            val lensData: LensData =
+                LensData.getLensData(selectedRefractiveIndex, thicknessInputValues)
             uiEvent(MainScreenUiEvent.DoTransposition(lensData))
         }
     }
 
     Scaffold(
         modifier = Modifier
-            .imePadding()
+            .windowInsetsPadding(WindowInsets.safeDrawing)
             .dismissKeyboardOnTap(),
         topBar = {
             MainTopBar(
@@ -133,8 +137,14 @@ fun MainScreenUi(
         bottomBar = {
             AnimatedVisibility(
                 visible = !isKeyboardVisible,
-                enter = slideInVertically { it },
-                exit = slideOutVertically { it }
+                enter = slideInVertically(
+                    initialOffsetY = { it },
+                    animationSpec = tween(300)
+                ),
+                exit = slideOutVertically(
+                    targetOffsetY = { it },
+                    animationSpec = tween(0)
+                )
             ) {
                 MainBottomBar(
                     selectedTab = selectedTab,
