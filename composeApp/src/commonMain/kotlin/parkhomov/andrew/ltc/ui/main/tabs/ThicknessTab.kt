@@ -10,12 +10,11 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
@@ -24,38 +23,31 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.tab_thkns_button
 import ltc.composeapp.generated.resources.tab_thkns_provide_center_thickness
-import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import parkhomov.andrew.ltc.components.LensInputField
+import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndex
-import parkhomov.andrew.ltc.data.LensParameter
+import parkhomov.andrew.ltc.data.TabThickness
+import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
-import parkhomov.andrew.ltc.ui.main.modal.FieldInfoDialog
-import androidx.compose.runtime.*
-import androidx.compose.ui.focus.onFocusChanged
-import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
 import kotlin.time.ExperimentalTime
 
 
@@ -64,50 +56,13 @@ import kotlin.time.ExperimentalTime
 fun ThicknessTab(
     modifier: Modifier = Modifier,
     uiData: MainScreenUiState = MainScreenUiState.mock(),
+    selectedRefractiveIndex: RefractiveIndex = RefractiveIndex.CR39,
+    updateRefractiveIndex: (RefractiveIndex) -> Unit = {},
+    thicknessInputValues: SnapshotStateMap<TabThickness, String?> = SnapshotStateMap(),
+    fieldsEnabledState: Map<TabThickness, Boolean> = mapOf(),
     uiEvent: (MainScreenUiEvent) -> Unit = {},
+    onInfoIconClicked: (InputType) -> Unit = {}
 ) {
-    var selectedIndex: RefractiveIndex by remember(
-        uiData.lensData?.refractiveIndex
-    ) { mutableStateOf(uiData.lensData?.refractiveIndex ?: RefractiveIndex.CR39) }
-
-    val inputValues: SnapshotStateMap<LensParameter, String?> = remember(uiData.lensData) {
-        mutableStateMapOf(
-            LensParameter.Sphere to uiData.lensData?.sphere?.toString(),
-            LensParameter.Cylinder to uiData.lensData?.cylinder?.toString(),
-            LensParameter.Axis to uiData.lensData?.axis?.toString(),
-            LensParameter.BaseCurve to uiData.lensData?.baseCurve?.toString(),
-            LensParameter.CenterThickness to uiData.lensData?.centerThickness?.toString(),
-            LensParameter.EdgeThickness to uiData.lensData?.edgeThickness?.toString(),
-            LensParameter.LensDiameter to uiData.lensData?.diameter?.toString()
-        )
-    }
-
-    val fieldsEnabledState: Map<LensParameter, Boolean> by rememberFieldsEnabledStateFlow(
-        inputValues
-    )
-    LaunchedEffect(fieldsEnabledState) {
-        if (fieldsEnabledState[LensParameter.CenterThickness] == false) {
-            inputValues[LensParameter.CenterThickness] = null
-        }
-        if (fieldsEnabledState[LensParameter.EdgeThickness] == false) {
-            inputValues[LensParameter.EdgeThickness] = null
-        }
-    }
-    LaunchedEffect(uiData.calculateTransposition) {
-        if (uiData.calculateTransposition != null) {
-            val lensData: LensData = getLensData(selectedIndex, inputValues)
-            uiEvent(MainScreenUiEvent.DoTransposition(lensData))
-        }
-    }
-
-    var selectedFieldForInfo by remember { mutableStateOf<LensParameter?>(null) }
-
-    selectedFieldForInfo?.let { field: LensParameter ->
-        FieldInfoDialog(
-            field = field,
-            onDismiss = { selectedFieldForInfo = null }
-        )
-    }
 
     Column(
         modifier = modifier
@@ -117,26 +72,32 @@ fun ThicknessTab(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         RefractiveIndexDropdown(
-            selectedIndex = selectedIndex,
-            onIndexSelected = { selectedIndex = it },
-            field = LensParameter.Index,
-            onInfoIconClicked = { selectedFieldForInfo = LensParameter.Index }
+            selectedIndex = selectedRefractiveIndex,
+            onIndexSelected = updateRefractiveIndex,
+            field = TabThickness.Index,
+            onInfoIconClicked = { onInfoIconClicked(TabThickness.Index) }
         )
 
-        LensParameter.getAllFields()
+        TabThickness.getAllFields()
             .drop(1) // dropdown
-            .forEach { field: LensParameter ->
+            .forEach { field: TabThickness ->
+                val imeAction: ImeAction = if (field == TabThickness.LensDiameter) {
+                    ImeAction.Done
+                } else {
+                    ImeAction.Next
+                }
                 LensInputField(
-                    value = inputValues[field] ?: "",
-                    onValueChange = { inputValues[field] = it },
-                    field = field,
+                    value = thicknessInputValues[field] ?: "",
+                    onValueChange = { thicknessInputValues[field] = it },
+                    inputType = field,
                     enabled = fieldsEnabledState[field] ?: true,
-                    error = if (uiData.showCenterThicknessError && field is LensParameter.CenterThickness) {
+                    keyboardOptions = getDecimalSignedKeyboard().copy(imeAction = imeAction),
+                    error = if (uiData.showCenterThicknessError && field is TabThickness.CenterThickness) {
                         Res.string.tab_thkns_provide_center_thickness
                     } else {
                         null
                     },
-                    onInfoClick = { selectedFieldForInfo = field }
+                    onInfoClick = onInfoIconClicked
                 )
             }
 
@@ -144,7 +105,8 @@ fun ThicknessTab(
 
         Button(
             onClick = {
-                val lensData: LensData = getLensData(selectedIndex, inputValues)
+                val lensData: LensData =
+                    LensData.getLensData(selectedRefractiveIndex, thicknessInputValues)
                 uiEvent(MainScreenUiEvent.OnCalculateThickness(lensData))
             },
             modifier = Modifier.fillMaxWidth()
@@ -157,80 +119,11 @@ fun ThicknessTab(
 }
 
 @Composable
-private fun LensInputField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    field: LensParameter,
-    enabled: Boolean = true,
-    error: StringResource?,
-    onInfoClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    var isFocused by remember { mutableStateOf(false) }
-
-    val textFieldValue = remember(value) {
-        TextFieldValue(
-            text = value,
-            selection = TextRange(value.length)
-        )
-    }
-
-    OutlinedTextField(
-        value = textFieldValue,
-        onValueChange = { newValue: TextFieldValue ->
-            onValueChange(newValue.text)
-        },
-        label = { Text(stringResource(field.titleRes)) },
-        enabled = enabled,
-        isError = error != null,
-        supportingText = error?.let {
-            {
-                Text(
-                    text = stringResource(it),
-                    color = MaterialTheme.colorScheme.error
-                )
-            }
-        },
-        trailingIcon = {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (isFocused && enabled) {
-                    IconButton(
-                        onClick = { onValueChange("") }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Clear,
-                            contentDescription = "Очистити",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
-
-                IconButton(onClick = onInfoClick) {
-                    Icon(
-                        imageVector = Icons.Default.Info,
-                        contentDescription = "Інформація"
-                    )
-                }
-            }
-        },
-        modifier = modifier
-            .fillMaxWidth()
-            .onFocusChanged { focusState ->
-                isFocused = focusState.isFocused
-            },
-        keyboardOptions = getDecimalSignedKeyboard(),
-        singleLine = true
-    )
-}
-
-@Composable
 private fun RefractiveIndexDropdown(
     modifier: Modifier = Modifier,
     selectedIndex: RefractiveIndex,
     onIndexSelected: (RefractiveIndex) -> Unit,
-    field: LensParameter,
+    field: TabThickness,
     onInfoIconClicked: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -282,51 +175,4 @@ private fun RefractiveIndexDropdown(
             }
         }
     }
-}
-
-@Composable
-fun rememberFieldsEnabledStateFlow(
-    inputValues: SnapshotStateMap<LensParameter, String?>
-): State<Map<LensParameter, Boolean>> {
-    return remember(inputValues) {
-        derivedStateOf {
-            val sphere = inputValues[LensParameter.Sphere]?.toDoubleOrNull()
-            val cylinder = inputValues[LensParameter.Cylinder]?.toDoubleOrNull()
-
-            val effectivePower = when {
-                sphere == null -> null
-                cylinder != null && cylinder > 0 -> sphere + cylinder
-                else -> sphere
-            }
-
-            val centerThicknessEnabled = effectivePower?.let { it <= 0 } ?: true
-            val edgeThicknessEnabled = effectivePower?.let { it > 0 } ?: true
-
-            mapOf(
-                LensParameter.Sphere to true,
-                LensParameter.Cylinder to true,
-                LensParameter.Axis to true,
-                LensParameter.BaseCurve to true,
-                LensParameter.CenterThickness to centerThicknessEnabled,
-                LensParameter.EdgeThickness to edgeThicknessEnabled,
-                LensParameter.LensDiameter to true
-            )
-        }
-    }
-}
-
-private fun getLensData(
-    refractiveIndex: RefractiveIndex,
-    inputValues: Map<LensParameter, String?>
-): LensData {
-    return LensData(
-        refractiveIndex = refractiveIndex,
-        sphere = inputValues[LensParameter.Sphere]?.toDoubleOrNull(),
-        cylinder = inputValues[LensParameter.Cylinder]?.toDoubleOrNull(),
-        axis = inputValues[LensParameter.Axis]?.toIntOrNull(),
-        baseCurve = inputValues[LensParameter.BaseCurve]?.toDoubleOrNull(),
-        centerThickness = inputValues[LensParameter.CenterThickness]?.toDoubleOrNull(),
-        edgeThickness = inputValues[LensParameter.EdgeThickness]?.toDoubleOrNull(),
-        diameter = inputValues[LensParameter.LensDiameter]?.toDoubleOrNull()
-    )
 }

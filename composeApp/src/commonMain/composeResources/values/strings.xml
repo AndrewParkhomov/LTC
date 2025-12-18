@@ -3,6 +3,7 @@
     <!-- App name -->
     <string name="app_name">LTC</string>
     <string name="app_name_full">Lens thickness calculator</string>
+    <string name="ok">OK</string>
     <!-- Tab headers-->
     <string name="fragment_thickness">Thickness</string>
     <string name="fragment_compare">Compare</string>
@@ -14,10 +15,7 @@
     <string name="tab_thkns_button">Calculate</string>
     <string name="tab_thickness_add_cylinder_for_transposition">Add cylinder value for transposition</string>
     <!-- Diameter hints -->
-    <string name="tab_diameter_hint_ed">Effective diameter</string>
-    <string name="tab_diameter_hint_dbl">Distance between lenses</string>
-    <string name="tab_diameter_hint_pd">Pupil distance</string>
-    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f mm</string>
+    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$s mm</string>
     <!-- Result -->
     <string name="result_dialog_title">Result</string>
     <string name="result_index_of_refraction">Index of refraction: %1$s</string>
@@ -102,10 +100,6 @@
 
     <string name="field_title_10">Pupil distance</string>
     <string name="field_desc_10">Pupil Distance is the distance (expressed in millimeters) between the centers of the pupils</string>
-
-    <!-- Transposition (11) -->
-    <string name="field_title_11">Transposition</string>
-    <string name="field_desc_11">Ophthalmologists and a few older optometrists (different types of eye doctors), write astigmatism prescriptions with positive «+» cylinders. This is because many years ago the instruments used to measure and cut lenses were only able to do so in positive increments. Nowadays the majority of labs cut lenses in the negative «-», and require that any positive «+» cylinder prescriptions be converted into the negative «-» equivalent. \n\tExamples:\n\tsph -7.0 cyl -3.0 axis 22° can be written like:\n\tsph -10.0 cyl +3.0 axis 112°\n\tsph +5.75 cyl -1.25 axis 165° can be written like:\n\tsph +4.5 cyl +1.25 axis 75°</string>
 
     <!--  Material item list -->
     <string-array name="index_of_refraction" >

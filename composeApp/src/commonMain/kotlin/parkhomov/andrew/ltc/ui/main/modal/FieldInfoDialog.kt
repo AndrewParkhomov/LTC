@@ -20,11 +20,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import parkhomov.andrew.ltc.data.LensParameter
+import parkhomov.andrew.ltc.data.InputType
 
 @Composable
 fun FieldInfoDialog(
-    field: LensParameter,
+    inputType: InputType,
     onDismiss: () -> Unit
 ) {
     AlertDialog(
@@ -34,7 +34,7 @@ fun FieldInfoDialog(
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = stringResource(field.titleRes),
+                text = stringResource(inputType.titleRes),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
@@ -49,14 +49,14 @@ fun FieldInfoDialog(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Image(
-                    painter = painterResource(field.imageRes),
-                    contentDescription = stringResource(field.titleRes),
+                    painter = painterResource(inputType.imageRes),
+                    contentDescription = stringResource(inputType.titleRes),
                     modifier = Modifier.fillMaxWidth(),
                     contentScale = ContentScale.FillWidth
                 )
 
                 Text(
-                    text = stringResource(field.descriptionRes),
+                    text = stringResource(inputType.descriptionRes),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
