@@ -14,6 +14,9 @@
     <string name="tab_thkns_provide_center_thickness">Please, provide center thickness</string>
     <string name="tab_thkns_button">Calculate</string>
     <string name="tab_thickness_add_cylinder_for_transposition">Add cylinder value for transposition</string>
+    <string name="validation_invalid_number">Invalid number</string>
+    <string name="validation_min_value">Value must be at least %1$s</string>
+    <string name="validation_max_value">Value must be at most %1$s</string>
     <!-- Diameter hints -->
     <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$s mm</string>
     <!-- Result -->
@@ -53,6 +56,7 @@
     <string name="theme_day">Day</string>
     <string name="theme_night">Night</string>
     <!-- Compare list -->
+    <string name="compare_list_title">Compare list</string>
     <string name="compare_list_index_of_refraction">Index</string>
     <string name="compare_list_sphere_power">Sphere</string>
     <string name="compare_list_cylinder_power">Cylinder</string>

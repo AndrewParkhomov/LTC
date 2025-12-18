@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -19,14 +18,17 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -45,6 +47,7 @@ import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndex
 import parkhomov.andrew.ltc.data.TabThickness
+import parkhomov.andrew.ltc.data.ValidationResult
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
@@ -63,6 +66,7 @@ fun ThicknessTab(
     uiEvent: (MainScreenUiEvent) -> Unit = {},
     onInfoIconClicked: (InputType) -> Unit = {}
 ) {
+    val validationErrors = remember { mutableStateMapOf<TabThickness, ValidationResult.Invalid?>() }
 
     Column(
         modifier = modifier
@@ -88,14 +92,26 @@ fun ThicknessTab(
                 }
                 LensInputField(
                     value = thicknessInputValues[field] ?: "",
-                    onValueChange = { thicknessInputValues[field] = it },
+                    onValueChange = { newValue: String ->
+                        thicknessInputValues[field] = newValue
+                        val result: ValidationResult = field.validation.validate(newValue)
+                        validationErrors[field] = when (result) {
+                            is ValidationResult.Valid -> null
+                            is ValidationResult.Invalid -> result
+                        }
+                    },
                     inputType = field,
                     enabled = fieldsEnabledState[field] ?: true,
                     keyboardOptions = getDecimalSignedKeyboard().copy(imeAction = imeAction),
-                    error = if (uiData.showCenterThicknessError && field is TabThickness.CenterThickness) {
-                        Res.string.tab_thkns_provide_center_thickness
-                    } else {
-                        null
+                    error = when {
+                        validationErrors[field] != null -> validationErrors[field]
+                        uiData.showCenterThicknessError && field is TabThickness.CenterThickness ->
+                            ValidationResult.Invalid(
+                                Res.string.tab_thkns_provide_center_thickness,
+                                null
+                            )
+
+                        else -> null
                     },
                     onInfoClick = onInfoIconClicked
                 )
@@ -124,7 +140,7 @@ private fun RefractiveIndexDropdown(
     selectedIndex: RefractiveIndex,
     onIndexSelected: (RefractiveIndex) -> Unit,
     field: TabThickness,
-    onInfoIconClicked: () -> Unit
+    onInfoIconClicked: () -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
     val indices = remember { RefractiveIndex.getAllIndices() }
@@ -147,17 +163,21 @@ private fun RefractiveIndexDropdown(
                     ExposedDropdownMenuDefaults.TrailingIcon(
                         expanded = expanded
                     )
-                    IconButton(onClick = onInfoIconClicked) {
+
+                    IconButton(
+                        onClick = onInfoIconClicked
+                    ) {
                         Icon(
                             imageVector = Icons.Default.Info,
-                            contentDescription = "Інформація"
+                            contentDescription = "Інформація",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
             },
             colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
             modifier = Modifier
-                .menuAnchor()
+                .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, true)
                 .fillMaxWidth()
         )
         ExposedDropdownMenu(

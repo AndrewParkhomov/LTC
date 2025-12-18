@@ -21,9 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import parkhomov.andrew.ltc.data.InputType
+import parkhomov.andrew.ltc.data.ValidationResult
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
 
 @Composable
@@ -33,7 +33,7 @@ fun LensInputField(
     inputType: InputType,
     keyboardOptions: KeyboardOptions = getDecimalSignedKeyboard(),
     enabled: Boolean = true,
-    error: StringResource?,
+    error: ValidationResult.Invalid?,
     onValueChange: (String) -> Unit,
     onInfoClick: (InputType) -> Unit
 ) {
@@ -57,7 +57,9 @@ fun LensInputField(
         supportingText = error?.let {
             {
                 Text(
-                    text = stringResource(it),
+                    text = it.value?.let {
+                        stringResource(error.message, error.value.orEmpty())
+                    } ?: stringResource(error.message),
                     color = MaterialTheme.colorScheme.error
                 )
             }

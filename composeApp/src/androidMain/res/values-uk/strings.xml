@@ -20,11 +20,14 @@
     <string name="tab_thkns_lens_diameter">Діаметр лінзи</string>
     <string name="tab_thkns_provide_center_thickness">Будь ласка, введіть товщину по центру</string>
     <string name="tab_thkns_button">Розрахувати</string>
+    <string name="validation_invalid_number">Невірне число</string>
+    <string name="validation_min_value">Значення має бути не менше %1$s</string>
+    <string name="validation_max_value">Значення має бути не більше %1$s</string>
     <!-- Diameter hints -->
     <string name="tab_diameter_hint_ed">Ефективний діаметр</string>
     <string name="tab_diameter_hint_dbl">Відстань між лінзами</string>
     <string name="tab_diameter_hint_pd">Відстань між зіницями</string>
-    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$.0f мм</string>
+    <string name="lens_diameter_result">ED x 2 + DBL - PD = %1$s мм</string>
     <!-- Result -->
     <string name="result_index_of_refraction">Індекс заломлення: %1$s</string>
     <string name="result_sphere_power">Сфера: %1$.2f</string>

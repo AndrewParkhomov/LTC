@@ -36,57 +36,102 @@ sealed interface InputType {
     val imageRes: DrawableResource
 }
 
+sealed class ValidationRule {
+    data class Range(val min: Double, val max: Double) : ValidationRule()
+
+    fun validate(value: String): ValidationResult {
+        if (value.isBlank()) return ValidationResult.Valid
+
+        val doubleValue = value.toDoubleOrNull() ?: return ValidationResult.Invalid(
+            Res.string.validation_invalid_number
+        )
+
+        return when (this) {
+            is Range -> {
+                when {
+                    doubleValue < min -> ValidationResult.Invalid(
+                        Res.string.validation_min_value,
+                        min.toString()
+                    )
+                    doubleValue > max -> ValidationResult.Invalid(
+                        Res.string.validation_max_value,
+                        max.toString()
+                    )
+                    else -> ValidationResult.Valid
+                }
+            }
+        }
+    }
+}
+
+sealed class ValidationResult {
+    data object Valid : ValidationResult()
+    data class Invalid(
+        val message: StringResource,
+        val value: String? = null
+    ) : ValidationResult()
+}
+
 sealed class TabThickness(
     override val titleRes: StringResource,
     override val descriptionRes: StringResource,
-    override  val imageRes: DrawableResource
+    override  val imageRes: DrawableResource,
+    val validation: ValidationRule
 ): InputType {
     data object Index : TabThickness(
         titleRes = Res.string.field_title_0,
         descriptionRes = Res.string.field_desc_0,
-        imageRes = Res.drawable.index_of_refraction_img
+        imageRes = Res.drawable.index_of_refraction_img,
+        validation = ValidationRule.Range(-40.0, 40.0)
     )
 
     data object Sphere : TabThickness(
         titleRes = Res.string.field_title_1,
         descriptionRes = Res.string.field_desc_1,
-        imageRes = Res.drawable.sphere_img
+        imageRes = Res.drawable.sphere_img,
+        validation = ValidationRule.Range(-40.0, 40.0)
     )
 
     data object Cylinder : TabThickness(
         titleRes = Res.string.field_title_2,
         descriptionRes = Res.string.field_desc_2,
-        imageRes = Res.drawable.cylinder_img
+        imageRes = Res.drawable.cylinder_img,
+        validation = ValidationRule.Range(-10.0, 10.0)
     )
 
     data object Axis : TabThickness(
         titleRes = Res.string.field_title_3,
         descriptionRes = Res.string.field_desc_3,
-        imageRes = Res.drawable.axis_img
+        imageRes = Res.drawable.axis_img,
+        validation = ValidationRule.Range(0.0, 180.0)
     )
 
     data object BaseCurve : TabThickness(
         titleRes = Res.string.field_title_4,
         descriptionRes = Res.string.field_desc_4,
-        imageRes = Res.drawable.front_curve_img
+        imageRes = Res.drawable.front_curve_img,
+        validation = ValidationRule.Range(0.0, 15.0)
     )
 
     data object CenterThickness : TabThickness(
         titleRes = Res.string.field_title_5,
         descriptionRes = Res.string.field_desc_5,
-        imageRes = Res.drawable.thickness_gauge_img
+        imageRes = Res.drawable.thickness_gauge_img,
+        validation = ValidationRule.Range(0.0, 15.0)
     )
 
     data object EdgeThickness : TabThickness(
         titleRes = Res.string.field_title_6,
         descriptionRes = Res.string.field_desc_6,
-        imageRes = Res.drawable.edge_thickness_img
+        imageRes = Res.drawable.edge_thickness_img,
+        validation = ValidationRule.Range(0.0, 25.0)
     )
 
     data object LensDiameter : TabThickness(
         titleRes = Res.string.field_title_7,
         descriptionRes = Res.string.field_desc_7,
-        imageRes = Res.drawable.diam_img
+        imageRes = Res.drawable.diam_img,
+        validation = ValidationRule.Range(0.0, 100.0)
     )
 
     companion object Companion {

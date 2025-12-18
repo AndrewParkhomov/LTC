@@ -27,6 +27,11 @@ fun MainScreen(
 
     MainScreenUi(
         uiData = state,
-        uiEvent = viewModel::uiEvent
+        uiEvent = { uiEvent: MainScreenUiEvent ->
+            when (uiEvent) {
+                is MainScreenUiEvent.OnCompareClick -> onCompareClick()
+                else -> viewModel.uiEvent(uiEvent)
+            }
+        }
     )
 }

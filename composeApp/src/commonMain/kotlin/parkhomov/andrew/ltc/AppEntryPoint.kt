@@ -36,6 +36,7 @@ import parkhomov.andrew.ltc.theme.AppTheme
 import parkhomov.andrew.ltc.toast.AppToast
 import parkhomov.andrew.ltc.toast.ToastProvider
 import parkhomov.andrew.ltc.toast.ToastState
+import parkhomov.andrew.ltc.ui.compare.CompareLensScreen
 import parkhomov.andrew.ltc.ui.main.MainScreen
 
 
@@ -138,12 +139,12 @@ private fun NavigationRoot(
             when(key) {
                 is Route.MainScreen -> {
                     NavEntry(key) {
-                        MainScreen()
+                        MainScreen(onCompareClick = { backStack.add(Route.CompareScreen) })
                     }
                 }
                 is Route.CompareScreen -> {
                     NavEntry(key) {
-
+                        CompareLensScreen(closeScreen = { backStack.remove(it) })
                     }
                 }
                 else -> error("Unknown NavKey: $key")

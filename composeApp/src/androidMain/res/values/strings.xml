@@ -20,6 +20,9 @@
     <string name="tab_thkns_lens_diameter">Lens diameter</string>
     <string name="tab_thkns_provide_center_thickness">Please, provide center thickness</string>
     <string name="tab_thkns_button">Calculate</string>
+    <string name="validation_invalid_number">Invalid number</string>
+    <string name="validation_min_value">Value must be at least %1$s</string>
+    <string name="validation_max_value">Value must be at most %1$s</string>
     <!-- Diameter hints -->
     <string name="tab_diameter_hint_ed">Effective diameter</string>
     <string name="tab_diameter_hint_dbl">Distance between lenses</string>

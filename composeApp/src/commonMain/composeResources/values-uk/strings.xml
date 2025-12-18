@@ -13,6 +13,9 @@
     <string name="tab_thkns_provide_center_thickness">Введіть товщину по центру</string>
     <string name="tab_thkns_button">Розрахувати</string>
     <string name="tab_thickness_add_cylinder_for_transposition">Додайте значення циліндру для траснпозиції</string>
+    <string name="validation_invalid_number">Невірне число</string>
+    <string name="validation_min_value">Значення має бути не менше %1$s</string>
+    <string name="validation_max_value">Значення має бути не більше %1$s</string>
     <!-- Diameter hints -->
     <string name="tab_diameter_hint_ed">Ефективний діаметр</string>
     <string name="tab_diameter_hint_dbl">Відстань між лінзами</string>
@@ -49,6 +52,7 @@
     <string name="theme_day">День</string>
     <string name="theme_night">Ніч</string>
     <!-- Compare list -->
+    <string name="compare_list_title">Список порівняння</string>
     <string name="compare_list_index_of_refraction">Індекс</string>
     <string name="compare_list_sphere_power">Сфера</string>
     <string name="compare_list_cylinder_power">Циліндр</string>
