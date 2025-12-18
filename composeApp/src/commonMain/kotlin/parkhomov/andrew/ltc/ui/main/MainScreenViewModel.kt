@@ -190,13 +190,13 @@ class MainScreenViewModel(
 
         var maybeRacalculatedSphere = try {
             spherePowerString.toDouble()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             0.0
         }
 
         var cylinderPower = try {
             cylinderPowerString.toDouble()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             0.0
         }
 
@@ -208,13 +208,7 @@ class MainScreenViewModel(
 
         var curve = try {
             curveString.toDouble()
-        } catch (e: NumberFormatException) {
-            null
-        }
-
-        var centerThickness = try {
-            centerThicknessString.toDouble()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             null
         }
 
@@ -228,17 +222,18 @@ class MainScreenViewModel(
             cylinderPower = -cylinderPower
         }
 
-        if (maybeRacalculatedSphere <= 0.0) {
-            if (centerThickness == null) {
-                updateState { copy(showCenterThicknessError = true) }
-                return@launch
-            } else {
-                updateState { copy(showCenterThicknessError = false) }
-            }
-        }
-
         curve = curve ?: handleNoBaseCurveBehaviour(maybeRacalculatedSphere)
         val realRadiusMm = getReaRadiusInMM(curve)
+
+        var centerThickness = try {
+            centerThicknessString.toDouble()
+        } catch (_: NumberFormatException) {
+            if(maybeRacalculatedSphere <= 0.0){
+                2.0
+            }else{
+                0.0 // plus lens
+            }
+        }
 
         centerThickness = when {
             maybeRacalculatedSphere <= 0 && cylinderPower == 0.0 -> centerThickness
@@ -268,7 +263,7 @@ class MainScreenViewModel(
         val recalculatedCylinderCurve = getRecalculatedCylinderCurve(
             recalculatedFrontCurve,
             cylinderPower,
-            centerThickness!!,
+            centerThickness,
             lensIndex,
             maybeRacalculatedSphere
         )
@@ -357,10 +352,10 @@ class MainScreenViewModel(
         }
         updateState {
             copy(
-                showCenterThicknessError = false,
                 showResultDialog = calculatedData,
                 lensData = lensData?.copy(
                     baseCurve = curve,
+                    centerThickness = centerThickness,
                     diameter = diameter
                 )
             )

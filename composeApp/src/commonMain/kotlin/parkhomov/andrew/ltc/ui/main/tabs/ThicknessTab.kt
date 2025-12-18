@@ -105,12 +105,6 @@ fun ThicknessTab(
                     keyboardOptions = getDecimalSignedKeyboard().copy(imeAction = imeAction),
                     error = when {
                         validationErrors[field] != null -> validationErrors[field]
-                        uiData.showCenterThicknessError && field is TabThickness.CenterThickness ->
-                            ValidationResult.Invalid(
-                                Res.string.tab_thkns_provide_center_thickness,
-                                null
-                            )
-
                         else -> null
                     },
                     onInfoClick = onInfoIconClicked
