@@ -11,8 +11,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavBackStack
@@ -32,7 +34,11 @@ import parkhomov.andrew.ltc.compositionlocal.LocalTopScreenToast
 import parkhomov.andrew.ltc.compositionlocal.getDependencies
 import parkhomov.andrew.ltc.navigation.Route
 import parkhomov.andrew.ltc.provider.ShowToast
+import parkhomov.andrew.ltc.storage.repository.SettingsProvider
 import parkhomov.andrew.ltc.theme.AppTheme
+import parkhomov.andrew.ltc.theme.LocalThemeMode
+import parkhomov.andrew.ltc.theme.ThemeMode
+import parkhomov.andrew.ltc.theme.toAppTheme
 import parkhomov.andrew.ltc.toast.AppToast
 import parkhomov.andrew.ltc.toast.ToastProvider
 import parkhomov.andrew.ltc.toast.ToastState
@@ -41,7 +47,10 @@ import parkhomov.andrew.ltc.ui.main.MainScreen
 
 
 @Composable
-fun AppEntryPoint(toastProvider: ToastProvider = koinInject()) {
+fun AppEntryPoint(
+    toastProvider: ToastProvider = koinInject(),
+    settingsProvider: SettingsProvider = koinInject()
+) {
     val toastState = remember { mutableStateOf<ToastState>(ToastState.Init) }
     val dependencies: LocalDependencies = remember { getDependencies(toastState) }
 
@@ -56,6 +65,12 @@ fun AppEntryPoint(toastProvider: ToastProvider = koinInject()) {
             toastHelper.showNativeToast(message)
         }
     }
+    var themeMode by remember { mutableStateOf(ThemeMode.SYSTEM) }
+    LaunchedEffect(Unit) {
+        settingsProvider.getThemeFlow().collect { themeId: Int? ->
+            themeMode = themeId.toAppTheme()
+        }
+    }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -63,8 +78,9 @@ fun AppEntryPoint(toastProvider: ToastProvider = koinInject()) {
         CompositionLocalProvider(
             LocalTopScreenToast provides dependencies.notification,
             LocalToast provides dependencies.toast,
+            LocalThemeMode provides themeMode
         ) {
-            ComposeApp()
+            ComposeApp(themeMode = themeMode)
         }
         AppToast(toastState)
     }
@@ -72,8 +88,8 @@ fun AppEntryPoint(toastProvider: ToastProvider = koinInject()) {
 }
 
 @Composable
-private fun ComposeApp() {
-    AppTheme {
+private fun ComposeApp(themeMode: ThemeMode) {
+    AppTheme(themeMode = themeMode) {
         Scaffold(
             modifier =
                 Modifier
@@ -136,17 +152,19 @@ private fun NavigationRoot(
             )
         },
         entryProvider = { key: NavKey ->
-            when(key) {
+            when (key) {
                 is Route.MainScreen -> {
                     NavEntry(key) {
                         MainScreen(onCompareClick = { backStack.add(Route.CompareScreen) })
                     }
                 }
+
                 is Route.CompareScreen -> {
                     NavEntry(key) {
                         CompareLensScreen(closeScreen = { backStack.remove(it) })
                     }
                 }
+
                 else -> error("Unknown NavKey: $key")
             }
         }

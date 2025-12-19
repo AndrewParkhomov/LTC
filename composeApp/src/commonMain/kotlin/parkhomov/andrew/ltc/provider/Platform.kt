@@ -9,6 +9,7 @@ interface Platform {
 }
 
 expect fun getPlatform(): Platform
+expect fun getVersionName(): String
 
 fun isIos() = getPlatform().name.contains("iOS")
 

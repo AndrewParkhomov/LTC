@@ -47,10 +47,13 @@
     <string name="share_text_full">Пораховано за допомогою додатку %1$s\n%2$s\nІндекс заломлення = %3$s\nСфера = %4$s\nЦиліндр = %5$s\nКут = %6$s&#176;\nТовщина під кутом %7$s&#176; = %8$s мм\nТовщина по центру = %9$s мм\nТовщина по краю = %10$s мм\nМаксимальна товщина = %11$s мм\nРеальна кривизна бази лінзи = %12$s\nДіаметр лінзи = %13$s мм</string>
     <!-- Language and Theme -->
     <string name="language_title">Мова</string>
+    <string name="language_english">English</string>
+    <string name="language_portuguese">Portuguese</string>
+    <string name="language_ukrainian">Українська</string>
     <string name="theme_title">Тема</string>
     <string name="theme_auto">Авто</string>
-    <string name="theme_day">День</string>
-    <string name="theme_night">Ніч</string>
+    <string name="theme_day">Світла</string>
+    <string name="theme_night">Темна</string>
     <!-- Compare list -->
     <string name="compare_list_title">Список порівняння</string>
     <string name="compare_list_index_of_refraction">Індекс</string>

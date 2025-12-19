@@ -44,17 +44,15 @@
     <string name="share_with">Share with…</string>
     <string name="share_text_only_sphere">Calculated via %1$s\n%2$s\nIndex of refraction = %3$s\nSphere power = %4$s\nCenter thickness = %5$s mm\nEdge thickness = %6$s mm\nReal base curve = %7$s\nDiameter = %8$s mm</string>
     <string name="share_text_full">Calculated via %1$s\n%2$s\nIndex of refraction = %3$s\nSphere power = %4$s\nCylinder Power = %5$s\nAxis = %6$s&#176;\nThickness on axis %7$s&#176; = %8$s mm\nCenter thickness = %9$s mm\nEdge thickness = %10$s mm\nMax thickness = %11$s mm\nReal base curve = %12$s\nDiameter = %13$s mm</string>
-    <!-- About program -->
-    <string name="about_version" translatable="false">Version %1$s</string>
-    <string name="about_developed_by" translatable="false">Developed by Andriy Parkhomov</string>
-    <string name="about_email" translatable="false">parkhomov.andrew@gmail.com</string>
-    <string name="translate_to_brazilian_portuguese" translatable="false">Traduzido para o português: Edison Bucchianico Gil</string>
-    <!-- Language and Theme -->
+    <!-- Settings dialog -->
     <string name="language_title">Language</string>
+    <string name="language_english">English</string>
+    <string name="language_portuguese">Portuguese</string>
+    <string name="language_ukrainian">Українська</string>
     <string name="theme_title">Theme</string>
     <string name="theme_auto">Auto</string>
-    <string name="theme_day">Day</string>
-    <string name="theme_night">Night</string>
+    <string name="theme_day">Light</string>
+    <string name="theme_night">Dark</string>
     <!-- Compare list -->
     <string name="compare_list_title">Compare list</string>
     <string name="compare_list_index_of_refraction">Index</string>
@@ -104,27 +102,5 @@
 
     <string name="field_title_10">Pupil distance</string>
     <string name="field_desc_10">Pupil Distance is the distance (expressed in millimeters) between the centers of the pupils</string>
-
-    <!--  Material item list -->
-    <string-array name="index_of_refraction" >
-        <item>1.498 CR-39</item>
-        <item>1.560</item>
-        <item>1.530 Trivex</item>
-        <item>1.590 Poly</item>
-        <item>1.610</item>
-        <item>1.670</item>
-        <item>1.740</item>
-    </string-array>
-    <!-- Language -->
-    <string-array name="languages_full_names">
-        <item>English</item>
-        <item>Portuguese</item>
-        <item>Українська</item>
-    </string-array>
-    <string-array name="languages_code">
-        <item>en</item>
-        <item>po</item>
-        <item>uk</item>
-    </string-array>
 
 </resources>

@@ -9,6 +9,8 @@ import kotlin.time.Instant
 
 data class MainScreenUiState(
     val lensInCompareList: Int = 0,
+    val themeId: Int? = null,
+    val language: String = "en",
     val lensData: LensData? = null,
     val calculatedData: CalculatedData? = null,
     val calculateTransposition: Instant? = null

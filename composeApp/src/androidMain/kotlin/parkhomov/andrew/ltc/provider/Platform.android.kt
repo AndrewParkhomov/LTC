@@ -9,6 +9,7 @@ import android.view.ViewTreeObserver
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.runtime.State
+import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 
 
 class AndroidPlatform : Platform {
@@ -16,6 +17,8 @@ class AndroidPlatform : Platform {
 }
 
 actual fun getPlatform(): Platform = AndroidPlatform()
+
+actual fun getVersionName(): String = BuildConfig.VERSION_NAME
 
 actual fun getDecimalSignedKeyboard(): KeyboardOptions =
     KeyboardOptions.Default.copy(

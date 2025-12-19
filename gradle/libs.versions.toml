@@ -6,9 +6,9 @@ minSdk = "23"
 compileSdk = "36"
 targetSdk = "36"
 agp = "8.13.2"
-kotlin = "2.2.21"
+kotlin = "2.3.0"
 compose-plugin = "1.9.3"
-androidx-activityCompose = "1.12.1"
+androidx-activityCompose = "1.12.2"
 androidx-navigation = "2.9.6"
 androidx-preference = "1.2.1"
 koin = "4.1.1"
@@ -22,9 +22,10 @@ turbine = "1.2.1"
 androidx-test = "1.7.0"
 coroutines = "1.10.2"
 cmpNavigation3 = "1.0.0-alpha06"
-androidx-lifecycle = "2.10.0-alpha06"
+androidx-lifecycle = "2.10.0-alpha07"
 kotlinx-serialization = "1.9.0"
 icons = "1.7.3"
+datastore = "1.2.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -42,6 +43,7 @@ androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecyc
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "icons" }
+datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 
 #firebase
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }

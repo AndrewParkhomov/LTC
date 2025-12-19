@@ -1,11 +1,17 @@
 package parkhomov.andrew.ltc.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
+import ltc.composeapp.generated.resources.Res
+import ltc.composeapp.generated.resources.theme_auto
+import ltc.composeapp.generated.resources.theme_day
+import ltc.composeapp.generated.resources.theme_night
+import org.jetbrains.compose.resources.StringResource
 
 private val LightColors =
     lightColorScheme(
@@ -75,13 +81,14 @@ private val DarkColors =
 
 @Composable
 fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    themeMode: ThemeMode,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme =
-        when {
-            darkTheme -> DarkColors
-            else -> LightColors
+    val colorScheme: ColorScheme =
+        when(themeMode) {
+            ThemeMode.SYSTEM -> if(isSystemInDarkTheme()) DarkColors else LightColors
+            ThemeMode.LIGHT -> LightColors
+            ThemeMode.DARK -> DarkColors
         }
     MaterialTheme(
         colorScheme = colorScheme,
@@ -90,20 +97,28 @@ fun AppTheme(
     )
 }
 
-private val LocalThemeMode = compositionLocalOf { ThemeMode.SYSTEM }
+val LocalThemeMode = compositionLocalOf { ThemeMode.SYSTEM }
 
-enum class ThemeMode {
-    LIGHT,
-    DARK,
-    SYSTEM,
+enum class ThemeMode(val id: Int, val labelRes: StringResource) {
+    SYSTEM(0, Res.string.theme_auto),
+    LIGHT(1, Res.string.theme_day),
+    DARK(2, Res.string.theme_night),
+}
+
+fun Int?.toAppTheme(): ThemeMode {
+    return when(this){
+        ThemeMode.LIGHT.id -> ThemeMode.LIGHT
+        ThemeMode.DARK.id -> ThemeMode.DARK
+        else -> ThemeMode.SYSTEM
+    }
 }
 
 @Composable
 fun isDarkTheme(): Boolean {
     val themeMode = LocalThemeMode.current
     return when (themeMode) {
+        ThemeMode.SYSTEM -> isSystemInDarkTheme()
         ThemeMode.LIGHT -> false
         ThemeMode.DARK -> true
-        ThemeMode.SYSTEM -> isSystemInDarkTheme()
     }
 }

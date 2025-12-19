@@ -2,9 +2,7 @@
 
 package parkhomov.andrew.ltc.ui.main
 
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.tab_thickness_add_cylinder_for_transposition
 import parkhomov.andrew.ltc.base.AppViewModel
@@ -12,6 +10,8 @@ import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndex
 import parkhomov.andrew.ltc.domain.CompareLensStorage
+import parkhomov.andrew.ltc.storage.repository.SettingsProvider
+import parkhomov.andrew.ltc.theme.ThemeMode
 import parkhomov.andrew.ltc.toast.ToastProvider
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
@@ -36,7 +36,8 @@ import kotlin.time.ExperimentalTime
 
 class MainScreenViewModel(
     private val compareLensStorage: CompareLensStorage,
-    private val toastProvider: ToastProvider
+    private val toastProvider: ToastProvider,
+    private val settingsProvider: SettingsProvider
 ) : AppViewModel<MainScreenUiState, MainScreenUiEvent>() {
     override val initialState: MainScreenUiState
         get() = MainScreenUiState()
@@ -45,7 +46,15 @@ class MainScreenViewModel(
         launch {
             compareLensStorage.compareList
                 .collectLatest { compareList: Set<CalculatedData> ->
-                    updateState { copy(lensInCompareList = compareList.count()) }
+                    val themeId: Int? = settingsProvider.getTheme()
+                    val language: String = settingsProvider.getLanguage()
+                    updateState {
+                        copy(
+                            themeId = themeId,
+                            language = language,
+                            lensInCompareList = compareList.count()
+                        )
+                    }
                 }
         }
     }
@@ -59,7 +68,19 @@ class MainScreenViewModel(
             is MainScreenUiEvent.OnRemoveFromCompareListClicked -> onRemoveFromCompareListClicked()
             is MainScreenUiEvent.OnTranspositionIconClick -> onTranspositionClick()
             is MainScreenUiEvent.DoTransposition -> doTransposition(event.lensData)
+            is MainScreenUiEvent.UpdateAppLanguage -> updateAppLanguage(event.language)
+            is MainScreenUiEvent.UpdateAppTheme -> updateAppTheme(event.theme)
         }
+    }
+
+    private fun updateAppTheme(theme: ThemeMode) {
+        launch { settingsProvider.updateTheme(theme.id) }
+        updateState { copy(themeId = theme.id) }
+    }
+
+    private fun updateAppLanguage(language: String) {
+        launch { settingsProvider.updateLanguage(language) }
+        updateState { copy(language = language) }
     }
 
     private fun doTransposition(lensData: LensData) = launch {
@@ -226,9 +247,9 @@ class MainScreenViewModel(
         var centerThickness = try {
             centerThicknessString.toDouble()
         } catch (_: NumberFormatException) {
-            if(maybeRacalculatedSphere <= 0.0){
+            if (maybeRacalculatedSphere <= 0.0) {
                 2.0
-            }else{
+            } else {
                 0.0 // plus lens
             }
         }

@@ -13,15 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.Balance
 import androidx.compose.material.icons.filled.Circle
-import androidx.compose.material.icons.filled.Download
-import androidx.compose.material.icons.filled.FileDownload
-import androidx.compose.material.icons.filled.GetApp
-import androidx.compose.material.icons.filled.SaveAlt
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Straighten
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -59,10 +53,14 @@ import parkhomov.andrew.ltc.data.RefractiveIndex
 import parkhomov.andrew.ltc.data.Tab
 import parkhomov.andrew.ltc.data.TabDiameter
 import parkhomov.andrew.ltc.data.TabThickness
+import parkhomov.andrew.ltc.provider.getVersionName
 import parkhomov.andrew.ltc.provider.keyboardAsState
+import parkhomov.andrew.ltc.theme.ThemeMode
+import parkhomov.andrew.ltc.theme.toAppTheme
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import parkhomov.andrew.ltc.ui.main.modal.FieldInfoDialog
+import parkhomov.andrew.ltc.ui.main.modal.SettingsDialog
 import parkhomov.andrew.ltc.ui.main.tabs.DiameterTab
 import parkhomov.andrew.ltc.ui.main.tabs.ThicknessTab
 import kotlin.time.ExperimentalTime
@@ -76,11 +74,27 @@ fun MainScreenUi(
     val isKeyboardVisible: Boolean by keyboardAsState()
     var selectedTab: Tab by remember { mutableStateOf(Tab.Thickness) }
     var infoDialogData: InputType? by remember { mutableStateOf(null) }
+    var showSettingsDialog: Boolean by remember { mutableStateOf(false) }
 
     infoDialogData?.let { dialogData: InputType ->
         FieldInfoDialog(
             inputType = dialogData,
             onDismiss = { infoDialogData = null }
+        )
+    }
+
+    if (showSettingsDialog) {
+        SettingsDialog(
+            currentLanguage = uiData.language,
+            currentTheme = uiData.themeId.toAppTheme(),
+            appVersion = getVersionName(),
+            onLanguageSelected = { language: String ->
+                uiEvent(MainScreenUiEvent.UpdateAppLanguage(language))
+            },
+            onThemeSelected = { theme: ThemeMode ->
+                uiEvent(MainScreenUiEvent.UpdateAppTheme(theme))
+            },
+            onDismiss = { showSettingsDialog = false }
         )
     }
 
@@ -138,7 +152,7 @@ fun MainScreenUi(
                 selectedTab = selectedTab,
                 onCompareClick = { uiEvent(MainScreenUiEvent.OnCompareClick) },
                 onTransposeClick = { uiEvent(MainScreenUiEvent.OnTranspositionIconClick) },
-                onSettingsClick = { /* todo open dialog */ }
+                onSettingsClick = { showSettingsDialog = true }
             )
         },
         bottomBar = {

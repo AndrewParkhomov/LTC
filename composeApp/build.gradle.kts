@@ -49,6 +49,7 @@ kotlin {
         }
 
         commonMain.dependencies {
+            api(projects.coreStorage)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)

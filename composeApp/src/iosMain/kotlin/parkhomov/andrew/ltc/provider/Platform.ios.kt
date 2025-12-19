@@ -11,6 +11,7 @@ import platform.UIKit.UIKeyboardTypeNumbersAndPunctuation
 import kotlin.experimental.ExperimentalNativeApi
 import androidx.compose.runtime.*
 import kotlinx.cinterop.useContents
+import platform.Foundation.NSBundle
 import platform.Foundation.NSNotificationCenter
 import platform.Foundation.NSOperationQueue
 import platform.UIKit.*
@@ -21,6 +22,12 @@ class IOSPlatform : Platform {
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()
+
+actual fun getVersionName(): String {
+    val bundle = NSBundle.mainBundle
+    val version = bundle.infoDictionary?.get("CFBundleShortVersionString") as? String
+    return version ?: "Unknown"
+}
 
 actual fun getDecimalSignedKeyboard(): KeyboardOptions {
     return KeyboardOptions.Default.copy(
