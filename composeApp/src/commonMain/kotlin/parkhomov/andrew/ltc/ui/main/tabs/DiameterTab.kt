@@ -112,7 +112,7 @@ fun DiameterTab(
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary,
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 textAlign = TextAlign.Center
             )
         }

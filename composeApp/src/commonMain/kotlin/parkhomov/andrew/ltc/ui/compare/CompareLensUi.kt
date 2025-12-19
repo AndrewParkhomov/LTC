@@ -47,6 +47,7 @@ import ltc.composeapp.generated.resources.compare_list_title
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import parkhomov.andrew.ltc.components.AppOutlineButton
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.ui.compare.data.CompareLensScreenUiEvent
 import parkhomov.andrew.ltc.ui.compare.data.CompareLensScreenUiState
@@ -99,7 +100,7 @@ private fun CompareTable(
         ) {
             Column(
                 modifier = Modifier
-                    .width(120.dp)
+                    .width(100.dp)
                     .background(MaterialTheme.colorScheme.surfaceVariant)
             ) {
                 TableHeaderCell(text = "", isLabel = true)
@@ -109,7 +110,7 @@ private fun CompareTable(
                 }
             }
 
-            lenses.forEach { lens ->
+            lenses.forEach { lens: CalculatedData ->
                 Column(
                     modifier = Modifier.width(100.dp)
                 ) {
@@ -118,21 +119,19 @@ private fun CompareTable(
                         isLabel = false
                     )
 
-                    CompareRow.entries.forEach { row ->
+                    CompareRow.entries.forEach { row: CompareRow ->
                         TableDataCell(text = row.getValue(lens))
                     }
                 }
             }
         }
-
-        Button(
-            onClick = onClearList,
+        AppOutlineButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Text(stringResource(Res.string.compare_clear_list))
-        }
+                .padding(16.dp),
+            text = stringResource(Res.string.compare_clear_list),
+            onClick = onClearList,
+        )
     }
 }
 
@@ -187,11 +186,11 @@ private fun TableLabelCell(
             .border(
                 width = 0.5.dp,
                 color = MaterialTheme.colorScheme.outline
-            )
-            .padding(8.dp),
+            ),
         contentAlignment = Alignment.CenterStart
     ) {
         Text(
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp),
             text = text,
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium,

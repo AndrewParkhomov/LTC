@@ -35,8 +35,8 @@ class CompareLensViewModel(
     }
 
     private fun handleClearListButtonClick() {
-        compareLensStorage.clearCompareList()
         uiEvent(CompareLensScreenUiEvent.CloseScreen)
+        compareLensStorage.clearCompareList()
     }
 
 }

@@ -67,7 +67,7 @@ fun AppOutlineButton(
         modifier =
             modifier
                 .fillMaxWidth()
-                .heightIn(min = 56.dp)
+                .heightIn(min = 50.dp)
                 .graphicsLayer {
                     scaleX = scale
                     scaleY = scale
@@ -108,104 +108,5 @@ fun AppOutlineButton(
             textAlign = TextAlign.Center,
             fontSize = 18.sp,
         )
-    }
-}
-
-@Composable
-fun AppOutlineButton(
-    text: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    leadingIcon: (@Composable () -> Unit)? = null,
-    trailingIcon: (@Composable () -> Unit)? = null,
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-
-    val borderColor by animateColorAsState(
-        targetValue =
-            if (isPressed) {
-                MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
-            } else {
-                MaterialTheme.colorScheme.outline
-            },
-        animationSpec = tween(durationMillis = 150),
-        label = "borderColor",
-    )
-
-    val textColor by animateColorAsState(
-        targetValue =
-            when {
-                !enabled -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
-                isPressed -> MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
-                else -> MaterialTheme.colorScheme.primary
-            },
-        animationSpec = tween(durationMillis = 150),
-        label = "textColor",
-    )
-
-    val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.97f else 1f,
-        animationSpec = tween(durationMillis = 100),
-        label = "scale",
-    )
-
-    OutlinedButton(
-        onClick = onClick,
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .heightIn(min = 56.dp)
-                .graphicsLayer {
-                    scaleX = scale
-                    scaleY = scale
-                },
-        enabled = enabled,
-        shape = RoundedCornerShape(12.dp),
-        border =
-            BorderStroke(
-                width = 1.dp,
-                color =
-                    if (enabled) {
-                        borderColor
-                    } else {
-                        MaterialTheme.colorScheme.outline.copy(
-                            alpha = 0.12f,
-                        )
-                    },
-            ),
-        colors =
-            ButtonDefaults.outlinedButtonColors(
-                containerColor = MaterialTheme.colorScheme.surface,
-                contentColor = MaterialTheme.colorScheme.primary,
-                disabledContainerColor =
-                    MaterialTheme.colorScheme.surfaceVariant.copy(
-                        alpha = 0.5f,
-                    ),
-                disabledContentColor =
-                    MaterialTheme.colorScheme.onSurfaceVariant.copy(
-                        alpha = 0.4f,
-                    ),
-            ),
-        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
-        interactionSource = interactionSource,
-    ) {
-        if (leadingIcon != null) {
-            leadingIcon()
-        }
-
-        Text(
-            modifier = Modifier,
-            text = text,
-            style = MaterialTheme.typography.labelLarge,
-            color = textColor,
-            textAlign = TextAlign.Center,
-            fontSize = 18.sp,
-        )
-
-        if (trailingIcon != null) {
-            trailingIcon()
-        }
     }
 }

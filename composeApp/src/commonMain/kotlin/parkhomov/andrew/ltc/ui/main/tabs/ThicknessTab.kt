@@ -15,7 +15,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
@@ -41,6 +40,7 @@ import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.tab_thkns_button
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import parkhomov.andrew.ltc.components.AppOutlineButton
 import parkhomov.andrew.ltc.components.LensInputField
 import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.LensData
@@ -107,21 +107,16 @@ fun ThicknessTab(
                     onInfoClick = onInfoIconClicked
                 )
             }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(
+        AppOutlineButton(
+            modifier = Modifier
+                .fillMaxWidth(),
+            text = stringResource(Res.string.tab_thkns_button),
             onClick = {
                 val lensData: LensData =
                     LensData.getLensData(selectedRefractiveIndex, thicknessInputValues)
                 uiEvent(MainScreenUiEvent.OnCalculateThickness(lensData))
             },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(stringResource(Res.string.tab_thkns_button))
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
+        )
     }
 }
 
