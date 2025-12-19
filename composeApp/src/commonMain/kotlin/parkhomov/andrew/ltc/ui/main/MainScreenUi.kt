@@ -160,7 +160,6 @@ fun MainScreenUi(
         ) {
             when (selectedTab) {
                 is Tab.Thickness -> ThicknessTab(
-                    uiData = uiData,
                     uiEvent = uiEvent,
                     selectedRefractiveIndex = selectedRefractiveIndex,
                     updateRefractiveIndex = { selectedRefractiveIndex = it },

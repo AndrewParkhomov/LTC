@@ -39,7 +39,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.tab_thkns_button
-import ltc.composeapp.generated.resources.tab_thkns_provide_center_thickness
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.components.LensInputField
@@ -50,7 +49,6 @@ import parkhomov.andrew.ltc.data.TabThickness
 import parkhomov.andrew.ltc.data.ValidationResult
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
-import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import kotlin.time.ExperimentalTime
 
 
@@ -58,7 +56,6 @@ import kotlin.time.ExperimentalTime
 @Composable
 fun ThicknessTab(
     modifier: Modifier = Modifier,
-    uiData: MainScreenUiState = MainScreenUiState.mock(),
     selectedRefractiveIndex: RefractiveIndex = RefractiveIndex.CR39,
     updateRefractiveIndex: (RefractiveIndex) -> Unit = {},
     thicknessInputValues: SnapshotStateMap<TabThickness, String?> = SnapshotStateMap(),

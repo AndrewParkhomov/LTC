@@ -10,6 +10,7 @@ import ltc.composeapp.generated.resources.tab_thickness_add_cylinder_for_transpo
 import parkhomov.andrew.ltc.base.AppViewModel
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
+import parkhomov.andrew.ltc.data.RefractiveIndex
 import parkhomov.andrew.ltc.domain.CompareLensStorage
 import parkhomov.andrew.ltc.toast.ToastProvider
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
@@ -43,7 +44,7 @@ class MainScreenViewModel(
     init {
         launch {
             compareLensStorage.compareList
-                .collectLatest { compareList: Set<LensData> ->
+                .collectLatest { compareList: Set<CalculatedData> ->
                     updateState { copy(lensInCompareList = compareList.count()) }
                 }
         }
@@ -53,7 +54,7 @@ class MainScreenViewModel(
         when (event) {
             is MainScreenUiEvent.OnCompareClick -> updateState { copy() }
             is MainScreenUiEvent.OnCalculateThickness -> handleCalculateButtonClick(event.lensData)
-            is MainScreenUiEvent.HideResultDialog -> updateState { copy(showResultDialog = null) }
+            is MainScreenUiEvent.HideResultDialog -> updateState { copy(calculatedData = null) }
             is MainScreenUiEvent.OnAddToCompareClicked -> onAddToCompareClicked()
             is MainScreenUiEvent.OnRemoveFromCompareListClicked -> onRemoveFromCompareListClicked()
             is MainScreenUiEvent.OnTranspositionIconClick -> onTranspositionClick()
@@ -138,33 +139,29 @@ class MainScreenViewModel(
     }
 
     private fun onAddToCompareClicked() {
-        uiState.value.lensData?.let(compareLensStorage::addItem)
+        uiState.value.calculatedData?.let(compareLensStorage::addItem)
         updateResultDialogCompareButton()
     }
 
     private fun onRemoveFromCompareListClicked() {
-        uiState.value.lensData?.let(compareLensStorage::removeItem)
+        uiState.value.calculatedData?.let(compareLensStorage::removeItem)
         updateResultDialogCompareButton()
     }
 
     private fun updateResultDialogCompareButton() {
         updateState {
             copy(
-                showResultDialog = uiState.value.showResultDialog?.copy(
-                    isLensInCompareList = compareLensStorage.isInStorage(uiState.value.lensData)
+                calculatedData = uiState.value.calculatedData?.copy(
+                    isLensInCompareList = compareLensStorage.isInStorage(uiState.value.calculatedData)
                 )
             )
         }
     }
 
     private fun handleCalculateButtonClick(lensData: LensData) {
-        updateState { copy(lensData = lensData) }
         onCalculateBtnClicked(
-            lensIndex = Triple(
-                lensData.refractiveIndex.value,
-                lensData.refractiveIndex.indexX,
-                lensData.refractiveIndex.label
-            ),
+            lensData = lensData,
+            refractiveIndex = lensData.refractiveIndex,
             spherePowerString = lensData.sphere?.toString().orEmpty(),
             cylinderPowerString = lensData.cylinder?.toString().orEmpty(),
             axisString = lensData.axis?.toString().orEmpty(),
@@ -176,7 +173,8 @@ class MainScreenViewModel(
     }
 
     fun onCalculateBtnClicked(
-        lensIndex: Triple<Double, Double, String>,
+        lensData: LensData,
+        refractiveIndex: RefractiveIndex,
         spherePowerString: String,
         cylinderPowerString: String,
         axisString: String,
@@ -184,7 +182,7 @@ class MainScreenViewModel(
         centerThicknessString: String,
         edgeThicknessString: String,
         diameter: Double
-    ) = viewModelScope.launch {
+    ) = launch {
 
         val axisView: String
 
@@ -238,17 +236,17 @@ class MainScreenViewModel(
         centerThickness = when {
             maybeRacalculatedSphere <= 0 && cylinderPower == 0.0 -> centerThickness
             maybeRacalculatedSphere <= 0 && cylinderPower > 0 && maybeRacalculatedSphere == 0.0 ->
-                (diameter / 2).pow(2.0) * cylinderPower / (2000 * (lensIndex.first - 1)) + edgeThickness
+                (diameter / 2).pow(2.0) * cylinderPower / (2000 * (refractiveIndex.value - 1)) + edgeThickness
 
             maybeRacalculatedSphere <= 0 && cylinderPower > 0 && maybeRacalculatedSphere + cylinderPower > 0 ->
-                (diameter / 2).pow(2.0) * (maybeRacalculatedSphere + cylinderPower) / (2000 * (lensIndex.first - 1)) + edgeThickness
+                (diameter / 2).pow(2.0) * (maybeRacalculatedSphere + cylinderPower) / (2000 * (refractiveIndex.value - 1)) + edgeThickness
 
             maybeRacalculatedSphere > 0 -> {
                 val tempValue = if (cylinderPower > 0) {
                     maybeRacalculatedSphere + cylinderPower
                 } else
                     maybeRacalculatedSphere
-                (diameter / 2).pow(2.0) * tempValue / (2000 * (lensIndex.first - 1)) + edgeThickness
+                (diameter / 2).pow(2.0) * tempValue / (2000 * (refractiveIndex.value - 1)) + edgeThickness
             }
 
             else -> centerThickness
@@ -256,7 +254,7 @@ class MainScreenViewModel(
 
         // Find D1
         val recalculatedFrontCurve = getRecalculatedFrontCurve(
-            lensIndex.first,
+            refractiveIndex.value,
             realRadiusMm
         )
 
@@ -264,7 +262,7 @@ class MainScreenViewModel(
             recalculatedFrontCurve,
             cylinderPower,
             centerThickness,
-            lensIndex,
+            refractiveIndex,
             maybeRacalculatedSphere
         )
 
@@ -280,7 +278,7 @@ class MainScreenViewModel(
             maybeRacalculatedSphere,
             recalculatedFrontCurve,
             centerThickness,
-            lensIndex
+            refractiveIndex
         )
 
         val realBackRadiusInMM = getRealBackRadiusInMM(recalculatedSphereCurve)
@@ -308,7 +306,7 @@ class MainScreenViewModel(
 
         val calculatedData = if (cylinderPower == 0.0) {
             CalculatedData(
-                refractionIndex = lensIndex.third,
+                refractionIndex = refractiveIndex,
                 spherePower = spherePowerString.toDoubleOrNull() ?: 0.0,
                 cylinderPower = null,
                 axis = null,
@@ -318,10 +316,9 @@ class MainScreenViewModel(
                 thicknessMax = null,
                 realBaseCurve = curve.toString(),
                 diameter = diameter.toString(),
-                isLensInCompareList = compareLensStorage.isInStorage(uiState.value.lensData)
+                isLensInCompareList = compareLensStorage.isInStorage(uiState.value.calculatedData)
             )
         } else {
-
             var maxEdgeThickness = 0.0
             if (maybeRacalculatedSphere <= curve && realBackRadiusInMM < 0) {
                 maxEdgeThickness = sag2Cylinder - sag1Sphere + edgeThickness
@@ -337,7 +334,7 @@ class MainScreenViewModel(
             val etOnCertainAxis = (maxEdgeThickness - edgeThickness) / 90 * axis + edgeThickness
 
             CalculatedData(
-                refractionIndex = lensIndex.third,
+                refractionIndex = refractiveIndex,
                 spherePower = spherePowerString.toDoubleOrNull() ?: 0.0,
                 cylinderPower = cylinderPowerString.toDoubleOrNull(),
                 axis = axisView,
@@ -347,13 +344,13 @@ class MainScreenViewModel(
                 thicknessMax = ((maxEdgeThickness * 1e2).toLong() / 1e2).toString(),
                 realBaseCurve = curve.toString(),
                 diameter = diameter.toString(),
-                isLensInCompareList = compareLensStorage.isInStorage(uiState.value.lensData)
+                isLensInCompareList = compareLensStorage.isInStorage(uiState.value.calculatedData)
             )
         }
         updateState {
             copy(
-                showResultDialog = calculatedData,
-                lensData = lensData?.copy(
+                calculatedData = calculatedData,
+                lensData = lensData.copy(
                     baseCurve = curve,
                     centerThickness = centerThickness,
                     diameter = diameter
@@ -389,11 +386,11 @@ class MainScreenViewModel(
         recalculatedFrontCurve: Double,
         cylinderPower: Double,
         centerThickness: Double,
-        lensIndex: Triple<Double, Double, String>,
+        lensIndex: RefractiveIndex,
         spherePower: Double
     ): Double {
-        return (cylinderPower - (recalculatedFrontCurve / (1 - centerThickness / lensIndex.first /
-                1000.0 * recalculatedFrontCurve) - spherePower)) * lensIndex.second
+        return (cylinderPower - (recalculatedFrontCurve / (1 - centerThickness / lensIndex.value /
+                1000.0 * recalculatedFrontCurve) - spherePower)) * lensIndex.indexX
     }
 
     private fun getRealCylinderBackRadiusInMM(recalculatedCylinderCurve: Double): Double =
@@ -430,10 +427,10 @@ class MainScreenViewModel(
         spherePower: Double,
         recalculatedFrontCurve: Double,
         centerThickness: Double,
-        lensIndex: Triple<Double, Double, String>
+        lensIndex: RefractiveIndex
     ): Double {
         return (spherePower - recalculatedFrontCurve /
-                (1 - centerThickness / lensIndex.first / 1000.0 * recalculatedFrontCurve)) * lensIndex.second
+                (1 - centerThickness / lensIndex.value / 1000.0 * recalculatedFrontCurve)) * lensIndex.indexX
     }
 
     private fun getRealBackRadiusInMM(recalculatedSphereCurve: Double): Double =

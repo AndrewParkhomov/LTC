@@ -10,14 +10,12 @@ import kotlin.time.Instant
 data class MainScreenUiState(
     val lensInCompareList: Int = 0,
     val lensData: LensData? = null,
-    val showResultDialog: CalculatedData? = null,
+    val calculatedData: CalculatedData? = null,
     val calculateTransposition: Instant? = null
 ) {
     companion object Companion {
         fun mock(): MainScreenUiState {
-            return MainScreenUiState(
-
-            )
+            return MainScreenUiState()
         }
     }
 }

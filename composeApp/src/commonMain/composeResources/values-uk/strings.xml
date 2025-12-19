@@ -63,8 +63,6 @@
     <string name="compare_list_max_edge_thickness">Тов. макс</string>
     <string name="compare_list_base_curve">Кривизна</string>
     <string name="compare_list_diameter">Діаметр</string>
-    <string name="compare_list_is_empty_title">Список порожній</string>
-    <string name="compare_list_is_empty_description">Ви можете додати лінзи у список порівняння після розрахунку</string>
     <string name="compare_clear_list">Очистити список</string>
 
     <string name="field_title_0">Індекс заломлення</string>

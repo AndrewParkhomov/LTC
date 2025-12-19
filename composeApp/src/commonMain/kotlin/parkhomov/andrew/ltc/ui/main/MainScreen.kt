@@ -18,7 +18,7 @@ fun MainScreen(
 ) {
     val state: MainScreenUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    state.showResultDialog?.let { data: CalculatedData ->
+    state.calculatedData?.let { data: CalculatedData ->
         ResultDialog(
             data = data,
             uiEvent = viewModel::uiEvent

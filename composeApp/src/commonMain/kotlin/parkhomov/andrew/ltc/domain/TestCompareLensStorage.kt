@@ -3,28 +3,27 @@ package parkhomov.andrew.ltc.domain
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import parkhomov.andrew.ltc.data.CalculatedData
 
-class DefaultCompareLensStorage : CompareLensStorage {
+class TestCompareLensStorage : CompareLensStorage {
 
-    private val _compareList = MutableStateFlow<Set<CalculatedData>>(mutableSetOf())
+    private val _compareList = MutableStateFlow<Set<CalculatedData>>(emptySet())
     override val compareList: StateFlow<Set<CalculatedData>> = _compareList.asStateFlow()
 
     override fun addItem(itemToAdd: CalculatedData) {
-        _compareList.update { it + itemToAdd }
+        _compareList.value += itemToAdd
     }
 
     override fun removeItem(itemToRemove: CalculatedData) {
-        _compareList.update { it - itemToRemove }
+        _compareList.value -= itemToRemove
     }
 
     override fun clearCompareList() {
-        _compareList.update { setOf() }
+        _compareList.value = emptySet()
     }
 
     override fun isInStorage(lensData: CalculatedData?): Boolean {
-        lensData ?: return false
-        return compareList.value.contains(lensData)
+        return lensData != null && _compareList.value.contains(lensData)
     }
+
 }

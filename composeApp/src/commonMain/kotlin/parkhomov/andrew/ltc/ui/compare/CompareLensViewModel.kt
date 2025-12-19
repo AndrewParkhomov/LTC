@@ -4,6 +4,7 @@ package parkhomov.andrew.ltc.ui.compare
 
 import kotlinx.coroutines.flow.collectLatest
 import parkhomov.andrew.ltc.base.AppViewModel
+import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.domain.CompareLensStorage
 import parkhomov.andrew.ltc.ui.compare.data.CompareLensScreenUiEvent
@@ -19,8 +20,8 @@ class CompareLensViewModel(
     init {
         launch {
             compareLensStorage.compareList
-                .collectLatest { compareList: Set<LensData> ->
-                    updateState { copy(compareList = compareList.sortedBy { it.refractiveIndex.value }) }
+                .collectLatest { compareList: Set<CalculatedData> ->
+                    updateState { copy(compareList = compareList.sortedBy { it.refractionIndex.value }) }
                 }
         }
     }
