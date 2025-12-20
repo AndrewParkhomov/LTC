@@ -39,10 +39,6 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.navigation.fragment)
-            implementation(libs.androidx.navigation.ui)
-            implementation(libs.androidx.preference)
-            implementation(libs.viewbinding.delegate)
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.bundles.firebase)
             implementation(libs.koin.compose)
