@@ -30,10 +30,13 @@ import parkhomov.andrew.ltc.components.LensInputField
 import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.TabDiameter
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
+import parkhomov.andrew.ltc.theme.AppTheme
+import parkhomov.andrew.ltc.theme.ThemeMode
+import parkhomov.andrew.ltc.theme.isDarkTheme
 import parkhomov.andrew.ltc.utils.toFormattedString
 import kotlin.math.ceil
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun DiameterTab(
     modifier: Modifier = Modifier,
@@ -111,10 +114,39 @@ fun DiameterTab(
                 ),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary,
+                color = if(isDarkTheme()){
+                    MaterialTheme.colorScheme.primary
+                }else{
+                    MaterialTheme.colorScheme.onPrimary
+                },
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun DiameterTabDarkPreview(){
+    AppTheme(themeMode = ThemeMode.DARK) {
+        DiameterTab(
+            modifier = Modifier,
+            diameterInputValues = SnapshotStateMap(),
+            onInfoIconClicked = {}
+        )
+    }
+}
+
+
+@Preview
+@Composable
+private fun DiameterTabLightPreview(){
+    AppTheme(themeMode = ThemeMode.LIGHT) {
+        DiameterTab(
+            modifier = Modifier,
+            diameterInputValues = SnapshotStateMap(),
+            onInfoIconClicked = {}
+        )
     }
 }
