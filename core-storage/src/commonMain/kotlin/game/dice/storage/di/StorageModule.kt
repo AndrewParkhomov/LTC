@@ -1,8 +1,8 @@
-package parkhomov.andrew.ltc.storage.di
+package game.dice.storage.di
 
-import parkhomov.andrew.ltc.storage.DataStoreProvider
-import parkhomov.andrew.ltc.storage.repository.SettingsProvider
-import parkhomov.andrew.ltc.storage.repository.SettingsProviderImpl
+import game.dice.storage.DataStoreProvider
+import game.dice.storage.repository.SettingsProvider
+import game.dice.storage.repository.SettingsProviderImpl
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module

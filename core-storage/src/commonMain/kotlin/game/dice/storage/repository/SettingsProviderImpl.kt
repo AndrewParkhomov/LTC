@@ -1,4 +1,4 @@
-package parkhomov.andrew.ltc.storage.repository
+package game.dice.storage.repository
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.MutablePreferences

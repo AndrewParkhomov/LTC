@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.googleServices) apply false
     alias(libs.plugins.firebaseCrashlytics) apply false
+    alias(libs.plugins.stability.analyzer) apply false
 }
 
 tasks.register("clean", Delete::class) {

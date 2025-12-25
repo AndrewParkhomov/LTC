@@ -1,4 +1,4 @@
-package parkhomov.andrew.ltc.storage.repository
+package game.dice.storage.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf

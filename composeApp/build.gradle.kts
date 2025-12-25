@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.googleServices)
     alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.stability.analyzer)
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -60,6 +61,7 @@ kotlin {
             implementation(libs.jetbrains.lifecycle.viewmodel.nav3)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.material.icons.extended)
+            implementation(libs.collections)
         }
 
         androidUnitTest.dependencies {
@@ -134,4 +136,9 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+}
+
+composeCompiler {
+    reportsDestination = layout.buildDirectory.dir("compose_reports")
+    metricsDestination = layout.buildDirectory.dir("compose_metrics")
 }

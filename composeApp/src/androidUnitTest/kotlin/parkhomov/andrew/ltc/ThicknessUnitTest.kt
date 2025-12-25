@@ -10,7 +10,7 @@ import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndex
 import parkhomov.andrew.ltc.domain.TestCompareLensStorage
-import parkhomov.andrew.ltc.storage.repository.TestSettingsProvider
+import game.dice.storage.repository.TestSettingsProvider
 import parkhomov.andrew.ltc.toast.TestToastProvider
 import parkhomov.andrew.ltc.ui.main.MainScreenViewModel
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent

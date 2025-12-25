@@ -24,6 +24,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
+import com.skydoves.compose.stability.runtime.TraceRecomposition
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.jetbrains.compose.resources.StringResource
@@ -34,7 +35,7 @@ import parkhomov.andrew.ltc.compositionlocal.LocalTopScreenToast
 import parkhomov.andrew.ltc.compositionlocal.getDependencies
 import parkhomov.andrew.ltc.navigation.Route
 import parkhomov.andrew.ltc.provider.ShowToast
-import parkhomov.andrew.ltc.storage.repository.SettingsProvider
+import game.dice.storage.repository.SettingsProvider
 import parkhomov.andrew.ltc.theme.AppTheme
 import parkhomov.andrew.ltc.theme.LocalThemeMode
 import parkhomov.andrew.ltc.theme.ThemeMode

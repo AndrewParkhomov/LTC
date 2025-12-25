@@ -14,8 +14,8 @@ import org.koin.core.logger.Level
 import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.ltc.di.otherModule
 import parkhomov.andrew.ltc.di.viewModelsModule
-import parkhomov.andrew.ltc.storage.di.storageModule
-import parkhomov.andrew.ltc.storage.repository.SettingsProvider
+import game.dice.storage.di.storageModule
+import game.dice.storage.repository.SettingsProvider
 import java.util.Locale
 
 

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalForeignApi::class)
 
-package parkhomov.andrew.ltc.storage
+package game.dice.storage
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

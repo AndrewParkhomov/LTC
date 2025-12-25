@@ -1,6 +1,6 @@
 @file:Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 
-package parkhomov.andrew.ltc.storage
+package game.dice.storage
 
 import android.content.Context
 import androidx.datastore.core.DataStore

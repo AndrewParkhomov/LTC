@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
 import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.compare_clear_list
 import ltc.composeapp.generated.resources.compare_list_axis
@@ -84,7 +85,7 @@ fun CompareLensUi(
 
 @Composable
 private fun CompareTable(
-    lenses: List<CalculatedData>,
+    lenses: ImmutableList<CalculatedData>,
     onClearList: () -> Unit,
     modifier: Modifier = Modifier
 ) {

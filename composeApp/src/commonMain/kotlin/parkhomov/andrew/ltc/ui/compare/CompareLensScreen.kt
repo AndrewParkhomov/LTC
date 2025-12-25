@@ -15,7 +15,7 @@ import parkhomov.andrew.ltc.ui.main.modal.ResultDialog
 @Preview
 @Composable
 fun CompareLensScreen(
-    viewModel: CompareLensViewModel = koinViewModel(),
+    viewModel: CompareLensViewModel = koinViewModel<CompareLensViewModel>(),
     closeScreen: () -> Unit = {}
 ) {
     val state: CompareLensScreenUiState by viewModel.uiState.collectAsStateWithLifecycle()
