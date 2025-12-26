@@ -1,5 +1,6 @@
 package parkhomov.andrew.ltc.data
 
+import androidx.compose.runtime.Immutable
 import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.axis_img
 import ltc.composeapp.generated.resources.cylinder_img
@@ -30,13 +31,16 @@ import ltc.composeapp.generated.resources.thickness_gauge_img
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 
+@Immutable
 sealed interface InputType {
     val titleRes: StringResource
     val descriptionRes: StringResource
     val imageRes: DrawableResource
 }
 
+@Immutable
 sealed class ValidationRule {
+    @Immutable
     data class Range(val min: Double, val max: Double) : ValidationRule()
 
     fun validate(value: String): ValidationResult {
@@ -64,20 +68,26 @@ sealed class ValidationRule {
     }
 }
 
+@Immutable
 sealed class ValidationResult {
+    @Immutable
     data object Valid : ValidationResult()
+    @Immutable
     data class Invalid(
         val message: StringResource,
         val value: String? = null
     ) : ValidationResult()
 }
 
+@Immutable
 sealed class TabThickness(
     override val titleRes: StringResource,
     override val descriptionRes: StringResource,
     override  val imageRes: DrawableResource,
     val validation: ValidationRule
 ): InputType {
+
+    @Immutable
     data object Index : TabThickness(
         titleRes = Res.string.field_title_0,
         descriptionRes = Res.string.field_desc_0,
@@ -85,6 +95,7 @@ sealed class TabThickness(
         validation = ValidationRule.Range(-40.0, 40.0)
     )
 
+    @Immutable
     data object Sphere : TabThickness(
         titleRes = Res.string.field_title_1,
         descriptionRes = Res.string.field_desc_1,
@@ -92,6 +103,7 @@ sealed class TabThickness(
         validation = ValidationRule.Range(-40.0, 40.0)
     )
 
+    @Immutable
     data object Cylinder : TabThickness(
         titleRes = Res.string.field_title_2,
         descriptionRes = Res.string.field_desc_2,
@@ -99,6 +111,7 @@ sealed class TabThickness(
         validation = ValidationRule.Range(-10.0, 10.0)
     )
 
+    @Immutable
     data object Axis : TabThickness(
         titleRes = Res.string.field_title_3,
         descriptionRes = Res.string.field_desc_3,
@@ -106,6 +119,7 @@ sealed class TabThickness(
         validation = ValidationRule.Range(0.0, 180.0)
     )
 
+    @Immutable
     data object BaseCurve : TabThickness(
         titleRes = Res.string.field_title_4,
         descriptionRes = Res.string.field_desc_4,
@@ -113,6 +127,7 @@ sealed class TabThickness(
         validation = ValidationRule.Range(0.0, 15.0)
     )
 
+    @Immutable
     data object CenterThickness : TabThickness(
         titleRes = Res.string.field_title_5,
         descriptionRes = Res.string.field_desc_5,
@@ -120,6 +135,7 @@ sealed class TabThickness(
         validation = ValidationRule.Range(0.0, 15.0)
     )
 
+    @Immutable
     data object EdgeThickness : TabThickness(
         titleRes = Res.string.field_title_6,
         descriptionRes = Res.string.field_desc_6,
@@ -127,6 +143,7 @@ sealed class TabThickness(
         validation = ValidationRule.Range(0.0, 25.0)
     )
 
+    @Immutable
     data object LensDiameter : TabThickness(
         titleRes = Res.string.field_title_7,
         descriptionRes = Res.string.field_desc_7,
@@ -134,6 +151,7 @@ sealed class TabThickness(
         validation = ValidationRule.Range(0.0, 100.0)
     )
 
+    @Immutable
     companion object Companion {
         fun getAllFields(): List<TabThickness> = listOf(
             Index,
@@ -148,26 +166,31 @@ sealed class TabThickness(
     }
 }
 
+@Immutable
 sealed class TabDiameter(
     override val titleRes: StringResource,
     override val descriptionRes: StringResource,
     override  val imageRes: DrawableResource
 ): InputType {
+    @Immutable
     data object EffectiveDiameter : TabDiameter(
         titleRes = Res.string.field_title_8,
         descriptionRes = Res.string.field_desc_8,
         imageRes = Res.drawable.ed_img
     )
+    @Immutable
     data object DistanceBetweenLenses : TabDiameter(
         titleRes = Res.string.field_title_9,
         descriptionRes = Res.string.field_desc_9,
         imageRes = Res.drawable.dbl_img
     )
+    @Immutable
     data object PupilDistance : TabDiameter(
         titleRes = Res.string.field_title_10,
         descriptionRes = Res.string.field_desc_10,
         imageRes = Res.drawable.pd_img
     )
+
 
     companion object {
         fun getAllFields(): List<TabDiameter> = listOf(

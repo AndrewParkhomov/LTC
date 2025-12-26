@@ -2,6 +2,8 @@
 
 package parkhomov.andrew.ltc.ui.main
 
+import androidx.compose.runtime.Stable
+import game.dice.storage.repository.SettingsProvider
 import kotlinx.coroutines.flow.collectLatest
 import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.tab_thickness_add_cylinder_for_transposition
@@ -10,7 +12,6 @@ import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndex
 import parkhomov.andrew.ltc.domain.CompareLensStorage
-import game.dice.storage.repository.SettingsProvider
 import parkhomov.andrew.ltc.theme.ThemeMode
 import parkhomov.andrew.ltc.toast.ToastProvider
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
@@ -34,6 +35,7 @@ import kotlin.math.sqrt
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
+@Stable
 class MainScreenViewModel(
     private val compareLensStorage: CompareLensStorage,
     private val toastProvider: ToastProvider,

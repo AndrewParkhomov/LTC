@@ -1,5 +1,8 @@
 package parkhomov.andrew.ltc.data
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 sealed class RefractiveIndex(
     val value: Double,
     val indexX: Double,

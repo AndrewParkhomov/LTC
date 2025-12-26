@@ -1,9 +1,11 @@
 package parkhomov.andrew.ltc.toast
 
+import androidx.compose.runtime.Stable
 import kotlinx.coroutines.flow.SharedFlow
 import org.jetbrains.compose.resources.StringResource
 
-interface ToastProvider {
+@Stable
+sealed interface ToastProvider {
     val toast: SharedFlow<String>
     val showTopToast: SharedFlow<StringResource>
 

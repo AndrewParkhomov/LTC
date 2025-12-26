@@ -27,7 +27,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,7 +43,7 @@ import org.jetbrains.compose.resources.stringResource
 const val TOAST_DURATION = 3500L
 
 @Composable
-fun AppToast(toastState: MutableState<ToastState>) {
+fun AppToast(toastState: State<ToastState>) {
     val isHidden = toastState.value is ToastState.Init
     if (isHidden) return
 

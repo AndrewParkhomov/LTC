@@ -2,6 +2,7 @@
 
 package parkhomov.andrew.ltc.ui.compare
 
+import androidx.compose.runtime.Stable
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.collectLatest
 import parkhomov.andrew.ltc.base.AppViewModel
@@ -11,6 +12,7 @@ import parkhomov.andrew.ltc.ui.compare.data.CompareLensScreenUiEvent
 import parkhomov.andrew.ltc.ui.compare.data.CompareLensScreenUiState
 import kotlin.time.ExperimentalTime
 
+@Stable
 class CompareLensViewModel(
     private val compareLensStorage: CompareLensStorage,
 ) : AppViewModel<CompareLensScreenUiState, CompareLensScreenUiEvent>() {

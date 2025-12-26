@@ -36,6 +36,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.immutableMapOf
+import kotlinx.collections.immutable.persistentMapOf
 import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.tab_thkns_button
 import org.jetbrains.compose.resources.stringResource
@@ -59,7 +62,7 @@ fun ThicknessTab(
     selectedRefractiveIndex: RefractiveIndex = RefractiveIndex.CR39,
     updateRefractiveIndex: (RefractiveIndex) -> Unit = {},
     thicknessInputValues: SnapshotStateMap<TabThickness, String?> = SnapshotStateMap(),
-    fieldsEnabledState: Map<TabThickness, Boolean> = mapOf(),
+    fieldsEnabledState: ImmutableMap<TabThickness, Boolean> = persistentMapOf(),
     uiEvent: (MainScreenUiEvent) -> Unit = {},
     onInfoIconClicked: (InputType) -> Unit = {}
 ) {

@@ -1,5 +1,8 @@
 package parkhomov.andrew.ltc.data
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class CalculatedData(
     val refractionIndex: RefractiveIndex,
     val spherePower: Double,

@@ -39,6 +39,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
+import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.immutableMapOf
+import kotlinx.collections.immutable.persistentMapOf
 import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.app_name
 import ltc.composeapp.generated.resources.ic_transpose
@@ -122,7 +125,7 @@ fun MainScreenUi(
         )
     }
 
-    val fieldsEnabledState: Map<TabThickness, Boolean> by rememberFieldsEnabledStateFlow(
+    val fieldsEnabledState: ImmutableMap<TabThickness, Boolean> by rememberFieldsEnabledStateFlow(
         thicknessInputValues
     )
     LaunchedEffect(fieldsEnabledState) {
@@ -300,7 +303,7 @@ private fun MainBottomBar(
 @Composable
 private fun rememberFieldsEnabledStateFlow(
     inputValues: SnapshotStateMap<TabThickness, String?>
-): State<Map<TabThickness, Boolean>> {
+): State<ImmutableMap<TabThickness, Boolean>> {
     return remember(inputValues) {
         derivedStateOf {
             val sphere = inputValues[TabThickness.Sphere]?.toDoubleOrNull()
@@ -315,7 +318,7 @@ private fun rememberFieldsEnabledStateFlow(
             val centerThicknessEnabled = effectivePower?.let { it <= 0 } ?: true
             val edgeThicknessEnabled = effectivePower?.let { it > 0 } ?: true
 
-            mapOf(
+            persistentMapOf(
                 TabThickness.Sphere to true,
                 TabThickness.Cylinder to true,
                 TabThickness.Axis to true,

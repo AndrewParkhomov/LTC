@@ -2,11 +2,14 @@
 
 package parkhomov.andrew.ltc.ui.main.data
 
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
+@Immutable
 data class MainScreenUiState(
     val lensInCompareList: Int = 0,
     val themeId: Int? = null,

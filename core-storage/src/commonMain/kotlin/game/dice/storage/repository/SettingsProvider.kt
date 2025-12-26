@@ -1,7 +1,9 @@
 package game.dice.storage.repository
 
+import androidx.compose.runtime.Stable
 import kotlinx.coroutines.flow.Flow
 
+@Stable
 interface SettingsProvider {
     suspend fun updateLanguage(value: String)
     suspend fun getLanguage(): String
