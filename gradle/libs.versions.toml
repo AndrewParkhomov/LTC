@@ -24,6 +24,7 @@ icons = "1.7.3"
 datastore = "1.2.0"
 stostability-analyzer = "0.6.6"
 collections = "0.4.0"
+ktlint = "14.0.1"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -64,3 +65,4 @@ googleServices = { id = "com.google.gms.google-services", version.ref = "google-
 firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-gradle" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 stability-analyzer = { id = "com.github.skydoves.compose.stability.analyzer", version.ref = "stostability-analyzer" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }

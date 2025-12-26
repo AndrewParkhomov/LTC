@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.stability.analyzer)
+    alias(libs.plugins.ktlint)
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -136,9 +137,4 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
-}
-
-composeCompiler {
-    reportsDestination = layout.buildDirectory.dir("compose_reports")
-    metricsDestination = layout.buildDirectory.dir("compose_metrics")
 }
