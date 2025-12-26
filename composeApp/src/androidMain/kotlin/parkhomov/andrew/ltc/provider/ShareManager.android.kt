@@ -11,13 +11,17 @@ import kotlin.getValue
 actual class ShareManager actual constructor() : KoinComponent {
     private val context: Context by inject()
 
-    actual fun shareText(text: String, title: String) {
-        val intent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, text)
-            putExtra(Intent.EXTRA_SUBJECT, title)
-        }
-        
+    actual fun shareText(
+        text: String,
+        title: String,
+    ) {
+        val intent =
+            Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, text)
+                putExtra(Intent.EXTRA_SUBJECT, title)
+            }
+
         val chooserIntent = Intent.createChooser(intent, title)
         chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(chooserIntent)
@@ -26,5 +30,5 @@ actual class ShareManager actual constructor() : KoinComponent {
 
 actual suspend fun StringResource.format(vararg args: Any): String {
     val rawString = getString(this)
-    return String.format(rawString, *args)  // Java String.format
+    return String.format(rawString, *args) // Java String.format
 }

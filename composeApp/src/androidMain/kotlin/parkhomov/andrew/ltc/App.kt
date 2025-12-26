@@ -2,6 +2,8 @@ package parkhomov.andrew.ltc
 
 import android.app.Application
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import game.dice.storage.di.storageModule
+import game.dice.storage.repository.SettingsProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -14,13 +16,9 @@ import org.koin.core.logger.Level
 import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.ltc.di.otherModule
 import parkhomov.andrew.ltc.di.viewModelsModule
-import game.dice.storage.di.storageModule
-import game.dice.storage.repository.SettingsProvider
 import java.util.Locale
 
-
 class App : Application() {
-
     private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     override fun onCreate() {
@@ -37,7 +35,8 @@ class App : Application() {
     private fun setAppLanguage() {
         val settingsProvider: SettingsProvider = get()
         applicationScope.launch {
-            settingsProvider.getLanguageFlow()
+            settingsProvider
+                .getLanguageFlow()
                 .collect(::applyLanguage)
         }
     }
@@ -52,5 +51,4 @@ class App : Application() {
         @Suppress("DEPRECATION")
         resources.updateConfiguration(config, resources.displayMetrics)
     }
-
 }
