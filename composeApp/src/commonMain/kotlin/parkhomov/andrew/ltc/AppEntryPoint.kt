@@ -25,7 +25,9 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
-import com.skydoves.compose.stability.runtime.TraceRecomposition
+import cafe.adriel.lyricist.Lyricist
+import cafe.adriel.lyricist.ProvideStrings
+import cafe.adriel.lyricist.rememberStrings
 import game.dice.storage.repository.SettingsProvider
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
@@ -37,6 +39,7 @@ import parkhomov.andrew.ltc.compositionlocal.LocalTopScreenToast
 import parkhomov.andrew.ltc.compositionlocal.getDependencies
 import parkhomov.andrew.ltc.navigation.Route
 import parkhomov.andrew.ltc.provider.ShowToast
+import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.theme.AppTheme
 import parkhomov.andrew.ltc.theme.LocalThemeMode
 import parkhomov.andrew.ltc.theme.ThemeMode
@@ -82,7 +85,10 @@ fun AppEntryPoint(
             LocalToast provides dependencies.toast,
             LocalThemeMode provides themeMode
         ) {
-            ComposeApp(themeMode = themeMode)
+            val lyricist: Lyricist<Strings> = rememberStrings()
+            ProvideStrings(lyricist) {
+                ComposeApp(themeMode = themeMode)
+            }
         }
         AppToast(toastState)
     }

@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.stability.analyzer)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.ksp)
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -63,12 +64,33 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.material.icons.extended)
             implementation(libs.collections)
+            implementation(libs.lyricist)
         }
 
         androidUnitTest.dependencies {
             implementation(libs.bundles.testing)
         }
     }
+}
+
+dependencies {
+    debugImplementation(compose.uiTooling)
+    add("kspCommonMainMetadata", libs.lyricist.processor)
+}
+
+ksp {
+    arg("lyricist.internalVisibility", "true")
+    arg("lyricist.generateStringsProperty", "true")
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
+
+kotlin.sourceSets.commonMain {
+    kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
 }
 
 android {
@@ -145,8 +167,4 @@ android {
             isIncludeAndroidResources = true
         }
     }
-}
-
-dependencies {
-    debugImplementation(compose.uiTooling)
 }

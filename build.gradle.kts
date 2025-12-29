@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.firebaseCrashlytics) apply false
     alias(libs.plugins.stability.analyzer) apply false
     alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.ksp) apply false
 }
 
 subprojects {
