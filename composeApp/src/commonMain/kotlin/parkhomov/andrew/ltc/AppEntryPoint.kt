@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,6 +40,7 @@ import parkhomov.andrew.ltc.compositionlocal.LocalTopScreenToast
 import parkhomov.andrew.ltc.compositionlocal.getDependencies
 import parkhomov.andrew.ltc.navigation.Route
 import parkhomov.andrew.ltc.provider.ShowToast
+import parkhomov.andrew.ltc.strings.Locales
 import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.theme.AppTheme
 import parkhomov.andrew.ltc.theme.LocalThemeMode
@@ -76,6 +78,8 @@ fun AppEntryPoint(
             themeMode = themeId.toAppTheme()
         }
     }
+    val currentLanguage: String by settingsProvider.getLanguageFlow()
+        .collectAsState(initial = Locales.EN)
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -85,10 +89,10 @@ fun AppEntryPoint(
             LocalToast provides dependencies.toast,
             LocalThemeMode provides themeMode
         ) {
-            val lyricist: Lyricist<Strings> = rememberStrings()
-            ProvideStrings(lyricist) {
-                ComposeApp(themeMode = themeMode)
-            }
+            ComposeApp(
+                themeMode = themeMode,
+                currentLanguage = currentLanguage
+            )
         }
         AppToast(toastState)
     }
@@ -96,14 +100,20 @@ fun AppEntryPoint(
 }
 
 @Composable
-private fun ComposeApp(themeMode: ThemeMode) {
+private fun ComposeApp(themeMode: ThemeMode, currentLanguage: String) {
+    val lyricist: Lyricist<Strings> = rememberStrings(
+        defaultLanguageTag = currentLanguage,
+        currentLanguageTag = currentLanguage
+    )
     AppTheme(themeMode = themeMode) {
         Scaffold(
             modifier =
                 Modifier
                     .fillMaxSize(),
         ) { _: PaddingValues ->
-            NavigationRoot(modifier = Modifier)
+            ProvideStrings(lyricist) {
+                NavigationRoot(modifier = Modifier)
+            }
         }
     }
 }

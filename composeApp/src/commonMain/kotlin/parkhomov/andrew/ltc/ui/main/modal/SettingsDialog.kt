@@ -28,8 +28,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import cafe.adriel.lyricist.Lyricist
-import cafe.adriel.lyricist.rememberStrings
 import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.language_english
 import ltc.composeapp.generated.resources.language_portuguese
@@ -39,20 +37,18 @@ import ltc.composeapp.generated.resources.theme_title
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.strings.Locales
-import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.theme.ThemeMode
 
 @Preview
 @Composable
 fun SettingsDialog(
-    currentLanguage: String = "en",
+    currentLanguage: String = Locales.EN,
     currentTheme: ThemeMode = ThemeMode.SYSTEM,
     appVersion: String = "5.0.2",
     onLanguageSelected: (String) -> Unit = {},
     onThemeSelected: (ThemeMode) -> Unit = {},
     onDismiss: () -> Unit = {}
 ) {
-    val lyricist: Lyricist<Strings> = rememberStrings()
     Dialog(onDismissRequest = onDismiss) {
         Card(
             modifier = Modifier
@@ -80,12 +76,6 @@ fun SettingsDialog(
                     }
                 }
                 Text(
-                    text = lyricist.strings.simple,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-
-                Text(
                     text = stringResource(Res.string.language_title),
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(start = 16.dp)
@@ -93,11 +83,7 @@ fun SettingsDialog(
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 LanguageSelection(
                     currentLanguage = currentLanguage,
-//                    onLanguageSelected = onLanguageSelected
-                    onLanguageSelected = {
-                        onLanguageSelected(it)
-                        lyricist.languageTag = it
-                    }
+                    onLanguageSelected = onLanguageSelected
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -129,9 +115,9 @@ private fun LanguageSelection(
     onLanguageSelected: (String) -> Unit
 ) {
     val languages = listOf(
-        Language("en", stringResource(Res.string.language_english)),
+        Language(Locales.EN, stringResource(Res.string.language_english)),
         Language("pt", stringResource(Res.string.language_portuguese)),
-        Language("uk", stringResource(Res.string.language_ukrainian))
+        Language(Locales.UK, stringResource(Res.string.language_ukrainian))
     )
 
     Column(

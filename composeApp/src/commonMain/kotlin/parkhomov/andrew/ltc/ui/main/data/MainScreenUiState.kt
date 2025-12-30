@@ -3,9 +3,9 @@
 package parkhomov.andrew.ltc.ui.main.data
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
+import parkhomov.andrew.ltc.strings.Locales
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
@@ -13,7 +13,7 @@ import kotlin.time.Instant
 data class MainScreenUiState(
     val lensInCompareList: Int = 0,
     val themeId: Int? = null,
-    val language: String = "en",
+    val language: String = Locales.EN,
     val lensData: LensData? = null,
     val calculatedData: CalculatedData? = null,
     val calculateTransposition: Instant? = null

@@ -12,7 +12,7 @@ class TestSettingsProvider : SettingsProvider {
         return ""
     }
 
-    override suspend fun getLanguageFlow(): Flow<String> {
+    override fun getLanguageFlow(): Flow<String> {
         return flowOf("")
     }
 
@@ -24,7 +24,7 @@ class TestSettingsProvider : SettingsProvider {
         return null
     }
 
-    override suspend fun getThemeFlow(): Flow<Int?> {
+    override fun getThemeFlow(): Flow<Int?> {
        return flowOf(null)
     }
 

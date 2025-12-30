@@ -26,7 +26,7 @@ class SettingsProviderImpl(
         }.first()
     }
 
-    override suspend fun getThemeFlow(): Flow<Int?> {
+    override fun getThemeFlow(): Flow<Int?> {
         return dataStore.data.map { preferences: Preferences ->
             preferences[APP_THEME]
         }
@@ -38,7 +38,7 @@ class SettingsProviderImpl(
         }
     }
 
-    override suspend fun getLanguageFlow(): Flow<String> {
+    override fun getLanguageFlow(): Flow<String> {
         return dataStore.data.map { preferences: Preferences ->
             preferences[APP_LANGUAGE] ?: DEFAULT_LANGUAGE
         }
