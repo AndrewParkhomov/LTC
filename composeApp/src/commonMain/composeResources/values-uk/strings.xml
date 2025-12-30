@@ -4,9 +4,9 @@
     <string name="app_name">LTC</string>
     <string name="app_name_full">Калькулятор товщини лінзи</string>
     <!-- Tab headers -->
-    <string name="fragment_thickness">Товщина</string>
+    <string name="tab_thickness">Товщина</string>
     <string name="fragment_compare">Порівняти</string>
-    <string name="fragment_diameter">Діаметр</string>
+    <string name="tab_diameter">Діаметр</string>
     <string name="fragment_transposition">Транспозиція</string>
     <string name="menu_item_settings">Налаштування</string>
     <!-- Thickness hints -->

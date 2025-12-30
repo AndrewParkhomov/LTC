@@ -4,9 +4,9 @@
     <string name="app_name">LTC</string>
     <string name="app_name_full">Calculadora de espessura de lente</string>
     <!-- Tab headers-->
-    <string name="fragment_thickness">Espessura</string>
+    <string name="tab_thickness">Espessura</string>
     <string name="fragment_compare">Compara</string>
-    <string name="fragment_diameter">Diâmetro</string>
+    <string name="tab_diameter">Diâmetro</string>
     <string name="fragment_transposition">Transposição</string>
     <string name="menu_item_settings">Configurações</string>
     <!-- Thickness hints -->
