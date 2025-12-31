@@ -27,8 +27,3 @@ actual class ShareManager actual constructor() : KoinComponent {
         context.startActivity(chooserIntent)
     }
 }
-
-actual suspend fun StringResource.format(vararg args: Any): String {
-    val rawString = getString(this)
-    return String.format(rawString, *args) // Java String.format
-}

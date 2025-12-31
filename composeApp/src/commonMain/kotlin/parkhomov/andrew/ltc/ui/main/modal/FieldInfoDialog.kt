@@ -18,7 +18,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import cafe.adriel.lyricist.Lyricist
 import cafe.adriel.lyricist.rememberStrings
 import org.jetbrains.compose.resources.painterResource
 import parkhomov.andrew.ltc.data.InputType
@@ -31,7 +30,7 @@ fun FieldInfoDialog(
     inputType: InputType,
     onDismiss: () -> Unit
 ) {
-    val strings: Lyricist<Strings> = rememberStrings()
+    val strings: Strings = rememberStrings().strings
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -40,7 +39,7 @@ fun FieldInfoDialog(
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = inputType.getTitle(strings.strings),
+                text = inputType.getTitle(strings),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
@@ -56,13 +55,13 @@ fun FieldInfoDialog(
             ) {
                 Image(
                     painter = painterResource(inputType.imageRes),
-                    contentDescription = inputType.getTitle(strings.strings),
+                    contentDescription = inputType.getTitle(strings),
                     modifier = Modifier.fillMaxWidth(),
                     contentScale = ContentScale.FillWidth
                 )
 
                 Text(
-                    text = inputType.getDescription(strings.strings),
+                    text = inputType.getDescription(strings),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

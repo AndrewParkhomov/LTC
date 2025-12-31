@@ -31,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import cafe.adriel.lyricist.Lyricist
 import cafe.adriel.lyricist.rememberStrings
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -50,13 +49,13 @@ fun CompareLensUi(
     uiData: CompareLensScreenUiState = CompareLensScreenUiState.mock(),
     uiEvent: (CompareLensScreenUiEvent) -> Unit = {},
 ) {
-    val strings: Lyricist<Strings> = rememberStrings()
+    val strings: Strings = rememberStrings().strings
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(strings.strings.compareListTitle) },
+                title = { Text(strings.compareListTitle) },
                 navigationIcon = {
                     IconButton(onClick = { uiEvent(CompareLensScreenUiEvent.CloseScreen) }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -79,7 +78,7 @@ private fun CompareTable(
     onClearList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val strings: Lyricist<Strings> = rememberStrings()
+    val strings: Strings = rememberStrings().strings
 
     Column(
         modifier = modifier.fillMaxSize()
@@ -98,8 +97,8 @@ private fun CompareTable(
             ) {
                 TableHeaderCell(text = "", isLabel = true)
 
-                CompareRow.entries.forEach { row ->
-                    TableLabelCell(text = row.getLabel(strings.strings))
+                CompareRow.entries.forEach { row: CompareRow ->
+                    TableLabelCell(text = row.getLabel(strings))
                 }
             }
 
@@ -122,7 +121,7 @@ private fun CompareTable(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            text = strings.strings.compareListClearButton,
+            text = strings.compareListClearButton,
             onClick = onClearList,
         )
     }

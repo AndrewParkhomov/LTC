@@ -36,7 +36,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import cafe.adriel.lyricist.Lyricist
 import cafe.adriel.lyricist.rememberStrings
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.immutableMapOf
@@ -67,7 +66,7 @@ fun ThicknessTab(
     uiEvent: (MainScreenUiEvent) -> Unit = {},
     onInfoIconClicked: (InputType) -> Unit = {}
 ) {
-    val strings: Lyricist<Strings> = rememberStrings()
+    val strings: Strings = rememberStrings().strings
     val validationErrors = remember { mutableStateMapOf<TabThickness, ValidationResult.Invalid?>() }
 
     Column(
@@ -115,7 +114,7 @@ fun ThicknessTab(
         AppOutlineButton(
             modifier = Modifier
                 .fillMaxWidth(),
-            text = strings.strings.thicknessCalculateButton,
+            text = strings.thicknessCalculateButton,
             onClick = {
                 val lensData: LensData =
                     LensData.getLensData(selectedRefractiveIndex, thicknessInputValues)
@@ -133,7 +132,7 @@ private fun RefractiveIndexDropdown(
     field: TabThickness,
     onInfoIconClicked: () -> Unit,
 ) {
-    val strings: Lyricist<Strings> = rememberStrings()
+    val strings: Strings = rememberStrings().strings
     var expanded by remember { mutableStateOf(false) }
     val indices = remember { RefractiveIndex.getAllIndices() }
 
@@ -146,7 +145,7 @@ private fun RefractiveIndexDropdown(
             value = selectedIndex.label,
             onValueChange = {},
             readOnly = true,
-            label = { Text(field.getTitle(strings.strings)) },
+            label = { Text(field.getTitle(strings)) },
             trailingIcon = {
                 Row(
                     modifier = Modifier.fillMaxHeight(),

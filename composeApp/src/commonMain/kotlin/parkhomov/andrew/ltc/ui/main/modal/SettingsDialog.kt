@@ -28,7 +28,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import cafe.adriel.lyricist.Lyricist
 import cafe.adriel.lyricist.rememberStrings
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.strings.Strings
@@ -45,7 +44,7 @@ fun SettingsDialog(
     onThemeSelected: (ThemeMode) -> Unit = {},
     onDismiss: () -> Unit = {}
 ) {
-    val strings: Lyricist<Strings> = rememberStrings()
+    val strings: Strings = rememberStrings().strings
 
     Dialog(onDismissRequest = onDismiss) {
         Card(
@@ -74,19 +73,19 @@ fun SettingsDialog(
                     }
                 }
                 Text(
-                    text = strings.strings.settingsLanguageTitle,
+                    text = strings.settingsLanguageTitle,
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(start = 16.dp)
                 )
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 LanguageSelection(
-                    strings = strings.strings,
+                    strings = strings,
                     currentLanguage = currentLanguage,
                     onLanguageSelected = onLanguageSelected
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = strings.strings.settingsThemeTitle,
+                    text = strings.settingsThemeTitle,
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(start = 16.dp)
                 )
@@ -151,7 +150,7 @@ private fun ThemeSelection(
     currentTheme: ThemeMode,
     onThemeSelected: (ThemeMode) -> Unit
 ) {
-    val strings: Lyricist<Strings> = rememberStrings()
+    val strings: Strings = rememberStrings().strings
 
     Column(
         modifier = Modifier
@@ -172,7 +171,7 @@ private fun ThemeSelection(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = theme.getLabel(strings.strings),
+                    text = theme.getLabel(strings),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

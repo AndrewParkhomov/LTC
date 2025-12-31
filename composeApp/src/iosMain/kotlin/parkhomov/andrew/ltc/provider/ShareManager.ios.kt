@@ -1,7 +1,5 @@
 package parkhomov.andrew.ltc.provider
 
-import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.getString
 import platform.UIKit.UIActivityViewController
 import platform.UIKit.UIApplication
 import platform.UIKit.UIWindow
@@ -41,28 +39,4 @@ actual class ShareManager {
             completion = null,
         )
     }
-}
-
-actual suspend fun StringResource.format(vararg args: Any): String {
-    val rawString = getString(this)
-
-    // Конвертуємо Java-style format в простий текст з підстановкою
-    var result =
-        rawString
-            .replace(Regex("%\\d+\\\$s"), "%s")
-            .replace(Regex("%\\d+\\\$d"), "%d")
-            .replace(Regex("%\\d+\\\$f"), "%f")
-
-    // Підставляємо аргументи по черзі
-    args.forEach { arg ->
-        result =
-            when {
-                result.contains("%s") -> result.replaceFirst("%s", arg.toString())
-                result.contains("%d") -> result.replaceFirst("%d", arg.toString())
-                result.contains("%f") -> result.replaceFirst("%f", arg.toString())
-                else -> result
-            }
-    }
-
-    return result
 }

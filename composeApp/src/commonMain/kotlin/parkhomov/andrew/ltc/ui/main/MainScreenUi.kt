@@ -39,7 +39,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
-import cafe.adriel.lyricist.Lyricist
 import cafe.adriel.lyricist.rememberStrings
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentMapOf
@@ -74,7 +73,7 @@ fun MainScreenUi(
     uiData: MainScreenUiState = MainScreenUiState.mock(),
     uiEvent: (MainScreenUiEvent) -> Unit = {},
 ) {
-    val strings: Lyricist<Strings> = rememberStrings()
+    val strings: Strings = rememberStrings().strings
     val isKeyboardVisible: Boolean by keyboardAsState()
     var selectedTab: Tab by remember { mutableStateOf(Tab.Thickness) }
     var infoDialogData: InputType? by remember { mutableStateOf(null) }
@@ -206,7 +205,7 @@ fun MainScreenUi(
 
 @Composable
 private fun MainTopBar(
-    strings: Lyricist<Strings>,
+    strings: Strings,
     comparisonCount: Int,
     selectedTab: Tab,
     onCompareClick: () -> Unit,
@@ -214,7 +213,7 @@ private fun MainTopBar(
     onSettingsClick: () -> Unit
 ) {
     TopAppBar(
-        title = { Text(strings.strings.appName) },
+        title = { Text(strings.appName) },
         actions = {
             IconButton(
                 onClick = onCompareClick,
@@ -274,7 +273,7 @@ private fun MainTopBar(
 
 @Composable
 private fun MainBottomBar(
-    strings: Lyricist<Strings>,
+    strings: Strings,
     selectedTab: Tab,
     onTabSelected: (Tab) -> Unit
 ) {
@@ -288,7 +287,7 @@ private fun MainBottomBar(
                     contentDescription = null
                 )
             },
-            label = { Text(strings.strings.tabThickness) }
+            label = { Text(strings.tabThickness) }
         )
 
         NavigationBarItem(
@@ -300,7 +299,7 @@ private fun MainBottomBar(
                     contentDescription = null
                 )
             },
-            label = { Text(strings.strings.tabDiameter) }
+            label = { Text(strings.tabDiameter) }
         )
     }
 }
@@ -339,7 +338,7 @@ private fun rememberFieldsEnabledStateFlow(
 @Preview
 @Composable
 private fun MainTopBarPreview() {
-    val strings: Lyricist<Strings> = rememberStrings()
+    val strings: Strings = rememberStrings().strings
     MainTopBar(
         strings = strings,
         comparisonCount = 2,
