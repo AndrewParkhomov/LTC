@@ -7,6 +7,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -32,7 +33,6 @@ import cafe.adriel.lyricist.rememberStrings
 import game.dice.storage.repository.SettingsProvider
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
-import org.jetbrains.compose.resources.StringResource
 import org.koin.compose.koinInject
 import parkhomov.andrew.ltc.compositionlocal.LocalDependencies
 import parkhomov.andrew.ltc.compositionlocal.LocalToast
@@ -107,9 +107,8 @@ private fun ComposeApp(themeMode: ThemeMode, currentLanguage: String) {
     )
     AppTheme(themeMode = themeMode) {
         Scaffold(
-            modifier =
-                Modifier
-                    .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
+            containerColor = MaterialTheme.colorScheme.background
         ) { _: PaddingValues ->
             ProvideStrings(lyricist) {
                 NavigationRoot(modifier = Modifier)

@@ -82,7 +82,7 @@ fun AppTheme(
 ) {
     val colorScheme: ColorScheme =
         when(themeMode) {
-            ThemeMode.SYSTEM -> if(isSystemInDarkTheme()) DarkColors else LightColors
+            ThemeMode.SYSTEM -> if(isDarkTheme()) DarkColors else LightColors
             ThemeMode.LIGHT -> LightColors
             ThemeMode.DARK -> DarkColors
         }
