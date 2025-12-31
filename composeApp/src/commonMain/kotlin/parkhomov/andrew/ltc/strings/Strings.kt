@@ -1,6 +1,6 @@
 package parkhomov.andrew.ltc.strings
 
-internal data class Strings(
+data class Strings(
     // App name
     val appName: String,
     val appNameFull: String,

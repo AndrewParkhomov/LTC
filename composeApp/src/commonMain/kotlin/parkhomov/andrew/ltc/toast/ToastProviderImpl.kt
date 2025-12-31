@@ -10,14 +10,14 @@ class ToastProviderImpl : ToastProvider {
     private val _toast: MutableSharedFlow<String> = MutableSharedFlow<String>()
     override val toast: SharedFlow<String> = _toast.asSharedFlow()
 
-    private val _showTopToast: MutableSharedFlow<StringResource> =
+    private val _showTopToast: MutableSharedFlow<String> =
         MutableSharedFlow(
             replay = 1,
             extraBufferCapacity = 1,
         )
-    override val showTopToast: SharedFlow<StringResource> = _showTopToast.asSharedFlow()
+    override val showTopToast: SharedFlow<String> = _showTopToast.asSharedFlow()
 
-    override suspend fun showTopMessage(message: StringResource) {
+    override suspend fun showTopMessage(message: String) {
         _showTopToast.emit(message)
     }
 

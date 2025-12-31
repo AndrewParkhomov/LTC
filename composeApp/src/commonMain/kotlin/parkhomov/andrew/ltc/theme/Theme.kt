@@ -7,11 +7,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
-import ltc.composeapp.generated.resources.Res
-import ltc.composeapp.generated.resources.theme_auto
-import ltc.composeapp.generated.resources.theme_day
-import ltc.composeapp.generated.resources.theme_night
-import org.jetbrains.compose.resources.StringResource
+import parkhomov.andrew.ltc.strings.Strings
 
 private val LightColors =
     lightColorScheme(
@@ -99,10 +95,10 @@ fun AppTheme(
 
 val LocalThemeMode = compositionLocalOf { ThemeMode.SYSTEM }
 
-enum class ThemeMode(val id: Int, val labelRes: StringResource) {
-    SYSTEM(0, Res.string.theme_auto),
-    LIGHT(1, Res.string.theme_day),
-    DARK(2, Res.string.theme_night),
+enum class ThemeMode(val id: Int, val getLabel: (Strings) -> String) {
+    SYSTEM(0, { it.settingsThemeAuto }),
+    LIGHT(1, { it.settingsThemeLight }),
+    DARK(2, { it.settingsThemeDark }),
 }
 
 fun Int?.toAppTheme(): ThemeMode {

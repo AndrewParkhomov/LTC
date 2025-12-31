@@ -20,18 +20,13 @@ fun getDependencies(toastState: MutableState<ToastState>) =
 
         override val notification: Notification =
             object : Notification {
-                override fun showPopUpMessage(data: StringResource) {
+                override fun showPopUpMessage(data: String) {
                     toastState.value = ToastState.Shown(data)
                 }
             }
 
         override val toast: Toast =
             object : Toast {
-                override fun showToast(message: StringResource) {
-                    CoroutineScope(SupervisorJob()).launch {
-                        showToast(getString(message))
-                    }
-                }
 
                 override fun showToast(message: String) {
                     toastHelper.showNativeToast(message)
@@ -40,11 +35,10 @@ fun getDependencies(toastState: MutableState<ToastState>) =
     }
 
 interface Notification {
-    fun showPopUpMessage(data: StringResource)
+    fun showPopUpMessage(data: String)
 }
 
 interface Toast {
-    fun showToast(message: StringResource)
 
     fun showToast(message: String)
 }

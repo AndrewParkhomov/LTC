@@ -21,29 +21,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cafe.adriel.lyricist.Lyricist
+import cafe.adriel.lyricist.rememberStrings
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import ltc.composeapp.generated.resources.Res
-import ltc.composeapp.generated.resources.result_add_to_list
-import ltc.composeapp.generated.resources.result_axis
-import ltc.composeapp.generated.resources.result_base_curve
-import ltc.composeapp.generated.resources.result_center_thickness
-import ltc.composeapp.generated.resources.result_cylinder_power
-import ltc.composeapp.generated.resources.result_dialog_title
-import ltc.composeapp.generated.resources.result_diameter
-import ltc.composeapp.generated.resources.result_index_of_refraction
-import ltc.composeapp.generated.resources.result_max_edge_thickness
-import ltc.composeapp.generated.resources.result_min_edge_thickness
-import ltc.composeapp.generated.resources.result_on_axis_thickness
-import ltc.composeapp.generated.resources.result_remove_from_list
-import ltc.composeapp.generated.resources.result_share
-import ltc.composeapp.generated.resources.result_sphere_power
-import ltc.composeapp.generated.resources.share_result_subject
-import ltc.composeapp.generated.resources.share_text_full
-import ltc.composeapp.generated.resources.share_text_only_sphere
-import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.provider.ShareManager
 import parkhomov.andrew.ltc.provider.createShareText
@@ -56,13 +39,15 @@ fun ResultDialog(
     data: CalculatedData = CalculatedData.mock(),
     uiEvent: (MainScreenUiEvent) -> Unit = {}
 ) {
-    val textId: StringResource = if (data.isLensInCompareList) {
-        Res.string.result_remove_from_list
+    val strings: Lyricist<Strings> = rememberStrings()
+
+    val textId: String = if (data.isLensInCompareList) {
+        strings.strings.resultRemoveFromList
     } else {
-        Res.string.result_add_to_list
+        strings.strings.resultAddToList
     }
     val onDismiss = { uiEvent(MainScreenUiEvent.HideResultDialog) }
-    val title = stringResource(Res.string.share_result_subject)
+    val title = strings.strings.shareSubject
     val scope = rememberCoroutineScope()
 
     AlertDialog(
@@ -74,21 +59,43 @@ fun ResultDialog(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = stringResource(Res.string.result_dialog_title),
+                    text = strings.strings.resultDialogTitle,
                     style = MaterialTheme.typography.headlineSmall
                 )
                 IconButton(onClick = {
                     scope.launch {
-                        val appName = "Lens Thickness Calculator" // або stringResource
+                        val appName = strings.strings.appName
                         val appUrl =
                             "https://play.google.com/store/apps/details?id=your.package.name"
 
-                        val shareText = data.createShareText(
-                            appName = appName,
-                            appUrl = appUrl,
-                            shareTextOnlySphere = Res.string.share_text_only_sphere,
-                            shareTextFull = Res.string.share_text_full
-                        )
+                        val shareText = if (data.cylinderPower == null) {
+                            strings.strings.shareTextOnlySphere(
+                                appName,
+                                strings.strings.appNameFull,
+                                data.refractionIndex.value.toString(),
+                                data.spherePower.toFormattedString(2),
+                                data.thicknessCenter,
+                                data.thicknessEdge,
+                                data.realBaseCurve,
+                                data.diameter
+                            )
+                        } else {
+                            strings.strings.shareTextFull(
+                                appName,
+                                strings.strings.appNameFull,
+                                data.refractionIndex.value.toString(),
+                                data.spherePower.toFormattedString(2),
+                                data.cylinderPower?.toFormattedString(2) ?: "",
+                                data.axis ?: "",
+                                data.axis ?: "",
+                                data.thicknessOnAxis ?: "",
+                                data.thicknessCenter,
+                                data.thicknessEdge,
+                                data.thicknessMax ?: "",
+                                data.realBaseCurve,
+                                data.diameter
+                            )
+                        }
 
                         ShareManager().shareText(
                             text = shareText,
@@ -98,7 +105,7 @@ fun ResultDialog(
                 }) {
                     Icon(
                         imageVector = Icons.Default.Share,
-                        contentDescription = stringResource(Res.string.result_share),
+                        contentDescription = strings.strings.resultShare,
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
@@ -112,36 +119,32 @@ fun ResultDialog(
                 verticalArrangement = Arrangement.spacedBy(0.dp)
             ) {
                 ResultItem(
-                    label = stringResource(
-                        Res.string.result_index_of_refraction,
-                        data.refractionIndex
+                    label = strings.strings.resultIndexOfRefraction(
+                        data.refractionIndex.value.toString()
                     )
                 )
                 HorizontalDivider()
                 ResultItem(
-                    label = stringResource(
-                        Res.string.result_sphere_power,
+                    label = strings.strings.resultSpherePower(
                         data.spherePower.toFormattedString(2)
                     )
                 )
                 data.cylinderPower?.let { cylinder: Double ->
                     HorizontalDivider()
                     ResultItem(
-                        label = stringResource(
-                            Res.string.result_cylinder_power,
+                        label = strings.strings.resultCylinderPower(
                             cylinder.toFormattedString(2)
                         )
                     )
                 }
                 data.axis?.let { axis: String ->
                     HorizontalDivider()
-                    ResultItem(label = stringResource(Res.string.result_axis, axis))
+                    ResultItem(label = strings.strings.resultAxis(axis))
                 }
                 data.thicknessOnAxis?.let { thickness: String ->
                     HorizontalDivider()
                     ResultItem(
-                        label = stringResource(
-                            Res.string.result_on_axis_thickness,
+                        label = strings.strings.resultOnAxisThickness(
                             data.axis.orEmpty(),
                             thickness
                         )
@@ -149,25 +152,25 @@ fun ResultDialog(
                 }
                 HorizontalDivider()
                 ResultItem(
-                    label = stringResource(Res.string.result_center_thickness, data.thicknessCenter)
+                    label = strings.strings.resultCenterThickness(data.thicknessCenter)
                 )
                 HorizontalDivider()
                 ResultItem(
-                    label = stringResource(Res.string.result_min_edge_thickness, data.thicknessEdge)
+                    label = strings.strings.resultMinEdgeThickness(data.thicknessEdge)
                 )
                 data.thicknessMax?.let { thicknessMax: String ->
                     HorizontalDivider()
                     ResultItem(
-                        label = stringResource(Res.string.result_max_edge_thickness, thicknessMax)
+                        label = strings.strings.resultMaxEdgeThickness(thicknessMax)
                     )
                 }
                 HorizontalDivider()
                 ResultItem(
-                    label = stringResource(Res.string.result_base_curve, data.realBaseCurve)
+                    label = strings.strings.resultBaseCurve(data.realBaseCurve)
                 )
                 HorizontalDivider()
                 ResultItem(
-                    label = stringResource(Res.string.result_diameter, data.diameter)
+                    label = strings.strings.resultDiameter(data.diameter)
                 )
             }
         },
@@ -187,7 +190,7 @@ fun ResultDialog(
                     },
                 ) {
                     Text(
-                        text = stringResource(textId).uppercase(),
+                        text = textId.uppercase(),
                         style = MaterialTheme.typography.labelLarge
                     )
                 }
@@ -195,7 +198,7 @@ fun ResultDialog(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = onDismiss
                 ) {
-                    Text("OK")
+                    Text(strings.strings.buttonOk)
                 }
             }
         }

@@ -7,11 +7,11 @@ import org.jetbrains.compose.resources.StringResource
 @Stable
 sealed interface ToastProvider {
     val toast: SharedFlow<String>
-    val showTopToast: SharedFlow<StringResource>
+    val showTopToast: SharedFlow<String>
 
     suspend fun showClassicToast(message: StringResource)
 
     suspend fun showClassicToast(message: String)
 
-    suspend fun showTopMessage(message: StringResource)
+    suspend fun showTopMessage(message: String)
 }

@@ -39,14 +39,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
+import cafe.adriel.lyricist.Lyricist
+import cafe.adriel.lyricist.rememberStrings
 import kotlinx.collections.immutable.ImmutableMap
-import kotlinx.collections.immutable.immutableMapOf
 import kotlinx.collections.immutable.persistentMapOf
 import ltc.composeapp.generated.resources.Res
-import ltc.composeapp.generated.resources.app_name
 import ltc.composeapp.generated.resources.ic_transpose
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.components.Transpose
 import parkhomov.andrew.ltc.components.modifiers.dismissKeyboardOnTap
@@ -58,6 +57,7 @@ import parkhomov.andrew.ltc.data.TabDiameter
 import parkhomov.andrew.ltc.data.TabThickness
 import parkhomov.andrew.ltc.provider.getVersionName
 import parkhomov.andrew.ltc.provider.keyboardAsState
+import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.theme.ThemeMode
 import parkhomov.andrew.ltc.theme.toAppTheme
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
@@ -74,6 +74,7 @@ fun MainScreenUi(
     uiData: MainScreenUiState = MainScreenUiState.mock(),
     uiEvent: (MainScreenUiEvent) -> Unit = {},
 ) {
+    val strings: Lyricist<Strings> = rememberStrings()
     val isKeyboardVisible: Boolean by keyboardAsState()
     var selectedTab: Tab by remember { mutableStateOf(Tab.Thickness) }
     var infoDialogData: InputType? by remember { mutableStateOf(null) }
@@ -151,6 +152,7 @@ fun MainScreenUi(
             .dismissKeyboardOnTap(),
         topBar = {
             MainTopBar(
+                strings = strings,
                 comparisonCount = uiData.lensInCompareList,
                 selectedTab = selectedTab,
                 onCompareClick = { uiEvent(MainScreenUiEvent.OnCompareClick) },
@@ -171,6 +173,7 @@ fun MainScreenUi(
                 )
             ) {
                 MainBottomBar(
+                    strings = strings,
                     selectedTab = selectedTab,
                     onTabSelected = { selectedTab = it }
                 )
@@ -203,6 +206,7 @@ fun MainScreenUi(
 
 @Composable
 private fun MainTopBar(
+    strings: Lyricist<Strings>,
     comparisonCount: Int,
     selectedTab: Tab,
     onCompareClick: () -> Unit,
@@ -210,7 +214,7 @@ private fun MainTopBar(
     onSettingsClick: () -> Unit
 ) {
     TopAppBar(
-        title = { Text(stringResource(Res.string.app_name)) },
+        title = { Text(strings.strings.appName) },
         actions = {
             IconButton(
                 onClick = onCompareClick,
@@ -270,6 +274,7 @@ private fun MainTopBar(
 
 @Composable
 private fun MainBottomBar(
+    strings: Lyricist<Strings>,
     selectedTab: Tab,
     onTabSelected: (Tab) -> Unit
 ) {
@@ -283,7 +288,7 @@ private fun MainBottomBar(
                     contentDescription = null
                 )
             },
-            label = { Text("Товщина") }
+            label = { Text(strings.strings.tabThickness) }
         )
 
         NavigationBarItem(
@@ -295,7 +300,7 @@ private fun MainBottomBar(
                     contentDescription = null
                 )
             },
-            label = { Text("Діаметр") }
+            label = { Text(strings.strings.tabDiameter) }
         )
     }
 }
@@ -334,7 +339,9 @@ private fun rememberFieldsEnabledStateFlow(
 @Preview
 @Composable
 private fun MainTopBarPreview() {
+    val strings: Lyricist<Strings> = rememberStrings()
     MainTopBar(
+        strings = strings,
         comparisonCount = 2,
         selectedTab = Tab.Thickness,
         onCompareClick = {},

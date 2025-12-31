@@ -28,14 +28,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import ltc.composeapp.generated.resources.Res
-import ltc.composeapp.generated.resources.language_english
-import ltc.composeapp.generated.resources.language_portuguese
-import ltc.composeapp.generated.resources.language_title
-import ltc.composeapp.generated.resources.language_ukrainian
-import ltc.composeapp.generated.resources.theme_title
-import org.jetbrains.compose.resources.stringResource
+import cafe.adriel.lyricist.Lyricist
+import cafe.adriel.lyricist.rememberStrings
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.strings.Locales
 import parkhomov.andrew.ltc.theme.ThemeMode
 
@@ -49,6 +45,8 @@ fun SettingsDialog(
     onThemeSelected: (ThemeMode) -> Unit = {},
     onDismiss: () -> Unit = {}
 ) {
+    val strings: Lyricist<Strings> = rememberStrings()
+
     Dialog(onDismissRequest = onDismiss) {
         Card(
             modifier = Modifier
@@ -76,18 +74,19 @@ fun SettingsDialog(
                     }
                 }
                 Text(
-                    text = stringResource(Res.string.language_title),
+                    text = strings.strings.settingsLanguageTitle,
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(start = 16.dp)
                 )
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 LanguageSelection(
+                    strings = strings.strings,
                     currentLanguage = currentLanguage,
                     onLanguageSelected = onLanguageSelected
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = stringResource(Res.string.theme_title),
+                    text = strings.strings.settingsThemeTitle,
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(start = 16.dp)
                 )
@@ -111,13 +110,14 @@ fun SettingsDialog(
 
 @Composable
 private fun LanguageSelection(
+    strings: Strings,
     currentLanguage: String,
     onLanguageSelected: (String) -> Unit
 ) {
     val languages = listOf(
-        Language(Locales.EN, stringResource(Res.string.language_english)),
-        Language("pt", stringResource(Res.string.language_portuguese)),
-        Language(Locales.UK, stringResource(Res.string.language_ukrainian))
+        Language(Locales.EN, strings.settingsLanguageEnglish),
+        Language("pt", strings.settingsLanguagePortuguese),
+        Language(Locales.UK, strings.settingsLanguageUkrainian)
     )
 
     Column(
@@ -151,12 +151,14 @@ private fun ThemeSelection(
     currentTheme: ThemeMode,
     onThemeSelected: (ThemeMode) -> Unit
 ) {
+    val strings: Lyricist<Strings> = rememberStrings()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 14.dp, vertical = 8.dp)
     ) {
-        ThemeMode.entries.forEach { theme ->
+        ThemeMode.entries.forEach { theme: ThemeMode ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -170,7 +172,7 @@ private fun ThemeSelection(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = stringResource(theme.labelRes),
+                    text = theme.getLabel(strings.strings),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

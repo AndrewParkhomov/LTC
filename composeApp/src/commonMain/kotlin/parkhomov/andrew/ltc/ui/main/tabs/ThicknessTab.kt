@@ -36,13 +36,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import cafe.adriel.lyricist.Lyricist
+import cafe.adriel.lyricist.rememberStrings
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.immutableMapOf
 import kotlinx.collections.immutable.persistentMapOf
-import ltc.composeapp.generated.resources.Res
-import ltc.composeapp.generated.resources.tab_thkns_button
-import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.components.AppOutlineButton
 import parkhomov.andrew.ltc.components.LensInputField
 import parkhomov.andrew.ltc.data.InputType
@@ -50,6 +50,7 @@ import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndex
 import parkhomov.andrew.ltc.data.TabThickness
 import parkhomov.andrew.ltc.data.ValidationResult
+import parkhomov.andrew.ltc.data.getTitle
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import kotlin.time.ExperimentalTime
@@ -66,6 +67,7 @@ fun ThicknessTab(
     uiEvent: (MainScreenUiEvent) -> Unit = {},
     onInfoIconClicked: (InputType) -> Unit = {}
 ) {
+    val strings: Lyricist<Strings> = rememberStrings()
     val validationErrors = remember { mutableStateMapOf<TabThickness, ValidationResult.Invalid?>() }
 
     Column(
@@ -113,7 +115,7 @@ fun ThicknessTab(
         AppOutlineButton(
             modifier = Modifier
                 .fillMaxWidth(),
-            text = stringResource(Res.string.tab_thkns_button),
+            text = strings.strings.thicknessCalculateButton,
             onClick = {
                 val lensData: LensData =
                     LensData.getLensData(selectedRefractiveIndex, thicknessInputValues)
@@ -131,6 +133,7 @@ private fun RefractiveIndexDropdown(
     field: TabThickness,
     onInfoIconClicked: () -> Unit,
 ) {
+    val strings: Lyricist<Strings> = rememberStrings()
     var expanded by remember { mutableStateOf(false) }
     val indices = remember { RefractiveIndex.getAllIndices() }
 
@@ -143,7 +146,7 @@ private fun RefractiveIndexDropdown(
             value = selectedIndex.label,
             onValueChange = {},
             readOnly = true,
-            label = { Text(stringResource(field.titleRes)) },
+            label = { Text(field.getTitle(strings.strings)) },
             trailingIcon = {
                 Row(
                     modifier = Modifier.fillMaxHeight(),

@@ -62,7 +62,7 @@ fun AppEntryPoint(
     val dependencies: LocalDependencies = remember { getDependencies(toastState) }
 
     LaunchedEffect(Unit) {
-        toastProvider.showTopToast.collect { stringRes: StringResource ->
+        toastProvider.showTopToast.collect { stringRes: String ->
             toastState.value = ToastState.Shown(stringRes)
         }
     }

@@ -37,8 +37,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.stringResource
 
 const val TOAST_DURATION = 3500L
 
@@ -82,7 +80,7 @@ fun AppToast(toastState: State<ToastState>) {
 }
 
 @Composable
-private fun TopMessageToast(data: StringResource) {
+private fun TopMessageToast(data: String) {
     Box(
         contentAlignment = Alignment.TopCenter,
         modifier =
@@ -115,7 +113,7 @@ private fun TopMessageToast(data: StringResource) {
                 )
                 Spacer(Modifier.width(12.dp))
                 Text(
-                    text = stringResource(data),
+                    text = data,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.inverseOnSurface,
                     fontWeight = FontWeight.Medium,

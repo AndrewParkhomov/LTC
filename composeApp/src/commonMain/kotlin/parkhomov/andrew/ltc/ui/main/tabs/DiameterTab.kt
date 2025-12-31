@@ -22,10 +22,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ltc.composeapp.generated.resources.Res
-import ltc.composeapp.generated.resources.lens_diameter_result
-import org.jetbrains.compose.resources.stringResource
+import cafe.adriel.lyricist.Lyricist
+import cafe.adriel.lyricist.rememberStrings
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.components.LensInputField
 import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.TabDiameter
@@ -43,6 +43,8 @@ fun DiameterTab(
     diameterInputValues: SnapshotStateMap<TabDiameter, String?> = SnapshotStateMap(),
     onInfoIconClicked: (InputType) -> Unit = {}
 ) {
+    val strings: Lyricist<Strings> = rememberStrings()
+
     val effectiveDiameter: String = diameterInputValues[TabDiameter.EffectiveDiameter].orEmpty()
     val distanceBetweenLenses = diameterInputValues[TabDiameter.DistanceBetweenLenses].orEmpty()
     val pupilDistance = diameterInputValues[TabDiameter.PupilDistance].orEmpty()
@@ -108,8 +110,7 @@ fun DiameterTab(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
-                text = stringResource(
-                    Res.string.lens_diameter_result,
+                text = strings.strings.diameterCalculationResult(
                     calculatedDiameter.toFormattedString(1)
                 ),
                 style = MaterialTheme.typography.headlineMedium,

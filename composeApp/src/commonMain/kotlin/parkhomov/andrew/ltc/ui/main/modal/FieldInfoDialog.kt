@@ -18,15 +18,21 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cafe.adriel.lyricist.Lyricist
+import cafe.adriel.lyricist.rememberStrings
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 import parkhomov.andrew.ltc.data.InputType
+import parkhomov.andrew.ltc.data.getDescription
+import parkhomov.andrew.ltc.data.getTitle
+import parkhomov.andrew.ltc.strings.Strings
 
 @Composable
 fun FieldInfoDialog(
     inputType: InputType,
     onDismiss: () -> Unit
 ) {
+    val strings: Lyricist<Strings> = rememberStrings()
+
     AlertDialog(
         onDismissRequest = onDismiss,
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -34,7 +40,7 @@ fun FieldInfoDialog(
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = stringResource(inputType.titleRes),
+                text = inputType.getTitle(strings.strings),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
@@ -50,13 +56,13 @@ fun FieldInfoDialog(
             ) {
                 Image(
                     painter = painterResource(inputType.imageRes),
-                    contentDescription = stringResource(inputType.titleRes),
+                    contentDescription = inputType.getTitle(strings.strings),
                     modifier = Modifier.fillMaxWidth(),
                     contentScale = ContentScale.FillWidth
                 )
 
                 Text(
-                    text = stringResource(inputType.descriptionRes),
+                    text = inputType.getDescription(strings.strings),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

@@ -31,23 +31,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cafe.adriel.lyricist.Lyricist
+import cafe.adriel.lyricist.rememberStrings
 import kotlinx.collections.immutable.ImmutableList
-import ltc.composeapp.generated.resources.Res
-import ltc.composeapp.generated.resources.compare_clear_list
-import ltc.composeapp.generated.resources.compare_list_axis
-import ltc.composeapp.generated.resources.compare_list_base_curve
-import ltc.composeapp.generated.resources.compare_list_center_thickness
-import ltc.composeapp.generated.resources.compare_list_cylinder_power
-import ltc.composeapp.generated.resources.compare_list_diameter
-import ltc.composeapp.generated.resources.compare_list_index_of_refraction
-import ltc.composeapp.generated.resources.compare_list_max_edge_thickness
-import ltc.composeapp.generated.resources.compare_list_min_edge_thickness
-import ltc.composeapp.generated.resources.compare_list_on_axis_thickness
-import ltc.composeapp.generated.resources.compare_list_sphere_power
-import ltc.composeapp.generated.resources.compare_list_title
-import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.components.AppOutlineButton
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.ui.compare.data.CompareLensScreenUiEvent
@@ -62,11 +50,13 @@ fun CompareLensUi(
     uiData: CompareLensScreenUiState = CompareLensScreenUiState.mock(),
     uiEvent: (CompareLensScreenUiEvent) -> Unit = {},
 ) {
+    val strings: Lyricist<Strings> = rememberStrings()
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(Res.string.compare_list_title)) },
+                title = { Text(strings.strings.compareListTitle) },
                 navigationIcon = {
                     IconButton(onClick = { uiEvent(CompareLensScreenUiEvent.CloseScreen) }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -89,6 +79,8 @@ private fun CompareTable(
     onClearList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val strings: Lyricist<Strings> = rememberStrings()
+
     Column(
         modifier = modifier.fillMaxSize()
     ) {
@@ -107,7 +99,7 @@ private fun CompareTable(
                 TableHeaderCell(text = "", isLabel = true)
 
                 CompareRow.entries.forEach { row ->
-                    TableLabelCell(text = stringResource(row.labelRes))
+                    TableLabelCell(text = row.getLabel(strings.strings))
                 }
             }
 
@@ -130,7 +122,7 @@ private fun CompareTable(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            text = stringResource(Res.string.compare_clear_list),
+            text = strings.strings.compareListClearButton,
             onClick = onClearList,
         )
     }
@@ -225,19 +217,32 @@ private fun TableDataCell(
     }
 }
 
-enum class CompareRow(
-    val labelRes: StringResource
-) {
-    Index(Res.string.compare_list_index_of_refraction),
-    Sphere(Res.string.compare_list_sphere_power),
-    Cylinder(Res.string.compare_list_cylinder_power),
-    Axis(Res.string.compare_list_axis),
-    AxisThickness(Res.string.compare_list_on_axis_thickness),
-    CenterThickness(Res.string.compare_list_center_thickness),
-    EdgeThicknessMin(Res.string.compare_list_min_edge_thickness),
-    EdgeThicknessMax(Res.string.compare_list_max_edge_thickness),
-    BaseCurve(Res.string.compare_list_base_curve),
-    Diameter(Res.string.compare_list_diameter);
+enum class CompareRow {
+    Index,
+    Sphere,
+    Cylinder,
+    Axis,
+    AxisThickness,
+    CenterThickness,
+    EdgeThicknessMin,
+    EdgeThicknessMax,
+    BaseCurve,
+    Diameter;
+
+    fun getLabel(strings: Strings): String {
+        return when (this) {
+            Index -> strings.compareListIndexColumn
+            Sphere -> strings.compareListSphereColumn
+            Cylinder -> strings.compareListCylinderColumn
+            Axis -> strings.compareListAxisColumn
+            AxisThickness -> strings.compareListThicknessAxisColumn
+            CenterThickness -> strings.compareListThicknessCenterColumn
+            EdgeThicknessMin -> strings.compareListThicknessMinColumn
+            EdgeThicknessMax -> strings.compareListThicknessMaxColumn
+            BaseCurve -> strings.compareListBaseCurveColumn
+            Diameter -> strings.compareListDiameterColumn
+        }
+    }
 
     fun getValue(lens: CalculatedData): String {
         return when (this) {

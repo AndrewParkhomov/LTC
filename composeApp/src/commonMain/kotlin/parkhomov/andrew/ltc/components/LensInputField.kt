@@ -21,10 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import org.jetbrains.compose.resources.stringResource
+import cafe.adriel.lyricist.Lyricist
+import cafe.adriel.lyricist.rememberStrings
 import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.ValidationResult
+import parkhomov.andrew.ltc.data.getTitle
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
+import parkhomov.andrew.ltc.strings.Strings
 
 @Composable
 fun LensInputField(
@@ -37,6 +40,7 @@ fun LensInputField(
     onValueChange: (String) -> Unit,
     onInfoClick: (InputType) -> Unit
 ) {
+    val strings: Lyricist<Strings> = rememberStrings()
     var isFocused by remember { mutableStateOf(false) }
 
     val textFieldValue = remember(value) {
@@ -51,15 +55,13 @@ fun LensInputField(
         onValueChange = { newValue: TextFieldValue ->
             onValueChange(newValue.text)
         },
-        label = { Text(stringResource(inputType.titleRes)) },
+        label = { Text(inputType.getTitle(strings.strings)) },
         enabled = enabled,
         isError = error != null,
         supportingText = error?.let {
             {
                 Text(
-                    text = it.value?.let {
-                        stringResource(error.message, error.value.orEmpty())
-                    } ?: stringResource(error.message),
+                    text = it.getMessage(strings.strings),
                     color = MaterialTheme.colorScheme.error
                 )
             }

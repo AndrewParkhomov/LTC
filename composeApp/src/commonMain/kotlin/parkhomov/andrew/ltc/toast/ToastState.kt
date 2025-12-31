@@ -3,7 +3,6 @@
 package parkhomov.andrew.ltc.toast
 
 import androidx.compose.runtime.Immutable
-import org.jetbrains.compose.resources.StringResource
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
@@ -13,7 +12,7 @@ sealed interface ToastState {
     data object Init : ToastState
     @Immutable
     data class Shown(
-        val stringRes: StringResource,
+        val stringRes: String,
         val timestamp: Long = Clock.System.now().toEpochMilliseconds(),
     ) : ToastState
 }

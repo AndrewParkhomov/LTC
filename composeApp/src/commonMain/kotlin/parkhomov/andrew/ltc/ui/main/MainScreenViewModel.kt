@@ -5,8 +5,6 @@ package parkhomov.andrew.ltc.ui.main
 import androidx.compose.runtime.Stable
 import game.dice.storage.repository.SettingsProvider
 import kotlinx.coroutines.flow.collectLatest
-import ltc.composeapp.generated.resources.Res
-import ltc.composeapp.generated.resources.tab_thickness_add_cylinder_for_transposition
 import parkhomov.andrew.ltc.base.AppViewModel
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
@@ -90,7 +88,7 @@ class MainScreenViewModel(
         val cylinderPower: Double? = lensData.cylinder
         val axisPower: Int? = lensData.axis
         if (lensData.cylinder == null) {
-            toastProvider.showTopMessage(Res.string.tab_thickness_add_cylinder_for_transposition)
+            toastProvider.showTopMessage("Add cylinder value for transposition")
             updateState {
                 copy(
                     lensData = lensData.copy(
