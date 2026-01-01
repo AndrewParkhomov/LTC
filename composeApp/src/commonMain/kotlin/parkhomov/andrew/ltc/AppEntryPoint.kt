@@ -107,7 +107,8 @@ private fun ComposeApp(themeMode: ThemeMode, currentLanguage: String) {
     )
     AppTheme(themeMode = themeMode) {
         Scaffold(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
             containerColor = MaterialTheme.colorScheme.background
         ) { _: PaddingValues ->
             ProvideStrings(lyricist) {
