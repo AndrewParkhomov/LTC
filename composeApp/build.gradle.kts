@@ -47,6 +47,10 @@ kotlin {
             implementation(libs.koin.compose)
         }
 
+        iosMain.dependencies {
+            implementation(libs.crashkios.crashlytics)
+        }
+
         commonMain.dependencies {
             api(projects.coreStorage)
             implementation(compose.runtime)
@@ -91,6 +95,10 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().con
 
 kotlin.sourceSets.commonMain {
     kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+}
+
+kotlin {
+    jvmToolchain(21)
 }
 
 android {

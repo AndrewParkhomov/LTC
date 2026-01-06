@@ -25,6 +25,7 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -39,6 +40,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import cafe.adriel.lyricist.rememberStrings
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentMapOf
@@ -58,6 +60,7 @@ import parkhomov.andrew.ltc.provider.getVersionName
 import parkhomov.andrew.ltc.provider.keyboardAsState
 import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.theme.ThemeMode
+import parkhomov.andrew.ltc.theme.isDarkTheme
 import parkhomov.andrew.ltc.theme.toAppTheme
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
@@ -277,6 +280,12 @@ private fun MainBottomBar(
     selectedTab: Tab,
     onTabSelected: (Tab) -> Unit
 ) {
+    val indicatorColor: Color = if (isDarkTheme()) {
+        MaterialTheme.colorScheme.primaryContainer
+    } else {
+        MaterialTheme.colorScheme.onPrimary
+    }
+
     NavigationBar {
         NavigationBarItem(
             selected = selectedTab == Tab.Thickness,
@@ -287,7 +296,12 @@ private fun MainBottomBar(
                     contentDescription = null
                 )
             },
-            label = { Text(strings.tabThickness) }
+            label = { Text(strings.tabThickness) },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = MaterialTheme.colorScheme.primary,
+                selectedTextColor = MaterialTheme.colorScheme.primary,
+                indicatorColor = indicatorColor
+            )
         )
 
         NavigationBarItem(
@@ -299,7 +313,12 @@ private fun MainBottomBar(
                     contentDescription = null
                 )
             },
-            label = { Text(strings.tabDiameter) }
+            label = { Text(strings.tabDiameter) },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = MaterialTheme.colorScheme.primary,
+                selectedTextColor = MaterialTheme.colorScheme.primary,
+                indicatorColor =  indicatorColor
+            )
         )
     }
 }
