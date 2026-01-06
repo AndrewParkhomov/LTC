@@ -122,4 +122,13 @@ internal val UkStrings = Strings(
     compareListDiameterColumn = "Діаметр",
     compareListEmptyDescription = "Ви можете додати лінзи у список порівняння після розрахунку",
     compareListClearButton = "Очистити список",
+
+    // Content descriptions for accessibility
+    contentDescriptionClearField = "Очистити поле вводу",
+    contentDescriptionInfo = "Показати інформацію",
+    contentDescriptionCompare = "Відкрити список порівняння",
+    contentDescriptionTranspose = "Транспонувати значення лінзи",
+    contentDescriptionSettings = "Відкрити налаштування",
+    contentDescriptionClose = "Закрити діалог",
+    contentDescriptionBack = "Повернутися назад",
 )

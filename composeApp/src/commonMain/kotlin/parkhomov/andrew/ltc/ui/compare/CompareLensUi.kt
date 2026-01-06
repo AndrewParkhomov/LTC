@@ -58,7 +58,7 @@ fun CompareLensUi(
                 title = { Text(strings.compareListTitle) },
                 navigationIcon = {
                     IconButton(onClick = { uiEvent(CompareLensScreenUiEvent.CloseScreen) }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = strings.contentDescriptionBack)
                     }
                 }
             )

@@ -68,7 +68,7 @@ fun SettingsDialog(
                     IconButton(onClick = onDismiss) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = "Close"
+                            contentDescription = strings.contentDescriptionClose
                         )
                     }
                 }

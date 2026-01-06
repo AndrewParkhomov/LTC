@@ -160,7 +160,7 @@ private fun RefractiveIndexDropdown(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Info,
-                            contentDescription = "Інформація",
+                            contentDescription = strings.contentDescriptionInfo,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }

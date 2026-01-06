@@ -122,4 +122,13 @@ internal val PtStrings = Strings(
     compareListDiameterColumn = "Diâmetro",
     compareListEmptyDescription = "Você pode adicionar lentes na lista de comparação após o cálculo",
     compareListClearButton = "Limpe a lista",
+
+    // Content descriptions for accessibility
+    contentDescriptionClearField = "Limpar campo de entrada",
+    contentDescriptionInfo = "Mostrar informações",
+    contentDescriptionCompare = "Abrir lista de comparação",
+    contentDescriptionTranspose = "Transpor valores da lente",
+    contentDescriptionSettings = "Abrir configurações",
+    contentDescriptionClose = "Fechar diálogo",
+    contentDescriptionBack = "Voltar",
 )

@@ -122,4 +122,13 @@ internal val EnStrings = Strings(
     compareListDiameterColumn = "Diameter",
     compareListEmptyDescription = "You can add lens in compare list after calculation",
     compareListClearButton = "Clear list",
+
+    // Content descriptions for accessibility
+    contentDescriptionClearField = "Clear input field",
+    contentDescriptionInfo = "Show information",
+    contentDescriptionCompare = "Open comparison list",
+    contentDescriptionTranspose = "Transpose lens values",
+    contentDescriptionSettings = "Open settings",
+    contentDescriptionClose = "Close dialog",
+    contentDescriptionBack = "Go back",
 )

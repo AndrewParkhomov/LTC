@@ -138,4 +138,13 @@ data class Strings(
     val compareListDiameterColumn: String,
     val compareListEmptyDescription: String,
     val compareListClearButton: String,
+
+    // Content descriptions for accessibility
+    val contentDescriptionClearField: String,
+    val contentDescriptionInfo: String,
+    val contentDescriptionCompare: String,
+    val contentDescriptionTranspose: String,
+    val contentDescriptionSettings: String,
+    val contentDescriptionClose: String,
+    val contentDescriptionBack: String,
 )

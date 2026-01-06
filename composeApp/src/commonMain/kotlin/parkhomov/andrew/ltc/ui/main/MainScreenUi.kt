@@ -244,7 +244,7 @@ private fun MainTopBar(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Balance,
-                        contentDescription = "Порівняти",
+                        contentDescription = strings.contentDescriptionCompare,
                         tint = if (comparisonCount >= 2)
                             LocalContentColor.current
                         else
@@ -260,14 +260,14 @@ private fun MainTopBar(
             ) {
                 Icon(
                     imageVector = Icons.Transpose,
-                    contentDescription = "Транспозиція"
+                    contentDescription = strings.contentDescriptionTranspose
                 )
             }
 
             IconButton(onClick = onSettingsClick) {
                 Icon(
                     imageVector = Icons.Default.Settings,
-                    contentDescription = "Налаштування"
+                    contentDescription = strings.contentDescriptionSettings
                 )
             }
         }

@@ -75,7 +75,7 @@ fun LensInputField(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Clear,
-                            contentDescription = "Очистити",
+                            contentDescription = strings.contentDescriptionClearField,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -84,7 +84,7 @@ fun LensInputField(
                 IconButton(onClick = { onInfoClick(inputType) }) {
                     Icon(
                         imageVector = Icons.Default.Info,
-                        contentDescription = "Інформація"
+                        contentDescription = strings.contentDescriptionInfo
                     )
                 }
             }
