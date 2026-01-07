@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    kotlin("plugin.parcelize")
     alias(libs.plugins.googleServices)
     alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.kotlinxSerialization)
@@ -48,7 +47,7 @@ kotlin {
         }
 
         iosMain.dependencies {
-            implementation(libs.crashkios.crashlytics)
+//            implementation(libs.crashkios.crashlytics)
         }
 
         commonMain.dependencies {

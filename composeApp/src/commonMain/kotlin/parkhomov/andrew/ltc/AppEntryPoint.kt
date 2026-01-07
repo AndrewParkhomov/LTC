@@ -27,7 +27,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
-import cafe.adriel.lyricist.ProvideStrings
+import cafe.adriel.lyricist.LocalStrings
 import cafe.adriel.lyricist.rememberStrings
 import game.dice.storage.repository.SettingsProvider
 import kotlinx.serialization.modules.SerializersModule
@@ -40,6 +40,7 @@ import parkhomov.andrew.ltc.compositionlocal.getDependencies
 import parkhomov.andrew.ltc.navigation.Route
 import parkhomov.andrew.ltc.provider.ShowToast
 import parkhomov.andrew.ltc.strings.Locales
+import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.theme.AppTheme
 import parkhomov.andrew.ltc.theme.LocalThemeMode
 import parkhomov.andrew.ltc.theme.ThemeMode
@@ -79,36 +80,30 @@ fun AppEntryPoint(
     val currentLanguage: String by settingsProvider.getLanguageFlow()
         .collectAsState(initial = Locales.EN)
 
+    val strings: Strings = rememberStrings(currentLanguageTag = currentLanguage).strings
+
     Box(
         modifier = Modifier.fillMaxSize(),
     ) {
         CompositionLocalProvider(
             LocalTopScreenToast provides dependencies.notification,
             LocalToast provides dependencies.toast,
-            LocalThemeMode provides themeMode
+            LocalThemeMode provides themeMode,
+            LocalStrings provides strings
         ) {
-            ProvideStrings(rememberStrings(currentLanguageTag = currentLanguage)) {
-                ComposeApp(themeMode = themeMode)
+            AppTheme(themeMode = themeMode) {
+                Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    containerColor = MaterialTheme.colorScheme.background
+                ) { _: PaddingValues ->
+                    NavigationRoot(modifier = Modifier)
+                }
             }
         }
         AppToast(toastState)
     }
-
 }
-
-@Composable
-private fun ComposeApp(themeMode: ThemeMode) {
-    AppTheme(themeMode = themeMode) {
-        Scaffold(
-            modifier = Modifier
-                .fillMaxSize(),
-            containerColor = MaterialTheme.colorScheme.background
-        ) { _: PaddingValues ->
-            NavigationRoot(modifier = Modifier)
-        }
-    }
-}
-
 
 @Composable
 private fun NavigationRoot(
