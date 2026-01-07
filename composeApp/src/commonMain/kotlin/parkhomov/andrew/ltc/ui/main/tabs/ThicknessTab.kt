@@ -36,7 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import cafe.adriel.lyricist.rememberStrings
+import cafe.adriel.lyricist.LocalStrings
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.immutableMapOf
 import kotlinx.collections.immutable.persistentMapOf
@@ -66,7 +66,7 @@ fun ThicknessTab(
     uiEvent: (MainScreenUiEvent) -> Unit = {},
     onInfoIconClicked: (InputType) -> Unit = {}
 ) {
-    val strings: Strings = rememberStrings().strings
+    val strings: Strings = LocalStrings.current
     val validationErrors = remember { mutableStateMapOf<TabThickness, ValidationResult.Invalid?>() }
 
     Column(
@@ -132,7 +132,7 @@ private fun RefractiveIndexDropdown(
     field: TabThickness,
     onInfoIconClicked: () -> Unit,
 ) {
-    val strings: Strings = rememberStrings().strings
+    val strings: Strings = LocalStrings.current
     var expanded by remember { mutableStateOf(false) }
     val indices = remember { RefractiveIndex.getAllIndices() }
 

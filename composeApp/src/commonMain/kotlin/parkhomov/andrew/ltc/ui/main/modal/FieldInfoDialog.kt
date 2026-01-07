@@ -18,7 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import cafe.adriel.lyricist.rememberStrings
+import cafe.adriel.lyricist.LocalStrings
 import org.jetbrains.compose.resources.painterResource
 import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.getDescription
@@ -30,7 +30,7 @@ fun FieldInfoDialog(
     inputType: InputType,
     onDismiss: () -> Unit
 ) {
-    val strings: Strings = rememberStrings().strings
+    val strings: Strings = LocalStrings.current
 
     AlertDialog(
         onDismissRequest = onDismiss,

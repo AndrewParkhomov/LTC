@@ -31,7 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import cafe.adriel.lyricist.rememberStrings
+import cafe.adriel.lyricist.LocalStrings
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.strings.Strings
@@ -49,7 +49,7 @@ fun CompareLensUi(
     uiData: CompareLensScreenUiState = CompareLensScreenUiState.mock(),
     uiEvent: (CompareLensScreenUiEvent) -> Unit = {},
 ) {
-    val strings: Strings = rememberStrings().strings
+    val strings: Strings = LocalStrings.current
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -78,7 +78,7 @@ private fun CompareTable(
     onClearList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val strings: Strings = rememberStrings().strings
+    val strings: Strings = LocalStrings.current
 
     Column(
         modifier = modifier.fillMaxSize()

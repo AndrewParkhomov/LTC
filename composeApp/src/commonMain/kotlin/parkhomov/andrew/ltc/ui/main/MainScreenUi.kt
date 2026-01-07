@@ -41,7 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import cafe.adriel.lyricist.rememberStrings
+import cafe.adriel.lyricist.LocalStrings
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentMapOf
 import ltc.composeapp.generated.resources.Res
@@ -76,7 +76,7 @@ fun MainScreenUi(
     uiData: MainScreenUiState = MainScreenUiState.mock(),
     uiEvent: (MainScreenUiEvent) -> Unit = {},
 ) {
-    val strings: Strings = rememberStrings().strings
+    val strings: Strings = LocalStrings.current
     val isKeyboardVisible: Boolean by keyboardAsState()
     var selectedTab: Tab by remember { mutableStateOf(Tab.Thickness) }
     var infoDialogData: InputType? by remember { mutableStateOf(null) }
@@ -357,7 +357,7 @@ private fun rememberFieldsEnabledStateFlow(
 @Preview
 @Composable
 private fun MainTopBarPreview() {
-    val strings: Strings = rememberStrings().strings
+    val strings: Strings = LocalStrings.current
     MainTopBar(
         strings = strings,
         comparisonCount = 2,

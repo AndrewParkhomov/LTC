@@ -15,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -81,11 +82,6 @@ fun AppEntryPoint(
     val currentLanguage: String by settingsProvider.getLanguageFlow()
         .collectAsState(initial = Locales.EN)
 
-    val lyricist: Lyricist<Strings> = rememberStrings(
-        defaultLanguageTag = Locales.EN,
-        currentLanguageTag = currentLanguage
-    )
-
     Box(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -94,8 +90,14 @@ fun AppEntryPoint(
             LocalToast provides dependencies.toast,
             LocalThemeMode provides themeMode
         ) {
-            ProvideStrings(lyricist) {
-                ComposeApp(themeMode = themeMode)
+            key(currentLanguage) {
+                val lyricist: Lyricist<Strings> = rememberStrings(
+                    defaultLanguageTag = Locales.EN,
+                    currentLanguageTag = currentLanguage
+                )
+                ProvideStrings(lyricist) {
+                    ComposeApp(themeMode = themeMode)
+                }
             }
         }
         AppToast(toastState)

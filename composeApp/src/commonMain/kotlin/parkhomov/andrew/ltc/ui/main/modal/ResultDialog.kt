@@ -21,7 +21,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.lyricist.rememberStrings
+import cafe.adriel.lyricist.LocalStrings
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.data.CalculatedData
@@ -36,7 +36,7 @@ fun ResultDialog(
     data: CalculatedData = CalculatedData.mock(),
     uiEvent: (MainScreenUiEvent) -> Unit = {}
 ) {
-    val strings: Strings = rememberStrings().strings
+    val strings: Strings = LocalStrings.current
 
     val textId: String = if (data.isLensInCompareList) {
         strings.resultRemoveFromList

@@ -22,7 +22,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cafe.adriel.lyricist.rememberStrings
+import cafe.adriel.lyricist.LocalStrings
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.components.LensInputField
@@ -42,7 +42,7 @@ fun DiameterTab(
     diameterInputValues: SnapshotStateMap<TabDiameter, String?> = SnapshotStateMap(),
     onInfoIconClicked: (InputType) -> Unit = {}
 ) {
-    val strings: Strings = rememberStrings().strings
+    val strings: Strings = LocalStrings.current
 
     val effectiveDiameter: String = diameterInputValues[TabDiameter.EffectiveDiameter].orEmpty()
     val distanceBetweenLenses = diameterInputValues[TabDiameter.DistanceBetweenLenses].orEmpty()

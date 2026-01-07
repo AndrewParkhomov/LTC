@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import cafe.adriel.lyricist.rememberStrings
+import cafe.adriel.lyricist.LocalStrings
 import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.ValidationResult
 import parkhomov.andrew.ltc.data.getTitle
@@ -39,7 +39,7 @@ fun LensInputField(
     onValueChange: (String) -> Unit,
     onInfoClick: (InputType) -> Unit
 ) {
-    val strings: Strings = rememberStrings().strings
+    val strings: Strings = LocalStrings.current
     var isFocused by remember { mutableStateOf(false) }
 
     val textFieldValue = remember(value) {
