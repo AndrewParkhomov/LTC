@@ -15,7 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -28,7 +27,6 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
-import cafe.adriel.lyricist.Lyricist
 import cafe.adriel.lyricist.ProvideStrings
 import cafe.adriel.lyricist.rememberStrings
 import game.dice.storage.repository.SettingsProvider
@@ -42,7 +40,6 @@ import parkhomov.andrew.ltc.compositionlocal.getDependencies
 import parkhomov.andrew.ltc.navigation.Route
 import parkhomov.andrew.ltc.provider.ShowToast
 import parkhomov.andrew.ltc.strings.Locales
-import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.theme.AppTheme
 import parkhomov.andrew.ltc.theme.LocalThemeMode
 import parkhomov.andrew.ltc.theme.ThemeMode
@@ -90,14 +87,8 @@ fun AppEntryPoint(
             LocalToast provides dependencies.toast,
             LocalThemeMode provides themeMode
         ) {
-            key(currentLanguage) {
-                val lyricist: Lyricist<Strings> = rememberStrings(
-                    defaultLanguageTag = Locales.EN,
-                    currentLanguageTag = currentLanguage
-                )
-                ProvideStrings(lyricist) {
-                    ComposeApp(themeMode = themeMode)
-                }
+            ProvideStrings(rememberStrings(currentLanguageTag = currentLanguage)) {
+                ComposeApp(themeMode = themeMode)
             }
         }
         AppToast(toastState)
