@@ -117,6 +117,7 @@ data class Strings(
     val settingsLanguageEnglish: String,
     val settingsLanguagePortuguese: String,
     val settingsLanguageUkrainian: String,
+    val settingsLanguageHindi: String,
 
     // Settings - Theme
     val settingsThemeTitle: String,

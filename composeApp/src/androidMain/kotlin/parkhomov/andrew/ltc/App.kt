@@ -12,7 +12,6 @@ import parkhomov.andrew.ltc.di.otherModule
 import parkhomov.andrew.ltc.di.viewModelsModule
 
 class App : Application() {
-
     override fun onCreate() {
         super.onCreate()
         startKoin {

@@ -6,10 +6,11 @@ import co.touchlab.crashkios.crashlytics.enableCrashlytics
 import co.touchlab.crashkios.crashlytics.setCrashlyticsUnhandledExceptionHook
 
 @Suppress("FunctionName")
-fun MainViewController() = ComposeUIViewController {
-    LaunchedEffect(Unit) {
-        enableCrashlytics()
-        setCrashlyticsUnhandledExceptionHook()
+fun MainViewController() =
+    ComposeUIViewController {
+        LaunchedEffect(Unit) {
+            enableCrashlytics()
+            setCrashlyticsUnhandledExceptionHook()
+        }
+        AppEntryPoint()
     }
-    AppEntryPoint()
-}

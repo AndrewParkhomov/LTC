@@ -2,8 +2,6 @@ package parkhomov.andrew.ltc.provider
 
 import android.content.Context
 import android.content.Intent
-import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.getString
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.getValue

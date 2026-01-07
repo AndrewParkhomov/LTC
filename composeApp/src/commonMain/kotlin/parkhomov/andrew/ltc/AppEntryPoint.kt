@@ -81,6 +81,11 @@ fun AppEntryPoint(
     val currentLanguage: String by settingsProvider.getLanguageFlow()
         .collectAsState(initial = Locales.EN)
 
+    val lyricist: Lyricist<Strings> = rememberStrings(
+        defaultLanguageTag = Locales.EN,
+        currentLanguageTag = currentLanguage
+    )
+
     Box(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -89,10 +94,9 @@ fun AppEntryPoint(
             LocalToast provides dependencies.toast,
             LocalThemeMode provides themeMode
         ) {
-            ComposeApp(
-                themeMode = themeMode,
-                currentLanguage = currentLanguage
-            )
+            ProvideStrings(lyricist) {
+                ComposeApp(themeMode = themeMode)
+            }
         }
         AppToast(toastState)
     }
@@ -100,20 +104,14 @@ fun AppEntryPoint(
 }
 
 @Composable
-private fun ComposeApp(themeMode: ThemeMode, currentLanguage: String) {
-    val lyricist: Lyricist<Strings> = rememberStrings(
-        defaultLanguageTag = currentLanguage,
-        currentLanguageTag = currentLanguage
-    )
+private fun ComposeApp(themeMode: ThemeMode) {
     AppTheme(themeMode = themeMode) {
         Scaffold(
             modifier = Modifier
                 .fillMaxSize(),
             containerColor = MaterialTheme.colorScheme.background
         ) { _: PaddingValues ->
-            ProvideStrings(lyricist) {
-                NavigationRoot(modifier = Modifier)
-            }
+            NavigationRoot(modifier = Modifier)
         }
     }
 }

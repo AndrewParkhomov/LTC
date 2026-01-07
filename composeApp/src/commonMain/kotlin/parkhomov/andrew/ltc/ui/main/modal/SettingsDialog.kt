@@ -115,8 +115,9 @@ private fun LanguageSelection(
 ) {
     val languages = listOf(
         Language(Locales.EN, strings.settingsLanguageEnglish),
-        Language("pt", strings.settingsLanguagePortuguese),
-        Language(Locales.UK, strings.settingsLanguageUkrainian)
+        Language(Locales.PT, strings.settingsLanguagePortuguese),
+        Language(Locales.UK, strings.settingsLanguageUkrainian),
+        Language(Locales.HI, strings.settingsLanguageHindi)
     )
 
     Column(

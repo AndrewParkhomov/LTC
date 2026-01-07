@@ -101,6 +101,7 @@ internal val UkStrings = Strings(
     settingsLanguageEnglish = "English",
     settingsLanguagePortuguese = "Portuguese",
     settingsLanguageUkrainian = "Українська",
+    settingsLanguageHindi = "हिन्दी",
 
     // Settings - Theme
     settingsThemeTitle = "Тема",
