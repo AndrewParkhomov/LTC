@@ -16,7 +16,8 @@ data class MainScreenUiState(
     val language: String = Locales.EN,
     val lensData: LensData? = null,
     val calculatedData: CalculatedData? = null,
-    val calculateTransposition: Instant? = null
+    val calculateTransposition: Instant? = null,
+    val showSettingsDialog: Boolean = false
 ) {
     companion object Companion {
         fun mock(): MainScreenUiState {

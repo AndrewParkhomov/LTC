@@ -80,7 +80,6 @@ fun MainScreenUi(
     val isKeyboardVisible: Boolean by keyboardAsState()
     var selectedTab: Tab by remember { mutableStateOf(Tab.Thickness) }
     var infoDialogData: InputType? by remember { mutableStateOf(null) }
-    var showSettingsDialog: Boolean by remember { mutableStateOf(false) }
 
     infoDialogData?.let { dialogData: InputType ->
         FieldInfoDialog(
@@ -89,7 +88,7 @@ fun MainScreenUi(
         )
     }
 
-    if (showSettingsDialog) {
+    if (uiData.showSettingsDialog) {
         SettingsDialog(
             currentLanguage = uiData.language,
             currentTheme = uiData.themeId.toAppTheme(),
@@ -100,7 +99,7 @@ fun MainScreenUi(
             onThemeSelected = { theme: ThemeMode ->
                 uiEvent(MainScreenUiEvent.UpdateAppTheme(theme))
             },
-            onDismiss = { showSettingsDialog = false }
+            onDismiss = { uiEvent(MainScreenUiEvent.HideSettingsDialog) }
         )
     }
 
@@ -159,7 +158,7 @@ fun MainScreenUi(
                 selectedTab = selectedTab,
                 onCompareClick = { uiEvent(MainScreenUiEvent.OnCompareClick) },
                 onTransposeClick = { uiEvent(MainScreenUiEvent.OnTranspositionIconClick) },
-                onSettingsClick = { showSettingsDialog = true }
+                onSettingsClick = { uiEvent(MainScreenUiEvent.ShowSettingsDialog) }
             )
         },
         bottomBar = {

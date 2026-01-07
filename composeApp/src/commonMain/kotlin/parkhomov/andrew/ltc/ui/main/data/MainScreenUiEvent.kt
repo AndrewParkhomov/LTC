@@ -14,4 +14,6 @@ sealed interface MainScreenUiEvent {
     data class DoTransposition(val lensData: LensData) : MainScreenUiEvent
     data class UpdateAppLanguage(val language: String): MainScreenUiEvent
     data class UpdateAppTheme(val theme: ThemeMode): MainScreenUiEvent
+    data object ShowSettingsDialog : MainScreenUiEvent
+    data object HideSettingsDialog : MainScreenUiEvent
 }

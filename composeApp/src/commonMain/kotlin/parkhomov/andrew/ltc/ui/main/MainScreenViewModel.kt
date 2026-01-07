@@ -70,6 +70,8 @@ class MainScreenViewModel(
             is MainScreenUiEvent.DoTransposition -> doTransposition(event.lensData)
             is MainScreenUiEvent.UpdateAppLanguage -> updateAppLanguage(event.language)
             is MainScreenUiEvent.UpdateAppTheme -> updateAppTheme(event.theme)
+            is MainScreenUiEvent.ShowSettingsDialog -> updateState { copy(showSettingsDialog = true) }
+            is MainScreenUiEvent.HideSettingsDialog -> updateState { copy(showSettingsDialog = false) }
         }
     }
 
