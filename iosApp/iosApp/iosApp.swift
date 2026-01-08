@@ -1,14 +1,13 @@
 import SwiftUI
 import ComposeApp
-import FirebaseCrashlytics
+import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
-        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
-        Crashlytics.crashlytics().sendUnsentReports()
+        FirebaseApp.configure()
         KoinInitializerKt.doInitKoin()
         return true
     }
