@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.stability.analyzer)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.crashlyticslink)
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -47,7 +48,7 @@ kotlin {
         }
 
         iosMain.dependencies {
-//            implementation(libs.crashkios.crashlytics)
+            implementation(libs.crashkios.crashlytics)
         }
 
         commonMain.dependencies {
