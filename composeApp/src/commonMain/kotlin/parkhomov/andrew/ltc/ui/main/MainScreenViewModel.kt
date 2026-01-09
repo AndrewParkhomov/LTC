@@ -11,6 +11,7 @@ import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndex
 import parkhomov.andrew.ltc.domain.CompareLensStorage
 import parkhomov.andrew.ltc.theme.ThemeMode
+import parkhomov.andrew.ltc.toast.ToastMessage
 import parkhomov.andrew.ltc.toast.ToastProvider
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
@@ -90,7 +91,7 @@ class MainScreenViewModel(
         val cylinderPower: Double? = lensData.cylinder
         val axisPower: Int? = lensData.axis
         if (lensData.cylinder == null) {
-            toastProvider.showTopMessage("Add cylinder value for transposition")
+            toastProvider.showTopMessage(ToastMessage.AddCylinderForTransposition)
             updateState {
                 copy(
                     lensData = lensData.copy(

@@ -46,6 +46,7 @@ import parkhomov.andrew.ltc.theme.LocalThemeMode
 import parkhomov.andrew.ltc.theme.ThemeMode
 import parkhomov.andrew.ltc.theme.toAppTheme
 import parkhomov.andrew.ltc.toast.AppToast
+import parkhomov.andrew.ltc.toast.ToastMessage
 import parkhomov.andrew.ltc.toast.ToastProvider
 import parkhomov.andrew.ltc.toast.ToastState
 import parkhomov.andrew.ltc.ui.compare.CompareLensScreen
@@ -59,28 +60,31 @@ fun AppEntryPoint(
 ) {
     val toastState: MutableState<ToastState> = remember { mutableStateOf(ToastState.Init) }
     val dependencies: LocalDependencies = remember { getDependencies(toastState) }
-
-    LaunchedEffect(Unit) {
-        toastProvider.showTopToast.collect { stringRes: String ->
-            toastState.value = ToastState.Shown(stringRes)
-        }
-    }
     val toastHelper = remember { ShowToast() }
+    var themeMode by remember { mutableStateOf(ThemeMode.SYSTEM) }
+
+    val currentLanguage: String by settingsProvider.getLanguageFlow()
+        .collectAsState(initial = Locales.EN)
+
+    val strings: Strings = rememberStrings(currentLanguageTag = currentLanguage).strings
+
     LaunchedEffect(Unit) {
         toastProvider.toast.collect { message: String ->
             toastHelper.showNativeToast(message)
         }
     }
-    var themeMode by remember { mutableStateOf(ThemeMode.SYSTEM) }
+
     LaunchedEffect(Unit) {
         settingsProvider.getThemeFlow().collect { themeId: Int? ->
             themeMode = themeId.toAppTheme()
         }
     }
-    val currentLanguage: String by settingsProvider.getLanguageFlow()
-        .collectAsState(initial = Locales.EN)
 
-    val strings: Strings = rememberStrings(currentLanguageTag = currentLanguage).strings
+    LaunchedEffect(strings) {
+        toastProvider.showTopToast.collect { message: ToastMessage ->
+            toastState.value = ToastState.Shown(message.resolve(strings))
+        }
+    }
 
     Box(
         modifier = Modifier.fillMaxSize(),
