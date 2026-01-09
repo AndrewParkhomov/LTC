@@ -23,10 +23,32 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import cafe.adriel.lyricist.LocalStrings
 import parkhomov.andrew.ltc.data.InputType
+import parkhomov.andrew.ltc.data.TabDiameter
+import parkhomov.andrew.ltc.data.TabThickness
 import parkhomov.andrew.ltc.data.ValidationResult
+import parkhomov.andrew.ltc.data.ValidationRule
 import parkhomov.andrew.ltc.data.getTitle
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
 import parkhomov.andrew.ltc.strings.Strings
+import parkhomov.andrew.ltc.utils.InputValidator
+
+private fun getValidationRule(inputType: InputType): ValidationRule.Range? {
+    return when (inputType) {
+        is TabThickness -> inputType.validation
+        is TabDiameter -> inputType.validation
+    }
+}
+
+private fun filterInputText(
+    text: String,
+    validation: ValidationRule.Range?
+): String {
+    return if (validation != null) {
+        InputValidator.filterInput(text, validation)
+    } else {
+        text
+    }
+}
 
 @Composable
 fun LensInputField(
@@ -41,6 +63,7 @@ fun LensInputField(
 ) {
     val strings: Strings = LocalStrings.current
     var isFocused by remember { mutableStateOf(false) }
+    val validation = remember(inputType) { getValidationRule(inputType) }
 
     val textFieldValue = remember(value) {
         TextFieldValue(
@@ -52,7 +75,8 @@ fun LensInputField(
     OutlinedTextField(
         value = textFieldValue,
         onValueChange = { newValue: TextFieldValue ->
-            onValueChange(newValue.text)
+            val filteredText = filterInputText(newValue.text, validation)
+            onValueChange(filteredText)
         },
         label = { Text(inputType.getTitle(strings)) },
         enabled = enabled,

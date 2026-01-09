@@ -23,7 +23,26 @@ sealed interface InputType {
 @Immutable
 sealed class ValidationRule {
     @Immutable
-    data class Range(val min: Double, val max: Double) : ValidationRule()
+    data class Range(
+        val min: Double,
+        val max: Double,
+        val decimalPlaces: Int = 2
+    ) : ValidationRule() {
+        val allowsNegative: Boolean = min < 0
+
+        val maxLength: Int by lazy {
+            val maxAbsValue = maxOf(kotlin.math.abs(min), kotlin.math.abs(max))
+            val integerDigits = maxAbsValue.toInt().toString().length
+            val signChar = if (allowsNegative) 1 else 0
+            val decimalPart = if (decimalPlaces > 0) 1 + decimalPlaces else 0
+            signChar + integerDigits + decimalPart
+        }
+
+        val allowedChars: Set<Char> by lazy {
+            val baseChars = ('0'..'9').toSet() + '.'
+            if (allowsNegative) baseChars + '-' + '+' else baseChars
+        }
+    }
 
     fun validate(value: String): ValidationResult {
         if (value.isBlank()) return ValidationResult.Valid
@@ -64,7 +83,7 @@ sealed class ValidationResult {
 @Immutable
 sealed class TabThickness(
     override val imageRes: DrawableResource,
-    val validation: ValidationRule
+    val validation: ValidationRule.Range
 ): InputType {
 
     @Immutable
@@ -132,21 +151,24 @@ sealed class TabThickness(
 
 @Immutable
 sealed class TabDiameter(
-    override val imageRes: DrawableResource
+    override val imageRes: DrawableResource,
+    val validation: ValidationRule.Range
 ): InputType {
     @Immutable
     data object EffectiveDiameter : TabDiameter(
-        imageRes = Res.drawable.ed_img
+        imageRes = Res.drawable.ed_img,
+        validation = ValidationRule.Range(min = 30.0, max = 80.0, decimalPlaces = 0)
     )
     @Immutable
     data object DistanceBetweenLenses : TabDiameter(
-        imageRes = Res.drawable.dbl_img
+        imageRes = Res.drawable.dbl_img,
+        validation = ValidationRule.Range(min = 10.0, max = 30.0, decimalPlaces = 0)
     )
     @Immutable
     data object PupilDistance : TabDiameter(
-        imageRes = Res.drawable.pd_img
+        imageRes = Res.drawable.pd_img,
+        validation = ValidationRule.Range(min = 40.0, max = 80.0, decimalPlaces = 0)
     )
-
 
     companion object {
         fun getAllFields(): List<TabDiameter> = listOf(
