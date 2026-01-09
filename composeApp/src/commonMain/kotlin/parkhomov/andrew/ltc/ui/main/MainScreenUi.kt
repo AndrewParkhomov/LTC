@@ -68,6 +68,7 @@ import parkhomov.andrew.ltc.ui.main.modal.FieldInfoDialog
 import parkhomov.andrew.ltc.ui.main.modal.SettingsDialog
 import parkhomov.andrew.ltc.ui.main.tabs.DiameterTab
 import parkhomov.andrew.ltc.ui.main.tabs.ThicknessTab
+import parkhomov.andrew.ltc.utils.toFormattedString
 import kotlin.time.ExperimentalTime
 
 @Preview
@@ -113,8 +114,8 @@ fun MainScreenUi(
             TabThickness.Cylinder to uiData.lensData?.cylinder?.toString(),
             TabThickness.Axis to uiData.lensData?.axis?.toString(),
             TabThickness.BaseCurve to uiData.lensData?.baseCurve?.toString(),
-            TabThickness.CenterThickness to uiData.lensData?.centerThickness?.toString(),
-            TabThickness.EdgeThickness to uiData.lensData?.edgeThickness?.toString(),
+            TabThickness.CenterThickness to uiData.lensData?.centerThickness?.toFormattedString(),
+            TabThickness.EdgeThickness to uiData.lensData?.edgeThickness?.toFormattedString(),
             TabThickness.LensDiameter to uiData.lensData?.diameter?.toString()
         )
     }
