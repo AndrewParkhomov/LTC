@@ -79,6 +79,7 @@ private fun CompareTable(
     modifier: Modifier = Modifier
 ) {
     val strings: Strings = LocalStrings.current
+    val verticalScrollState = rememberScrollState()
 
     Column(
         modifier = modifier.fillMaxSize()
@@ -87,12 +88,11 @@ private fun CompareTable(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .verticalScroll(rememberScrollState())
-                .horizontalScroll(rememberScrollState())
         ) {
             Column(
                 modifier = Modifier
                     .width(100.dp)
+                    .verticalScroll(verticalScrollState)
                     .background(MaterialTheme.colorScheme.surfaceVariant)
             ) {
                 TableHeaderCell(text = "", isLabel = true)
@@ -102,17 +102,24 @@ private fun CompareTable(
                 }
             }
 
-            lenses.forEach { lens: CalculatedData ->
-                Column(
-                    modifier = Modifier.width(100.dp)
-                ) {
-                    TableHeaderCell(
-                        text = lens.refractionIndex.label,
-                        isLabel = false
-                    )
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(verticalScrollState)
+                    .horizontalScroll(rememberScrollState())
+            ) {
+                lenses.forEach { lens: CalculatedData ->
+                    Column(
+                        modifier = Modifier.width(100.dp)
+                    ) {
+                        TableHeaderCell(
+                            text = lens.refractionIndex.label,
+                            isLabel = false
+                        )
 
-                    CompareRow.entries.forEach { row: CompareRow ->
-                        TableDataCell(text = row.getValue(lens))
+                        CompareRow.entries.forEach { row: CompareRow ->
+                            TableDataCell(text = row.getValue(lens))
+                        }
                     }
                 }
             }
