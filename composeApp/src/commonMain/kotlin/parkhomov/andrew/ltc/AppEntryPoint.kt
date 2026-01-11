@@ -17,7 +17,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavBackStack
@@ -61,10 +60,11 @@ fun AppEntryPoint(
     val toastState: MutableState<ToastState> = remember { mutableStateOf(ToastState.Init) }
     val dependencies: LocalDependencies = remember { getDependencies(toastState) }
     val toastHelper = remember { ShowToast() }
-    var themeMode by remember { mutableStateOf(ThemeMode.SYSTEM) }
 
     val currentLanguage: String by settingsProvider.getLanguageFlow()
         .collectAsState(initial = Locales.EN)
+    val themeId: Int? by settingsProvider.getThemeFlow()
+        .collectAsState(initial = null)
 
     val strings: Strings = rememberStrings(currentLanguageTag = currentLanguage).strings
 
@@ -74,21 +74,15 @@ fun AppEntryPoint(
         }
     }
 
-    LaunchedEffect(Unit) {
-        settingsProvider.getThemeFlow().collect { themeId: Int? ->
-            themeMode = themeId.toAppTheme()
-        }
-    }
-
     LaunchedEffect(strings) {
         toastProvider.showTopToast.collect { message: ToastMessage ->
             toastState.value = ToastState.Shown(message.resolve(strings))
         }
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize(),
-    ) {
+    val themeMode: ThemeMode = themeId?.toAppTheme() ?: return
+
+    Box(modifier = Modifier.fillMaxSize()) {
         CompositionLocalProvider(
             LocalTopScreenToast provides dependencies.notification,
             LocalToast provides dependencies.toast,
@@ -97,8 +91,7 @@ fun AppEntryPoint(
         ) {
             AppTheme(themeMode = themeMode) {
                 Scaffold(
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     containerColor = MaterialTheme.colorScheme.background
                 ) { _: PaddingValues ->
                     NavigationRoot(modifier = Modifier)

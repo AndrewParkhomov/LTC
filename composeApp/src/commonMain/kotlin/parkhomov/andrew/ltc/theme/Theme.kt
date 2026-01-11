@@ -7,6 +7,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
+import parkhomov.andrew.ltc.provider.SystemBarsAppearance
 import parkhomov.andrew.ltc.strings.Strings
 
 private val LightColors =
@@ -80,12 +81,15 @@ fun AppTheme(
     themeMode: ThemeMode,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme: ColorScheme =
-        when(themeMode) {
-            ThemeMode.SYSTEM -> if(isDarkTheme()) DarkColors else LightColors
-            ThemeMode.LIGHT -> LightColors
-            ThemeMode.DARK -> DarkColors
-        }
+    val isDark: Boolean = when(themeMode) {
+        ThemeMode.SYSTEM -> isDarkTheme()
+        ThemeMode.LIGHT -> false
+        ThemeMode.DARK -> true
+    }
+    val colorScheme: ColorScheme = if (isDark) DarkColors else LightColors
+
+    SystemBarsAppearance(isDarkTheme = isDark)
+
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
