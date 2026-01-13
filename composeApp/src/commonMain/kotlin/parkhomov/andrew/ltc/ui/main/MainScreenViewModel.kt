@@ -11,7 +11,6 @@ import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndex
 import parkhomov.andrew.ltc.domain.CompareLensStorage
 import parkhomov.andrew.ltc.theme.ThemeMode
-import parkhomov.andrew.ltc.toast.ToastMessage
 import parkhomov.andrew.ltc.toast.ToastProvider
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
@@ -90,32 +89,19 @@ class MainScreenViewModel(
         val spherePower: Double? = lensData.sphere
         val cylinderPower: Double? = lensData.cylinder
         val axisPower: Int? = lensData.axis
-        if (lensData.cylinder == null) {
-            toastProvider.showTopMessage(ToastMessage.AddCylinderForTransposition)
-            updateState {
-                copy(
-                    lensData = lensData.copy(
-                        sphere = spherePower,
-                        cylinder = null,
-                        axis = axisPower
-                    )
+        val (sphere: Double, cylinder: Double, axis: Int) = calculateTransposition(
+            spherePower = spherePower ?: 0.0,
+            cylinderPower = cylinderPower ?: 0.0,
+            axisPower = axisPower ?: 0
+        )
+        updateState {
+            copy(
+                lensData = lensData.copy(
+                    sphere = sphere,
+                    cylinder = cylinder,
+                    axis = axis
                 )
-            }
-        } else {
-            val (sphere: Double, cylinder: Double, axis: Int) = calculateTransposition(
-                spherePower = spherePower ?: 0.0,
-                cylinderPower = cylinderPower ?: 0.0,
-                axisPower = axisPower ?: 0
             )
-            updateState {
-                copy(
-                    lensData = lensData.copy(
-                        sphere = sphere,
-                        cylinder = cylinder,
-                        axis = axis
-                    )
-                )
-            }
         }
     }
 

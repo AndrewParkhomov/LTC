@@ -13,7 +13,6 @@ data class Strings(
     // Thickness tab
     val thicknessProvideCenterHint: String,
     val thicknessCalculateButton: String,
-    val thicknessAddCylinderForTransposition: String,
 
     // Validation
     val validationInvalidNumber: String,
@@ -143,6 +142,10 @@ data class Strings(
     // Info dialog - Compare
     val infoCompareTitle: String,
     val infoCompareDesc: String,
+
+    // Info dialog - Transpose
+    val infoTransposeTitle: String,
+    val infoTransposeDesc: String,
 
     // Content descriptions for accessibility
     val contentDescriptionClearField: String,

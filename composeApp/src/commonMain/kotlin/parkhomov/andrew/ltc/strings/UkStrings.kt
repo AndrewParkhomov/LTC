@@ -16,7 +16,6 @@ internal val UkStrings = Strings(
     // Thickness tab
     thicknessProvideCenterHint = "Введіть товщину по центру",
     thicknessCalculateButton = "Розрахувати",
-    thicknessAddCylinderForTransposition = "Додайте значення циліндру для траснпозиції",
 
     // Validation
     validationInvalidNumber = "Невірне число",
@@ -127,6 +126,10 @@ internal val UkStrings = Strings(
     // Info dialog - Compare
     infoCompareTitle = "Порівняння лінз",
     infoCompareDesc = "Порівняйте характеристики різних лінз поруч. Додайте лінзи у список після розрахунку, натиснувши кнопку «Додати в список порівняння» на екрані результату.",
+
+    // Info dialog - Transpose
+    infoTransposeTitle = "Транспозиція",
+    infoTransposeDesc = "Перетворює рецепт між плюсовою та мінусовою формою циліндра. Транспозиція змінює знак циліндра та відповідно коригує сферу і вісь, зберігаючи ту саму оптичну корекцію.",
 
     // Content descriptions for accessibility
     contentDescriptionClearField = "Очистити поле вводу",

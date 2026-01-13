@@ -13,7 +13,11 @@ import cafe.adriel.lyricist.LocalStrings
 import parkhomov.andrew.ltc.strings.Strings
 
 @Composable
-fun CompareInfoDialog(onDismiss: () -> Unit) {
+fun TopBarInfoDialog(
+    title: String,
+    description: String,
+    onDismiss: () -> Unit
+) {
     val strings: Strings = LocalStrings.current
 
     AlertDialog(
@@ -21,13 +25,13 @@ fun CompareInfoDialog(onDismiss: () -> Unit) {
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         title = {
             Text(
-                text = strings.infoCompareTitle,
+                text = title,
                 style = MaterialTheme.typography.headlineSmall
             )
         },
         text = {
             Text(
-                text = strings.infoCompareDesc,
+                text = description,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

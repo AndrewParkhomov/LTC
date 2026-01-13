@@ -16,7 +16,6 @@ internal val PtStrings = Strings(
     // Thickness tab
     thicknessProvideCenterHint = "Forneça a espessura do centro",
     thicknessCalculateButton = "Calcular",
-    thicknessAddCylinderForTransposition = "Adicionar valor do cilindro para transposição",
 
     // Validation
     validationInvalidNumber = "Número inválido",
@@ -127,6 +126,10 @@ internal val PtStrings = Strings(
     // Info dialog - Compare
     infoCompareTitle = "Comparar lentes",
     infoCompareDesc = "Compare as características de diferentes lentes lado a lado. Adicione lentes à lista após o cálculo tocando no botão \"Adicionar à lista de comparação\" na tela de resultado.",
+
+    // Info dialog - Transpose
+    infoTransposeTitle = "Transposição",
+    infoTransposeDesc = "Converte uma prescrição entre formas de cilindro positivo e negativo. A transposição altera o sinal do cilindro e ajusta a esfera e o eixo de acordo, mantendo a mesma correção óptica.",
 
     // Content descriptions for accessibility
     contentDescriptionClearField = "Limpar campo de entrada",

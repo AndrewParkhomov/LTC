@@ -16,7 +16,6 @@ internal val HiStrings = Strings(
     // Thickness tab
     thicknessProvideCenterHint = "कृपया केंद्र की मोटाई दें",
     thicknessCalculateButton = "गणना करें",
-    thicknessAddCylinderForTransposition = "ट्रांसपोज़िशन के लिए सिलेंडर मान जोड़ें",
 
     // Validation
     validationInvalidNumber = "अमान्य संख्या",
@@ -127,6 +126,10 @@ internal val HiStrings = Strings(
     // Info dialog - Compare
     infoCompareTitle = "लेंस की तुलना करें",
     infoCompareDesc = "विभिन्न लेंसों की विशेषताओं की एक साथ तुलना करें। परिणाम स्क्रीन पर \"तुलना सूची में जोड़ें\" बटन पर टैप करके गणना के बाद सूची में लेंस जोड़ें।",
+
+    // Info dialog - Transpose
+    infoTransposeTitle = "ट्रांसपोज़िशन",
+    infoTransposeDesc = "प्लस और माइनस सिलेंडर रूपों के बीच प्रिस्क्रिप्शन को परिवर्तित करता है। ट्रांसपोज़िशन सिलेंडर का चिह्न बदलता है और समान ऑप्टिकल सुधार बनाए रखते हुए स्फीयर और अक्ष को तदनुसार समायोजित करता है।",
 
     // Content descriptions for accessibility
     contentDescriptionClearField = "इनपुट फ़ील्ड साफ़ करें",

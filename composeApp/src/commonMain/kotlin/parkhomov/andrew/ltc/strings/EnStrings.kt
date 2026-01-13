@@ -16,7 +16,6 @@ internal val EnStrings = Strings(
     // Thickness tab
     thicknessProvideCenterHint = "Please, provide center thickness",
     thicknessCalculateButton = "Calculate",
-    thicknessAddCylinderForTransposition = "Add cylinder value for transposition",
 
     // Validation
     validationInvalidNumber = "Invalid number",
@@ -127,6 +126,10 @@ internal val EnStrings = Strings(
     // Info dialog - Compare
     infoCompareTitle = "Compare lenses",
     infoCompareDesc = "Compare characteristics of different lenses side by side. Add lenses to the list after calculation by tapping \"Add to compare list\" button on the result screen.",
+
+    // Info dialog - Transpose
+    infoTransposeTitle = "Transposition",
+    infoTransposeDesc = "Converts a prescription between plus and minus cylinder forms. Transposition changes the sign of the cylinder and adjusts the sphere and axis accordingly while maintaining the same optical correction.",
 
     // Content descriptions for accessibility
     contentDescriptionClearField = "Clear input field",

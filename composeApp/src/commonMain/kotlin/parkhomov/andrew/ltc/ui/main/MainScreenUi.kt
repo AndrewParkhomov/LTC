@@ -73,9 +73,9 @@ import parkhomov.andrew.ltc.theme.toAppTheme
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import parkhomov.andrew.ltc.ui.main.data.TopBarActions
-import parkhomov.andrew.ltc.ui.main.modal.CompareInfoDialog
 import parkhomov.andrew.ltc.ui.main.modal.FieldInfoDialog
 import parkhomov.andrew.ltc.ui.main.modal.SettingsDialog
+import parkhomov.andrew.ltc.ui.main.modal.TopBarInfoDialog
 import parkhomov.andrew.ltc.ui.main.tabs.DiameterTab
 import parkhomov.andrew.ltc.ui.main.tabs.ThicknessTab
 import parkhomov.andrew.ltc.utils.toFormattedString
@@ -91,7 +91,7 @@ fun MainScreenUi(
     val isKeyboardVisible: Boolean by keyboardAsState()
     var selectedTab: Tab by remember { mutableStateOf(Tab.Thickness) }
     var infoDialogData: InputType? by remember { mutableStateOf(null) }
-    var showCompareInfoDialog: Boolean by remember { mutableStateOf(false) }
+    var topBarInfoDialog: TopBarInfoType? by remember { mutableStateOf(null) }
 
     infoDialogData?.let { dialogData: InputType ->
         FieldInfoDialog(
@@ -100,8 +100,12 @@ fun MainScreenUi(
         )
     }
 
-    if (showCompareInfoDialog) {
-        CompareInfoDialog(onDismiss = { showCompareInfoDialog = false })
+    topBarInfoDialog?.let { infoType: TopBarInfoType ->
+        TopBarInfoDialog(
+            title = infoType.getTitle(strings),
+            description = infoType.getDescription(strings),
+            onDismiss = { topBarInfoDialog = null }
+        )
     }
 
     if (uiData.showSettingsDialog) {
@@ -168,14 +172,18 @@ fun MainScreenUi(
             .windowInsetsPadding(WindowInsets.safeDrawing)
             .dismissKeyboardOnTap(),
         topBar = {
+            val isCylinderEntered = thicknessInputValues[TabThickness.Cylinder]
+                ?.toDoubleOrNull() != null
             MainTopBar(
                 strings = strings,
                 comparisonCount = uiData.lensInCompareList,
                 selectedTab = selectedTab,
+                isCylinderEntered = isCylinderEntered,
                 topBarActions = TopBarActions(
                     onCompareClick = { uiEvent(MainScreenUiEvent.OnCompareClick) },
-                    onCompareLongClick = { showCompareInfoDialog = true },
+                    onCompareLongClick = { topBarInfoDialog = TopBarInfoType.Compare },
                     onTransposeClick = { uiEvent(MainScreenUiEvent.OnTranspositionIconClick) },
+                    onTransposeLongClick = { topBarInfoDialog = TopBarInfoType.Transpose },
                     onSettingsClick = { uiEvent(MainScreenUiEvent.ShowSettingsDialog) }
                 )
             )
@@ -229,6 +237,7 @@ private fun MainTopBar(
     strings: Strings,
     comparisonCount: Int,
     selectedTab: Tab,
+    isCylinderEntered: Boolean,
     topBarActions: TopBarActions,
 ) {
     TopAppBar(
@@ -282,13 +291,30 @@ private fun MainTopBar(
                 }
             }
 
-            IconButton(
-                onClick = topBarActions.onTransposeClick,
-                enabled = selectedTab == Tab.Thickness
+            val isTransposeEnabled = selectedTab == Tab.Thickness && isCylinderEntered
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .combinedClickable(
+                        onClick = { if (isTransposeEnabled) topBarActions.onTransposeClick() },
+                        onLongClick = topBarActions.onTransposeLongClick,
+                        role = Role.Button,
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = if (isTransposeEnabled) {
+                            ripple(bounded = false, radius = 24.dp)
+                        } else {
+                            null
+                        }
+                    ),
+                contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = Icons.Transpose,
-                    contentDescription = strings.contentDescriptionTranspose
+                    contentDescription = strings.contentDescriptionTranspose,
+                    tint = if (isTransposeEnabled)
+                        LocalContentColor.current
+                    else
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                 )
             }
 
@@ -384,6 +410,21 @@ private fun rememberFieldsEnabledStateFlow(
     }
 }
 
+private enum class TopBarInfoType {
+    Compare,
+    Transpose;
+
+    fun getTitle(strings: Strings): String = when (this) {
+        Compare -> strings.infoCompareTitle
+        Transpose -> strings.infoTransposeTitle
+    }
+
+    fun getDescription(strings: Strings): String = when (this) {
+        Compare -> strings.infoCompareDesc
+        Transpose -> strings.infoTransposeDesc
+    }
+}
+
 @Preview
 @Composable
 private fun MainTopBarPreview() {
@@ -392,10 +433,12 @@ private fun MainTopBarPreview() {
         strings = strings,
         comparisonCount = 2,
         selectedTab = Tab.Thickness,
+        isCylinderEntered = true,
         topBarActions = TopBarActions(
             onCompareClick = {},
             onCompareLongClick = {},
             onTransposeClick = {},
+            onTransposeLongClick = {},
             onSettingsClick = {}
         )
     )
