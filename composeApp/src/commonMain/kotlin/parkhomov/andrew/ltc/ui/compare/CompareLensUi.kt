@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cafe.adriel.lyricist.LocalStrings
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -163,7 +164,7 @@ private fun TableHeaderCell(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.labelLarge,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             color = if (isLabel) {
@@ -193,9 +194,11 @@ private fun TableLabelCell(
         Text(
             modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp),
             text = text,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            fontSize = 18.sp,
+            maxLines = 2
         )
     }
 }
@@ -218,8 +221,9 @@ private fun TableDataCell(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center
+            style = MaterialTheme.typography.titleSmall,
+            textAlign = TextAlign.Center,
+            fontSize = 18.sp
         )
     }
 }
