@@ -8,6 +8,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -79,7 +80,6 @@ private fun CompareTable(
     modifier: Modifier = Modifier
 ) {
     val strings: Strings = LocalStrings.current
-    val verticalScrollState = rememberScrollState()
 
     Column(
         modifier = modifier.fillMaxSize()
@@ -91,34 +91,38 @@ private fun CompareTable(
         ) {
             Column(
                 modifier = Modifier
+                    .fillMaxHeight()
                     .width(100.dp)
-                    .verticalScroll(verticalScrollState)
                     .background(MaterialTheme.colorScheme.surfaceVariant)
             ) {
-                TableHeaderCell(text = "", isLabel = true)
+                TableHeaderCell(text = "", isLabel = true, modifier = Modifier.weight(1f))
 
                 CompareRow.entries.forEach { row: CompareRow ->
-                    TableLabelCell(text = row.getLabel(strings))
+                    TableLabelCell(text = row.getLabel(strings), modifier = Modifier.weight(1f))
                 }
             }
 
             Row(
                 modifier = Modifier
+                    .fillMaxHeight()
                     .weight(1f)
-                    .verticalScroll(verticalScrollState)
+                    .background(MaterialTheme.colorScheme.surface)
                     .horizontalScroll(rememberScrollState())
             ) {
                 lenses.forEach { lens: CalculatedData ->
                     Column(
-                        modifier = Modifier.width(100.dp)
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .width(100.dp)
                     ) {
                         TableHeaderCell(
                             text = lens.refractionIndex.label,
-                            isLabel = false
+                            isLabel = false,
+                            modifier = Modifier.weight(1f)
                         )
 
                         CompareRow.entries.forEach { row: CompareRow ->
-                            TableDataCell(text = row.getValue(lens))
+                            TableDataCell(text = row.getValue(lens), modifier = Modifier.weight(1f))
                         }
                     }
                 }
@@ -143,7 +147,6 @@ private fun TableHeaderCell(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(60.dp)
             .background(
                 if (isLabel) {
                     MaterialTheme.colorScheme.surfaceVariant
@@ -180,7 +183,6 @@ private fun TableLabelCell(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(48.dp)
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .border(
                 width = 0.5.dp,
@@ -206,7 +208,6 @@ private fun TableDataCell(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(48.dp)
             .background(MaterialTheme.colorScheme.surface)
             .border(
                 width = 0.5.dp,
