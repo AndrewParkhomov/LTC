@@ -16,6 +16,7 @@ data class MainScreenUiState(
     val language: String = Locales.EN,
     val lensData: LensData? = null,
     val calculatedData: CalculatedData? = null,
+    val isLensInCompareList: Boolean = false,
     val calculateTransposition: Instant? = null,
     val showSettingsDialog: Boolean = false
 ) {

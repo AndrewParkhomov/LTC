@@ -34,11 +34,12 @@ import parkhomov.andrew.ltc.utils.toFormattedString
 @Composable
 fun ResultDialog(
     data: CalculatedData = CalculatedData.mock(),
+    isLensInCompareList: Boolean = false,
     uiEvent: (MainScreenUiEvent) -> Unit = {}
 ) {
     val strings: Strings = LocalStrings.current
 
-    val textId: String = if (data.isLensInCompareList) {
+    val textId: String = if (isLensInCompareList) {
         strings.resultRemoveFromList
     } else {
         strings.resultAddToList
@@ -179,7 +180,7 @@ fun ResultDialog(
                 TextButton(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
-                        if (data.isLensInCompareList) {
+                        if (isLensInCompareList) {
                             uiEvent(MainScreenUiEvent.OnRemoveFromCompareListClicked)
                         } else {
                             uiEvent(MainScreenUiEvent.OnAddToCompareClicked)

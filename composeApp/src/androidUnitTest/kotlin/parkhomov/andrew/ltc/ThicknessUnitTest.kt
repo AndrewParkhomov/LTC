@@ -42,7 +42,6 @@ class ThicknessUnitTest {
                     thicknessMax = null,
                     realBaseCurve = "4.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -79,7 +78,6 @@ class ThicknessUnitTest {
                     thicknessMax = "7.28",
                     realBaseCurve = "3.0",
                     diameter = "67.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -116,7 +114,6 @@ class ThicknessUnitTest {
                     thicknessMax = "1.92",
                     realBaseCurve = "6.0",
                     diameter = "60.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -153,7 +150,6 @@ class ThicknessUnitTest {
                     thicknessMax = null,
                     realBaseCurve = "2.0",
                     diameter = "65.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -190,7 +186,6 @@ class ThicknessUnitTest {
                     thicknessMax = null,
                     realBaseCurve = "0.001",
                     diameter = "65.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -227,7 +222,6 @@ class ThicknessUnitTest {
                     thicknessMax = "7.69",
                     realBaseCurve = "8.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -264,7 +258,6 @@ class ThicknessUnitTest {
                     thicknessMax = "7.69",
                     realBaseCurve = "8.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -301,7 +294,6 @@ class ThicknessUnitTest {
                     thicknessMax = "6.61",
                     realBaseCurve = "4.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -338,7 +330,6 @@ class ThicknessUnitTest {
                     thicknessMax = "6.61",
                     realBaseCurve = "4.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -375,7 +366,6 @@ class ThicknessUnitTest {
                     thicknessMax = "1.58",
                     realBaseCurve = "4.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -412,7 +402,6 @@ class ThicknessUnitTest {
                     thicknessMax = null,
                     realBaseCurve = "4.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -449,7 +438,6 @@ class ThicknessUnitTest {
                     thicknessMax = "24.87",
                     realBaseCurve = "0.001",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -486,7 +474,6 @@ class ThicknessUnitTest {
                     thicknessMax = "9.6",
                     realBaseCurve = "2.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -523,7 +510,6 @@ class ThicknessUnitTest {
                     thicknessMax = "3.15",
                     realBaseCurve = "10.5",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -560,7 +546,6 @@ class ThicknessUnitTest {
                     thicknessMax = "13.5",
                     realBaseCurve = "0.001",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -597,7 +582,6 @@ class ThicknessUnitTest {
                     thicknessMax = "3.46",
                     realBaseCurve = "7.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -634,7 +618,6 @@ class ThicknessUnitTest {
                     thicknessMax = "4.19",
                     realBaseCurve = "4.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -671,7 +654,6 @@ class ThicknessUnitTest {
                     thicknessMax = "4.37",
                     realBaseCurve = "6.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -708,7 +690,6 @@ class ThicknessUnitTest {
                     thicknessMax = "9.49",
                     realBaseCurve = "4.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =
@@ -745,7 +726,6 @@ class ThicknessUnitTest {
                     thicknessMax = "6.7",
                     realBaseCurve = "7.0",
                     diameter = "70.0",
-                    isLensInCompareList = false,
                 )
 
             val actual =

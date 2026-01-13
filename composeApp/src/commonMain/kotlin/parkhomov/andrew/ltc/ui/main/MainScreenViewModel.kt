@@ -175,9 +175,7 @@ class MainScreenViewModel(
     private fun updateResultDialogCompareButton() {
         updateState {
             copy(
-                calculatedData = uiState.value.calculatedData?.copy(
-                    isLensInCompareList = compareLensStorage.isInStorage(uiState.value.calculatedData)
-                )
+                isLensInCompareList = compareLensStorage.isInStorage(uiState.value.calculatedData)
             )
         }
     }
@@ -339,8 +337,7 @@ class MainScreenViewModel(
                 thicknessEdge = edgeString,
                 thicknessMax = null,
                 realBaseCurve = curve.toString(),
-                diameter = diameter.toString(),
-                isLensInCompareList = compareLensStorage.isInStorage(uiState.value.calculatedData)
+                diameter = diameter.toString()
             )
         } else {
             var maxEdgeThickness = 0.0
@@ -367,13 +364,13 @@ class MainScreenViewModel(
                 thicknessEdge = edgeString,
                 thicknessMax = ((maxEdgeThickness * 1e2).toLong() / 1e2).toString(),
                 realBaseCurve = curve.toString(),
-                diameter = diameter.toString(),
-                isLensInCompareList = compareLensStorage.isInStorage(uiState.value.calculatedData)
+                diameter = diameter.toString()
             )
         }
         updateState {
             copy(
                 calculatedData = calculatedData,
+                isLensInCompareList = compareLensStorage.isInStorage(calculatedData),
                 lensData = lensData.copy(
                     baseCurve = curve,
                     centerThickness = centerThickness,

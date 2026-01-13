@@ -21,6 +21,7 @@ fun MainScreen(
     state.calculatedData?.let { data: CalculatedData ->
         ResultDialog(
             data = data,
+            isLensInCompareList = state.isLensInCompareList,
             uiEvent = viewModel::uiEvent
         )
     }

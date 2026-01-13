@@ -23,8 +23,8 @@ class DefaultCompareLensStorage : CompareLensStorage {
         _compareList.update { setOf() }
     }
 
-    override fun isInStorage(lensData: CalculatedData?): Boolean {
-        lensData ?: return false
-        return compareList.value.contains(lensData)
+    override fun isInStorage(calculatedData: CalculatedData?): Boolean {
+        calculatedData ?: return false
+        return compareList.value.contains(calculatedData)
     }
 }

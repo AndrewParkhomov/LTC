@@ -22,8 +22,8 @@ class TestCompareLensStorage : CompareLensStorage {
         _compareList.value = emptySet()
     }
 
-    override fun isInStorage(lensData: CalculatedData?): Boolean {
-        return lensData != null && _compareList.value.contains(lensData)
+    override fun isInStorage(calculatedData: CalculatedData?): Boolean {
+        return calculatedData != null && compareList.value.contains(calculatedData)
     }
 
 }
