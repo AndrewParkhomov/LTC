@@ -6,7 +6,7 @@ import cafe.adriel.lyricist.LyricistStrings
 internal val UkStrings = Strings(
     // App name
     appName = "LTC",
-    appNameFull = "Калькулятор товщини лінзи",
+    appNameFull = "Товщина лінзи",
     buttonOk = "OK",
 
     // Tab headers

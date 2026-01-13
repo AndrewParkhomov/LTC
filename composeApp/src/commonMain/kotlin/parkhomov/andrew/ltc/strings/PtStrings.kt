@@ -6,7 +6,7 @@ import cafe.adriel.lyricist.LyricistStrings
 internal val PtStrings = Strings(
     // App name
     appName = "LTC",
-    appNameFull = "Calculadora de espessura de lente",
+    appNameFull = "Espessura da Lente",
     buttonOk = "OK",
 
     // Tab headers

@@ -216,7 +216,7 @@ private fun MainTopBar(
     onSettingsClick: () -> Unit
 ) {
     TopAppBar(
-        title = { Text(strings.appName) },
+        title = { Text(strings.appNameFull) },
         actions = {
             IconButton(
                 onClick = onCompareClick,
