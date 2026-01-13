@@ -95,6 +95,9 @@ internal val EnStrings = Strings(
         "Calculated via $appName\n$fullName\nIndex of refraction = $index\nSphere power = $sphere\nCylinder Power = $cylinder\nAxis = $axis°\nThickness on axis $axisValue° = $thicknessOnAxis mm\nCenter thickness = $centerThickness mm\nEdge thickness = $edgeThickness mm\nMax thickness = $maxThickness mm\nReal base curve = $baseCurve\nDiameter = $diameter mm"
     },
 
+    // Settings
+    settingsTitle = "Settings",
+
     // Settings - Language
     settingsLanguageTitle = "Language",
     settingsLanguageEnglish = "English",

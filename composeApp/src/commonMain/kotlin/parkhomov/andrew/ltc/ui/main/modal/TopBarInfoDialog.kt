@@ -1,16 +1,9 @@
 package parkhomov.andrew.ltc.ui.main.modal
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import cafe.adriel.lyricist.LocalStrings
-import parkhomov.andrew.ltc.strings.Strings
+import parkhomov.andrew.ltc.components.AppDialog
 
 @Composable
 fun TopBarInfoDialog(
@@ -18,32 +11,20 @@ fun TopBarInfoDialog(
     description: String,
     onDismiss: () -> Unit
 ) {
-    val strings: Strings = LocalStrings.current
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+    AppDialog(
+        onDismiss = onDismiss,
         title = {
             Text(
                 text = title,
                 style = MaterialTheme.typography.headlineSmall
             )
         },
-        text = {
+        content = {
             Text(
                 text = description,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurface
             )
-        },
-        confirmButton = {
-            TextButton(
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(strings.buttonOk)
-            }
-        },
-        shape = RoundedCornerShape(16.dp)
+        }
     )
 }

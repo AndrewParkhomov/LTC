@@ -1,7 +1,6 @@
 package parkhomov.andrew.ltc.ui.main.modal
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,12 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -27,9 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import cafe.adriel.lyricist.LocalStrings
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import parkhomov.andrew.ltc.components.AppDialog
 import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.strings.Locales
 import parkhomov.andrew.ltc.theme.ThemeMode
@@ -46,36 +40,23 @@ fun SettingsDialog(
 ) {
     val strings: Strings = LocalStrings.current
 
-    Dialog(onDismissRequest = onDismiss) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            shape = RoundedCornerShape(16.dp)
-        ) {
+    AppDialog(
+        onDismiss = onDismiss,
+        title = {
+            Text(
+                text = strings.settingsTitle,
+                style = MaterialTheme.typography.headlineSmall
+            )
+        },
+        content = {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState())
-                    .padding(20.dp)
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Spacer(modifier = Modifier.weight(1f))
-                    IconButton(onClick = onDismiss) {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = strings.contentDescriptionClose
-                        )
-                    }
-                }
                 Text(
                     text = strings.settingsLanguageTitle,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(start = 16.dp)
+                    style = MaterialTheme.typography.bodyLarge
                 )
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 LanguageSelection(
@@ -86,8 +67,7 @@ fun SettingsDialog(
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = strings.settingsThemeTitle,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(start = 16.dp)
+                    style = MaterialTheme.typography.bodyLarge
                 )
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 ThemeSelection(
@@ -104,7 +84,7 @@ fun SettingsDialog(
                 )
             }
         }
-    }
+    )
 }
 
 @Composable
@@ -123,7 +103,7 @@ private fun LanguageSelection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 14.dp, vertical = 8.dp)
+            .padding(vertical = 8.dp)
     ) {
         languages.forEach { language ->
             Row(
@@ -156,7 +136,7 @@ private fun ThemeSelection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 14.dp, vertical = 8.dp)
+            .padding(vertical = 8.dp)
     ) {
         ThemeMode.entries.forEach { theme: ThemeMode ->
             Row(

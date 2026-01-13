@@ -95,6 +95,9 @@ internal val HiStrings = Strings(
         "$appName के माध्यम से गणना की गई\n$fullName\nअपवर्तनांक = $index\nगोलाकार शक्ति = $sphere\nसिलेंडर शक्ति = $cylinder\nअक्ष = $axis°\nअक्ष $axisValue° पर मोटाई = $thicknessOnAxis मिमी\nकेंद्र की मोटाई = $centerThickness मिमी\nकिनारे की मोटाई = $edgeThickness मिमी\nअधिकतम मोटाई = $maxThickness मिमी\nवास्तविक आधार वक्र = $baseCurve\nव्यास = $diameter मिमी"
     },
 
+    // Settings
+    settingsTitle = "सेटिंग्स",
+
     // Settings - Language
     settingsLanguageTitle = "भाषा",
     settingsLanguageEnglish = "English",

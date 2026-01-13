@@ -111,6 +111,9 @@ data class Strings(
         diameter: String
     ) -> String,
 
+    // Settings
+    val settingsTitle: String,
+
     // Settings - Language
     val settingsLanguageTitle: String,
     val settingsLanguageEnglish: String,

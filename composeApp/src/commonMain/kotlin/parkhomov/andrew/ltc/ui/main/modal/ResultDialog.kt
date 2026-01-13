@@ -9,7 +9,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.lyricist.LocalStrings
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import parkhomov.andrew.ltc.components.AppDialog
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.provider.ShareManager
 import parkhomov.andrew.ltc.strings.Strings
@@ -48,8 +48,8 @@ fun ResultDialog(
     val title = strings.shareSubject
     val scope = rememberCoroutineScope()
 
-    AlertDialog(
-        onDismissRequest = onDismiss,
+    AppDialog(
+        onDismiss = onDismiss,
         title = {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -109,7 +109,7 @@ fun ResultDialog(
                 }
             }
         },
-        text = {
+        content = {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

@@ -95,6 +95,9 @@ internal val UkStrings = Strings(
         "Пораховано за допомогою додатку $appName\n$fullName\nІндекс заломлення = $index\nСфера = $sphere\nЦиліндр = $cylinder\nКут = $axis°\nТовщина під кутом $axisValue° = $thicknessOnAxis мм\nТовщина по центру = $centerThickness мм\nТовщина по краю = $edgeThickness мм\nМаксимальна товщина = $maxThickness мм\nРеальна кривизна бази лінзи = $baseCurve\nДіаметр лінзи = $diameter мм"
     },
 
+    // Settings
+    settingsTitle = "Налаштування",
+
     // Settings - Language
     settingsLanguageTitle = "Мова",
     settingsLanguageEnglish = "English",

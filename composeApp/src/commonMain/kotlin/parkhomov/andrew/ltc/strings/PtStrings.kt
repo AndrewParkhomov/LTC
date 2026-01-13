@@ -95,6 +95,9 @@ internal val PtStrings = Strings(
         "Calculado pela $appName\n$fullName\nÍndice de Refração = $index\nGrau Esférico = $sphere\nGrau Cilíndrico = $cylinder\nEixo = $axis°\nEspessura no eixo $axisValue° = $thicknessOnAxis mm\nEspessura central = $centerThickness mm\nEspessura da borda = $edgeThickness mm\nEspessura Max = $maxThickness mm\nCurva Base Real = $baseCurve\nDiâmetro = $diameter mm"
     },
 
+    // Settings
+    settingsTitle = "Configurações",
+
     // Settings - Language
     settingsLanguageTitle = "Língua",
     settingsLanguageEnglish = "English",
