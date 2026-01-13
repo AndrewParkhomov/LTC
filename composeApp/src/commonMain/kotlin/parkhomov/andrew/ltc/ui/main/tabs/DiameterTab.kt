@@ -31,7 +31,6 @@ import parkhomov.andrew.ltc.data.TabDiameter
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
 import parkhomov.andrew.ltc.theme.AppTheme
 import parkhomov.andrew.ltc.theme.ThemeMode
-import parkhomov.andrew.ltc.theme.isDarkTheme
 import parkhomov.andrew.ltc.utils.toFormattedString
 import kotlin.math.ceil
 
@@ -102,8 +101,9 @@ fun DiameterTab(
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer
-            )
+                containerColor = MaterialTheme.colorScheme.surfaceVariant
+            ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
         ) {
             Text(
                 modifier = Modifier
@@ -114,11 +114,7 @@ fun DiameterTab(
                 ),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
-                color = if(isDarkTheme()){
-                    MaterialTheme.colorScheme.primary
-                }else{
-                    MaterialTheme.colorScheme.onPrimary
-                },
+                color = MaterialTheme.colorScheme.tertiary,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center
             )

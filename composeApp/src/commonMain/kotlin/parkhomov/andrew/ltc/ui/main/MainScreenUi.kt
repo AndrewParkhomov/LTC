@@ -286,7 +286,9 @@ private fun MainBottomBar(
         MaterialTheme.colorScheme.onPrimary
     }
 
-    NavigationBar {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surfaceVariant
+    ) {
         NavigationBarItem(
             selected = selectedTab == Tab.Thickness,
             onClick = { onTabSelected(Tab.Thickness) },

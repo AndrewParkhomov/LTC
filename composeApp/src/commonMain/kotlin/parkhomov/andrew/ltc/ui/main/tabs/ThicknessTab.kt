@@ -173,7 +173,8 @@ private fun RefractiveIndexDropdown(
         )
         ExposedDropdownMenu(
             expanded = expanded,
-            onDismissRequest = { expanded = false }
+            onDismissRequest = { expanded = false },
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
         ) {
             indices.forEach { index ->
                 DropdownMenuItem(
