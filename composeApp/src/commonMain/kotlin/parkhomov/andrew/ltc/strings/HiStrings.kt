@@ -124,6 +124,10 @@ internal val HiStrings = Strings(
     compareListEmptyDescription = "आप गणना के बाद तुलना सूची में लेंस जोड़ सकते हैं",
     compareListClearButton = "सूची साफ़ करें",
 
+    // Info dialog - Compare
+    infoCompareTitle = "लेंस की तुलना करें",
+    infoCompareDesc = "विभिन्न लेंसों की विशेषताओं की एक साथ तुलना करें। परिणाम स्क्रीन पर \"तुलना सूची में जोड़ें\" बटन पर टैप करके गणना के बाद सूची में लेंस जोड़ें।",
+
     // Content descriptions for accessibility
     contentDescriptionClearField = "इनपुट फ़ील्ड साफ़ करें",
     contentDescriptionInfo = "जानकारी दिखाएं",

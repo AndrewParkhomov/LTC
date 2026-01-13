@@ -124,6 +124,10 @@ internal val EnStrings = Strings(
     compareListEmptyDescription = "You can add lens in compare list after calculation",
     compareListClearButton = "Clear list",
 
+    // Info dialog - Compare
+    infoCompareTitle = "Compare lenses",
+    infoCompareDesc = "Compare characteristics of different lenses side by side. Add lenses to the list after calculation by tapping \"Add to compare list\" button on the result screen.",
+
     // Content descriptions for accessibility
     contentDescriptionClearField = "Clear input field",
     contentDescriptionInfo = "Show information",

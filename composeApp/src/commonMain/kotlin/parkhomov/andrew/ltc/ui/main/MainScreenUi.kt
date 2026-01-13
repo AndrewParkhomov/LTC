@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class, ExperimentalFoundationApi::class)
 
 package parkhomov.andrew.ltc.ui.main
 
@@ -6,11 +6,15 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Balance
@@ -29,6 +33,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -39,8 +44,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateMap
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.dp
 import cafe.adriel.lyricist.LocalStrings
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentMapOf
@@ -64,6 +72,8 @@ import parkhomov.andrew.ltc.theme.isDarkTheme
 import parkhomov.andrew.ltc.theme.toAppTheme
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
+import parkhomov.andrew.ltc.ui.main.data.TopBarActions
+import parkhomov.andrew.ltc.ui.main.modal.CompareInfoDialog
 import parkhomov.andrew.ltc.ui.main.modal.FieldInfoDialog
 import parkhomov.andrew.ltc.ui.main.modal.SettingsDialog
 import parkhomov.andrew.ltc.ui.main.tabs.DiameterTab
@@ -81,12 +91,17 @@ fun MainScreenUi(
     val isKeyboardVisible: Boolean by keyboardAsState()
     var selectedTab: Tab by remember { mutableStateOf(Tab.Thickness) }
     var infoDialogData: InputType? by remember { mutableStateOf(null) }
+    var showCompareInfoDialog: Boolean by remember { mutableStateOf(false) }
 
     infoDialogData?.let { dialogData: InputType ->
         FieldInfoDialog(
             inputType = dialogData,
             onDismiss = { infoDialogData = null }
         )
+    }
+
+    if (showCompareInfoDialog) {
+        CompareInfoDialog(onDismiss = { showCompareInfoDialog = false })
     }
 
     if (uiData.showSettingsDialog) {
@@ -157,9 +172,12 @@ fun MainScreenUi(
                 strings = strings,
                 comparisonCount = uiData.lensInCompareList,
                 selectedTab = selectedTab,
-                onCompareClick = { uiEvent(MainScreenUiEvent.OnCompareClick) },
-                onTransposeClick = { uiEvent(MainScreenUiEvent.OnTranspositionIconClick) },
-                onSettingsClick = { uiEvent(MainScreenUiEvent.ShowSettingsDialog) }
+                topBarActions = TopBarActions(
+                    onCompareClick = { uiEvent(MainScreenUiEvent.OnCompareClick) },
+                    onCompareLongClick = { showCompareInfoDialog = true },
+                    onTransposeClick = { uiEvent(MainScreenUiEvent.OnTranspositionIconClick) },
+                    onSettingsClick = { uiEvent(MainScreenUiEvent.ShowSettingsDialog) }
+                )
             )
         },
         bottomBar = {
@@ -211,29 +229,40 @@ private fun MainTopBar(
     strings: Strings,
     comparisonCount: Int,
     selectedTab: Tab,
-    onCompareClick: () -> Unit,
-    onTransposeClick: () -> Unit,
-    onSettingsClick: () -> Unit
+    topBarActions: TopBarActions,
 ) {
     TopAppBar(
         title = { Text(strings.appNameFull) },
         actions = {
-            IconButton(
-                onClick = onCompareClick,
-                enabled = comparisonCount >= 2
+            val isCompareEnabled = comparisonCount >= 2
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .combinedClickable(
+                        onClick = { if (isCompareEnabled) topBarActions.onCompareClick() },
+                        onLongClick = topBarActions.onCompareLongClick,
+                        role = Role.Button,
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = if (isCompareEnabled) {
+                            ripple(bounded = false, radius = 24.dp)
+                        } else {
+                            null
+                        }
+                    ),
+                contentAlignment = Alignment.Center
             ) {
                 BadgedBox(
                     badge = {
                         if (comparisonCount > 0) {
                             Badge(
-                                containerColor = if (comparisonCount >= 2)
+                                containerColor = if (isCompareEnabled)
                                     MaterialTheme.colorScheme.error
                                 else
                                     MaterialTheme.colorScheme.surfaceVariant
                             ) {
                                 Text(
                                     text = comparisonCount.toString(),
-                                    color = if (comparisonCount >= 2)
+                                    color = if (isCompareEnabled)
                                         MaterialTheme.colorScheme.onError
                                     else
                                         MaterialTheme.colorScheme.onSurfaceVariant
@@ -245,7 +274,7 @@ private fun MainTopBar(
                     Icon(
                         imageVector = Icons.Default.Balance,
                         contentDescription = strings.contentDescriptionCompare,
-                        tint = if (comparisonCount >= 2)
+                        tint = if (isCompareEnabled)
                             LocalContentColor.current
                         else
                             MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
@@ -253,9 +282,8 @@ private fun MainTopBar(
                 }
             }
 
-
             IconButton(
-                onClick = onTransposeClick,
+                onClick = topBarActions.onTransposeClick,
                 enabled = selectedTab == Tab.Thickness
             ) {
                 Icon(
@@ -264,7 +292,7 @@ private fun MainTopBar(
                 )
             }
 
-            IconButton(onClick = onSettingsClick) {
+            IconButton(onClick = topBarActions.onSettingsClick) {
                 Icon(
                     imageVector = Icons.Default.Settings,
                     contentDescription = strings.contentDescriptionSettings
@@ -364,8 +392,11 @@ private fun MainTopBarPreview() {
         strings = strings,
         comparisonCount = 2,
         selectedTab = Tab.Thickness,
-        onCompareClick = {},
-        onTransposeClick = {},
-        onSettingsClick = {}
+        topBarActions = TopBarActions(
+            onCompareClick = {},
+            onCompareLongClick = {},
+            onTransposeClick = {},
+            onSettingsClick = {}
+        )
     )
 }

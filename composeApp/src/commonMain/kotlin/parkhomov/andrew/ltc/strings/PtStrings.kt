@@ -124,6 +124,10 @@ internal val PtStrings = Strings(
     compareListEmptyDescription = "Você pode adicionar lentes na lista de comparação após o cálculo",
     compareListClearButton = "Limpe a lista",
 
+    // Info dialog - Compare
+    infoCompareTitle = "Comparar lentes",
+    infoCompareDesc = "Compare as características de diferentes lentes lado a lado. Adicione lentes à lista após o cálculo tocando no botão \"Adicionar à lista de comparação\" na tela de resultado.",
+
     // Content descriptions for accessibility
     contentDescriptionClearField = "Limpar campo de entrada",
     contentDescriptionInfo = "Mostrar informações",

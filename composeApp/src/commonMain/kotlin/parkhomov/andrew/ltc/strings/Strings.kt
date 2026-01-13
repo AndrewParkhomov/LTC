@@ -140,6 +140,10 @@ data class Strings(
     val compareListEmptyDescription: String,
     val compareListClearButton: String,
 
+    // Info dialog - Compare
+    val infoCompareTitle: String,
+    val infoCompareDesc: String,
+
     // Content descriptions for accessibility
     val contentDescriptionClearField: String,
     val contentDescriptionInfo: String,

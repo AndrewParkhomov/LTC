@@ -124,6 +124,10 @@ internal val UkStrings = Strings(
     compareListEmptyDescription = "Ви можете додати лінзи у список порівняння після розрахунку",
     compareListClearButton = "Очистити список",
 
+    // Info dialog - Compare
+    infoCompareTitle = "Порівняння лінз",
+    infoCompareDesc = "Порівняйте характеристики різних лінз поруч. Додайте лінзи у список після розрахунку, натиснувши кнопку «Додати в список порівняння» на екрані результату.",
+
     // Content descriptions for accessibility
     contentDescriptionClearField = "Очистити поле вводу",
     contentDescriptionInfo = "Показати інформацію",
