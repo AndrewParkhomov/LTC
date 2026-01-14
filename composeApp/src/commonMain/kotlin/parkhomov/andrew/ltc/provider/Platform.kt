@@ -15,5 +15,7 @@ fun isIos() = getPlatform().name.contains("iOS")
 
 expect fun getDecimalSignedKeyboard(): KeyboardOptions
 
+expect fun getAlphanumericKeyboard(): KeyboardOptions
+
 @Composable
 expect fun keyboardAsState(): State<Boolean>

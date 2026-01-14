@@ -18,6 +18,16 @@ internal val UkStrings = Strings(
     thicknessCalculateButton = "Розрахувати",
     addCustomIndex = "+ Додати власний індекс",
 
+    // Custom index dialog
+    addCustomIndexTitle = "Додати власний індекс",
+    customIndexNameLabel = "Назва індексу",
+    customIndexValueLabel = "Значення індексу",
+    buttonCancel = "Скасувати",
+    buttonSave = "Зберегти",
+    buttonDelete = "Видалити",
+    deleteIndexTitle = "Видалити індекс",
+    deleteIndexMessage = { indexName -> "Ви впевнені, що хочете видалити \"$indexName\"?" },
+
     // Validation
     validationInvalidNumber = "Невірне число",
     validationMinValue = { minValue -> "Значення має бути не менше $minValue" },

@@ -10,6 +10,7 @@ import parkhomov.andrew.ltc.base.AppViewModel
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndexUiModel
+import parkhomov.andrew.ltc.database.RefractiveIndexEntity
 import parkhomov.andrew.ltc.database.RefractiveIndexRepository
 import parkhomov.andrew.ltc.domain.CompareLensStorage
 import parkhomov.andrew.ltc.theme.ThemeMode
@@ -91,7 +92,41 @@ class MainScreenViewModel(
             is MainScreenUiEvent.ShowSettingsDialog -> updateState { copy(showSettingsDialog = true) }
             is MainScreenUiEvent.HideSettingsDialog -> updateState { copy(showSettingsDialog = false) }
             is MainScreenUiEvent.SelectRefractiveIndex -> selectRefractiveIndex(event.index)
-            is MainScreenUiEvent.OnAddCustomIndexClick -> { /* TODO: Implement later */ }
+            is MainScreenUiEvent.OnAddCustomIndexClick -> updateState { copy(showAddCustomIndexDialog = true) }
+            is MainScreenUiEvent.HideAddCustomIndexDialog -> updateState { copy(showAddCustomIndexDialog = false) }
+            is MainScreenUiEvent.SaveCustomIndex -> saveCustomIndex(event.label, event.value)
+            is MainScreenUiEvent.OnDeleteCustomIndexClick -> updateState { copy(indexToDelete = event.index) }
+            is MainScreenUiEvent.HideDeleteConfirmDialog -> updateState { copy(indexToDelete = null) }
+            is MainScreenUiEvent.ConfirmDeleteIndex -> confirmDeleteIndex()
+        }
+    }
+
+    private fun saveCustomIndex(label: String, value: Double) {
+        launch {
+            val entity = RefractiveIndexEntity(
+                value = value,
+                label = label,
+                isUserCreated = true
+            )
+            refractiveIndexRepository.insert(entity)
+            updateState { copy(showAddCustomIndexDialog = false) }
+        }
+    }
+
+    private fun confirmDeleteIndex() {
+        val indexToDelete: RefractiveIndexUiModel = uiState.value.indexToDelete ?: return
+        launch {
+            refractiveIndexRepository.delete(indexToDelete.id)
+            updateState {
+                copy(
+                    indexToDelete = null,
+                    selectedRefractiveIndex = if (selectedRefractiveIndex.id == indexToDelete.id) {
+                        refractiveIndices.firstOrNull() ?: RefractiveIndexUiModel.getDefaultIndex()
+                    } else {
+                        selectedRefractiveIndex
+                    }
+                )
+            }
         }
     }
 

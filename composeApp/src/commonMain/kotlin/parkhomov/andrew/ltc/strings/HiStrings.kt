@@ -18,6 +18,16 @@ internal val HiStrings = Strings(
     thicknessCalculateButton = "गणना करें",
     addCustomIndex = "+ कस्टम इंडेक्स जोड़ें",
 
+    // Custom index dialog
+    addCustomIndexTitle = "कस्टम इंडेक्स जोड़ें",
+    customIndexNameLabel = "इंडेक्स का नाम",
+    customIndexValueLabel = "इंडेक्स का मान",
+    buttonCancel = "रद्द करें",
+    buttonSave = "सहेजें",
+    buttonDelete = "हटाएं",
+    deleteIndexTitle = "इंडेक्स हटाएं",
+    deleteIndexMessage = { indexName -> "क्या आप वाकई \"$indexName\" को हटाना चाहते हैं?" },
+
     // Validation
     validationInvalidNumber = "अमान्य संख्या",
     validationMinValue = { minValue -> "मान कम से कम $minValue होना चाहिए" },

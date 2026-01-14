@@ -25,7 +25,6 @@ import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -73,6 +72,8 @@ import parkhomov.andrew.ltc.theme.toAppTheme
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import parkhomov.andrew.ltc.ui.main.data.TopBarActions
+import parkhomov.andrew.ltc.ui.main.modal.AddCustomIndexDialog
+import parkhomov.andrew.ltc.ui.main.modal.DeleteConfirmDialog
 import parkhomov.andrew.ltc.ui.main.modal.FieldInfoDialog
 import parkhomov.andrew.ltc.ui.main.modal.SettingsDialog
 import parkhomov.andrew.ltc.ui.main.modal.TopBarInfoDialog
@@ -120,6 +121,23 @@ fun MainScreenUi(
                 uiEvent(MainScreenUiEvent.UpdateAppTheme(theme))
             },
             onDismiss = { uiEvent(MainScreenUiEvent.HideSettingsDialog) }
+        )
+    }
+
+    if (uiData.showAddCustomIndexDialog) {
+        AddCustomIndexDialog(
+            onSave = { label, value ->
+                uiEvent(MainScreenUiEvent.SaveCustomIndex(label, value))
+            },
+            onDismiss = { uiEvent(MainScreenUiEvent.HideAddCustomIndexDialog) }
+        )
+    }
+
+    uiData.indexToDelete?.let { indexToDelete ->
+        DeleteConfirmDialog(
+            indexName = indexToDelete.label,
+            onConfirm = { uiEvent(MainScreenUiEvent.ConfirmDeleteIndex) },
+            onDismiss = { uiEvent(MainScreenUiEvent.HideDeleteConfirmDialog) }
         )
     }
 
@@ -280,7 +298,7 @@ private fun MainTopBar(
                         imageVector = Icons.Default.Balance,
                         contentDescription = strings.contentDescriptionCompare,
                         tint = if (isCompareEnabled)
-                            LocalContentColor.current
+                            MaterialTheme.colorScheme.onSurface
                         else
                             MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                     )
@@ -308,7 +326,7 @@ private fun MainTopBar(
                     imageVector = Icons.Transpose,
                     contentDescription = strings.contentDescriptionTranspose,
                     tint = if (isTransposeEnabled)
-                        LocalContentColor.current
+                        MaterialTheme.colorScheme.onSurface
                     else
                         MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                 )

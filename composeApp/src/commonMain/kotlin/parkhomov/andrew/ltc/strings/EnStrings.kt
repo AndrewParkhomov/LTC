@@ -18,6 +18,16 @@ internal val EnStrings = Strings(
     thicknessCalculateButton = "Calculate",
     addCustomIndex = "+ Add custom index",
 
+    // Custom index dialog
+    addCustomIndexTitle = "Add custom index",
+    customIndexNameLabel = "Index name",
+    customIndexValueLabel = "Index value",
+    buttonCancel = "Cancel",
+    buttonSave = "Save",
+    buttonDelete = "Delete",
+    deleteIndexTitle = "Delete index",
+    deleteIndexMessage = { indexName -> "Are you sure you want to delete \"$indexName\"?" },
+
     // Validation
     validationInvalidNumber = "Invalid number",
     validationMinValue = { minValue -> "Value must be at least $minValue" },

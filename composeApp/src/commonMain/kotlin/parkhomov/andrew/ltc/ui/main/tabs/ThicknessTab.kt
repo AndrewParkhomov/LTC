@@ -8,10 +8,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -81,6 +84,7 @@ fun ThicknessTab(
             selectedIndex = selectedRefractiveIndex,
             onIndexSelected = { uiEvent(MainScreenUiEvent.SelectRefractiveIndex(it)) },
             onAddCustomIndexClick = { uiEvent(MainScreenUiEvent.OnAddCustomIndexClick) },
+            onDeleteIndexClick = { uiEvent(MainScreenUiEvent.OnDeleteCustomIndexClick(it)) },
             field = TabThickness.Index,
             onInfoIconClicked = { onInfoIconClicked(TabThickness.Index) }
         )
@@ -133,6 +137,7 @@ private fun RefractiveIndexDropdown(
     selectedIndex: RefractiveIndexUiModel,
     onIndexSelected: (RefractiveIndexUiModel) -> Unit,
     onAddCustomIndexClick: () -> Unit,
+    onDeleteIndexClick: (RefractiveIndexUiModel) -> Unit,
     field: TabThickness,
     onInfoIconClicked: () -> Unit,
 ) {
@@ -177,29 +182,42 @@ private fun RefractiveIndexDropdown(
         ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            modifier = Modifier.heightIn(max = 450.dp)
         ) {
-            indices.forEach { index ->
+            val (defaultIndices, customIndices) = indices.partition { !it.isUserCreated }
+            val sortedIndices = defaultIndices + customIndices
+            sortedIndices.forEach { index ->
                 DropdownMenuItem(
                     text = { Text(index.label) },
                     onClick = {
                         onIndexSelected(index)
                         expanded = false
-                    }
+                    },
+                    trailingIcon = if (index.isUserCreated) {
+                        {
+                            IconButton(
+                                onClick = { onDeleteIndexClick(index) },
+                                modifier = Modifier.size(24.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Close,
+                                    contentDescription = strings.contentDescriptionClose,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                            }
+                        }
+                    } else null
                 )
             }
-            HorizontalDivider()
+            HorizontalDivider(modifier = Modifier.padding(top = 4.dp))
             DropdownMenuItem(
-                text = {
-                    Text(
-                        text = strings.addCustomIndex,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                },
+                text = { Text(text = strings.addCustomIndex) },
                 onClick = {
                     expanded = false
                     onAddCustomIndexClick()
-                }
+                },
+                modifier = Modifier.padding(top = 6.dp)
             )
         }
     }

@@ -15,6 +15,7 @@ import platform.Foundation.NSBundle
 import platform.Foundation.NSNotificationCenter
 import platform.Foundation.NSOperationQueue
 import platform.UIKit.UIDevice
+import platform.UIKit.UIKeyboardTypeASCIICapable
 import platform.UIKit.UIKeyboardTypeNumbersAndPunctuation
 import platform.UIKit.UIKeyboardWillHideNotification
 import platform.UIKit.UIKeyboardWillShowNotification
@@ -39,6 +40,15 @@ actual fun getDecimalSignedKeyboard(): KeyboardOptions =
         platformImeOptions =
             PlatformImeOptions {
                 keyboardType(UIKeyboardTypeNumbersAndPunctuation)
+            },
+    )
+
+actual fun getAlphanumericKeyboard(): KeyboardOptions =
+    KeyboardOptions.Default.copy(
+        imeAction = ImeAction.Next,
+        platformImeOptions =
+            PlatformImeOptions {
+                keyboardType(UIKeyboardTypeASCIICapable)
             },
     )
 

@@ -15,6 +15,16 @@ data class Strings(
     val thicknessCalculateButton: String,
     val addCustomIndex: String,
 
+    // Custom index dialog
+    val addCustomIndexTitle: String,
+    val customIndexNameLabel: String,
+    val customIndexValueLabel: String,
+    val buttonCancel: String,
+    val buttonSave: String,
+    val buttonDelete: String,
+    val deleteIndexTitle: String,
+    val deleteIndexMessage: (indexName: String) -> String,
+
     // Validation
     val validationInvalidNumber: String,
     val validationMinValue: (minValue: String) -> String,

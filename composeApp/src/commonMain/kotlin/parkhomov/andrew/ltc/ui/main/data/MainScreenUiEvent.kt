@@ -18,4 +18,9 @@ sealed interface MainScreenUiEvent {
     data object HideSettingsDialog : MainScreenUiEvent
     data class SelectRefractiveIndex(val index: RefractiveIndexUiModel) : MainScreenUiEvent
     data object OnAddCustomIndexClick : MainScreenUiEvent
+    data object HideAddCustomIndexDialog : MainScreenUiEvent
+    data class SaveCustomIndex(val label: String, val value: Double) : MainScreenUiEvent
+    data class OnDeleteCustomIndexClick(val index: RefractiveIndexUiModel) : MainScreenUiEvent
+    data object HideDeleteConfirmDialog : MainScreenUiEvent
+    data object ConfirmDeleteIndex : MainScreenUiEvent
 }

@@ -18,6 +18,16 @@ internal val PtStrings = Strings(
     thicknessCalculateButton = "Calcular",
     addCustomIndex = "+ Adicionar índice personalizado",
 
+    // Custom index dialog
+    addCustomIndexTitle = "Adicionar índice personalizado",
+    customIndexNameLabel = "Nome do índice",
+    customIndexValueLabel = "Valor do índice",
+    buttonCancel = "Cancelar",
+    buttonSave = "Salvar",
+    buttonDelete = "Excluir",
+    deleteIndexTitle = "Excluir índice",
+    deleteIndexMessage = { indexName -> "Tem certeza de que deseja excluir \"$indexName\"?" },
+
     // Validation
     validationInvalidNumber = "Número inválido",
     validationMinValue = { minValue -> "O valor deve ser pelo menos $minValue" },
