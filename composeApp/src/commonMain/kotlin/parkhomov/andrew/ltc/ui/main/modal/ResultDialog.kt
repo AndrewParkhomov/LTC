@@ -62,14 +62,8 @@ fun ResultDialog(
                 )
                 IconButton(onClick = {
                     scope.launch {
-                        val appName = strings.appName
-                        val appUrl =
-                            "https://play.google.com/store/apps/details?id=your.package.name"
-
                         val shareText = if (data.cylinderPower == null) {
                             strings.shareTextOnlySphere(
-                                appName,
-                                strings.appNameFull,
                                 data.refractionIndex.value.toString(),
                                 data.spherePower.toFormattedString(2),
                                 data.thicknessCenter,
@@ -79,8 +73,6 @@ fun ResultDialog(
                             )
                         } else {
                             strings.shareTextFull(
-                                appName,
-                                strings.appNameFull,
                                 data.refractionIndex.value.toString(),
                                 data.spherePower.toFormattedString(2),
                                 data.cylinderPower.toFormattedString(2),

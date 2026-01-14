@@ -16,7 +16,6 @@ actual class ShareManager {
                 applicationActivities = null,
             )
 
-        // Отримуємо active window scene
         val windowScene =
             UIApplication.sharedApplication
                 .connectedScenes
@@ -24,7 +23,6 @@ actual class ShareManager {
                 .filterIsInstance<UIWindowScene>()
                 .firstOrNull()
 
-        // Отримуємо key window з правильним типом
         val keyWindow =
             windowScene
                 ?.windows
@@ -32,7 +30,6 @@ actual class ShareManager {
                 ?.filterIsInstance<UIWindow>()
                 ?.firstOrNull { it.isKeyWindow() }
 
-        // Показуємо share sheet
         keyWindow?.rootViewController?.presentViewController(
             viewControllerToPresent = activityViewController,
             animated = true,
