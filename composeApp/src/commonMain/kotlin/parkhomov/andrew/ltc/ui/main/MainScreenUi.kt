@@ -281,14 +281,14 @@ private fun MainTopBar(
                                 containerColor = if (isCompareEnabled)
                                     MaterialTheme.colorScheme.error
                                 else
-                                    MaterialTheme.colorScheme.surfaceVariant
+                                    MaterialTheme.colorScheme.outline
                             ) {
                                 Text(
                                     text = comparisonCount.toString(),
                                     color = if (isCompareEnabled)
                                         MaterialTheme.colorScheme.onError
                                     else
-                                        MaterialTheme.colorScheme.onSurfaceVariant
+                                        MaterialTheme.colorScheme.surface
                                 )
                             }
                         }
