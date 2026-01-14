@@ -63,8 +63,8 @@ fun AppEntryPoint(
 
     val currentLanguage: String by settingsProvider.getLanguageFlow()
         .collectAsState(initial = Locales.EN)
-    val themeId: Int? by settingsProvider.getThemeFlow()
-        .collectAsState(initial = null)
+    val themeId by settingsProvider.getThemeFlow()
+        .collectAsState(initial = ThemeMode.SYSTEM.id)
 
     val strings: Strings = rememberStrings(currentLanguageTag = currentLanguage).strings
 
@@ -80,7 +80,7 @@ fun AppEntryPoint(
         }
     }
 
-    val themeMode: ThemeMode = themeId?.toAppTheme() ?: return
+    val themeMode: ThemeMode = themeId.toAppTheme()
 
     Box(modifier = Modifier.fillMaxSize()) {
         CompositionLocalProvider(
