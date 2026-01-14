@@ -86,8 +86,6 @@ data class Strings(
     val shareSubject: String,
     val shareWith: String,
     val shareTextOnlySphere: (
-        appName: String,
-        fullName: String,
         index: String,
         sphere: String,
         centerThickness: String,
@@ -96,8 +94,6 @@ data class Strings(
         diameter: String
     ) -> String,
     val shareTextFull: (
-        appName: String,
-        fullName: String,
         index: String,
         sphere: String,
         cylinder: String,

@@ -88,11 +88,11 @@ internal val HiStrings = Strings(
     // Share
     shareSubject = "लेंस डेटा",
     shareWith = "इसके साथ साझा करें…",
-    shareTextOnlySphere = { appName, fullName, index, sphere, centerThickness, edgeThickness, baseCurve, diameter ->
-        "$appName के माध्यम से गणना की गई\n$fullName\nअपवर्तनांक = $index\nगोलाकार शक्ति = $sphere\nकेंद्र की मोटाई = $centerThickness मिमी\nकिनारे की मोटाई = $edgeThickness मिमी\nवास्तविक आधार वक्र = $baseCurve\nव्यास = $diameter मिमी"
+    shareTextOnlySphere = { index, sphere, centerThickness, edgeThickness, baseCurve, diameter ->
+        "लेंस मोटाई कैलकुलेटर\n\nअपवर्तनांक = $index\nगोलाकार शक्ति = $sphere\nकेंद्र की मोटाई = $centerThickness मिमी\nकिनारे की मोटाई = $edgeThickness मिमी\nवास्तविक आधार वक्र = $baseCurve\nव्यास = $diameter मिमी"
     },
-    shareTextFull = { appName, fullName, index, sphere, cylinder, axis, axisValue, thicknessOnAxis, centerThickness, edgeThickness, maxThickness, baseCurve, diameter ->
-        "$appName के माध्यम से गणना की गई\n$fullName\nअपवर्तनांक = $index\nगोलाकार शक्ति = $sphere\nसिलेंडर शक्ति = $cylinder\nअक्ष = $axis°\nअक्ष $axisValue° पर मोटाई = $thicknessOnAxis मिमी\nकेंद्र की मोटाई = $centerThickness मिमी\nकिनारे की मोटाई = $edgeThickness मिमी\nअधिकतम मोटाई = $maxThickness मिमी\nवास्तविक आधार वक्र = $baseCurve\nव्यास = $diameter मिमी"
+    shareTextFull = { index, sphere, cylinder, axis, axisValue, thicknessOnAxis, centerThickness, edgeThickness, maxThickness, baseCurve, diameter ->
+        "लेंस मोटाई कैलकुलेटर\n\nअपवर्तनांक = $index\nगोलाकार शक्ति = $sphere\nसिलेंडर शक्ति = $cylinder\nअक्ष = $axis°\nअक्ष $axisValue° पर मोटाई = $thicknessOnAxis मिमी\nकेंद्र की मोटाई = $centerThickness मिमी\nकिनारे की मोटाई = $edgeThickness मिमी\nअधिकतम मोटाई = $maxThickness मिमी\nवास्तविक आधार वक्र = $baseCurve\nव्यास = $diameter मिमी"
     },
 
     // Settings

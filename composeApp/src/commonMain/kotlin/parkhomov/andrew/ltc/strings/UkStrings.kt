@@ -88,11 +88,11 @@ internal val UkStrings = Strings(
     // Share
     shareSubject = "Дані про лінзу",
     shareWith = "Поділитись з допомогою…",
-    shareTextOnlySphere = { appName, fullName, index, sphere, centerThickness, edgeThickness, baseCurve, diameter ->
-        "Пораховано за допомогою додатку $appName\n$fullName\nІндекс заломлення = $index\nСфера = $sphere\nТовщина по центру = $centerThickness мм\nТовщина по краю = $edgeThickness мм\nРеальна кривизна бази лінзи = $baseCurve\nДіаметр лінзи = $diameter мм"
+    shareTextOnlySphere = { index, sphere, centerThickness, edgeThickness, baseCurve, diameter ->
+        "Калькулятор товщини лінзи\n\nІндекс заломлення = $index\nСфера = $sphere\nТовщина по центру = $centerThickness мм\nТовщина по краю = $edgeThickness мм\nРеальна кривизна бази лінзи = $baseCurve\nДіаметр лінзи = $diameter мм"
     },
-    shareTextFull = { appName, fullName, index, sphere, cylinder, axis, axisValue, thicknessOnAxis, centerThickness, edgeThickness, maxThickness, baseCurve, diameter ->
-        "Пораховано за допомогою додатку $appName\n$fullName\nІндекс заломлення = $index\nСфера = $sphere\nЦиліндр = $cylinder\nКут = $axis°\nТовщина під кутом $axisValue° = $thicknessOnAxis мм\nТовщина по центру = $centerThickness мм\nТовщина по краю = $edgeThickness мм\nМаксимальна товщина = $maxThickness мм\nРеальна кривизна бази лінзи = $baseCurve\nДіаметр лінзи = $diameter мм"
+    shareTextFull = { index, sphere, cylinder, axis, axisValue, thicknessOnAxis, centerThickness, edgeThickness, maxThickness, baseCurve, diameter ->
+        "Калькулятор товщини лінзи\n\nІндекс заломлення = $index\nСфера = $sphere\nЦиліндр = $cylinder\nКут = $axis°\nТовщина під кутом $axisValue° = $thicknessOnAxis мм\nТовщина по центру = $centerThickness мм\nТовщина по краю = $edgeThickness мм\nМаксимальна товщина = $maxThickness мм\nРеальна кривизна бази лінзи = $baseCurve\nДіаметр лінзи = $diameter мм"
     },
 
     // Settings

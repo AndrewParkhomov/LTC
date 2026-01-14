@@ -88,11 +88,11 @@ internal val PtStrings = Strings(
     // Share
     shareSubject = "Dados da lente",
     shareWith = "Compartilhar com…",
-    shareTextOnlySphere = { appName, fullName, index, sphere, centerThickness, edgeThickness, baseCurve, diameter ->
-        "Calculado pela $appName\n$fullName\nÍndice de Refração = $index\nGrau Esférico = $sphere\nEspessura central = $centerThickness mm\nEspessura da borda = $edgeThickness mm\nCurva base Real = $baseCurve\nDiâmetro = $diameter mm"
+    shareTextOnlySphere = { index, sphere, centerThickness, edgeThickness, baseCurve, diameter ->
+        "Calculadora de Espessura de Lente\n\nÍndice de Refração = $index\nGrau Esférico = $sphere\nEspessura central = $centerThickness mm\nEspessura da borda = $edgeThickness mm\nCurva base Real = $baseCurve\nDiâmetro = $diameter mm"
     },
-    shareTextFull = { appName, fullName, index, sphere, cylinder, axis, axisValue, thicknessOnAxis, centerThickness, edgeThickness, maxThickness, baseCurve, diameter ->
-        "Calculado pela $appName\n$fullName\nÍndice de Refração = $index\nGrau Esférico = $sphere\nGrau Cilíndrico = $cylinder\nEixo = $axis°\nEspessura no eixo $axisValue° = $thicknessOnAxis mm\nEspessura central = $centerThickness mm\nEspessura da borda = $edgeThickness mm\nEspessura Max = $maxThickness mm\nCurva Base Real = $baseCurve\nDiâmetro = $diameter mm"
+    shareTextFull = { index, sphere, cylinder, axis, axisValue, thicknessOnAxis, centerThickness, edgeThickness, maxThickness, baseCurve, diameter ->
+        "Calculadora de Espessura de Lente\n\nÍndice de Refração = $index\nGrau Esférico = $sphere\nGrau Cilíndrico = $cylinder\nEixo = $axis°\nEspessura no eixo $axisValue° = $thicknessOnAxis mm\nEspessura central = $centerThickness mm\nEspessura da borda = $edgeThickness mm\nEspessura Max = $maxThickness mm\nCurva Base Real = $baseCurve\nDiâmetro = $diameter mm"
     },
 
     // Settings

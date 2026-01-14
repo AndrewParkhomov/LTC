@@ -88,11 +88,11 @@ internal val EnStrings = Strings(
     // Share
     shareSubject = "Lens data",
     shareWith = "Share with…",
-    shareTextOnlySphere = { appName, fullName, index, sphere, centerThickness, edgeThickness, baseCurve, diameter ->
-        "Calculated via $appName\n$fullName\nIndex of refraction = $index\nSphere power = $sphere\nCenter thickness = $centerThickness mm\nEdge thickness = $edgeThickness mm\nReal base curve = $baseCurve\nDiameter = $diameter mm"
+    shareTextOnlySphere = { index, sphere, centerThickness, edgeThickness, baseCurve, diameter ->
+        "Lens Thickness Calculator\n\nIndex of refraction = $index\nSphere power = $sphere\nCenter thickness = $centerThickness mm\nEdge thickness = $edgeThickness mm\nReal base curve = $baseCurve\nDiameter = $diameter mm"
     },
-    shareTextFull = { appName, fullName, index, sphere, cylinder, axis, axisValue, thicknessOnAxis, centerThickness, edgeThickness, maxThickness, baseCurve, diameter ->
-        "Calculated via $appName\n$fullName\nIndex of refraction = $index\nSphere power = $sphere\nCylinder Power = $cylinder\nAxis = $axis°\nThickness on axis $axisValue° = $thicknessOnAxis mm\nCenter thickness = $centerThickness mm\nEdge thickness = $edgeThickness mm\nMax thickness = $maxThickness mm\nReal base curve = $baseCurve\nDiameter = $diameter mm"
+    shareTextFull = { index, sphere, cylinder, axis, axisValue, thicknessOnAxis, centerThickness, edgeThickness, maxThickness, baseCurve, diameter ->
+        "Lens Thickness Calculator\n\nIndex of refraction = $index\nSphere power = $sphere\nCylinder Power = $cylinder\nAxis = $axis°\nThickness on axis $axisValue° = $thicknessOnAxis mm\nCenter thickness = $centerThickness mm\nEdge thickness = $edgeThickness mm\nMax thickness = $maxThickness mm\nReal base curve = $baseCurve\nDiameter = $diameter mm"
     },
 
     // Settings
