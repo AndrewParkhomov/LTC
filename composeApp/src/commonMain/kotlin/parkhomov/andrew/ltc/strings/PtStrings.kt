@@ -16,6 +16,7 @@ internal val PtStrings = Strings(
     // Thickness tab
     thicknessProvideCenterHint = "Forneça a espessura do centro",
     thicknessCalculateButton = "Calcular",
+    addCustomIndex = "+ Adicionar índice personalizado",
 
     // Validation
     validationInvalidNumber = "Número inválido",

@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.stability.analyzer) apply false
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.room) apply false
 }
 
 subprojects {

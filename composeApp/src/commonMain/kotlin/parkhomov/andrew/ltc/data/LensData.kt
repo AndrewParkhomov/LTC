@@ -1,7 +1,7 @@
 package parkhomov.andrew.ltc.data
 
 data class LensData(
-    val refractiveIndex: RefractiveIndex,
+    val refractiveIndex: RefractiveIndexUiModel,
     val sphere: Double?,
     val cylinder: Double?,
     val axis: Int?,
@@ -12,7 +12,7 @@ data class LensData(
 ) {
     companion object {
         fun getLensData(
-            refractiveIndex: RefractiveIndex,
+            refractiveIndex: RefractiveIndexUiModel,
             inputValues: Map<TabThickness, String?>
         ): LensData {
             return LensData(

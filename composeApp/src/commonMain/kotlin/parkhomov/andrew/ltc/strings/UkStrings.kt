@@ -16,6 +16,7 @@ internal val UkStrings = Strings(
     // Thickness tab
     thicknessProvideCenterHint = "Введіть товщину по центру",
     thicknessCalculateButton = "Розрахувати",
+    addCustomIndex = "+ Додати власний індекс",
 
     // Validation
     validationInvalidNumber = "Невірне число",

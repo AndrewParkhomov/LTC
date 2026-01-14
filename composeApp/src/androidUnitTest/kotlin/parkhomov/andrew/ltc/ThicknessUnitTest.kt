@@ -9,7 +9,8 @@ import org.junit.Rule
 import org.junit.Test
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
-import parkhomov.andrew.ltc.data.RefractiveIndex
+import parkhomov.andrew.ltc.data.RefractiveIndexUiModel
+import parkhomov.andrew.ltc.database.TestRefractiveIndexRepository
 import parkhomov.andrew.ltc.domain.TestCompareLensStorage
 import parkhomov.andrew.ltc.toast.TestToastProvider
 import parkhomov.andrew.ltc.ui.main.MainScreenViewModel
@@ -25,14 +26,21 @@ class ThicknessUnitTest {
             compareLensStorage = TestCompareLensStorage(),
             toastProvider = TestToastProvider(),
             settingsProvider = TestSettingsProvider(),
+            refractiveIndexRepository = TestRefractiveIndexRepository()
         )
+
+    // Test RefractiveIndexUiModels
+    private val CR39 = RefractiveIndexUiModel(id = 1, value = 1.498, label = "1.498 CR-39", isUserCreated = false)
+    private val Index1560 = RefractiveIndexUiModel(id = 2, value = 1.535, label = "1.560", isUserCreated = false)
+    private val Index1610 = RefractiveIndexUiModel(id = 5, value = 1.59, label = "1.610", isUserCreated = false)
+    private val Index1670 = RefractiveIndexUiModel(id = 6, value = 1.66, label = "1.670", isUserCreated = false)
 
     @Test
     fun `calculation 1`() =
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.CR39,
+                    refractionIndex = CR39,
                     spherePower = 2.0,
                     cylinderPower = null,
                     axis = null,
@@ -46,7 +54,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.CR39,
+                    refractiveIndex = CR39,
                     sphere = 2.0,
                     cylinder = null,
                     axis = null,
@@ -68,7 +76,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.CR39,
+                    refractionIndex = CR39,
                     spherePower = -2.25,
                     cylinderPower = -2.0,
                     axis = "92",
@@ -82,7 +90,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.CR39,
+                    refractiveIndex = CR39,
                     sphere = -2.25,
                     cylinder = -2.0,
                     axis = 92,
@@ -104,7 +112,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.CR39,
+                    refractionIndex = CR39,
                     spherePower = 3.5,
                     cylinderPower = -1.0,
                     axis = "0",
@@ -118,7 +126,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.CR39,
+                    refractiveIndex = CR39,
                     sphere = 3.5,
                     cylinder = -1.0,
                     axis = 0,
@@ -140,7 +148,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1670,
+                    refractionIndex = Index1670,
                     spherePower = -12.0,
                     cylinderPower = null,
                     axis = null,
@@ -154,7 +162,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1670,
+                    refractiveIndex = Index1670,
                     sphere = -12.0,
                     cylinder = null,
                     axis = null,
@@ -176,7 +184,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1670,
+                    refractionIndex = Index1670,
                     spherePower = -12.0,
                     cylinderPower = null,
                     axis = null,
@@ -190,7 +198,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1670,
+                    refractiveIndex = Index1670,
                     sphere = -12.0,
                     cylinder = null,
                     axis = null,
@@ -212,7 +220,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.CR39,
+                    refractionIndex = CR39,
                     spherePower = 1.0,
                     cylinderPower = 5.0,
                     axis = "93",
@@ -226,7 +234,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.CR39,
+                    refractiveIndex = CR39,
                     sphere = 1.0,
                     cylinder = 5.0,
                     axis = 93,
@@ -248,7 +256,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.CR39,
+                    refractionIndex = CR39,
                     spherePower = 6.0,
                     cylinderPower = -5.0,
                     axis = "3",
@@ -262,7 +270,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.CR39,
+                    refractiveIndex = CR39,
                     sphere = 6.0,
                     cylinder = -5.0,
                     axis = 3,
@@ -284,7 +292,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1560,
+                    refractionIndex = Index1560,
                     spherePower = -3.0,
                     cylinderPower = 4.5,
                     axis = "0",
@@ -298,7 +306,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1560,
+                    refractiveIndex = Index1560,
                     sphere = -3.0,
                     cylinder = 4.5,
                     axis = 0,
@@ -320,7 +328,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1560,
+                    refractionIndex = Index1560,
                     spherePower = 1.5,
                     cylinderPower = -4.5,
                     axis = "0",
@@ -334,7 +342,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1560,
+                    refractiveIndex = Index1560,
                     sphere = 1.5,
                     cylinder = -4.5,
                     axis = 0,
@@ -356,7 +364,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1560,
+                    refractionIndex = Index1560,
                     spherePower = 1.5,
                     cylinderPower = -0.5,
                     axis = "0",
@@ -370,7 +378,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1560,
+                    refractiveIndex = Index1560,
                     sphere = 1.5,
                     cylinder = -0.5,
                     axis = 0,
@@ -392,7 +400,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1560,
+                    refractionIndex = Index1560,
                     spherePower = -1.75,
                     cylinderPower = null,
                     axis = null,
@@ -406,7 +414,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1560,
+                    refractiveIndex = Index1560,
                     sphere = -1.75,
                     cylinder = null,
                     axis = null,
@@ -428,7 +436,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1560,
+                    refractionIndex = Index1560,
                     spherePower = -14.0,
                     cylinderPower = 2.0,
                     axis = "89",
@@ -442,7 +450,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1560,
+                    refractiveIndex = Index1560,
                     sphere = -14.0,
                     cylinder = 2.0,
                     axis = 89,
@@ -464,7 +472,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1560,
+                    refractionIndex = Index1560,
                     spherePower = -4.0,
                     cylinderPower = -2.0,
                     axis = "66",
@@ -478,7 +486,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1560,
+                    refractiveIndex = Index1560,
                     sphere = -4.0,
                     cylinder = -2.0,
                     axis = 66,
@@ -500,7 +508,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1610,
+                    refractionIndex = Index1610,
                     spherePower = 10.0,
                     cylinderPower = -2.0,
                     axis = "45",
@@ -514,7 +522,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1610,
+                    refractiveIndex = Index1610,
                     sphere = 10.0,
                     cylinder = -2.0,
                     axis = 45,
@@ -536,7 +544,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1610,
+                    refractionIndex = Index1610,
                     spherePower = -10.0,
                     cylinderPower = 4.0,
                     axis = "90",
@@ -550,7 +558,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1610,
+                    refractiveIndex = Index1610,
                     sphere = -10.0,
                     cylinder = 4.0,
                     axis = 90,
@@ -572,7 +580,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1610,
+                    refractionIndex = Index1610,
                     spherePower = 5.0,
                     cylinderPower = -4.0,
                     axis = "90",
@@ -586,7 +594,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1610,
+                    refractiveIndex = Index1610,
                     sphere = 5.0,
                     cylinder = -4.0,
                     axis = 90,
@@ -608,7 +616,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1610,
+                    refractionIndex = Index1610,
                     spherePower = 0.0,
                     cylinderPower = 3.0,
                     axis = "90",
@@ -622,7 +630,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1610,
+                    refractiveIndex = Index1610,
                     sphere = 0.0,
                     cylinder = 3.0,
                     axis = 90,
@@ -644,7 +652,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1610,
+                    refractionIndex = Index1610,
                     spherePower = 0.0,
                     cylinderPower = 3.0,
                     axis = "90",
@@ -658,7 +666,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1610,
+                    refractiveIndex = Index1610,
                     sphere = 0.0,
                     cylinder = 3.0,
                     axis = 90,
@@ -680,7 +688,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1610,
+                    refractionIndex = Index1610,
                     spherePower = 0.0,
                     cylinderPower = -6.0,
                     axis = "22",
@@ -694,7 +702,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1610,
+                    refractiveIndex = Index1610,
                     sphere = 0.0,
                     cylinder = -6.0,
                     axis = 22,
@@ -716,7 +724,7 @@ class ThicknessUnitTest {
         runTest {
             val expected =
                 CalculatedData(
-                    refractionIndex = RefractiveIndex.Index1610,
+                    refractionIndex = Index1610,
                     spherePower = 5.0,
                     cylinderPower = -5.0,
                     axis = "0",
@@ -730,7 +738,7 @@ class ThicknessUnitTest {
 
             val actual =
                 LensData(
-                    refractiveIndex = RefractiveIndex.Index1610,
+                    refractiveIndex = Index1610,
                     sphere = 5.0,
                     cylinder = -5.0,
                     axis = 0,

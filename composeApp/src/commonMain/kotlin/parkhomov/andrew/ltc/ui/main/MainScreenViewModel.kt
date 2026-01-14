@@ -4,11 +4,13 @@ package parkhomov.andrew.ltc.ui.main
 
 import androidx.compose.runtime.Stable
 import game.dice.storage.repository.SettingsProvider
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.collectLatest
 import parkhomov.andrew.ltc.base.AppViewModel
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.data.LensData
-import parkhomov.andrew.ltc.data.RefractiveIndex
+import parkhomov.andrew.ltc.data.RefractiveIndexUiModel
+import parkhomov.andrew.ltc.database.RefractiveIndexRepository
 import parkhomov.andrew.ltc.domain.CompareLensStorage
 import parkhomov.andrew.ltc.theme.ThemeMode
 import parkhomov.andrew.ltc.toast.ToastProvider
@@ -37,7 +39,8 @@ import kotlin.time.ExperimentalTime
 class MainScreenViewModel(
     private val compareLensStorage: CompareLensStorage,
     private val toastProvider: ToastProvider,
-    private val settingsProvider: SettingsProvider
+    private val settingsProvider: SettingsProvider,
+    private val refractiveIndexRepository: RefractiveIndexRepository
 ) : AppViewModel<MainScreenUiState, MainScreenUiEvent>() {
     override val initialState: MainScreenUiState
         get() = MainScreenUiState()
@@ -57,6 +60,21 @@ class MainScreenViewModel(
                     }
                 }
         }
+        launch {
+            refractiveIndexRepository.getAllIndices().collect { entities ->
+                val indices = entities.map { RefractiveIndexUiModel.fromEntity(it) }
+                updateState {
+                    copy(
+                        refractiveIndices = indices.toImmutableList(),
+                        selectedRefractiveIndex = if (selectedRefractiveIndex.id == 0L && indices.isNotEmpty()) {
+                            indices.first()
+                        } else {
+                            selectedRefractiveIndex
+                        }
+                    )
+                }
+            }
+        }
     }
 
     override fun uiEvent(event: MainScreenUiEvent) {
@@ -72,7 +90,13 @@ class MainScreenViewModel(
             is MainScreenUiEvent.UpdateAppTheme -> updateAppTheme(event.theme)
             is MainScreenUiEvent.ShowSettingsDialog -> updateState { copy(showSettingsDialog = true) }
             is MainScreenUiEvent.HideSettingsDialog -> updateState { copy(showSettingsDialog = false) }
+            is MainScreenUiEvent.SelectRefractiveIndex -> selectRefractiveIndex(event.index)
+            is MainScreenUiEvent.OnAddCustomIndexClick -> { /* TODO: Implement later */ }
         }
+    }
+
+    private fun selectRefractiveIndex(index: RefractiveIndexUiModel) {
+        updateState { copy(selectedRefractiveIndex = index) }
     }
 
     private fun updateAppTheme(theme: ThemeMode) {
@@ -182,7 +206,7 @@ class MainScreenViewModel(
 
     fun onCalculateBtnClicked(
         lensData: LensData,
-        refractiveIndex: RefractiveIndex,
+        refractiveIndex: RefractiveIndexUiModel,
         spherePowerString: String,
         cylinderPowerString: String,
         axisString: String,
@@ -393,7 +417,7 @@ class MainScreenViewModel(
         recalculatedFrontCurve: Double,
         cylinderPower: Double,
         centerThickness: Double,
-        lensIndex: RefractiveIndex,
+        lensIndex: RefractiveIndexUiModel,
         spherePower: Double
     ): Double {
         return (cylinderPower - (recalculatedFrontCurve / (1 - centerThickness / lensIndex.value /
@@ -434,7 +458,7 @@ class MainScreenViewModel(
         spherePower: Double,
         recalculatedFrontCurve: Double,
         centerThickness: Double,
-        lensIndex: RefractiveIndex
+        lensIndex: RefractiveIndexUiModel
     ): Double {
         return (spherePower - recalculatedFrontCurve /
                 (1 - centerThickness / lensIndex.value / 1000.0 * recalculatedFrontCurve)) * lensIndex.indexX

@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.ksp)
     alias(libs.plugins.crashlyticslink)
+    alias(libs.plugins.room)
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -69,6 +70,8 @@ kotlin {
             implementation(libs.material.icons.extended)
             implementation(libs.collections)
             implementation(libs.lyricist)
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
         }
 
         androidUnitTest.dependencies {
@@ -80,6 +83,9 @@ kotlin {
 dependencies {
     debugImplementation(compose.uiTooling)
     add("kspCommonMainMetadata", libs.lyricist.processor)
+    add("kspAndroid", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
 }
 
 ksp {
@@ -87,7 +93,17 @@ ksp {
     arg("lyricist.generateStringsProperty", "true")
 }
 
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
+
+tasks.withType<com.google.devtools.ksp.gradle.KspAATask>().configureEach {
     if (name != "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
     }

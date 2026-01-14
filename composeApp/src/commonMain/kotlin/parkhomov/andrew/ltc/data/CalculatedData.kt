@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class CalculatedData(
-    val refractionIndex: RefractiveIndex,
+    val refractionIndex: RefractiveIndexUiModel,
     val spherePower: Double,
     val cylinderPower: Double?,
     val axis: String?,
@@ -18,7 +18,7 @@ data class CalculatedData(
     companion object Companion {
         fun mock(): CalculatedData {
             return CalculatedData(
-                refractionIndex = RefractiveIndex.CR39,
+                refractionIndex = RefractiveIndexUiModel.getDefaultIndex(),
                 spherePower = -4.5,
                 cylinderPower = -1.75,
                 axis = "66",

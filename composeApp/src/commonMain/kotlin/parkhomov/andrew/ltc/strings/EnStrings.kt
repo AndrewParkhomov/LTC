@@ -16,6 +16,7 @@ internal val EnStrings = Strings(
     // Thickness tab
     thicknessProvideCenterHint = "Please, provide center thickness",
     thicknessCalculateButton = "Calculate",
+    addCustomIndex = "+ Add custom index",
 
     // Validation
     validationInvalidNumber = "Invalid number",

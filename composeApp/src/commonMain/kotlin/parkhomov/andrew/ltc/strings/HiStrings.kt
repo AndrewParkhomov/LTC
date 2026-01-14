@@ -16,6 +16,7 @@ internal val HiStrings = Strings(
     // Thickness tab
     thicknessProvideCenterHint = "कृपया केंद्र की मोटाई दें",
     thicknessCalculateButton = "गणना करें",
+    addCustomIndex = "+ कस्टम इंडेक्स जोड़ें",
 
     // Validation
     validationInvalidNumber = "अमान्य संख्या",

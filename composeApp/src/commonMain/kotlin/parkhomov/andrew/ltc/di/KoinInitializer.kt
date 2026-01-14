@@ -1,13 +1,13 @@
 package parkhomov.andrew.ltc.di
 
+import game.dice.storage.di.storageModule
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
-import game.dice.storage.di.storageModule
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
     startKoin {
         appDeclaration()
-        modules(viewModelsModule, otherModule, storageModule)
+        modules(viewModelsModule, otherModule, storageModule, databaseModule)
     }
 
 fun initKoin() = initKoin {}

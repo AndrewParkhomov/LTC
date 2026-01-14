@@ -13,6 +13,7 @@ data class Strings(
     // Thickness tab
     val thicknessProvideCenterHint: String,
     val thicknessCalculateButton: String,
+    val addCustomIndex: String,
 
     // Validation
     val validationInvalidNumber: String,

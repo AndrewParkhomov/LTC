@@ -60,7 +60,7 @@ import parkhomov.andrew.ltc.components.Transpose
 import parkhomov.andrew.ltc.components.modifiers.dismissKeyboardOnTap
 import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.LensData
-import parkhomov.andrew.ltc.data.RefractiveIndex
+import parkhomov.andrew.ltc.data.RefractiveIndexUiModel
 import parkhomov.andrew.ltc.data.Tab
 import parkhomov.andrew.ltc.data.TabDiameter
 import parkhomov.andrew.ltc.data.TabThickness
@@ -123,10 +123,6 @@ fun MainScreenUi(
         )
     }
 
-    var selectedRefractiveIndex: RefractiveIndex by remember(uiData.lensData?.refractiveIndex) {
-        mutableStateOf(uiData.lensData?.refractiveIndex ?: RefractiveIndex.CR39)
-    }
-
     val thicknessInputValues: SnapshotStateMap<TabThickness, String?> = remember(uiData.lensData) {
         mutableStateMapOf(
             TabThickness.Sphere to uiData.lensData?.sphere?.toString(),
@@ -162,7 +158,7 @@ fun MainScreenUi(
     LaunchedEffect(uiData.calculateTransposition) {
         if (uiData.calculateTransposition != null) {
             val lensData: LensData =
-                LensData.getLensData(selectedRefractiveIndex, thicknessInputValues)
+                LensData.getLensData(uiData.selectedRefractiveIndex, thicknessInputValues)
             uiEvent(MainScreenUiEvent.DoTransposition(lensData))
         }
     }
@@ -216,8 +212,8 @@ fun MainScreenUi(
             when (selectedTab) {
                 is Tab.Thickness -> ThicknessTab(
                     uiEvent = uiEvent,
-                    selectedRefractiveIndex = selectedRefractiveIndex,
-                    updateRefractiveIndex = { selectedRefractiveIndex = it },
+                    refractiveIndices = uiData.refractiveIndices,
+                    selectedRefractiveIndex = uiData.selectedRefractiveIndex,
                     thicknessInputValues = thicknessInputValues,
                     fieldsEnabledState = fieldsEnabledState,
                     onInfoIconClicked = { infoDialogData = it }

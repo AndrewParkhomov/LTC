@@ -5,11 +5,9 @@ package parkhomov.andrew.ltc.ui.main.tabs
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,6 +18,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -37,20 +36,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import cafe.adriel.lyricist.LocalStrings
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
-import kotlinx.collections.immutable.immutableMapOf
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.components.AppOutlineButton
 import parkhomov.andrew.ltc.components.LensInputField
 import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.LensData
-import parkhomov.andrew.ltc.data.RefractiveIndex
+import parkhomov.andrew.ltc.data.RefractiveIndexUiModel
 import parkhomov.andrew.ltc.data.TabThickness
 import parkhomov.andrew.ltc.data.ValidationResult
 import parkhomov.andrew.ltc.data.getTitle
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
+import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import kotlin.time.ExperimentalTime
 
@@ -59,8 +59,8 @@ import kotlin.time.ExperimentalTime
 @Composable
 fun ThicknessTab(
     modifier: Modifier = Modifier,
-    selectedRefractiveIndex: RefractiveIndex = RefractiveIndex.CR39,
-    updateRefractiveIndex: (RefractiveIndex) -> Unit = {},
+    refractiveIndices: ImmutableList<RefractiveIndexUiModel> = persistentListOf(),
+    selectedRefractiveIndex: RefractiveIndexUiModel = RefractiveIndexUiModel.getDefaultIndex(),
     thicknessInputValues: SnapshotStateMap<TabThickness, String?> = SnapshotStateMap(),
     fieldsEnabledState: ImmutableMap<TabThickness, Boolean> = persistentMapOf(),
     uiEvent: (MainScreenUiEvent) -> Unit = {},
@@ -77,8 +77,10 @@ fun ThicknessTab(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         RefractiveIndexDropdown(
+            indices = refractiveIndices,
             selectedIndex = selectedRefractiveIndex,
-            onIndexSelected = updateRefractiveIndex,
+            onIndexSelected = { uiEvent(MainScreenUiEvent.SelectRefractiveIndex(it)) },
+            onAddCustomIndexClick = { uiEvent(MainScreenUiEvent.OnAddCustomIndexClick) },
             field = TabThickness.Index,
             onInfoIconClicked = { onInfoIconClicked(TabThickness.Index) }
         )
@@ -127,14 +129,15 @@ fun ThicknessTab(
 @Composable
 private fun RefractiveIndexDropdown(
     modifier: Modifier = Modifier,
-    selectedIndex: RefractiveIndex,
-    onIndexSelected: (RefractiveIndex) -> Unit,
+    indices: ImmutableList<RefractiveIndexUiModel>,
+    selectedIndex: RefractiveIndexUiModel,
+    onIndexSelected: (RefractiveIndexUiModel) -> Unit,
+    onAddCustomIndexClick: () -> Unit,
     field: TabThickness,
     onInfoIconClicked: () -> Unit,
 ) {
     val strings: Strings = LocalStrings.current
     var expanded by remember { mutableStateOf(false) }
-    val indices = remember { RefractiveIndex.getAllIndices() }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -185,6 +188,19 @@ private fun RefractiveIndexDropdown(
                     }
                 )
             }
+            HorizontalDivider()
+            DropdownMenuItem(
+                text = {
+                    Text(
+                        text = strings.addCustomIndex,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                },
+                onClick = {
+                    expanded = false
+                    onAddCustomIndexClick()
+                }
+            )
         }
     }
 }
