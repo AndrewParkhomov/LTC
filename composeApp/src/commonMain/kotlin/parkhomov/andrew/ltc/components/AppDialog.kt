@@ -16,7 +16,8 @@ fun AppDialog(
     onDismiss: () -> Unit,
     title: @Composable () -> Unit,
     content: @Composable () -> Unit,
-    confirmButton: @Composable (() -> Unit)? = null
+    confirmButton: @Composable (() -> Unit)? = null,
+    dismissButton: @Composable (() -> Unit)? = null
 ) {
     val strings = LocalStrings.current
 
@@ -37,6 +38,7 @@ fun AppDialog(
                 }
             }
         },
+        dismissButton = dismissButton,
         shape = RoundedCornerShape(16.dp)
     )
 }

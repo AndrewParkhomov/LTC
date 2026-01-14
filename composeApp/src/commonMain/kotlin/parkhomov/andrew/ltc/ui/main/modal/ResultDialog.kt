@@ -14,7 +14,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -24,6 +23,7 @@ import cafe.adriel.lyricist.LocalStrings
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.components.AppDialog
+import parkhomov.andrew.ltc.components.DialogTextButton
 import parkhomov.andrew.ltc.data.CalculatedData
 import parkhomov.andrew.ltc.provider.ShareManager
 import parkhomov.andrew.ltc.strings.Strings
@@ -164,33 +164,23 @@ fun ResultDialog(
                 )
             }
         },
+        dismissButton = {
+            DialogTextButton(
+                text = textId,
+                onClick = {
+                    if (isLensInCompareList) {
+                        uiEvent(MainScreenUiEvent.OnRemoveFromCompareListClicked)
+                    } else {
+                        uiEvent(MainScreenUiEvent.OnAddToCompareClicked)
+                    }
+                }
+            )
+        },
         confirmButton = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                TextButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = {
-                        if (isLensInCompareList) {
-                            uiEvent(MainScreenUiEvent.OnRemoveFromCompareListClicked)
-                        } else {
-                            uiEvent(MainScreenUiEvent.OnAddToCompareClicked)
-                        }
-                    },
-                ) {
-                    Text(
-                        text = textId.uppercase(),
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                }
-                TextButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = onDismiss
-                ) {
-                    Text(strings.buttonOk)
-                }
-            }
+            DialogTextButton(
+                text = strings.buttonOk,
+                onClick = onDismiss
+            )
         }
     )
 }

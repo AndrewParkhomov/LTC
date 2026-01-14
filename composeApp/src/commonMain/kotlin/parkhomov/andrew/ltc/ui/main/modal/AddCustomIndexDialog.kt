@@ -2,16 +2,11 @@ package parkhomov.andrew.ltc.ui.main.modal
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -25,6 +20,8 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import cafe.adriel.lyricist.LocalStrings
+import parkhomov.andrew.ltc.components.AppDialog
+import parkhomov.andrew.ltc.components.DialogTextButton
 import parkhomov.andrew.ltc.provider.getAlphanumericKeyboard
 
 @Composable
@@ -44,16 +41,15 @@ fun AddCustomIndexDialog(
         focusRequester.requestFocus()
     }
 
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        containerColor = MaterialTheme.colorScheme.surface,
+    AppDialog(
+        onDismiss = onDismiss,
         title = {
             Text(
                 text = strings.addCustomIndexTitle,
                 style = MaterialTheme.typography.headlineSmall
             )
         },
-        text = {
+        content = {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
@@ -84,28 +80,22 @@ fun AddCustomIndexDialog(
                 )
             }
         },
-        confirmButton = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
-                horizontalArrangement = Arrangement.End
-            ) {
-                TextButton(onClick = onDismiss) {
-                    Text(strings.buttonCancel)
-                }
-                TextButton(
-                    onClick = {
-                        indexValue.toDoubleOrNull()?.let { value ->
-                            onSave(indexName, value)
-                        }
-                    },
-                    enabled = isSaveEnabled
-                ) {
-                    Text(strings.buttonSave)
-                }
-            }
+        dismissButton = {
+            DialogTextButton(
+                text = strings.buttonCancel,
+                onClick = onDismiss
+            )
         },
-        shape = RoundedCornerShape(16.dp)
+        confirmButton = {
+            DialogTextButton(
+                text = strings.buttonSave,
+                onClick = {
+                    indexValue.toDoubleOrNull()?.let { value ->
+                        onSave(indexName, value)
+                    }
+                },
+                enabled = isSaveEnabled
+            )
+        }
     )
 }
