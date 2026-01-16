@@ -6,8 +6,7 @@ import platform.Foundation.languageCode
 
 private class SystemLanguageProviderImpl : SystemLanguageProvider {
     override fun getLanguage(): String {
-        val locale = NSLocale.currentLocale
-        return locale.languageCode ?: "en"
+        return NSLocale.currentLocale.languageCode
     }
 }
 

@@ -13,11 +13,9 @@ object AndroidDatabaseBuilder : KoinComponent {
         val dbFile = context.getDatabasePath(DATABASE_NAME)
         return Room.databaseBuilder<AppDatabase>(
             context = context.applicationContext,
-            name = dbFile.absolutePath
+            name = dbFile.absolutePath,
         )
     }
 }
 
-actual fun getDatabaseBuilder(): RoomDatabase.Builder<AppDatabase> {
-    return AndroidDatabaseBuilder.getBuilder()
-}
+actual fun getDatabaseBuilder(): RoomDatabase.Builder<AppDatabase> = AndroidDatabaseBuilder.getBuilder()
