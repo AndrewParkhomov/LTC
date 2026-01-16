@@ -206,3 +206,4 @@ fun InputType.getDescription(strings: Strings): String = when (this) {
     is TabDiameter.DistanceBetweenLenses -> strings.infoDistanceBetweenLensesDesc
     is TabDiameter.PupilDistance -> strings.infoPupilDistanceDesc
 }
+

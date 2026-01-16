@@ -35,47 +35,47 @@ internal val EnStrings = Strings(
 
     // Info dialog - Index of refraction
     infoIndexOfRefractionTitle = "Index of refraction",
-    infoIndexOfRefractionDesc = "In optics, the refractive index or index of refraction of a material is a dimensionless number that describes how light propagates through that medium. It is defined as n = c / v, where c is the speed of light in vacuum and v is the phase velocity of light in the medium.\n\tFor example, the refractive index of water is 1.333, meaning that light travels 1.333 times faster in a vacuum than it does in water ©Wikipedia",
+    infoIndexOfRefractionDesc = "Describes how light bends through a lens material. Higher index = thinner lenses. Common: 1.50 (CR-39), 1.59 (polycarbonate), 1.67, 1.74.",
 
     // Info dialog - Sphere power
     infoSpherePowerTitle = "Sphere power",
-    infoSpherePowerDesc = "Spherical correction corrects refractive error of the eye with a single convergent or divergent refractive power in all meridians",
+    infoSpherePowerDesc = "Corrects nearsightedness (−) or farsightedness (+). Measured in diopters (D).",
 
     // Info dialog - Cylinder power
     infoCylinderPowerTitle = "Cylinder power",
-    infoCylinderPowerDesc = "Cylindrical correction corrects astigmatic refractive error of the eye by adding or subtracting power cylindrically in a meridian specified by the prescribed axis",
+    infoCylinderPowerDesc = "Corrects astigmatism by adding power in a specific meridian. Can be plus or minus form.",
 
     // Info dialog - Axis
     infoAxisTitle = "Axis",
-    infoAxisDesc = "Axis is present only if there is a value for cylinder. This indicates the angle in degrees of one of two major meridians the prescribed cylindrical power is in. Which major meridian is referenced is indicated by the cylindrical correction being in plus or minus notation",
+    infoAxisDesc = "The angle (0–180°) for cylindrical correction. Paired with cylinder power to correct astigmatism.",
 
     // Info dialog - Real base curve
-    infoBaseCurveTitle = "Real base curve",
-    infoBaseCurveDesc = "The base curve (usually determined from the profile of the front surface of an ophthalmic lens) can be changed to result in the best optic and cosmetic characteristics across the entire surface of the lens. Optometrists may choose to specify a particular base curve when prescribing a corrective lens for either of these reasons. A multitude of mathematical formulas and professional clinical experience has allowed optometrists and lens designers to determine standard base curves that are ideal for most people. As a result, the front surface curve is more standardized and the characteristics that generate a person\"s unique prescription are typically derived from the geometry of the back surface of the lens",
+    infoBaseCurveTitle = "Base curve",
+    infoBaseCurveDesc = "Front surface curvature of the lens in diopters. Affects thickness and aesthetics. Range: 0–10.5 D.",
 
     // Info dialog - Center thickness
     infoCenterThicknessTitle = "Center thickness",
-    infoCenterThicknessDesc = "Thickness in optical center of the lens in millimeters",
+    infoCenterThicknessDesc = "Thickness at the optical center (mm). Thinnest point for minus lenses, thickest for plus.",
 
     // Info dialog - Edge thickness
     infoEdgeThicknessTitle = "Edge thickness",
-    infoEdgeThicknessDesc = "Thickness of the lens in edge expressed in millimeters",
+    infoEdgeThicknessDesc = "Thickness at lens edge (mm). Thickest point for minus lenses. Min ~2mm for rimless frames.",
 
     // Info dialog - Lens diameter
     infoLensDiameterTitle = "Lens diameter",
-    infoLensDiameterDesc = "Diameter of the lens in millimeters",
+    infoLensDiameterDesc = "Diameter of uncut lens blank (mm). Larger diameter = thicker lens.",
 
     // Info dialog - Effective diameter
     infoEffectiveDiameterTitle = "Effective diameter",
-    infoEffectiveDiameterDesc = "Effective diameter is the longest diagonal across the lens",
+    infoEffectiveDiameterDesc = "Longest diagonal across frame opening (ED). Used to calculate minimum blank size.",
 
     // Info dialog - Distance between lenses
     infoDistanceBetweenLensesTitle = "Distance between lenses",
-    infoDistanceBetweenLensesDesc = "The shortest distance in millimeters between the nasal edges of each lens. DBL is also commonly referred to as bridge size",
+    infoDistanceBetweenLensesDesc = "Bridge size (DBL) — distance between nasal edges of frame openings (mm).",
 
     // Info dialog - Pupil distance
     infoPupilDistanceTitle = "Pupil distance",
-    infoPupilDistanceDesc = "Pupil Distance is the distance (expressed in millimeters) between the centers of the pupils",
+    infoPupilDistanceDesc = "Distance between pupil centers (mm). Essential for lens centration. Adult average: 54–74mm.",
 
     // Diameter calculation
     diameterCalculationResult = { result -> "ED x 2 + DBL - PD = $result mm" },

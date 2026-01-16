@@ -1,5 +1,7 @@
 package parkhomov.andrew.ltc.components
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
@@ -27,18 +29,23 @@ fun AppDialog(
         title = title,
         text = content,
         confirmButton = {
-            if (confirmButton != null) {
-                confirmButton()
-            } else {
-                TextButton(
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(strings.buttonOk)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                if (dismissButton != null) {
+                    dismissButton()
+                }
+                if (confirmButton != null) {
+                    confirmButton()
+                } else {
+                    TextButton(onClick = onDismiss) {
+                        Text(strings.buttonOk)
+                    }
                 }
             }
         },
-        dismissButton = dismissButton,
+        dismissButton = null,
         shape = RoundedCornerShape(16.dp)
     )
 }
