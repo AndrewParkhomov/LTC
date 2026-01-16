@@ -24,7 +24,6 @@ class ThicknessUnitTest {
     private val viewModel: MainScreenViewModel =
         MainScreenViewModel(
             compareLensStorage = TestCompareLensStorage(),
-            toastProvider = TestToastProvider(),
             settingsProvider = TestSettingsProvider(),
             refractiveIndexRepository = TestRefractiveIndexRepository()
         )

@@ -7,12 +7,14 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import game.dice.storage.provider.SystemLanguageProvider
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class SettingsProviderImpl(
     private val dataStore: DataStore<Preferences>,
+    private val systemLanguageProvider: SystemLanguageProvider,
 ) : SettingsProvider {
 
     override suspend fun updateTheme(value: Int) {
@@ -41,13 +43,13 @@ class SettingsProviderImpl(
 
     override fun getLanguageFlow(): Flow<String> {
         return dataStore.data.map { preferences: Preferences ->
-            preferences[APP_LANGUAGE] ?: DEFAULT_LANGUAGE
+            preferences[APP_LANGUAGE] ?: systemLanguageProvider.getLanguage()
         }
     }
 
     override suspend fun getLanguage(): String {
         return dataStore.data.map { preferences: Preferences ->
-            preferences[APP_LANGUAGE] ?: DEFAULT_LANGUAGE
+            preferences[APP_LANGUAGE] ?: systemLanguageProvider.getLanguage()
         }.first()
     }
 
@@ -67,6 +69,5 @@ class SettingsProviderImpl(
         val APP_LANGUAGE: Preferences.Key<String> = stringPreferencesKey("APP_LANGUAGE")
         val APP_THEME: Preferences.Key<Int> = intPreferencesKey("APP_THEME")
         val IOS_PROMO_SHOWN: Preferences.Key<Boolean> = booleanPreferencesKey("IOS_PROMO_SHOWN")
-        private const val DEFAULT_LANGUAGE: String = "en"
     }
 }
