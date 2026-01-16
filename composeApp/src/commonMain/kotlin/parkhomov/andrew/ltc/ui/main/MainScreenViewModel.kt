@@ -5,6 +5,7 @@ package parkhomov.andrew.ltc.ui.main
 import androidx.compose.runtime.Stable
 import game.dice.storage.repository.SettingsProvider
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import parkhomov.andrew.ltc.base.AppViewModel
 import parkhomov.andrew.ltc.data.CalculatedData
@@ -13,6 +14,7 @@ import parkhomov.andrew.ltc.data.RefractiveIndexUiModel
 import parkhomov.andrew.ltc.database.RefractiveIndexEntity
 import parkhomov.andrew.ltc.database.RefractiveIndexRepository
 import parkhomov.andrew.ltc.domain.CompareLensStorage
+import parkhomov.andrew.ltc.provider.isIos
 import parkhomov.andrew.ltc.theme.ThemeMode
 import parkhomov.andrew.ltc.toast.ToastProvider
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
@@ -34,12 +36,12 @@ import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 
 @Stable
 class MainScreenViewModel(
     private val compareLensStorage: CompareLensStorage,
-    private val toastProvider: ToastProvider,
     private val settingsProvider: SettingsProvider,
     private val refractiveIndexRepository: RefractiveIndexRepository
 ) : AppViewModel<MainScreenUiState, MainScreenUiEvent>() {
@@ -76,6 +78,7 @@ class MainScreenViewModel(
                 }
             }
         }
+        showIosPromoModalIfNeeded()
     }
 
     override fun uiEvent(event: MainScreenUiEvent) {
@@ -98,6 +101,7 @@ class MainScreenViewModel(
             is MainScreenUiEvent.OnDeleteCustomIndexClick -> updateState { copy(indexToDelete = event.index) }
             is MainScreenUiEvent.HideDeleteConfirmDialog -> updateState { copy(indexToDelete = null) }
             is MainScreenUiEvent.ConfirmDeleteIndex -> confirmDeleteIndex()
+            is MainScreenUiEvent.HideIosPromoDialog -> hideIosPromoDialog()
         }
     }
 
@@ -508,6 +512,25 @@ class MainScreenViewModel(
                 2.0
             )
         )    // sag of concave surface
+    }
+
+    private fun hideIosPromoDialog() {
+        launch {
+            settingsProvider.setIosPromoShown(true)
+            updateState { copy(showIosPromoDialog = false) }
+        }
+    }
+
+    private fun showIosPromoModalIfNeeded() {
+        launch {
+            if (!isIos()) {
+                val wasShown: Boolean = settingsProvider.isIosPromoShown()
+                if (!wasShown) {
+                    delay(5.seconds)
+                    updateState { copy(showIosPromoDialog = true) }
+                }
+            }
+        }
     }
 
 }

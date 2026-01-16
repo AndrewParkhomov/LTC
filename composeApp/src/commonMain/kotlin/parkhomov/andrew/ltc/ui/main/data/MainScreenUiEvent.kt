@@ -23,4 +23,5 @@ sealed interface MainScreenUiEvent {
     data class OnDeleteCustomIndexClick(val index: RefractiveIndexUiModel) : MainScreenUiEvent
     data object HideDeleteConfirmDialog : MainScreenUiEvent
     data object ConfirmDeleteIndex : MainScreenUiEvent
+    data object HideIosPromoDialog : MainScreenUiEvent
 }

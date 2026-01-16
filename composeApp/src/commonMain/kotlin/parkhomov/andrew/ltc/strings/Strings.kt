@@ -165,4 +165,8 @@ data class Strings(
     val contentDescriptionSettings: String,
     val contentDescriptionClose: String,
     val contentDescriptionBack: String,
+
+    // iOS promo dialog
+    val iosPromoTitle: String,
+    val iosPromoMessage: String,
 )

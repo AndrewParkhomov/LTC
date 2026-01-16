@@ -153,4 +153,8 @@ internal val EnStrings = Strings(
     contentDescriptionSettings = "Open settings",
     contentDescriptionClose = "Close dialog",
     contentDescriptionBack = "Go back",
+
+    // iOS promo dialog
+    iosPromoTitle = "Available on iOS",
+    iosPromoMessage = "Lens Thickness Calculator is now available on iOS! Share with your friends who use iPhone.",
 )

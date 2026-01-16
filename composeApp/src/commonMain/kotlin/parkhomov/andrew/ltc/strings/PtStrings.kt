@@ -153,4 +153,8 @@ internal val PtStrings = Strings(
     contentDescriptionSettings = "Abrir configurações",
     contentDescriptionClose = "Fechar diálogo",
     contentDescriptionBack = "Voltar",
+
+    // iOS promo dialog
+    iosPromoTitle = "Disponível no iOS",
+    iosPromoMessage = "A Calculadora de Espessura de Lente agora está disponível no iOS! Compartilhe com seus amigos que usam iPhone.",
 )

@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
@@ -50,9 +51,22 @@ class SettingsProviderImpl(
         }.first()
     }
 
+    override suspend fun setIosPromoShown(value: Boolean) {
+        dataStore.edit { preferences: MutablePreferences ->
+            preferences[IOS_PROMO_SHOWN] = value
+        }
+    }
+
+    override suspend fun isIosPromoShown(): Boolean {
+        return dataStore.data.map { preferences: Preferences ->
+            preferences[IOS_PROMO_SHOWN] ?: false
+        }.first()
+    }
+
     companion object {
         val APP_LANGUAGE: Preferences.Key<String> = stringPreferencesKey("APP_LANGUAGE")
         val APP_THEME: Preferences.Key<Int> = intPreferencesKey("APP_THEME")
+        val IOS_PROMO_SHOWN: Preferences.Key<Boolean> = booleanPreferencesKey("IOS_PROMO_SHOWN")
         private const val DEFAULT_LANGUAGE: String = "en"
     }
 }

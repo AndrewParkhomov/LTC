@@ -153,4 +153,8 @@ internal val HiStrings = Strings(
     contentDescriptionSettings = "सेटिंग्स खोलें",
     contentDescriptionClose = "डायलॉग बंद करें",
     contentDescriptionBack = "वापस जाएं",
+
+    // iOS promo dialog
+    iosPromoTitle = "iOS पर उपलब्ध",
+    iosPromoMessage = "लेंस मोटाई कैलकुलेटर अब iOS पर उपलब्ध है! अपने iPhone उपयोग करने वाले दोस्तों के साथ साझा करें।",
 )

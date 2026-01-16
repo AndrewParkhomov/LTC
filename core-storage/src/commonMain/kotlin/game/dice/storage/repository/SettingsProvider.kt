@@ -11,4 +11,6 @@ interface SettingsProvider {
     suspend fun updateTheme(value: Int)
     suspend fun getTheme(): Int?
     fun getThemeFlow(): Flow<Int?>
+    suspend fun setIosPromoShown(value: Boolean)
+    suspend fun isIosPromoShown(): Boolean
 }

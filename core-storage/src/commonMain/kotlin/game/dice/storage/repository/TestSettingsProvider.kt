@@ -28,4 +28,12 @@ class TestSettingsProvider : SettingsProvider {
        return flowOf(null)
     }
 
+    override suspend fun setIosPromoShown(value: Boolean) {
+
+    }
+
+    override suspend fun isIosPromoShown(): Boolean {
+        return false
+    }
+
 }

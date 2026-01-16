@@ -153,4 +153,8 @@ internal val UkStrings = Strings(
     contentDescriptionSettings = "Відкрити налаштування",
     contentDescriptionClose = "Закрити діалог",
     contentDescriptionBack = "Повернутися назад",
+
+    // iOS promo dialog
+    iosPromoTitle = "Доступно на iOS",
+    iosPromoMessage = "Калькулятор товщини лінзи тепер доступний на iOS! Поділіться з друзями, які користуються iPhone.",
 )

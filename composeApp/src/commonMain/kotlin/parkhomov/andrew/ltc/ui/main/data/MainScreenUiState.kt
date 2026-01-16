@@ -25,7 +25,8 @@ data class MainScreenUiState(
     val refractiveIndices: ImmutableList<RefractiveIndexUiModel> = persistentListOf(),
     val selectedRefractiveIndex: RefractiveIndexUiModel = RefractiveIndexUiModel.getDefaultIndex(),
     val showAddCustomIndexDialog: Boolean = false,
-    val indexToDelete: RefractiveIndexUiModel? = null
+    val indexToDelete: RefractiveIndexUiModel? = null,
+    val showIosPromoDialog: Boolean = false
 ) {
     companion object Companion {
         fun mock(): MainScreenUiState {
