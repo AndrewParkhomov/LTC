@@ -1,4 +1,4 @@
-package parkhomov.andrew.ltc
+package parkhomov.andrew.lensthicknesscalculator
 
 import android.app.Application
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -7,7 +7,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
-import parkhomov.andrew.lensthicknesscalculator.BuildConfig
 import parkhomov.andrew.ltc.di.databaseModule
 import parkhomov.andrew.ltc.di.otherModule
 import parkhomov.andrew.ltc.di.viewModelsModule

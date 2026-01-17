@@ -1,4 +1,4 @@
-package parkhomov.andrew.ltc.activity
+package parkhomov.andrew.lensthicknesscalculator.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

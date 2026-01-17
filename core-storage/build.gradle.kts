@@ -1,16 +1,14 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
     androidTarget {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_21)
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         }
     }
 
@@ -32,26 +30,15 @@ kotlin {
             implementation(compose.runtime)
         }
     }
+
+    jvmToolchain(17)
 }
 
 android {
     namespace = "parkhomov.andrew.ltc.storage"
     compileSdk = libs.versions.compileSdk.get().toInt()
+
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-    buildTypes {
-        debug {}
-        release {}
-        create("stageDebug") {
-            initWith(buildTypes.getByName("debug"))
-        }
-        create("stage") {
-            initWith(buildTypes.getByName("debug"))
-        }
     }
 }
