@@ -18,12 +18,6 @@ plugins {
 }
 
 subprojects {
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-        }
-    }
-
     plugins.withId("org.jlleitschuh.gradle.ktlint") {
         configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
             version.set("1.3.1")
@@ -39,6 +33,12 @@ subprojects {
                             element.file.path.contains("/commonMain/kotlin/")
                 }
             }
+        }
+    }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         }
     }
 

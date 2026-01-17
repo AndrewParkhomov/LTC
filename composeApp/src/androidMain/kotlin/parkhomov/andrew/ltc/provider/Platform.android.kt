@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import parkhomov.andrew.ltc.BuildConfig
 
 class AndroidPlatform : Platform {
     override val name: String = "Android ${Build.VERSION.SDK_INT}"
@@ -19,8 +20,7 @@ class AndroidPlatform : Platform {
 
 actual fun getPlatform(): Platform = AndroidPlatform()
 
-//actual fun getVersionName(): String = BuildConfig.VERSION_NAME
-actual fun getVersionName(): String = ""
+actual fun getVersionName(): String = BuildConfig.VERSION_NAME
 
 actual fun getDecimalSignedKeyboard(): KeyboardOptions =
     KeyboardOptions.Default.copy(

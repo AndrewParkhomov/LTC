@@ -28,11 +28,6 @@ kotlin {
     }
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.koin.compose)
-        }
-
         iosMain.dependencies {
             implementation(libs.crashkios.crashlytics)
         }
@@ -73,6 +68,11 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
+        buildConfigField("String", "VERSION_NAME", "\"${libs.versions.versionName.get()}\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 

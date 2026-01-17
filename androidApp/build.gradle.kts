@@ -38,7 +38,6 @@ android {
                 .get()
                 .toInt()
         versionName = libs.versions.versionName.get()
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -88,6 +87,5 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(project.dependencies.platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
-    implementation(libs.koin.android)
     implementation(libs.koin.compose)
 }
