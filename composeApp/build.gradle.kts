@@ -113,3 +113,8 @@ tasks.withType<com.google.devtools.ksp.gradle.KspAATask>().configureEach {
 kotlin.sourceSets.commonMain {
     kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
 }
+
+// Make ktlint tasks depend on KSP code generation
+tasks.matching { it.name.contains("ktlint", ignoreCase = true) }.configureEach {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
