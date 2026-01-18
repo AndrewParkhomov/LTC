@@ -14,9 +14,9 @@ import parkhomov.andrew.ltc.data.RefractiveIndexUiModel
 import parkhomov.andrew.ltc.database.RefractiveIndexEntity
 import parkhomov.andrew.ltc.database.RefractiveIndexRepository
 import parkhomov.andrew.ltc.domain.CompareLensStorage
+import parkhomov.andrew.ltc.provider.ReviewManager
 import parkhomov.andrew.ltc.provider.isIos
 import parkhomov.andrew.ltc.theme.ThemeMode
-import parkhomov.andrew.ltc.toast.ToastProvider
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiState
 import parkhomov.andrew.ltc.utils.BASE_0
@@ -43,7 +43,8 @@ import kotlin.time.ExperimentalTime
 class MainScreenViewModel(
     private val compareLensStorage: CompareLensStorage,
     private val settingsProvider: SettingsProvider,
-    private val refractiveIndexRepository: RefractiveIndexRepository
+    private val refractiveIndexRepository: RefractiveIndexRepository,
+    private val reviewManager: ReviewManager
 ) : AppViewModel<MainScreenUiState, MainScreenUiEvent>() {
     override val initialState: MainScreenUiState
         get() = MainScreenUiState()
@@ -85,7 +86,7 @@ class MainScreenViewModel(
         when (event) {
             is MainScreenUiEvent.OnCompareClick -> updateState { copy() }
             is MainScreenUiEvent.OnCalculateThickness -> handleCalculateButtonClick(event.lensData)
-            is MainScreenUiEvent.HideResultDialog -> updateState { copy(calculatedData = null) }
+            is MainScreenUiEvent.HideResultDialog -> handleHideResultDialog()
             is MainScreenUiEvent.OnAddToCompareClicked -> onAddToCompareClicked()
             is MainScreenUiEvent.OnRemoveFromCompareListClicked -> onRemoveFromCompareListClicked()
             is MainScreenUiEvent.OnTranspositionIconClick -> onTranspositionClick()
@@ -427,6 +428,26 @@ class MainScreenViewModel(
                 )
             )
         }
+
+        checkAndRequestReview()
+    }
+
+    private fun handleHideResultDialog() {
+        if (uiState.value.showNativeAddReviewPopup) {
+            launch {
+                delay(1.seconds)
+                reviewManager.requestReview()
+            }
+        }
+        updateState { copy(calculatedData = null, showNativeAddReviewPopup = false) }
+    }
+
+    private suspend fun checkAndRequestReview() {
+        settingsProvider.incrementCalculationCount()
+        val count: Int = settingsProvider.getCalculationCount()
+        if (SHOW_MODAL_CALCULATIONS.contains(count)) {
+            updateState { copy(showNativeAddReviewPopup = true) }
+        }
     }
 
     private fun handleNoBaseCurveBehaviour(value: Double): Double {
@@ -516,7 +537,7 @@ class MainScreenViewModel(
 
     private fun hideIosPromoDialog() {
         launch {
-            settingsProvider.setIosPromoShown(true)
+            settingsProvider.setIosPromoShown()
             updateState { copy(showIosPromoDialog = false) }
         }
     }
@@ -531,6 +552,10 @@ class MainScreenViewModel(
                 }
             }
         }
+    }
+
+    companion object {
+        private val SHOW_MODAL_CALCULATIONS: List<Int> = listOf(20, 200)
     }
 
 }

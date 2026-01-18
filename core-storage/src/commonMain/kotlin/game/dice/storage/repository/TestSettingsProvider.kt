@@ -28,7 +28,7 @@ class TestSettingsProvider : SettingsProvider {
        return flowOf(null)
     }
 
-    override suspend fun setIosPromoShown(value: Boolean) {
+    override suspend fun setIosPromoShown() {
 
     }
 
@@ -36,4 +36,10 @@ class TestSettingsProvider : SettingsProvider {
         return false
     }
 
+    override suspend fun incrementCalculationCount() {
+    }
+
+    override suspend fun getCalculationCount(): Int {
+        return 0
+    }
 }

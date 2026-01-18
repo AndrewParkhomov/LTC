@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.googleServices)
     alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.crashlyticslink)
+    alias(libs.plugins.ktlint)
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")

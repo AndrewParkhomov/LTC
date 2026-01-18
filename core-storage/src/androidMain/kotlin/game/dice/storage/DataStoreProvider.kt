@@ -11,9 +11,8 @@ import org.koin.core.component.inject
 actual class DataStoreProvider : KoinComponent {
     private val context: Context by inject()
 
-    actual fun get(): DataStore<Preferences> {
-        return createDataStore(
+    actual fun get(): DataStore<Preferences> =
+        createDataStore(
             producePath = { context.filesDir.resolve(DATA_STORE_FILE_NAME).absolutePath },
         )
-    }
 }

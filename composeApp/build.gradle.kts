@@ -28,6 +28,10 @@ kotlin {
     }
 
     sourceSets {
+        androidMain.dependencies {
+            implementation(libs.play.review.ktx)
+        }
+
         iosMain.dependencies {
             implementation(libs.crashkios.crashlytics)
         }

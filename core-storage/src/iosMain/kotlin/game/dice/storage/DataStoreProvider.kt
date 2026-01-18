@@ -11,8 +11,8 @@ import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 
 actual class DataStoreProvider {
-    actual fun get(): DataStore<Preferences> {
-        return createDataStore(
+    actual fun get(): DataStore<Preferences> =
+        createDataStore(
             producePath = {
                 val documentDirectory: NSURL? =
                     NSFileManager.defaultManager.URLForDirectory(
@@ -25,5 +25,4 @@ actual class DataStoreProvider {
                 requireNotNull(documentDirectory).path + "/$DATA_STORE_FILE_NAME"
             },
         )
-    }
 }

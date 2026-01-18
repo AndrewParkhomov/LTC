@@ -17,11 +17,19 @@ class SettingsProviderImpl(
     private val systemLanguageProvider: SystemLanguageProvider,
 ) : SettingsProvider {
 
-    override suspend fun updateTheme(value: Int) {
+    private suspend fun <T> setValue(key: Preferences.Key<T>, value: T) {
         dataStore.edit { preferences: MutablePreferences ->
-            preferences[APP_THEME] = value
+            preferences[key] = value
         }
     }
+
+    private suspend fun <T> getValue(key: Preferences.Key<T>, defaultValue: T): T {
+        return dataStore.data.map { preferences: Preferences ->
+            preferences[key] ?: defaultValue
+        }.first()
+    }
+
+    override suspend fun updateTheme(value: Int) = setValue(APP_THEME, value)
 
     override suspend fun getTheme(): Int? {
         return dataStore.data.map { preferences: Preferences ->
@@ -35,11 +43,7 @@ class SettingsProviderImpl(
         }
     }
 
-    override suspend fun updateLanguage(value: String) {
-        dataStore.edit { preferences: MutablePreferences ->
-            preferences[APP_LANGUAGE] = value
-        }
-    }
+    override suspend fun updateLanguage(value: String) = setValue(APP_LANGUAGE, value)
 
     override fun getLanguageFlow(): Flow<String> {
         return dataStore.data.map { preferences: Preferences ->
@@ -53,21 +57,23 @@ class SettingsProviderImpl(
         }.first()
     }
 
-    override suspend fun setIosPromoShown(value: Boolean) {
+    override suspend fun setIosPromoShown() = setValue(IOS_PROMO_SHOWN, true)
+
+    override suspend fun isIosPromoShown(): Boolean = getValue(IOS_PROMO_SHOWN, false)
+
+    override suspend fun incrementCalculationCount() {
         dataStore.edit { preferences: MutablePreferences ->
-            preferences[IOS_PROMO_SHOWN] = value
+            val currentCount = preferences[CALCULATION_COUNT] ?: 0
+            preferences[CALCULATION_COUNT] = currentCount + 1
         }
     }
 
-    override suspend fun isIosPromoShown(): Boolean {
-        return dataStore.data.map { preferences: Preferences ->
-            preferences[IOS_PROMO_SHOWN] ?: false
-        }.first()
-    }
+    override suspend fun getCalculationCount(): Int = getValue(CALCULATION_COUNT, 0)
 
     companion object {
         val APP_LANGUAGE: Preferences.Key<String> = stringPreferencesKey("APP_LANGUAGE")
         val APP_THEME: Preferences.Key<Int> = intPreferencesKey("APP_THEME")
         val IOS_PROMO_SHOWN: Preferences.Key<Boolean> = booleanPreferencesKey("IOS_PROMO_SHOWN")
+        val CALCULATION_COUNT: Preferences.Key<Int> = intPreferencesKey("CALCULATION_COUNT")
     }
 }
