@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        get().declare<Activity>(this)
+        get().declare<Activity>(this) // inject activity into koin for review native popup
 
         setContent {
             AppEntryPoint()

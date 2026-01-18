@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.googleServices)
     alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.crashlyticslink)
+    alias(libs.plugins.stability.analyzer)
     alias(libs.plugins.ktlint)
 }
 
