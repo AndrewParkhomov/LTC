@@ -27,7 +27,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.datastore.preferences)
             implementation(libs.koin.core)
-            implementation(compose.runtime)
+            implementation(libs.compose.runtime)
         }
     }
 

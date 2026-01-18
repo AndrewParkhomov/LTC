@@ -20,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.lyricist.LocalStrings
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.components.LensInputField
 import parkhomov.andrew.ltc.data.InputType

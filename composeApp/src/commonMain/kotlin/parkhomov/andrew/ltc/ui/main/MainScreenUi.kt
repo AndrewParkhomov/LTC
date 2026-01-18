@@ -54,7 +54,7 @@ import kotlinx.collections.immutable.persistentMapOf
 import ltc.composeapp.generated.resources.Res
 import ltc.composeapp.generated.resources.ic_transpose
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.components.Transpose
 import parkhomov.andrew.ltc.components.modifiers.dismissKeyboardOnTap
 import parkhomov.andrew.ltc.data.InputType

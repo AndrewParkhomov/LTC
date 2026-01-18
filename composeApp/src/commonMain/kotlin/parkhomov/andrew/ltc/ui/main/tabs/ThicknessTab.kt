@@ -43,7 +43,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.components.AppOutlineButton
 import parkhomov.andrew.ltc.components.LensInputField
 import parkhomov.andrew.ltc.data.InputType
