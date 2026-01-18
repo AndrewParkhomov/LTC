@@ -21,6 +21,7 @@ kotlin {
         it.binaries.framework {
             baseName = "core-storage"
             isStatic = true
+            binaryOption("bundleId", "lens.thickness.calculator.storage.framework")
         }
     }
 
