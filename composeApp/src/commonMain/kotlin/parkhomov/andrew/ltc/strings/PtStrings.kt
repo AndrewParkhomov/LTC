@@ -35,47 +35,47 @@ internal val PtStrings = Strings(
 
     // Info dialog - Index of refraction
     infoIndexOfRefractionTitle = "Índice de refração",
-    infoIndexOfRefractionDesc = "Descreve como a luz se curva através do material da lente. Índice maior = lentes mais finas. Comum: 1.50 (CR-39), 1.59 (policarbonato), 1.67, 1.74.",
+    infoIndexOfRefractionDesc = "Na óptica, o índice de refração ou índice de refração de um material é um número sem dimensão que descreve como a luz se propaga através desse meio. É definido como n = c / v, onde c é a velocidade da luz no vácuo e v é a velocidade da fase da luz no meio.\n\tPor exemplo, o índice de refração da água é 1,333, o que significa que a luz viaja 1,333 vezes mais rápido no vácuo do que na água ©Wikipedia",
 
     // Info dialog - Sphere power
     infoSpherePowerTitle = "Grau Esférico",
-    infoSpherePowerDesc = "Corrige miopia (−) ou hipermetropia (+). Medido em dioptrias (D).",
+    infoSpherePowerDesc = "A correção esférica corrige o erro de refração do olho com um único poder de refração convergente ou divergente em todos os meridianos",
 
     // Info dialog - Cylinder power
     infoCylinderPowerTitle = "Grau Cilíndrico",
-    infoCylinderPowerDesc = "Corrige astigmatismo adicionando poder em um meridiano específico. Pode ser positivo ou negativo.",
+    infoCylinderPowerDesc = "A correção cilíndrica corrige um erro refrativo astigmático do olho, adicionando ou subtraindo poder cilíndrico em um meridiano especificado pelo eixo prescrito",
 
     // Info dialog - Axis
     infoAxisTitle = "Eixo",
-    infoAxisDesc = "O ângulo (0–180°) para correção cilíndrica. Combinado com cilindro para corrigir astigmatismo.",
+    infoAxisDesc = "O eixo está presente apenas se houver um valor para o cilindro. Isso indica o ângulo em graus de um dos dois principais meridianos em que a potência cilíndrica prescrita está. Qual o principal meridiano referenciado é indicado pela correção cilíndrica em notação de mais ou de menos",
 
     // Info dialog - Real base curve
     infoBaseCurveTitle = "Curva Base Real",
-    infoBaseCurveDesc = "Curvatura da superfície frontal da lente em dioptrias. Afeta espessura e estética. Faixa: 0–10.5 D.",
+    infoBaseCurveDesc = "A curva base (geralmente determinada a partir do perfil da superfície frontal de uma lente oftálmica) pode ser alterada para resultar nas melhores características ópticas e cosméticas em toda a superfície da lente. Os optometristas podem optar por especificar uma curva de base específica ao prescrever uma lente corretiva por um desses motivos. Uma infinidade de fórmulas matemáticas e experiência clínica profissional permitiu que optometristas e projetistas de lentes determinassem curvas de base padrão ideais para a maioria das pessoas. Como resultado, a curva da superfície frontal é mais padronizada e as características que geram a prescrição exclusiva de uma pessoa geralmente são derivadas da geometria da superfície traseira da lente",
 
     // Info dialog - Center thickness
     infoCenterThicknessTitle = "Espessura central",
-    infoCenterThicknessDesc = "Espessura no centro óptico (mm). Ponto mais fino para lentes negativas, mais grosso para positivas.",
+    infoCenterThicknessDesc = "Espessura no centro óptico da lente em milímetros",
 
     // Info dialog - Edge thickness
     infoEdgeThicknessTitle = "Espessura da borda",
-    infoEdgeThicknessDesc = "Espessura na borda da lente (mm). Ponto mais grosso para lentes negativas. Mín ~2mm para sem aro.",
+    infoEdgeThicknessDesc = "Espessura da lente na borda expressa em milímetros",
 
     // Info dialog - Lens diameter
     infoLensDiameterTitle = "Diâmetro da lente",
-    infoLensDiameterDesc = "Diâmetro do bloco de lente não cortado (mm). Maior diâmetro = lente mais grossa.",
+    infoLensDiameterDesc = "Diâmetro da lente em milímetros",
 
     // Info dialog - Effective diameter
     infoEffectiveDiameterTitle = "Diâmetro Efetivo",
-    infoEffectiveDiameterDesc = "Diagonal mais longa da abertura da armação (ED). Usado para calcular tamanho mínimo do bloco.",
+    infoEffectiveDiameterDesc = "O diâmetro efetivo é a diagonal mais longa na lente, também conhecido por diagonal maior (DM)",
 
     // Info dialog - Distance between lenses
     infoDistanceBetweenLensesTitle = "Distância entre as lentes",
-    infoDistanceBetweenLensesDesc = "Tamanho da ponte (DBL) — distância entre bordas nasais das aberturas da armação (mm).",
+    infoDistanceBetweenLensesDesc = "A menor distância em milímetros entre as bordas nasais de cada lente. DBL também é conhecido como tamanho da ponte",
 
     // Info dialog - Pupil distance
     infoPupilDistanceTitle = "Distância Pupilar",
-    infoPupilDistanceDesc = "Distância entre os centros das pupilas (mm). Essencial para centragem. Média adulta: 54–74mm.",
+    infoPupilDistanceDesc = "Distância da pupila é a distância (expressa em milímetros) entre os centros das pupilas. Conhecido como DP",
 
     // Diameter calculation
     diameterCalculationResult = { result -> "ED x 2 + DBL - PD = $result mm" },
