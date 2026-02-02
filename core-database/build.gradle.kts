@@ -3,9 +3,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 val bundleIdPrefix: String? = libs.versions.bundleIdPrefix.get()
@@ -23,17 +23,17 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "core-storage"
+            baseName = "core-database"
             isStatic = true
-            binaryOption("bundleId", "$bundleIdPrefix.storage.framework")
+            binaryOption("bundleId", "$bundleIdPrefix.database.framework")
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.datastore.preferences)
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
             implementation(libs.koin.core)
-            implementation(libs.compose.runtime)
         }
     }
 
@@ -41,7 +41,7 @@ kotlin {
 }
 
 android {
-    namespace = "${libs.versions.namespace.get()}.storage"
+    namespace = "${libs.versions.namespace.get()}.database"
     compileSdk =
         libs.versions.compileSdk
             .get()
@@ -53,4 +53,15 @@ android {
                 .get()
                 .toInt()
     }
+}
+
+dependencies {
+    add("kspAndroid", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+    add("kspIosX64", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }

@@ -1,3 +1,7 @@
+import com.google.devtools.ksp.gradle.KspAATask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -7,13 +11,14 @@ plugins {
     alias(libs.plugins.stability.analyzer)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.room)
 }
+
+val bundleIdPrefix: String? = libs.versions.bundleIdPrefix.get()
 
 kotlin {
     androidTarget {
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
 
@@ -24,7 +29,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
-            binaryOption("bundleId", "lens.thickness.calculator.composeapp.framework")
+            binaryOption("bundleId", "$bundleIdPrefix.composeapp.framework")
         }
     }
 
@@ -39,6 +44,7 @@ kotlin {
 
         commonMain.dependencies {
             api(projects.coreStorage)
+            api(projects.coreDatabase)
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
@@ -55,8 +61,6 @@ kotlin {
             implementation(libs.material.icons.extended)
             implementation(libs.collections)
             implementation(libs.lyricist)
-            implementation(libs.room.runtime)
-            implementation(libs.sqlite.bundled)
         }
 
         androidUnitTest.dependencies {
@@ -68,7 +72,7 @@ kotlin {
 }
 
 android {
-    namespace = "parkhomov.andrew.ltc"
+    namespace = libs.versions.namespace.get()
     compileSdk =
         libs.versions.compileSdk
             .get()
@@ -89,9 +93,6 @@ android {
 
 dependencies {
     add("kspCommonMainMetadata", libs.lyricist.processor)
-    add("kspAndroid", libs.room.compiler)
-    add("kspIosArm64", libs.room.compiler)
-    add("kspIosSimulatorArm64", libs.room.compiler)
 }
 
 ksp {
@@ -99,17 +100,13 @@ ksp {
     arg("lyricist.generateStringsProperty", "true")
 }
 
-room {
-    schemaDirectory("$projectDir/schemas")
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
+tasks.withType<KotlinCompilationTask<*>>().configureEach {
     if (name != "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
     }
 }
 
-tasks.withType<com.google.devtools.ksp.gradle.KspAATask>().configureEach {
+tasks.withType<KspAATask>().configureEach {
     if (name != "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
     }

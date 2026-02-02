@@ -20,3 +20,4 @@ dependencyResolutionManagement {
 include(":androidApp")
 include(":composeApp")
 include(":core-storage")
+include(":core-database")
