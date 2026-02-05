@@ -3,9 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.androidApplication) apply false
-    alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.androidKotlinMultiplatformLibrary) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
-    alias(libs.plugins.kotlinAndroid) apply false
     alias(libs.plugins.composeMultiplatform) apply false
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.googleServices) apply false
@@ -28,6 +27,7 @@ subprojects {
             filter {
                 exclude { element ->
                     element.file.path.contains("/build/generated/") ||
+                            element.file.path.contains("/build/buildkonfig/") ||
                             element.file.path.contains("/ksp/") ||
                             element.file.path.contains("/generated/") ||
                             element.file.path.contains("/commonMain/kotlin/")

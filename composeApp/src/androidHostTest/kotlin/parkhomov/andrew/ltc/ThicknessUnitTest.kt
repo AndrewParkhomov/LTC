@@ -5,6 +5,7 @@ import game.dice.storage.repository.TestSettingsProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import parkhomov.andrew.ltc.data.CalculatedData
@@ -12,6 +13,7 @@ import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndexUiModel
 import parkhomov.andrew.ltc.database.TestRefractiveIndexRepository
 import parkhomov.andrew.ltc.domain.TestCompareLensStorage
+import parkhomov.andrew.ltc.provider.ReviewManager
 import parkhomov.andrew.ltc.ui.main.MainScreenViewModel
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 
@@ -20,12 +22,18 @@ class ThicknessUnitTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    private val viewModel: MainScreenViewModel =
-        MainScreenViewModel(
-            compareLensStorage = TestCompareLensStorage(),
-            settingsProvider = TestSettingsProvider(),
-            refractiveIndexRepository = TestRefractiveIndexRepository(),
-        )
+    private lateinit var viewModel: MainScreenViewModel
+
+    @Before
+    fun setup() {
+        viewModel =
+            MainScreenViewModel(
+                compareLensStorage = TestCompareLensStorage(),
+                settingsProvider = TestSettingsProvider(),
+                refractiveIndexRepository = TestRefractiveIndexRepository(),
+                reviewManager = ReviewManager(),
+            )
+    }
 
     // Test RefractiveIndexUiModels
     private val cr39 = RefractiveIndexUiModel(id = 1, value = 1.498, label = "1.498 CR-39", isUserCreated = false)

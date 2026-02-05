@@ -1,25 +1,35 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
 import com.google.devtools.ksp.gradle.KspAATask
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.stability.analyzer)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.buildkonfig)
 }
 
 val bundleIdPrefix: String? = libs.versions.bundleIdPrefix.get()
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
-        }
+    androidLibrary {
+        namespace = libs.versions.namespace.get()
+        compileSdk =
+            libs.versions.compileSdk
+                .get()
+                .toInt()
+        minSdk =
+            libs.versions.minSdk
+                .get()
+                .toInt()
+
+        // Enable host-side (unit) tests
+        withHostTestBuilder {}.configure {}
     }
 
     listOf(
@@ -62,32 +72,14 @@ kotlin {
             implementation(libs.collections)
             implementation(libs.lyricist)
         }
-
-        androidUnitTest.dependencies {
-            implementation(libs.bundles.testing)
-        }
     }
 
     jvmToolchain(17)
 }
 
-android {
-    namespace = libs.versions.namespace.get()
-    compileSdk =
-        libs.versions.compileSdk
-            .get()
-            .toInt()
-
-    defaultConfig {
-        minSdk =
-            libs.versions.minSdk
-                .get()
-                .toInt()
-        buildConfigField("String", "VERSION_NAME", "\"${libs.versions.versionName.get()}\"")
-    }
-
-    buildFeatures {
-        buildConfig = true
+kotlin.sourceSets.getByName("androidHostTest") {
+    dependencies {
+        implementation(libs.bundles.testing)
     }
 }
 
@@ -114,6 +106,14 @@ tasks.withType<KspAATask>().configureEach {
 
 kotlin.sourceSets.commonMain {
     kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+}
+
+buildkonfig {
+    packageName = libs.versions.namespace.get()
+
+    defaultConfigs {
+        buildConfigField(Type.STRING, "VERSION_NAME", libs.versions.versionName.get())
+    }
 }
 
 // Make ktlint tasks depend on KSP code generation
