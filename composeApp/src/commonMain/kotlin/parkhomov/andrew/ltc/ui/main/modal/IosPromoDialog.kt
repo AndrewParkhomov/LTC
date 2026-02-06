@@ -20,7 +20,7 @@ import parkhomov.andrew.ltc.components.AppDialog
 import parkhomov.andrew.ltc.components.DialogTextButton
 import parkhomov.andrew.ltc.strings.Strings
 
-const val APP_STORE_LINK = "https://apps.apple.com/app/lens-thickness-calculator/id1439414028"
+const val APP_STORE_LINK = "https://apps.apple.com/app/lens-thickness-calculator/id6757977779"
 
 @Preview
 @Composable
