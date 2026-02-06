@@ -84,7 +84,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":composeApp"))
+    implementation(projects.composeApp)
     implementation(libs.androidx.activity.compose)
     implementation(project.dependencies.platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
