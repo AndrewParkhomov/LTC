@@ -114,6 +114,9 @@ build/
 .externalNativeBuild/
 .cxx/
 
+# Claude Code
+.claude/
+
 # Version control
 *.orig
 *.rej
