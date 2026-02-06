@@ -28,6 +28,11 @@ kotlin {
                 .get()
                 .toInt()
 
+        // Enable Android resource processing for Compose Multiplatform resources
+        androidResources {
+            enable = true
+        }
+
         // Enable host-side (unit) tests
         withHostTestBuilder {}.configure {}
     }
@@ -106,6 +111,11 @@ tasks.withType<KspAATask>().configureEach {
 
 kotlin.sourceSets.commonMain {
     kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "ltc.composeapp.generated.resources"
 }
 
 buildkonfig {

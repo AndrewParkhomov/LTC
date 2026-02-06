@@ -86,6 +86,7 @@ android {
 dependencies {
     implementation(projects.composeApp)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.compose.components.resources)
     implementation(project.dependencies.platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
     implementation(libs.koin.compose)

@@ -40,7 +40,7 @@ fun MainScreen(
                 scope.launch {
                     ShareManager().shareText(
                         text = APP_STORE_LINK,
-                        title = strings.appNameFull
+                        title = strings.appName
                     )
                 }
             },
