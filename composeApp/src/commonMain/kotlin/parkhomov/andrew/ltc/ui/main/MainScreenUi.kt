@@ -18,7 +18,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Balance
-import androidx.compose.material.icons.filled.Circle
+import androidx.compose.material.icons.filled.Height
+import androidx.compose.material.icons.filled.RadioButtonUnchecked
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
@@ -47,19 +48,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cafe.adriel.lyricist.LocalStrings
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentMapOf
 import ltc.composeapp.generated.resources.Res
-import ltc.composeapp.generated.resources.ic_transpose
 import org.jetbrains.compose.resources.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.components.Transpose
 import parkhomov.andrew.ltc.components.modifiers.dismissKeyboardOnTap
 import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.LensData
-import parkhomov.andrew.ltc.data.RefractiveIndexUiModel
 import parkhomov.andrew.ltc.data.Tab
 import parkhomov.andrew.ltc.data.TabDiameter
 import parkhomov.andrew.ltc.data.TabThickness
@@ -362,7 +361,7 @@ private fun MainBottomBar(
             onClick = { onTabSelected(Tab.Thickness) },
             icon = {
                 Icon(
-                    painter = painterResource(Res.drawable.ic_transpose),
+                    imageVector = Icons.Default.Height,
                     contentDescription = null
                 )
             },
@@ -379,7 +378,7 @@ private fun MainBottomBar(
             onClick = { onTabSelected(Tab.Diameter) },
             icon = {
                 Icon(
-                    imageVector = Icons.Default.Circle,
+                    imageVector = Icons.Default.RadioButtonUnchecked,
                     contentDescription = null
                 )
             },
