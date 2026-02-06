@@ -760,4 +760,40 @@ class ThicknessUnitTest {
                 assertEquals(expected, awaitItem().calculatedData)
             }
         }
+
+    @Test
+    fun `calculation with zero base curve`() =
+        runTest {
+            val expected =
+                CalculatedData(
+                    refractionIndex = cr39,
+                    spherePower = -8.0,
+                    cylinderPower = null,
+                    axis = null,
+                    thicknessOnAxis = null,
+                    thicknessCenter = "2.0",
+                    thicknessEdge = "11.15",
+                    thicknessMax = null,
+                    realBaseCurve = "0.001",
+                    diameter = "65.0",
+                )
+
+            val actual =
+                LensData(
+                    refractiveIndex = cr39,
+                    sphere = -8.0,
+                    cylinder = null,
+                    axis = null,
+                    baseCurve = 0.0,
+                    centerThickness = 2.0,
+                    edgeThickness = null,
+                    diameter = 65.0,
+                )
+
+            viewModel.uiState.test {
+                skipItems(1)
+                viewModel.uiEvent(MainScreenUiEvent.OnCalculateThickness(actual))
+                assertEquals(expected, awaitItem().calculatedData)
+            }
+        }
 }

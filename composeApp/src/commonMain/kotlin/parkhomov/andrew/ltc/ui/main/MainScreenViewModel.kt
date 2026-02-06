@@ -292,7 +292,7 @@ class MainScreenViewModel(
             cylinderPower = -cylinderPower
         }
 
-        curve = curve ?: handleNoBaseCurveBehaviour(maybeRacalculatedSphere)
+        curve = getCurve(curve, maybeRacalculatedSphere)
         val realRadiusMm = getReaRadiusInMM(curve)
 
         var centerThickness = try {
@@ -430,6 +430,18 @@ class MainScreenViewModel(
         }
 
         checkAndRequestReview()
+    }
+
+    private fun getCurve(curve: Double?, maybeRecalculatedSphere: Double): Double {
+        return if(curve != null){
+            if(curve == 0.0){
+                BASE_0
+            }else{
+                curve
+            }
+        }else{
+            handleNoBaseCurveBehaviour(maybeRecalculatedSphere)
+        }
     }
 
     private fun handleHideResultDialog() {

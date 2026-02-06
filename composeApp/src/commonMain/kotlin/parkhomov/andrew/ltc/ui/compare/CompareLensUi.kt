@@ -93,7 +93,7 @@ private fun CompareTable(
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .width(100.dp)
+                    .width(110.dp)
                     .background(MaterialTheme.colorScheme.surfaceVariant)
             ) {
                 TableHeaderCell(text = "", isLabel = true, modifier = Modifier.weight(1f))
