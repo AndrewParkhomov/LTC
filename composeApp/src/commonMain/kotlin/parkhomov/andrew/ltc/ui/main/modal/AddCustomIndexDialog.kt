@@ -68,7 +68,7 @@ fun AddCustomIndexDialog(
 
                 OutlinedTextField(
                     value = indexValue,
-                    onValueChange = { indexValue = it },
+                    onValueChange = { indexValue = it.replace(',', '.') },
                     label = { Text(strings.customIndexValueLabel) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
