@@ -124,6 +124,7 @@ internal val PtStrings = Strings(
 
     // Compare list
     compareListTitle = "Lista de comparação",
+    compareListMaterialColumn = "Material",
     compareListIndexColumn = "Índice",
     compareListSphereColumn = "Esférico",
     compareListCylinderColumn = "Cilíndrico",

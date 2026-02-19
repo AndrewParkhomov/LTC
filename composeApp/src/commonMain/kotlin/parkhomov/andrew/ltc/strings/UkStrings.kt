@@ -124,6 +124,7 @@ internal val UkStrings = Strings(
 
     // Compare list
     compareListTitle = "Список порівняння",
+    compareListMaterialColumn = "Матеріал",
     compareListIndexColumn = "Індекс",
     compareListSphereColumn = "Сфера",
     compareListCylinderColumn = "Циліндр",

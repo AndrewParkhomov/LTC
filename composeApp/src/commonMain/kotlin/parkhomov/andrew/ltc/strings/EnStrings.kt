@@ -124,6 +124,7 @@ internal val EnStrings = Strings(
 
     // Compare list
     compareListTitle = "Compare list",
+    compareListMaterialColumn = "Material",
     compareListIndexColumn = "Index",
     compareListSphereColumn = "Sphere",
     compareListCylinderColumn = "Cylinder",

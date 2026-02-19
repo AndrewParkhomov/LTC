@@ -96,7 +96,10 @@ private fun CompareTable(
                     .width(110.dp)
                     .background(MaterialTheme.colorScheme.surfaceVariant)
             ) {
-                TableHeaderCell(text = "", isLabel = true, modifier = Modifier.weight(1f))
+                TableLabelCell(
+                    text = strings.compareListMaterialColumn,
+                    modifier = Modifier.weight(1f)
+                )
 
                 CompareRow.entries.forEach { row: CompareRow ->
                     TableLabelCell(text = row.getLabel(strings), modifier = Modifier.weight(1f))
@@ -118,7 +121,6 @@ private fun CompareTable(
                     ) {
                         TableHeaderCell(
                             text = lens.refractionIndex.label,
-                            isLabel = false,
                             modifier = Modifier.weight(1f)
                         )
 
@@ -142,19 +144,12 @@ private fun CompareTable(
 @Composable
 private fun TableHeaderCell(
     text: String,
-    isLabel: Boolean,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(
-                if (isLabel) {
-                    MaterialTheme.colorScheme.surfaceVariant
-                } else {
-                    MaterialTheme.colorScheme.primaryContainer
-                }
-            )
+            .background(MaterialTheme.colorScheme.primaryContainer)
             .border(
                 width = 0.5.dp,
                 color = MaterialTheme.colorScheme.outline
@@ -167,11 +162,7 @@ private fun TableHeaderCell(
             style = MaterialTheme.typography.labelLarge,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            color = if (isLabel) {
-                MaterialTheme.colorScheme.onSurfaceVariant
-            } else {
-                MaterialTheme.colorScheme.onPrimaryContainer
-            }
+            color = MaterialTheme.colorScheme.onPrimaryContainer
         )
     }
 }

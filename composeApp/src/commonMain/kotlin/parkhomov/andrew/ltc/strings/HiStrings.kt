@@ -124,6 +124,7 @@ internal val HiStrings = Strings(
 
     // Compare list
     compareListTitle = "तुलना सूची",
+    compareListMaterialColumn = "सामग्री",
     compareListIndexColumn = "सूचकांक",
     compareListSphereColumn = "गोला",
     compareListCylinderColumn = "सिलेंडर",

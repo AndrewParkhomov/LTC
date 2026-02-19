@@ -256,38 +256,25 @@ private fun MainTopBar(
     TopAppBar(
         title = { Text(strings.appNameFull) },
         actions = {
-            val isCompareEnabled = comparisonCount >= 2
             Box(
                 modifier = Modifier
                     .size(48.dp)
                     .combinedClickable(
-                        onClick = { if (isCompareEnabled) topBarActions.onCompareClick() },
+                        onClick = topBarActions.onCompareClick,
                         onLongClick = topBarActions.onCompareLongClick,
                         role = Role.Button,
                         interactionSource = remember { MutableInteractionSource() },
-                        indication = if (isCompareEnabled) {
-                            ripple(bounded = false, radius = 24.dp)
-                        } else {
-                            null
-                        }
+                        indication = ripple(bounded = false, radius = 24.dp)
                     ),
                 contentAlignment = Alignment.Center
             ) {
                 BadgedBox(
                     badge = {
                         if (comparisonCount > 0) {
-                            Badge(
-                                containerColor = if (isCompareEnabled)
-                                    MaterialTheme.colorScheme.error
-                                else
-                                    MaterialTheme.colorScheme.outline
-                            ) {
+                            Badge(containerColor = MaterialTheme.colorScheme.error) {
                                 Text(
                                     text = comparisonCount.toString(),
-                                    color = if (isCompareEnabled)
-                                        MaterialTheme.colorScheme.onError
-                                    else
-                                        MaterialTheme.colorScheme.surface
+                                    color = MaterialTheme.colorScheme.onError
                                 )
                             }
                         }
@@ -296,10 +283,7 @@ private fun MainTopBar(
                     Icon(
                         imageVector = Icons.Default.Balance,
                         contentDescription = strings.contentDescriptionCompare,
-                        tint = if (isCompareEnabled)
-                            MaterialTheme.colorScheme.onSurface
-                        else
-                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }

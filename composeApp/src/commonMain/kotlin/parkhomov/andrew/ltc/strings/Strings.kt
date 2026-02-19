@@ -136,6 +136,7 @@ data class Strings(
 
     // Compare list
     val compareListTitle: String,
+    val compareListMaterialColumn: String,
     val compareListIndexColumn: String,
     val compareListSphereColumn: String,
     val compareListCylinderColumn: String,
