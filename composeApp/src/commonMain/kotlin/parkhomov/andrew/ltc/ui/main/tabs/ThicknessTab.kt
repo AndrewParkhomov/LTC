@@ -2,20 +2,27 @@
 
 package parkhomov.andrew.ltc.ui.main.tabs
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
@@ -25,6 +32,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,13 +45,13 @@ import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cafe.adriel.lyricist.LocalStrings
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
-import androidx.compose.ui.tooling.preview.Preview
 import parkhomov.andrew.ltc.components.AppOutlineButton
 import parkhomov.andrew.ltc.components.LensInputField
 import parkhomov.andrew.ltc.data.InputType
@@ -117,16 +125,45 @@ fun ThicknessTab(
                     onInfoClick = onInfoIconClicked
                 )
             }
-        AppOutlineButton(
+        Row(
             modifier = Modifier
-                .fillMaxWidth(),
-            text = strings.thicknessCalculateButton,
-            onClick = {
-                val lensData: LensData =
-                    LensData.getLensData(selectedRefractiveIndex, thicknessInputValues)
-                uiEvent(MainScreenUiEvent.OnCalculateThickness(lensData))
-            },
-        )
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            OutlinedButton(
+                onClick = {
+                    TabThickness.getAllFields().drop(1).forEach { field ->
+                        thicknessInputValues[field] = null
+                    }
+                    validationErrors.clear()
+                },
+                modifier = Modifier.fillMaxHeight(),
+                shape = RoundedCornerShape(12.dp),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    contentColor = MaterialTheme.colorScheme.onSurface
+                ),
+                contentPadding = PaddingValues(horizontal = 24.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Delete,
+                    contentDescription = strings.contentDescriptionClearField,
+                    tint = MaterialTheme.colorScheme.error
+                )
+            }
+
+            AppOutlineButton(
+                modifier = Modifier.weight(1f),
+                text = strings.thicknessCalculateButton,
+                onClick = {
+                    val lensData: LensData =
+                        LensData.getLensData(selectedRefractiveIndex, thicknessInputValues)
+                    uiEvent(MainScreenUiEvent.OnCalculateThickness(lensData))
+                },
+            )
+        }
     }
 }
 
