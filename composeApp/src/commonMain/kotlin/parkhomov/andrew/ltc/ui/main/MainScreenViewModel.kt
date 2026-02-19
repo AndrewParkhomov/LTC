@@ -103,6 +103,7 @@ class MainScreenViewModel(
             is MainScreenUiEvent.HideDeleteConfirmDialog -> updateState { copy(indexToDelete = null) }
             is MainScreenUiEvent.ConfirmDeleteIndex -> confirmDeleteIndex()
             is MainScreenUiEvent.HideIosPromoDialog -> hideIosPromoDialog()
+            is MainScreenUiEvent.ClearLensData -> updateState { copy(lensData = null, calculatedData = null) }
         }
     }
 

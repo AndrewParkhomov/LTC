@@ -137,6 +137,7 @@ fun ThicknessTab(
                         thicknessInputValues[field] = null
                     }
                     validationErrors.clear()
+                    uiEvent(MainScreenUiEvent.ClearLensData)
                 },
                 modifier = Modifier.fillMaxHeight(),
                 shape = RoundedCornerShape(12.dp),

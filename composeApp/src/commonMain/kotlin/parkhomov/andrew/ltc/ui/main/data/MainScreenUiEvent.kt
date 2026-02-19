@@ -24,4 +24,5 @@ sealed interface MainScreenUiEvent {
     data object HideDeleteConfirmDialog : MainScreenUiEvent
     data object ConfirmDeleteIndex : MainScreenUiEvent
     data object HideIosPromoDialog : MainScreenUiEvent
+    data object ClearLensData : MainScreenUiEvent
 }
