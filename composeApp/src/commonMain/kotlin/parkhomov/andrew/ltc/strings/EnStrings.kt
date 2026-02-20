@@ -8,6 +8,7 @@ internal val EnStrings = Strings(
     appName = "LTC",
     appNameFull = "Lens Thickness",
     buttonOk = "OK",
+    keyboardDone = "Done",
 
     // Tab headers
     tabThickness = "Thickness",

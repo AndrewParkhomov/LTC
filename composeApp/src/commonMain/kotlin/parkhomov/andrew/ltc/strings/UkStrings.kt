@@ -8,6 +8,7 @@ internal val UkStrings = Strings(
     appName = "LTC",
     appNameFull = "Товщина лінзи",
     buttonOk = "OK",
+    keyboardDone = "Готово",
 
     // Tab headers
     tabThickness = "Товщина",

@@ -8,6 +8,7 @@ internal val PtStrings = Strings(
     appName = "LTC",
     appNameFull = "Espessura da Lente",
     buttonOk = "OK",
+    keyboardDone = "Concluído",
 
     // Tab headers
     tabThickness = "Espessura",

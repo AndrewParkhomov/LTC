@@ -46,6 +46,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
@@ -55,6 +57,7 @@ import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentMapOf
 import ltc.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.painterResource
+import parkhomov.andrew.ltc.components.IOSKeyboardToolbar
 import parkhomov.andrew.ltc.components.Transpose
 import parkhomov.andrew.ltc.components.modifiers.dismissKeyboardOnTap
 import parkhomov.andrew.ltc.data.InputType
@@ -89,6 +92,8 @@ fun MainScreenUi(
 ) {
     val strings: Strings = LocalStrings.current
     val isKeyboardVisible: Boolean by keyboardAsState()
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
     var selectedTab: Tab by remember { mutableStateOf(Tab.Thickness) }
     var infoDialogData: InputType? by remember { mutableStateOf(null) }
     var topBarInfoDialog: TopBarInfoType? by remember { mutableStateOf(null) }
@@ -221,26 +226,36 @@ fun MainScreenUi(
             }
         }
     ) { padding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-        ) {
-            when (selectedTab) {
-                is Tab.Thickness -> ThicknessTab(
-                    uiEvent = uiEvent,
-                    refractiveIndices = uiData.refractiveIndices,
-                    selectedRefractiveIndex = uiData.selectedRefractiveIndex,
-                    thicknessInputValues = thicknessInputValues,
-                    fieldsEnabledState = fieldsEnabledState,
-                    onInfoIconClicked = { infoDialogData = it }
-                )
+        Box(modifier = Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+            ) {
+                when (selectedTab) {
+                    is Tab.Thickness -> ThicknessTab(
+                        uiEvent = uiEvent,
+                        refractiveIndices = uiData.refractiveIndices,
+                        selectedRefractiveIndex = uiData.selectedRefractiveIndex,
+                        thicknessInputValues = thicknessInputValues,
+                        fieldsEnabledState = fieldsEnabledState,
+                        isKeyboardVisible = isKeyboardVisible,
+                        onInfoIconClicked = { infoDialogData = it }
+                    )
 
-                is Tab.Diameter -> DiameterTab(
-                    diameterInputValues = diameterInputValues,
-                    onInfoIconClicked = { infoDialogData = it }
-                )
+                    is Tab.Diameter -> DiameterTab(
+                        diameterInputValues = diameterInputValues,
+                        onInfoIconClicked = { infoDialogData = it }
+                    )
+                }
             }
+            IOSKeyboardToolbar(
+                imeVisible = isKeyboardVisible,
+                onDone = {
+                    keyboardController?.hide()
+                    focusManager.clearFocus()
+                }
+            )
         }
     }
 }

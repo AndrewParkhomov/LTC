@@ -5,6 +5,7 @@ data class Strings(
     val appName: String,
     val appNameFull: String,
     val buttonOk: String,
+    val keyboardDone: String,
 
     // Tab headers
     val tabThickness: String,

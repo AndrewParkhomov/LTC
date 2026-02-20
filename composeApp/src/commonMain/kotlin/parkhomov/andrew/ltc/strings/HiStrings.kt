@@ -8,6 +8,7 @@ internal val HiStrings = Strings(
     appName = "LTC",
     appNameFull = "लेंस मोटाई",
     buttonOk = "ठीक है",
+    keyboardDone = "हो गया",
 
     // Tab headers
     tabThickness = "मोटाई",

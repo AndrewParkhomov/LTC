@@ -61,6 +61,7 @@ import parkhomov.andrew.ltc.data.TabThickness
 import parkhomov.andrew.ltc.data.ValidationResult
 import parkhomov.andrew.ltc.data.getTitle
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
+import parkhomov.andrew.ltc.provider.isIos
 import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import kotlin.time.ExperimentalTime
@@ -74,17 +75,19 @@ fun ThicknessTab(
     selectedRefractiveIndex: RefractiveIndexUiModel = RefractiveIndexUiModel.getDefaultIndex(),
     thicknessInputValues: SnapshotStateMap<TabThickness, String?> = SnapshotStateMap(),
     fieldsEnabledState: ImmutableMap<TabThickness, Boolean> = persistentMapOf(),
+    isKeyboardVisible: Boolean = false,
     uiEvent: (MainScreenUiEvent) -> Unit = {},
     onInfoIconClicked: (InputType) -> Unit = {}
 ) {
     val strings: Strings = LocalStrings.current
     val validationErrors = remember { mutableStateMapOf<TabThickness, ValidationResult.Invalid?>() }
 
+    val bottomPadding = if (isKeyboardVisible && isIos()) 28.dp else 16.dp
     Column(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
+            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = bottomPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         RefractiveIndexDropdown(
