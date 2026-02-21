@@ -38,8 +38,8 @@ class ThicknessUnitTest {
     // Test RefractiveIndexUiModels
     private val cr39 = RefractiveIndexUiModel(id = 1, value = 1.498, label = "1.498 CR-39", isUserCreated = false)
     private val index1560 = RefractiveIndexUiModel(id = 2, value = 1.535, label = "1.560", isUserCreated = false)
-    private val index1610 = RefractiveIndexUiModel(id = 5, value = 1.59, label = "1.610", isUserCreated = false)
-    private val index1670 = RefractiveIndexUiModel(id = 6, value = 1.66, label = "1.670", isUserCreated = false)
+    private val index1610 = RefractiveIndexUiModel(id = 3, value = 1.59, label = "1.610", isUserCreated = false)
+    private val index1670 = RefractiveIndexUiModel(id = 4, value = 1.66, label = "1.670", isUserCreated = false)
 
     @Test
     fun `calculation 1`() =

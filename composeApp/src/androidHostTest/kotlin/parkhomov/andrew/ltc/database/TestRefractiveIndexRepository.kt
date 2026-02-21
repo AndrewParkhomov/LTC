@@ -10,11 +10,9 @@ class TestRefractiveIndexRepository : RefractiveIndexRepository {
             listOf(
                 RefractiveIndexEntity(id = 1, value = 1.498, label = "1.498 CR-39", isUserCreated = false),
                 RefractiveIndexEntity(id = 2, value = 1.535, label = "1.560", isUserCreated = false),
-                RefractiveIndexEntity(id = 3, value = 1.53, label = "1.530 Trivex", isUserCreated = false),
-                RefractiveIndexEntity(id = 4, value = 1.586, label = "1.590 Poly", isUserCreated = false),
-                RefractiveIndexEntity(id = 5, value = 1.59, label = "1.610", isUserCreated = false),
-                RefractiveIndexEntity(id = 6, value = 1.66, label = "1.670", isUserCreated = false),
-                RefractiveIndexEntity(id = 7, value = 1.727, label = "1.740", isUserCreated = false),
+                RefractiveIndexEntity(id = 3, value = 1.59, label = "1.610", isUserCreated = false),
+                RefractiveIndexEntity(id = 4, value = 1.66, label = "1.670", isUserCreated = false),
+                RefractiveIndexEntity(id = 5, value = 1.727, label = "1.740", isUserCreated = false),
             ),
         )
 

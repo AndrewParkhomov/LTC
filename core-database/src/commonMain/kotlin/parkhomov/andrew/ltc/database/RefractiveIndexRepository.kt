@@ -70,30 +70,18 @@ class DefaultRefractiveIndexRepository(
             ),
             RefractiveIndexEntity(
                 id = 3,
-                value = 1.53,
-                label = "1.530 Trivex",
-                isUserCreated = false
-            ),
-            RefractiveIndexEntity(
-                id = 4,
-                value = 1.586,
-                label = "1.590 Poly",
-                isUserCreated = false
-            ),
-            RefractiveIndexEntity(
-                id = 5,
                 value = 1.59,
                 label = "1.610",
                 isUserCreated = false
             ),
             RefractiveIndexEntity(
-                id = 6,
+                id = 4,
                 value = 1.66,
                 label = "1.670",
                 isUserCreated = false
             ),
             RefractiveIndexEntity(
-                id = 7,
+                id = 5,
                 value = 1.727,
                 label = "1.740",
                 isUserCreated = false
