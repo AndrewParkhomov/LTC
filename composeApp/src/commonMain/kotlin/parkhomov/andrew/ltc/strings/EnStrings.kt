@@ -36,47 +36,47 @@ internal val EnStrings = Strings(
 
     // Info dialog - Index of refraction
     infoIndexOfRefractionTitle = "Index of refraction",
-    infoIndexOfRefractionDesc = "In optics, the refractive index or index of refraction of a material is a dimensionless number that describes how light propagates through that medium. It is defined as n = c / v, where c is the speed of light in vacuum and v is the phase velocity of light in the medium.\n\tFor example, the refractive index of water is 1.333, meaning that light travels 1.333 times faster in a vacuum than it does in water ©Wikipedia",
+    infoIndexOfRefractionDesc = "The refractive index is a value that characterizes the refracting power of a transparent medium. The higher the refractive index, the thinner the lens. For ophthalmic lenses, values typically range from 1.5 to 1.9.",
 
     // Info dialog - Sphere power
     infoSpherePowerTitle = "Sphere power",
-    infoSpherePowerDesc = "Spherical correction corrects refractive error of the eye with a single convergent or divergent refractive power in all meridians",
+    infoSpherePowerDesc = "Sphere is the optical power of the lens, measured in diopters (D), used to correct refractive errors. For nearsightedness (myopia), diverging lenses with a «−» sign are used. For farsightedness (hyperopia), converging lenses with a «+» sign are used. Values can range from −28 to +28 D.",
 
     // Info dialog - Cylinder power
     infoCylinderPowerTitle = "Cylinder power",
-    infoCylinderPowerDesc = "Cylindrical correction corrects astigmatic refractive error of the eye by adding or subtracting power cylindrically in a meridian specified by the prescribed axis",
+    infoCylinderPowerDesc = "Cylinder is the optical power of the lens for correcting astigmatism, measured in diopters (D). Astigmatism occurs when the cornea or lens has a non-spherical shape. Cylinder can be with a «−» or «+» sign. Values can range from −6 to +6 D.",
 
     // Info dialog - Axis
     infoAxisTitle = "Axis",
-    infoAxisDesc = "Axis is present only if there is a value for cylinder. This indicates the angle in degrees of one of two major meridians the prescribed cylindrical power is in. Which major meridian is referenced is indicated by the cylindrical correction being in plus or minus notation",
+    infoAxisDesc = "Indicates the angle at which the cylinder axis is positioned. The axis position is measured in degrees from 1° to 180° (same as 0°).",
 
     // Info dialog - Real base curve
     infoBaseCurveTitle = "Real base curve",
-    infoBaseCurveDesc = "The base curve (usually determined from the profile of the front surface of an ophthalmic lens) can be changed to result in the best optic and cosmetic characteristics across the entire surface of the lens. Optometrists may choose to specify a particular base curve when prescribing a corrective lens for either of these reasons. A multitude of mathematical formulas and professional clinical experience has allowed optometrists and lens designers to determine standard base curves that are ideal for most people. As a result, the front surface curve is more standardized and the characteristics that generate a person's unique prescription are typically derived from the geometry of the back surface of the lens",
+    infoBaseCurveDesc = "The front surface of the lens is measured with a spherometer, and the value is converted into curvature expressed in millimeters or diopters (in this app). Values for «−» lenses start from 0.001 (flat surface), for «+» lenses can reach 10.5.",
 
     // Info dialog - Center thickness
     infoCenterThicknessTitle = "Center thickness",
-    infoCenterThicknessDesc = "Thickness in optical center of the lens in millimeters",
+    infoCenterThicknessDesc = "Thickness of the lens at its optical center. For «+» lenses, the greatest thickness is at the optical center, while for «−» lenses it's the opposite: the smallest thickness is at the optical center. Thickness is measured with a thickness gauge.",
 
     // Info dialog - Edge thickness
     infoEdgeThicknessTitle = "Edge thickness",
-    infoEdgeThicknessDesc = "Thickness of the lens in edge expressed in millimeters",
+    infoEdgeThicknessDesc = "Edge thickness of the lens in millimeters. For semi-rimless and rimless frames (for «+» lenses), edge thickness will be on average 1.5 mm greater than in full-rim frames. For rimless frames, it's better to use polycarbonate or high-index materials (1.61, 1.67, 1.74) as they are stronger. In astigmatic lenses with «−» cylinder, maximum thickness is at 90°, with «+» cylinder — at 0° (180°). If minimal thickness is important — choose a small full-rim frame and high refractive index.",
 
     // Info dialog - Lens diameter
     infoLensDiameterTitle = "Lens diameter",
-    infoLensDiameterDesc = "Diameter of the lens in millimeters",
+    infoLensDiameterDesc = "Lens diameter in millimeters. The larger the diameter — the greater the lens thickness. You can calculate the required diameter in the «Diameter» tab.",
 
     // Info dialog - Effective diameter
     infoEffectiveDiameterTitle = "Effective diameter",
-    infoEffectiveDiameterDesc = "Effective diameter is the longest diagonal across the lens",
+    infoEffectiveDiameterDesc = "Effective diameter is the distance in millimeters between the two farthest points of the lens opening (the longest diagonal). For most corrective frames, this value exceeds the horizontal size (A) by 2–3 mm.",
 
     // Info dialog - Distance between lenses
     infoDistanceBetweenLensesTitle = "Distance between lenses",
-    infoDistanceBetweenLensesDesc = "The shortest distance in millimeters between the nasal edges of each lens. DBL is also commonly referred to as bridge size",
+    infoDistanceBetweenLensesDesc = "Distance between lenses (DBL) is the shortest distance in millimeters between the inner edges of the lenses. Also known as bridge size. Typical values: 14–24 mm.",
 
     // Info dialog - Pupil distance
     infoPupilDistanceTitle = "Pupil distance",
-    infoPupilDistanceDesc = "Pupil Distance is the distance (expressed in millimeters) between the centers of the pupils",
+    infoPupilDistanceDesc = "Pupillary distance (PD) is the distance between the centers of the pupils in millimeters. Typical values: for adults 50–75 mm, for children 43–58 mm.",
 
     // Diameter calculation
     diameterCalculationResult = { result -> "ED x 2 + DBL - PD = $result mm" },
@@ -141,11 +141,11 @@ internal val EnStrings = Strings(
 
     // Info dialog - Compare
     infoCompareTitle = "Compare lenses",
-    infoCompareDesc = "Compare characteristics of different lenses side by side. Add lenses to the list after calculation by tapping \"Add to compare list\" button on the result screen.",
+    infoCompareDesc = "Compare characteristics of different lenses side by side. Add lenses to the list after calculation by tapping the «Add to compare list» button on the result screen.",
 
     // Info dialog - Transpose
     infoTransposeTitle = "Transposition",
-    infoTransposeDesc = "Converts a prescription between plus and minus cylinder forms. Transposition changes the sign of the cylinder and adjusts the sphere and axis accordingly while maintaining the same optical correction.",
+    infoTransposeDesc = "Converts a prescription between «+» and «−» cylinder notation forms. Sphere, cylinder, and axis values change, but optical correction remains unchanged.",
 
     // Content descriptions for accessibility
     contentDescriptionClearField = "Clear input field",

@@ -36,47 +36,47 @@ internal val PtStrings = Strings(
 
     // Info dialog - Index of refraction
     infoIndexOfRefractionTitle = "Índice de refração",
-    infoIndexOfRefractionDesc = "Na óptica, o índice de refração ou índice de refração de um material é um número sem dimensão que descreve como a luz se propaga através desse meio. É definido como n = c / v, onde c é a velocidade da luz no vácuo e v é a velocidade da fase da luz no meio.\n\tPor exemplo, o índice de refração da água é 1,333, o que significa que a luz viaja 1,333 vezes mais rápido no vácuo do que na água ©Wikipedia",
+    infoIndexOfRefractionDesc = "O índice de refração é um valor que caracteriza o poder de refração de um meio transparente. Quanto maior o índice de refração, mais fina é a lente. Para lentes oftálmicas, os valores geralmente variam de 1.5 a 1.9.",
 
     // Info dialog - Sphere power
     infoSpherePowerTitle = "Grau Esférico",
-    infoSpherePowerDesc = "A correção esférica corrige o erro de refração do olho com um único poder de refração convergente ou divergente em todos os meridianos",
+    infoSpherePowerDesc = "Esfera é a potência óptica da lente, medida em dioptrias (D), usada para corrigir erros de refração. Para miopia, usam-se lentes divergentes com sinal «−». Para hipermetropia, usam-se lentes convergentes com sinal «+». Os valores podem variar de −28 a +28 D.",
 
     // Info dialog - Cylinder power
     infoCylinderPowerTitle = "Grau Cilíndrico",
-    infoCylinderPowerDesc = "A correção cilíndrica corrige um erro refrativo astigmático do olho, adicionando ou subtraindo poder cilíndrico em um meridiano especificado pelo eixo prescrito",
+    infoCylinderPowerDesc = "Cilindro é a potência óptica da lente para correção do astigmatismo, medida em dioptrias (D). O astigmatismo ocorre quando a córnea ou o cristalino têm forma não esférica. O cilindro pode ter sinal «−» ou «+». Os valores podem variar de −6 a +6 D.",
 
     // Info dialog - Axis
     infoAxisTitle = "Eixo",
-    infoAxisDesc = "O eixo está presente apenas se houver um valor para o cilindro. Isso indica o ângulo em graus de um dos dois principais meridianos em que a potência cilíndrica prescrita está. Qual o principal meridiano referenciado é indicado pela correção cilíndrica em notação de mais ou de menos",
+    infoAxisDesc = "Indica o ângulo em que o eixo do cilindro está posicionado. A posição do eixo é medida em graus de 1° a 180° (igual a 0°).",
 
     // Info dialog - Real base curve
     infoBaseCurveTitle = "Curva Base Real",
-    infoBaseCurveDesc = "A curva base (geralmente determinada a partir do perfil da superfície frontal de uma lente oftálmica) pode ser alterada para resultar nas melhores características ópticas e cosméticas em toda a superfície da lente. Os optometristas podem optar por especificar uma curva de base específica ao prescrever uma lente corretiva por um desses motivos. Uma infinidade de fórmulas matemáticas e experiência clínica profissional permitiu que optometristas e projetistas de lentes determinassem curvas de base padrão ideais para a maioria das pessoas. Como resultado, a curva da superfície frontal é mais padronizada e as características que geram a prescrição exclusiva de uma pessoa geralmente são derivadas da geometria da superfície traseira da lente",
+    infoBaseCurveDesc = "A superfície frontal da lente é medida com um esferômetro, e o valor é convertido em curvatura expressa em milímetros ou dioptrias (neste aplicativo). Valores para lentes «−» começam em 0.001 (superfície plana), para lentes «+» podem chegar a 10.5.",
 
     // Info dialog - Center thickness
     infoCenterThicknessTitle = "Espessura central",
-    infoCenterThicknessDesc = "Espessura no centro óptico da lente em milímetros",
+    infoCenterThicknessDesc = "Espessura da lente no seu centro óptico. Para lentes «+», a maior espessura está no centro óptico, enquanto para lentes «−» é o oposto: a menor espessura está no centro óptico. A espessura é medida com um medidor de espessura.",
 
     // Info dialog - Edge thickness
     infoEdgeThicknessTitle = "Espessura da borda",
-    infoEdgeThicknessDesc = "Espessura da lente na borda expressa em milímetros",
+    infoEdgeThicknessDesc = "Espessura da borda da lente em milímetros. Para armações de nylon e sem aro (para lentes «+»), a espessura da borda será em média 1.5 mm maior do que em armações de aro completo. Para armações sem aro, é melhor usar policarbonato ou materiais de alto índice (1.61, 1.67, 1.74), pois são mais resistentes. Em lentes astigmáticas com cilindro «−», a espessura máxima está em 90°, com cilindro «+» — em 0° (180°). Se a espessura mínima é importante — escolha uma armação de aro completo pequena e alto índice de refração.",
 
     // Info dialog - Lens diameter
     infoLensDiameterTitle = "Diâmetro da lente",
-    infoLensDiameterDesc = "Diâmetro da lente em milímetros",
+    infoLensDiameterDesc = "Diâmetro da lente em milímetros. Quanto maior o diâmetro — maior a espessura da lente. Você pode calcular o diâmetro necessário na aba «Diâmetro».",
 
     // Info dialog - Effective diameter
     infoEffectiveDiameterTitle = "Diâmetro Efetivo",
-    infoEffectiveDiameterDesc = "O diâmetro efetivo é a diagonal mais longa na lente, também conhecido por diagonal maior (DM)",
+    infoEffectiveDiameterDesc = "Diâmetro efetivo é a distância em milímetros entre os dois pontos mais distantes da abertura da lente (a diagonal mais longa). Para a maioria das armações corretivas, este valor excede o tamanho horizontal (A) em 2–3 mm.",
 
     // Info dialog - Distance between lenses
     infoDistanceBetweenLensesTitle = "Distância entre as lentes",
-    infoDistanceBetweenLensesDesc = "A menor distância em milímetros entre as bordas nasais de cada lente. DBL também é conhecido como tamanho da ponte",
+    infoDistanceBetweenLensesDesc = "Distância entre lentes (DBL) é a menor distância em milímetros entre as bordas internas das lentes. Também conhecida como tamanho da ponte (bridge). Valores típicos: 14–24 mm.",
 
     // Info dialog - Pupil distance
     infoPupilDistanceTitle = "Distância Pupilar",
-    infoPupilDistanceDesc = "Distância da pupila é a distância (expressa em milímetros) entre os centros das pupilas. Conhecido como DP",
+    infoPupilDistanceDesc = "Distância pupilar (PD) é a distância entre os centros das pupilas em milímetros. Valores típicos: para adultos 50–75 mm, para crianças 43–58 mm.",
 
     // Diameter calculation
     diameterCalculationResult = { result -> "ED x 2 + DBL - PD = $result mm" },
@@ -141,11 +141,11 @@ internal val PtStrings = Strings(
 
     // Info dialog - Compare
     infoCompareTitle = "Comparar lentes",
-    infoCompareDesc = "Compare as características de diferentes lentes lado a lado. Adicione lentes à lista após o cálculo tocando no botão \"Adicionar à lista de comparação\" na tela de resultado.",
+    infoCompareDesc = "Compare as características de diferentes lentes lado a lado. Adicione lentes à lista após o cálculo tocando no botão «Adicionar à lista de comparação» na tela de resultado.",
 
     // Info dialog - Transpose
     infoTransposeTitle = "Transposição",
-    infoTransposeDesc = "Converte uma prescrição entre formas de cilindro positivo e negativo. A transposição altera o sinal do cilindro e ajusta a esfera e o eixo de acordo, mantendo a mesma correção óptica.",
+    infoTransposeDesc = "Converte uma prescrição entre as formas de notação de cilindro «+» e «−». Os valores de esfera, cilindro e eixo mudam, mas a correção óptica permanece inalterada.",
 
     // Content descriptions for accessibility
     contentDescriptionClearField = "Limpar campo de entrada",
