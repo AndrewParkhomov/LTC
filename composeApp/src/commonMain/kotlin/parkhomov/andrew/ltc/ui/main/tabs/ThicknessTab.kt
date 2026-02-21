@@ -82,7 +82,7 @@ fun ThicknessTab(
     val strings: Strings = LocalStrings.current
     val validationErrors = remember { mutableStateMapOf<TabThickness, ValidationResult.Invalid?>() }
 
-    val bottomPadding = if (isKeyboardVisible && isIos()) 28.dp else 16.dp
+    val bottomPadding = if (isKeyboardVisible && isIos()) 64.dp else 16.dp
     Column(
         modifier = modifier
             .fillMaxSize()

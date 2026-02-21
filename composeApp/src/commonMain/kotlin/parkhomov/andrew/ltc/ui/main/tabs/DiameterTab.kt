@@ -29,6 +29,7 @@ import parkhomov.andrew.ltc.components.LensInputField
 import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.TabDiameter
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
+import parkhomov.andrew.ltc.provider.isIos
 import parkhomov.andrew.ltc.theme.AppTheme
 import parkhomov.andrew.ltc.theme.ThemeMode
 import parkhomov.andrew.ltc.utils.toFormattedString
@@ -39,6 +40,7 @@ import kotlin.math.ceil
 fun DiameterTab(
     modifier: Modifier = Modifier,
     diameterInputValues: SnapshotStateMap<TabDiameter, String?> = SnapshotStateMap(),
+    isKeyboardVisible: Boolean = false,
     onInfoIconClicked: (InputType) -> Unit = {}
 ) {
     val strings: Strings = LocalStrings.current
@@ -68,11 +70,12 @@ fun DiameterTab(
         }
     }
 
+    val bottomPadding = if (isKeyboardVisible && isIos()) 64.dp else 16.dp
     Column(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
+            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = bottomPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         TabDiameter.getAllFields().forEach { field: TabDiameter ->
