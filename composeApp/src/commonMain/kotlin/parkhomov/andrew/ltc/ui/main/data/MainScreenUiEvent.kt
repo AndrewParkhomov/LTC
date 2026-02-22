@@ -1,5 +1,6 @@
 package parkhomov.andrew.ltc.ui.main.data
 
+import parkhomov.andrew.ltc.data.DiameterData
 import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndexUiModel
 import parkhomov.andrew.ltc.theme.ThemeMode
@@ -25,4 +26,5 @@ sealed interface MainScreenUiEvent {
     data object ConfirmDeleteIndex : MainScreenUiEvent
     data object HideIosPromoDialog : MainScreenUiEvent
     data object ClearLensData : MainScreenUiEvent
+    data class OnDiameterCalculated(val data: DiameterData) : MainScreenUiEvent
 }

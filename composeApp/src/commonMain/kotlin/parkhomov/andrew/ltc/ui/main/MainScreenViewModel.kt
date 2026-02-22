@@ -7,8 +7,11 @@ import game.dice.storage.repository.SettingsProvider
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import parkhomov.andrew.ltc.analytics.AnalyticsEvent
+import parkhomov.andrew.ltc.analytics.AnalyticsService
 import parkhomov.andrew.ltc.base.AppViewModel
 import parkhomov.andrew.ltc.data.CalculatedData
+import parkhomov.andrew.ltc.data.DiameterData
 import parkhomov.andrew.ltc.data.LensData
 import parkhomov.andrew.ltc.data.RefractiveIndexUiModel
 import parkhomov.andrew.ltc.database.RefractiveIndexEntity
@@ -44,7 +47,8 @@ class MainScreenViewModel(
     private val compareLensStorage: CompareLensStorage,
     private val settingsProvider: SettingsProvider,
     private val refractiveIndexRepository: RefractiveIndexRepository,
-    private val reviewManager: ReviewManager
+    private val reviewManager: ReviewManager,
+    private val analyticsService: AnalyticsService
 ) : AppViewModel<MainScreenUiState, MainScreenUiEvent>() {
     override val initialState: MainScreenUiState
         get() = MainScreenUiState()
@@ -104,7 +108,12 @@ class MainScreenViewModel(
             is MainScreenUiEvent.ConfirmDeleteIndex -> confirmDeleteIndex()
             is MainScreenUiEvent.HideIosPromoDialog -> hideIosPromoDialog()
             is MainScreenUiEvent.ClearLensData -> updateState { copy(lensData = null, calculatedData = null) }
+            is MainScreenUiEvent.OnDiameterCalculated -> onDiameterCalculated(event.data)
         }
+    }
+
+    private fun onDiameterCalculated(data: DiameterData) {
+        analyticsService.logEvent(AnalyticsEvent.DiameterCalculation(data))
     }
 
     private fun saveCustomIndex(label: String, value: Double) {
@@ -418,6 +427,9 @@ class MainScreenViewModel(
                 diameter = diameter.toString()
             )
         }
+
+        analyticsService.logEvent(AnalyticsEvent.LensCalculation(calculatedData))
+
         updateState {
             copy(
                 calculatedData = calculatedData,

@@ -32,6 +32,7 @@ class ThicknessUnitTest {
                 settingsProvider = TestSettingsProvider(),
                 refractiveIndexRepository = TestRefractiveIndexRepository(),
                 reviewManager = ReviewManager(),
+                analyticsService = TestAnalyticsService(),
             )
     }
 

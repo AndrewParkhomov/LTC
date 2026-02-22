@@ -51,6 +51,8 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(libs.play.review.ktx)
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.analytics)
         }
 
         iosMain.dependencies {

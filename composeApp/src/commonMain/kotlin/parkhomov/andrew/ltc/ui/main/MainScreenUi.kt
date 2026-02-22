@@ -248,7 +248,8 @@ fun MainScreenUi(
                     is Tab.Diameter -> DiameterTab(
                         diameterInputValues = diameterInputValues,
                         isKeyboardVisible = isKeyboardVisible,
-                        onInfoIconClicked = { infoDialogData = it }
+                        onInfoIconClicked = { infoDialogData = it },
+                        uiEvent = uiEvent
                     )
                 }
             }

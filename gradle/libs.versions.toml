@@ -2,7 +2,7 @@
 appId = "parkhomov.andrew.lensthicknesscalculator"
 namespace = "parkhomov.andrew.ltc"
 bundleIdPrefix = "lens.thickness.calculator"
-versionName = "5.0.1"
+versionName = "5.1.0"
 versionCode = "23"
 minSdk = "23"
 compileSdk = "36"

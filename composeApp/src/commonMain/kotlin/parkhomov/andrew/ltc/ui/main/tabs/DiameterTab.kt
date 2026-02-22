@@ -12,6 +12,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
@@ -22,10 +23,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.lyricist.LocalStrings
-import parkhomov.andrew.ltc.strings.Strings
 import parkhomov.andrew.ltc.components.LensInputField
+import parkhomov.andrew.ltc.data.DiameterData
 import parkhomov.andrew.ltc.data.InputType
 import parkhomov.andrew.ltc.data.TabDiameter
+import parkhomov.andrew.ltc.strings.Strings
+import parkhomov.andrew.ltc.ui.main.data.MainScreenUiEvent
 import parkhomov.andrew.ltc.provider.getDecimalSignedKeyboard
 import parkhomov.andrew.ltc.provider.isIos
 import parkhomov.andrew.ltc.theme.AppTheme
@@ -39,7 +42,8 @@ fun DiameterTab(
     modifier: Modifier = Modifier,
     diameterInputValues: SnapshotStateMap<TabDiameter, String?> = SnapshotStateMap(),
     isKeyboardVisible: Boolean = false,
-    onInfoIconClicked: (InputType) -> Unit = {}
+    onInfoIconClicked: (InputType) -> Unit = {},
+    uiEvent: (MainScreenUiEvent) -> Unit = {}
 ) {
     val strings: Strings = LocalStrings.current
 
@@ -66,6 +70,16 @@ fun DiameterTab(
         } else {
             0.0
         }
+    }
+
+    LaunchedEffect(effectiveDiameter, distanceBetweenLenses, pupilDistance) {
+        logDiameterCalculation(
+            effectiveDiameter = effectiveDiameter,
+            distanceBetweenLenses = distanceBetweenLenses,
+            pupilDistance = pupilDistance,
+            calculatedDiameter = calculatedDiameter,
+            uiEvent = uiEvent
+        )
     }
 
     val bottomPadding = if (isKeyboardVisible && isIos()) 64.dp else 16.dp
@@ -142,6 +156,37 @@ private fun DiameterTabLightPreview(){
             modifier = Modifier,
             diameterInputValues = SnapshotStateMap(),
             onInfoIconClicked = {}
+        )
+    }
+}
+
+private fun logDiameterCalculation(
+    effectiveDiameter: String,
+    distanceBetweenLenses: String,
+    pupilDistance: String,
+    calculatedDiameter: Double,
+    uiEvent: (MainScreenUiEvent) -> Unit
+) {
+    val minLength = 2
+    if (effectiveDiameter.length < minLength ||
+        distanceBetweenLenses.length < minLength ||
+        pupilDistance.length < minLength
+    ) return
+
+    val ed: Double = effectiveDiameter.toDoubleOrNull() ?: return
+    val dbl: Double = distanceBetweenLenses.toDoubleOrNull() ?: return
+    val pd: Double = pupilDistance.toDoubleOrNull() ?: return
+
+    if (ed > 0 && dbl > 0 && pd > 0 && calculatedDiameter > 0) {
+        uiEvent(
+            MainScreenUiEvent.OnDiameterCalculated(
+                DiameterData(
+                    effectiveDiameter = ed,
+                    distanceBetweenLenses = dbl,
+                    pupilDistance = pd,
+                    result = calculatedDiameter
+                )
+            )
         )
     }
 }
