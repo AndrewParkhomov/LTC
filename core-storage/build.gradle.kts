@@ -9,7 +9,7 @@ plugins {
 val bundleIdPrefix: String? = libs.versions.bundleIdPrefix.get()
 
 kotlin {
-    androidLibrary {
+    android {
         namespace = "${libs.versions.namespace.get()}.storage"
         compileSdk =
             libs.versions.compileSdk
