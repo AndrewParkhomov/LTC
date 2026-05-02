@@ -149,6 +149,7 @@ internal val EnStrings = Strings(
 
     // Content descriptions for accessibility
     contentDescriptionClearField = "Clear input field",
+    contentDescriptionToggleSign = "Toggle sign",
     contentDescriptionInfo = "Show information",
     contentDescriptionCompare = "Open comparison list",
     contentDescriptionTranspose = "Transpose lens values",

@@ -149,6 +149,7 @@ internal val UkStrings = Strings(
 
     // Content descriptions for accessibility
     contentDescriptionClearField = "Очистити поле вводу",
+    contentDescriptionToggleSign = "Змінити знак",
     contentDescriptionInfo = "Показати інформацію",
     contentDescriptionCompare = "Відкрити список порівняння",
     contentDescriptionTranspose = "Транспонувати значення лінзи",

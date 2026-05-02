@@ -161,6 +161,7 @@ data class Strings(
 
     // Content descriptions for accessibility
     val contentDescriptionClearField: String,
+    val contentDescriptionToggleSign: String,
     val contentDescriptionInfo: String,
     val contentDescriptionCompare: String,
     val contentDescriptionTranspose: String,

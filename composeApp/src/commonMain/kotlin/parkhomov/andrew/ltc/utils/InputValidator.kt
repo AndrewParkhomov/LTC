@@ -9,7 +9,8 @@ object InputValidator {
         input: String,
         validation: ValidationRule.Range
     ): String {
-        val filtered = input.filter { it in validation.allowedChars }
+        val normalized = input.replace(',', '.')
+        val filtered = normalized.filter { it in validation.allowedChars }
 
         if (filtered.isEmpty()) return filtered
 

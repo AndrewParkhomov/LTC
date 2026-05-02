@@ -149,6 +149,7 @@ internal val PtStrings = Strings(
 
     // Content descriptions for accessibility
     contentDescriptionClearField = "Limpar campo de entrada",
+    contentDescriptionToggleSign = "Alternar sinal",
     contentDescriptionInfo = "Mostrar informações",
     contentDescriptionCompare = "Abrir lista de comparação",
     contentDescriptionTranspose = "Transpor valores da lente",

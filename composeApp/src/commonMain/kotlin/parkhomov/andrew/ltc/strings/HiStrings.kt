@@ -149,6 +149,7 @@ internal val HiStrings = Strings(
 
     // Content descriptions for accessibility
     contentDescriptionClearField = "इनपुट फ़ील्ड साफ़ करें",
+    contentDescriptionToggleSign = "चिह्न बदलें",
     contentDescriptionInfo = "जानकारी दिखाएं",
     contentDescriptionCompare = "तुलना सूची खोलें",
     contentDescriptionTranspose = "लेंस मानों को ट्रांसपोज़ करें",

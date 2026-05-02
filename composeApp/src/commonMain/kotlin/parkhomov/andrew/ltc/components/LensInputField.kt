@@ -19,6 +19,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import cafe.adriel.lyricist.LocalStrings
@@ -93,6 +95,31 @@ fun LensInputField(
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                if (validation?.allowsNegative == true && enabled) {
+                    val toggleSignDescription = strings.contentDescriptionToggleSign
+                    IconButton(
+                        onClick = {
+                            val current = value
+                            val newValue = when {
+                                current.startsWith('-') -> current.drop(1)
+                                current.startsWith('+') -> "-" + current.drop(1)
+                                current.isEmpty() -> "-"
+                                else -> "-$current"
+                            }
+                            onValueChange(newValue)
+                        },
+                        modifier = Modifier.semantics {
+                            contentDescription = toggleSignDescription
+                        }
+                    ) {
+                        Text(
+                            text = "±",
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+
                 if (isFocused && enabled) {
                     IconButton(
                         onClick = { onValueChange("") }

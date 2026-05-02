@@ -46,6 +46,7 @@ sealed class ValidationRule {
 
     fun validate(value: String): ValidationResult {
         if (value.isBlank()) return ValidationResult.Valid
+        if (value == "-" || value == "+") return ValidationResult.Valid
 
         val doubleValue = value.toDoubleOrNull() ?: return ValidationResult.Invalid(
             getMessage = { it.validationInvalidNumber }
